@@ -1,0 +1,28 @@
+{
+	"name": "wave-client",
+	"version": "1.0.0",
+	"description": "Frontend client for wavechat",
+	"author": "FourLineCode",
+	"license": "MIT",
+	"homepage": "https://github.com/FourLineCode/wavechat#readme",
+	"scripts": {
+		"dev": "next dev",
+		"build": "next build",
+		"start": "next start",
+		"lint": "next lint"
+	},
+	"dependencies": {
+		"next": "11.0.1",
+		"react": "17.0.2",
+		"react-dom": "17.0.2"
+	},
+	"devDependencies": {
+		"@types/react": "17.0.11",
+		"autoprefixer": "^10.2.6",
+		"eslint": "7.29.0",
+		"eslint-config-next": "11.0.1",
+		"postcss": "^8.2.13",
+		"tailwindcss": "^2.2.4",
+		"typescript": "4.3.4"
+	}
+}
