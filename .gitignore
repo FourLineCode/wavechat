@@ -1,0 +1,9 @@
+**/node_modules
+**/build
+**/dist
+**/.next
+**/.env*
+**/debug.log
+**/yarn-error.log
+**/.cache
+**/migrations
