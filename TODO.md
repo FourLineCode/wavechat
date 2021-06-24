@@ -1,6 +1,6 @@
 # ToDo's
 
--   [ ] init server
+-   [x] init server
 -   [ ] init client
 -   [ ] init docker
 -   [ ] path alias
