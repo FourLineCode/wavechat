@@ -7,7 +7,7 @@ export default function Index() {
 				<title>WaveChat</title>
 				<meta name='description' content='WaveChat Frontend' />
 			</Head>
-			<main className='w-screen h-screen flex justify-center items-center'>
+			<main className='flex items-center justify-center w-screen h-screen'>
 				<div className='text-4xl'>Wave Chat</div>
 			</main>
 		</div>

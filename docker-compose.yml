@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+    postgres:
+        container_name: postgres
+        image: postgres:13
+        restart: always
+        ports:
+            - '5432:5432'
+        volumes:
+            - 'pgdata:/var/lib/postgresql/data'
+        environment:
+            POSTGRES_PASSWORD: pgadmin
+
+    server:
+        container_name: server
+        image: node:16
+        working_dir: /app/server
+        restart: always
+        env_file:
+            - server/.env
+        command: npm run dev --prefix server
+        volumes:
+            - .:/app/server:rw
+        ports:
+            - '5000:5000'
+            - '5001:5001'
+        depends_on:
+            - postgres
+
+    client:
+        container_name: client
+        image: node:16
+        working_dir: /app/client
+        restart: always
+        command: npm run dev --prefix client
+        volumes:
+            - .:/app/client:rw
+        ports:
+            - '3000:3000'
+        depends_on:
+            - postgres
+            - server
+
+volumes:
+    pgdata: {}
