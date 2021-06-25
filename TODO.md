@@ -4,8 +4,8 @@
 -   [x] init client
 -   [x] github repo
 -   [x] init docker
--   [ ] pg service
--   [ ] prisma setup
+-   [x] pg service
+-   [x] prisma setup
 -   [ ] apollo client
 -   [ ] socket server
 -   [ ] socket client
