@@ -6,8 +6,9 @@
 -   [x] init docker
 -   [x] pg service
 -   [x] prisma setup
--   [ ] apollo client
+-   [x] apollo client
 -   [ ] socket server
 -   [ ] socket client
 -   [ ] path alias
+-   [ ] traefik reverse proxy
 -   [ ] readme
