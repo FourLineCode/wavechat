@@ -1,24 +1,9 @@
 version: '3.8'
 
 services:
-    # traefik:
-    #     container_name: traefik
-    #     image: traefik:latest
-    #     command:
-    #         - --api.insecure=true
-    #         - --providers.docker=true
-    #     volumes:
-    #         - '/var/run/docker.sock:/var/run/docker.sock'
-    #     labels:
-    #         - 'traefik.enable=true'
-    #     ports:
-    #         - '80:80'
-    #         - '443:443'
-    #         - '8080:8080'
-
     postgres:
         container_name: postgres
-        image: postgres:latest
+        image: postgres:13.3-alpine
         restart: always
         ports:
             - '5432:5432'
@@ -30,7 +15,7 @@ services:
 
     server:
         container_name: server
-        image: node:latest
+        image: node:16.3-alpine3.11
         working_dir: /app/server
         restart: always
         env_file:
@@ -43,12 +28,10 @@ services:
             - '5001:5001'
         depends_on:
             - postgres
-        # labels:
-        #     - 'traefik.http.routers.server.rule=Host(`wavechat.server`)'
 
     client:
         container_name: client
-        image: node:latest
+        image: node:16.3-alpine3.11
         working_dir: /app/client
         restart: always
         command: npm run dev --prefix client
@@ -59,8 +42,19 @@ services:
         depends_on:
             - postgres
             - server
-        # labels:
-        #     - 'traefik.http.routers.client.rule=Host(`wavechat.client`)'
+    codegen:
+        container_name: codegen
+        image: node:16.3-alpine3.11
+        working_dir: /app
+        restart: always
+        command: npm run codegen --prefix client
+        network_mode: host
+        volumes:
+            - .:/app:rw
+        depends_on:
+            - postgres
+            - server
+            - client
 
 volumes:
     pgdata: {}

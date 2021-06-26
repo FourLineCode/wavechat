@@ -8,6 +8,7 @@
 -   [x] prisma setup
 -   [x] apollo client
 -   [x] gql codegen
+-   [x] codegen watcher container
 -   [x] socket server
 -   [x] socket client
 -   [ ] path alias
