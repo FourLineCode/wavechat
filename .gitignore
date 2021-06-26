@@ -2,7 +2,7 @@
 **/build
 **/dist
 **/.next
-**/.env*
+**/.env
 **/debug.log
 **/yarn-error.log
 **/.cache

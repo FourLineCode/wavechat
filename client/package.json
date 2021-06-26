@@ -16,7 +16,8 @@
 		"@apollo/client": "^3.3.20",
 		"next": "11.0.1",
 		"react": "17.0.2",
-		"react-dom": "17.0.2"
+		"react-dom": "17.0.2",
+		"socket.io-client": "^4.1.2"
 	},
 	"devDependencies": {
 		"@graphql-codegen/cli": "^1.21.5",

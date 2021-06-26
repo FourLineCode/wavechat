@@ -1,8 +1,10 @@
 import { ApolloServer } from 'apollo-server-express';
 import { createServer } from 'http';
+import socketio from 'socket.io';
 import { app } from '../app';
 import { schema } from '../graphql/schema';
 import { config } from '../internal/config';
+import { SockerHandler } from '../socket';
 
 export const startServer = () => {
 	const apolloserver = new ApolloServer({
@@ -19,8 +21,17 @@ export const startServer = () => {
 	apolloserver.applyMiddleware({ app, path: '/graphql' });
 
 	const server = createServer(app);
+	// TODO: add path maybe
+	const io = new socketio.Server(server, {
+		path: '/ws',
+		cors: {
+			origin: '*',
+		},
+	});
+
+	io.on('connection', SockerHandler.onConnection);
 
 	server.listen({ port: config.port }, () => {
-		console.log(`\nServer is now running on http://localhost:${config.port}/graphql\n`);
+		console.log(`\nServer is now running on http://localhost:${config.port}\n`);
 	});
 };

@@ -8,8 +8,8 @@
 -   [x] prisma setup
 -   [x] apollo client
 -   [x] gql codegen
--   [ ] socket server
--   [ ] socket client
+-   [x] socket server
+-   [x] socket client
 -   [ ] path alias
 -   [ ] traefik reverse proxy
 -   [ ] readme
