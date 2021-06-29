@@ -6,9 +6,9 @@ services:
         image: postgres:13.3-alpine
         restart: always
         ports:
-            - '5432:5432'
+            - 5432:5432
         volumes:
-            - 'pgdata:/var/lib/postgresql/data'
+            - pgdata:/var/lib/postgresql/data
         environment:
             POSTGRES_DB: wavechat
             POSTGRES_PASSWORD: pgadmin
@@ -18,14 +18,14 @@ services:
         image: node:16.3-alpine3.11
         working_dir: /app/server
         restart: always
+        command: yarn --cwd server dev
         env_file:
             - server/.env
-        command: npm run dev --prefix server
         volumes:
             - .:/app/server:rw
         ports:
-            - '5000:5000'
-            - '5001:5001'
+            - 5000:5000
+            - 5001:5001
         depends_on:
             - postgres
 
@@ -34,20 +34,21 @@ services:
         image: node:16.3-alpine3.11
         working_dir: /app/client
         restart: always
-        command: npm run dev --prefix client
+        command: yarn --cwd client dev
         volumes:
             - .:/app/client:rw
         ports:
-            - '3000:3000'
+            - 3000:3000
         depends_on:
             - postgres
             - server
+
     codegen:
         container_name: codegen
         image: node:16.3-alpine3.11
         working_dir: /app
         restart: always
-        command: npm run codegen --prefix client
+        command: yarn --cwd client codegen
         network_mode: host
         volumes:
             - .:/app:rw

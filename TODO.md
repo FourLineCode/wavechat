@@ -11,6 +11,8 @@
 -   [x] codegen watcher container
 -   [x] socket server
 -   [x] socket client
+-   [ ] yarn migration
+-   [ ] env in dockerfile
 -   [ ] path alias
 -   [ ] traefik reverse proxy
 -   [ ] readme

@@ -10,11 +10,11 @@
 		"dev": "ts-node-dev --respawn --transpile-only src/index.ts",
 		"build": "tsc",
 		"start": "node dist/index.js",
-		"migrate": "npx prisma migrate dev",
-		"generate": "npx prisma generate",
-		"seed": "npx prisma db seed --preview-feature",
-		"studio": "npx prisma studio",
-		"db:reset": "rm -rf ./prisma/migrations && npm run migrate -n init && npm run generate && npm run seed"
+		"migrate": "yarn prisma migrate dev",
+		"generate": "yarn prisma generate",
+		"seed": "yarn prisma db seed --preview-feature",
+		"studio": "yarn prisma studio",
+		"db:reset": "rm -rf ./prisma/migrations && yarn migrate -n init && yarn generate && yarn seed"
 	},
 	"dependencies": {
 		"@giraphql/core": "^2.8.0",

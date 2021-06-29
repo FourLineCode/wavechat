@@ -10,10 +10,11 @@
 		"build": "next build",
 		"start": "next start",
 		"lint": "next lint",
-		"codegen": "npx graphql-codegen --watch"
+		"codegen": "yarn graphql-codegen --watch"
 	},
 	"dependencies": {
 		"@apollo/client": "^3.3.20",
+		"graphql": "^15.5.1",
 		"next": "11.0.1",
 		"react": "17.0.2",
 		"react-dom": "17.0.2",
