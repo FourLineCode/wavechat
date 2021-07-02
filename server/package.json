@@ -10,10 +10,11 @@
 		"dev": "ts-node-dev --respawn --transpile-only src/index.ts",
 		"build": "tsc",
 		"start": "node dist/index.js",
-		"migrate": "yarn prisma migrate dev",
-		"generate": "yarn prisma generate",
-		"seed": "yarn prisma db seed --preview-feature",
-		"studio": "yarn prisma studio",
+		"prisma:docker": "docker-compose run -p 5555:5555 server yarn --cwd server prisma",
+		"migrate": "yarn prisma:docker migrate dev",
+		"generate": "yarn prisma:docker generate",
+		"seed": "yarn prisma:docker db seed --preview-feature",
+		"studio": "yarn prisma:docker studio --browser none",
 		"db:reset": "rm -rf ./prisma/migrations && yarn migrate -n init && yarn generate && yarn seed"
 	},
 	"dependencies": {

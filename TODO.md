@@ -19,7 +19,7 @@
 
 -   [ ] general
 
-    -   [ ] docker run prisma commands
+    -   [x] docker run prisma commands
 
 -   [ ] auth
 
