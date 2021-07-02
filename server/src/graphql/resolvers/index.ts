@@ -1,1 +1,3 @@
-import './hello';
+import './AuthResolver';
+import './Scalars';
+import './UserResolver';

@@ -7,11 +7,34 @@ generator client {
     provider = "prisma-client-js"
 }
 
+enum UserRole {
+    USER
+    ADMIN
+}
+
 model User {
     id        String   @id @default(uuid())
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
+
     email     String   @unique
-    username  String
+    username  String   @unique
     password  String
+    role      UserRole @default(USER)
+    avatarUrl String?
+
+    university String
+    department String
+    semester   Int
+
+    sessions Session[] @relation("sessions")
+}
+
+model Session {
+    id        String   @id @default(uuid())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    user   User   @relation("sessions", fields: [userId], references: [id])
+    userId String
 }

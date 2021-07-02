@@ -4,9 +4,11 @@ services:
     postgres:
         container_name: postgres
         image: postgres:13.3-alpine
-        restart: always
+        restart: on-failure
         ports:
             - 5432:5432
+        networks:
+            - backend
         volumes:
             - pgdata:/var/lib/postgresql/data
         environment:
@@ -15,9 +17,9 @@ services:
 
     server:
         container_name: server
-        image: node:16.3-alpine3.11
+        image: node:16
         working_dir: /app/server
-        restart: always
+        restart: on-failure
         command: yarn --cwd server dev
         env_file:
             - server/.env
@@ -26,14 +28,16 @@ services:
         ports:
             - 5000:5000
             - 5001:5001
+        networks:
+            - backend
         depends_on:
             - postgres
 
     client:
         container_name: client
-        image: node:16.3-alpine3.11
+        image: node:16
         working_dir: /app/client
-        restart: always
+        restart: on-failure
         command: yarn --cwd client dev
         volumes:
             - .:/app/client:rw
@@ -45,9 +49,9 @@ services:
 
     codegen:
         container_name: codegen
-        image: node:16.3-alpine3.11
+        image: node:16
         working_dir: /app
-        restart: always
+        restart: on-failure
         command: yarn --cwd client codegen
         network_mode: host
         volumes:
@@ -59,3 +63,6 @@ services:
 
 volumes:
     pgdata: {}
+
+networks:
+    backend: {}

@@ -1,3 +1,28 @@
+scalar Date
+
 type Query {
-  hello(name: String): String!
+  """returns all users"""
+  getAllUsers: [User!]!
+}
+
+type Session {
+  createdAt: Date!
+  id: ID!
+  updatedAt: Date!
+  user: User!
+  userid: ID!
+}
+
+type User {
+  avatarUrl: String
+  createdAt: Date!
+  department: String!
+  email: String!
+  id: ID!
+  role: String!
+  semester: Int!
+  sessions: [Session!]!
+  university: String!
+  updatedAt: Date!
+  username: String!
 }

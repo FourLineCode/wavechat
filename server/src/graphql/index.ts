@@ -5,8 +5,9 @@ import { app } from '../app';
 import { schema } from '../graphql/schema';
 import { config } from '../internal/config';
 import { SockerHandler } from '../socket';
+import { createContext } from './context';
 
-export const startServer = () => {
+export const startServer = async () => {
 	const apolloserver = new ApolloServer({
 		schema,
 		playground: config.isDev && {
@@ -15,13 +16,13 @@ export const startServer = () => {
 			},
 		},
 		tracing: config.isDev,
-		context: {},
+		context: createContext,
 	});
 
 	apolloserver.applyMiddleware({ app, path: '/graphql' });
 
 	const server = createServer(app);
-	// TODO: add path maybe
+
 	const io = new socketio.Server(server, {
 		path: '/ws',
 		cors: {
