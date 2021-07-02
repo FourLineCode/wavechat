@@ -20,6 +20,9 @@
 -   [ ] general
 
     -   [x] docker run prisma commands
+    -   [ ] dataloader
+    -   [ ] auth plugin
+    -   [ ] zod schema plugin
 
 -   [ ] auth
 
