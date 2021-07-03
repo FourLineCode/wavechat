@@ -20,11 +20,11 @@
 -   [ ] general
 
     -   [x] docker run prisma commands
+    -   [x] move server env in docker-compose
     -   [x] dataloader
     -   [x] auth plugin
-    -   [ ] zod schema plugin
-    -   [ ] implement context properly
-    -   [x] move server env in docker-compose
+    -   [x] input server validation plugin
+    -   [x] implement context properly
 
 -   [ ] auth
 
@@ -32,8 +32,8 @@
         -   [x] user infos
         -   [x] uni infos
     -   [x] sessions model
-    -   [ ] signup/ signin/ signout
-    -   [ ] auth scope plugin
+    -   [x] signup/ signin/ signout
+    -   [x] auth scope plugin
     -   [ ] auth ui
         -   [ ] multi page signup
     -   [ ] persist auth

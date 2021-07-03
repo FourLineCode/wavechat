@@ -73,6 +73,11 @@ const SignupInput = builder.inputType('SignupInput', {
 	}),
 });
 
+export interface JWTPayload {
+	sessionId: string;
+	userId: string;
+}
+
 builder.mutationField('signup', (t) =>
 	t.field({
 		type: SignupResultObject,
@@ -107,7 +112,7 @@ builder.mutationField('signup', (t) =>
 				},
 			});
 
-			const payload = {
+			const payload: JWTPayload = {
 				sessionId: session.id,
 				userId: session.userId,
 			};
@@ -155,6 +160,7 @@ const SigninInput = builder.inputType('SigninInput', {
 	}),
 });
 
+// TODO: change response to user to avoid extra queries
 builder.mutationField('signin', (t) =>
 	t.field({
 		type: SuccessResultObject,
@@ -179,7 +185,7 @@ builder.mutationField('signin', (t) =>
 				},
 			});
 
-			const payload = {
+			const payload: JWTPayload = {
 				sessionId: session.id,
 				userId: session.userId,
 			};
@@ -201,13 +207,15 @@ builder.mutationField('signout', (t) =>
 	t.field({
 		type: SuccessResultObject,
 		description: 'Sign out user',
-		resolve: async (_root, _args, { req, res }) => {
-			console.log(req.cookies);
-			const token = req.cookies['session'];
-
-			if (!token) {
-				throw new Error('You are not logged in');
+		authScopes: {
+			user: true,
+		},
+		resolve: async (_root, _args, { prisma, authorized, session, res }) => {
+			if (!authorized) {
+				throw new Error('You are not signed in');
 			}
+
+			await prisma.session.delete({ where: { id: session?.id } });
 
 			res.clearCookie('session');
 

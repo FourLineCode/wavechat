@@ -34,13 +34,13 @@ builder.queryField('getAllUsers', (t) =>
 	t.field({
 		type: [UserObject],
 		authScopes: {
-			// TODO: remove public scope later
 			public: true,
 			admin: true,
 		},
 		description: 'returns all users',
-		resolve: async (_root, _args, { prisma }) => {
-			return await prisma.user.findMany();
+		resolve: async (_root, _args, context) => {
+			console.log(context);
+			return await context.prisma.user.findMany();
 		},
 	})
 );
