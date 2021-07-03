@@ -32,6 +32,11 @@ UserObject.implement({
 builder.queryField('getAllUsers', (t) =>
 	t.field({
 		type: [UserObject],
+		authScopes: {
+			// TODO: remove this later
+			public: true,
+			admin: true,
+		},
 		description: 'returns all users',
 		resolve: async (_root, _args, { prisma }) => {
 			return await prisma.user.findMany();

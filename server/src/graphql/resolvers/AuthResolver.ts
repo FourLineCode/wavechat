@@ -10,14 +10,10 @@ SessionObject.implement({
 		createdAt: t.expose('createdAt', { type: 'Date' }),
 		updatedAt: t.expose('updatedAt', { type: 'Date' }),
 		userid: t.exposeID('userId'),
-		user: t.field({
+		user: t.loadable({
 			type: UserObject,
-			resolve: async (session, _args, { prisma }) => {
-				return await prisma.user.findFirst({
-					where: { id: session.userId },
-					rejectOnNotFound: true,
-				});
-			},
+			load: (ids: string[], context) => context.loader.loadUserByIDs(ids),
+			resolve: (session) => session.userId,
 		}),
 	}),
 });

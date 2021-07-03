@@ -51,6 +51,21 @@
   resolved "https://registry.yarnpkg.com/@giraphql/core/-/core-2.9.0.tgz#87bf66ce435071d3ef9da424d4c9d2a371be801b"
   integrity sha512-ZMTfhTaK6DL/HxoKtJZ4UrGZzE4UUKVKOh52cG7czoK4PuBQofLlpVpUZew7GRIzNoSNqHpex7myfJ+3HHFPVQ==
 
+"@giraphql/plugin-dataloader@^2.5.3":
+  version "2.5.3"
+  resolved "https://registry.yarnpkg.com/@giraphql/plugin-dataloader/-/plugin-dataloader-2.5.3.tgz#c6989b113e429b3121f15dd45866cab1eaae8d86"
+  integrity sha512-lxY9sev2yerV/i57MmUANex3+Z/Zveyeo0zHPPCVcSbqpY5rtNOhJ4pxGOoDrkZcyAM59/e1jvL3+iR8Y567iw==
+
+"@giraphql/plugin-scope-auth@^2.4.1":
+  version "2.4.1"
+  resolved "https://registry.yarnpkg.com/@giraphql/plugin-scope-auth/-/plugin-scope-auth-2.4.1.tgz#d2b0d8ae9ba52e2742bfd738836c8801511b37c1"
+  integrity sha512-HhEpZKhmv4g0mYB/E/HpmN3Jw+8vRXBHzHeo0n3mxLpJH6CWtynHckFicEWRzmKtsUxRTSC7Od0aceEtVvFf/A==
+
+"@giraphql/plugin-validation@^2.6.0":
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/@giraphql/plugin-validation/-/plugin-validation-2.6.0.tgz#e50ac2be08c6ca7697a61bf124e33a913b4ea3c9"
+  integrity sha512-JdaY5WfJJ8NLmpT8B6I8geHXXWnSNGAN66ZdlYbKz291P7daDmB2uNKWOtC9vT7jlDXneBEOPxFTBZJPvP92MA==
+
 "@josephg/resolvable@^1.0.0":
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@josephg/resolvable/-/resolvable-1.0.1.tgz#69bc4db754d79e1a2f17a650d3466e038d94a5eb"
@@ -803,6 +818,11 @@ currently-unhandled@^0.4.1:
   integrity sha1-mI3zP+qxke95mmE2nddsF635V+o=
   dependencies:
     array-find-index "^1.0.1"
+
+dataloader@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/dataloader/-/dataloader-2.0.0.tgz#41eaf123db115987e21ca93c005cd7753c55fe6f"
+  integrity sha512-YzhyDAwA4TaQIhM5go+vCLmU0UikghC/t9DTQYZR2M/UvZ1MdOhPezSDZcjj9uqQJOMqjLcpWtyW2iNINdlatQ==
 
 dateformat@~1.0.4-1.2.3:
   version "1.0.12"
@@ -2386,3 +2406,8 @@ zen-observable@^0.8.0:
   version "0.8.15"
   resolved "https://registry.yarnpkg.com/zen-observable/-/zen-observable-0.8.15.tgz#96415c512d8e3ffd920afd3889604e30b9eaac15"
   integrity sha512-PQ2PC7R9rslx84ndNBZB/Dkv8V8fZEpk83RLgXtYd0fwUgEjseMn1Dgajh2x6S8QbZAFa9p2qVCEuYZNgve0dQ==
+
+zod@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/zod/-/zod-3.2.0.tgz#4f06fac3c74e56902eae43a47a1687bf49c9b70b"
+  integrity sha512-yvcO3FZ8URR+LliMGqaW7tlVOOTzmup3vzKEe9Ds7twyJtdhvYa7dIYr0FbD1wVfWC1OuS83vZfHtCKslPuRhA==

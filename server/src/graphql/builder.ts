@@ -1,4 +1,6 @@
 import SchemaBuilder from '@giraphql/core';
+import DataloaderPlugin from '@giraphql/plugin-dataloader';
+import ScopeAuthPlugin from '@giraphql/plugin-scope-auth';
 import { Context } from './context';
 
 export const builder = new SchemaBuilder<{
@@ -9,6 +11,18 @@ export const builder = new SchemaBuilder<{
 			Output: Date;
 		};
 	};
-}>({});
+	AuthScopes: {
+		public: boolean;
+		user: boolean;
+		admin: boolean;
+	};
+}>({
+	plugins: [ScopeAuthPlugin, DataloaderPlugin],
+	authScopes: async (context) => ({
+		public: true,
+		user: context.authorized,
+		admin: !!context.admin,
+	}),
+});
 
 builder.queryType({});

@@ -21,11 +21,13 @@ const seed = async () => {
 		},
 	});
 
-	await prisma.session.create({
-		data: {
-			userId: newUser.id,
-		},
-	});
+	for (const _ of Array(10).keys()) {
+		await prisma.session.create({
+			data: {
+				userId: newUser.id,
+			},
+		});
+	}
 };
 
 seed()

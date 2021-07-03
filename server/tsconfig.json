@@ -28,8 +28,8 @@
 		"experimentalDecorators": true,
 		"typeRoots": ["./node_modules/@types"],
 		"pretty": true,
-		"outDir": "dist",
-		"rootDir": "src"
+		"outDir": "dist"
+		// "rootDir": "src"
 		// "baseUrl": ".",
 		// "paths": {}
 	},
