@@ -1,6 +1,7 @@
 import SchemaBuilder from '@giraphql/core';
 import DataloaderPlugin from '@giraphql/plugin-dataloader';
 import ScopeAuthPlugin from '@giraphql/plugin-scope-auth';
+import ValidationPlugin from '@giraphql/plugin-validation';
 import { Context } from './context';
 
 export const builder = new SchemaBuilder<{
@@ -17,7 +18,7 @@ export const builder = new SchemaBuilder<{
 		admin: boolean;
 	};
 }>({
-	plugins: [ScopeAuthPlugin, DataloaderPlugin],
+	plugins: [ScopeAuthPlugin, DataloaderPlugin, ValidationPlugin],
 	authScopes: async (context) => ({
 		public: true,
 		user: context.authorized,
@@ -26,3 +27,4 @@ export const builder = new SchemaBuilder<{
 });
 
 builder.queryType({});
+builder.mutationType({});

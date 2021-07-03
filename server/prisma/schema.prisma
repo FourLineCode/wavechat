@@ -17,15 +17,16 @@ model User {
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 
-    email     String   @unique
-    username  String   @unique
-    password  String
-    role      UserRole @default(USER)
-    avatarUrl String?
+    email       String   @unique
+    username    String   @unique
+    displayName String   @unique
+    password    String
+    role        UserRole @default(USER)
+    avatarUrl   String?
 
-    university String
-    department String
-    semester   Int
+    university String?
+    department String?
+    semester   Int?
 
     sessions Session[] @relation("sessions")
 }

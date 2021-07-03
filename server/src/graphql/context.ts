@@ -1,9 +1,12 @@
 import { PrismaClient, Session, User, UserRole } from '@prisma/client';
+import { ExpressContext } from 'apollo-server-express';
+import { Request, Response } from 'express';
 import { Loader } from './loader';
 import prisma from './prisma';
 
 export interface Context {
-	req: any;
+	req: Request;
+	res: Response;
 	prisma: PrismaClient;
 	authorized: boolean;
 	user?: User;
@@ -13,6 +16,6 @@ export interface Context {
 	loader: Loader;
 }
 
-export const createContext = async ({ req }: { req: any }): Promise<Context> => {
-	return { req: req, prisma: prisma, authorized: false, loader: new Loader() };
+export const createContext = async ({ req, res }: ExpressContext): Promise<Context> => {
+	return { req: req, res: res, prisma: prisma, authorized: false, loader: new Loader() };
 };

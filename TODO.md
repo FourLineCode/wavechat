@@ -24,6 +24,7 @@
     -   [x] auth plugin
     -   [ ] zod schema plugin
     -   [ ] implement context properly
+    -   [x] move server env in docker-compose
 
 -   [ ] auth
 
@@ -52,7 +53,6 @@
     -   [ ] server channels
         -   [ ] multiuser
         -   [ ] can leave
-        -   [ ]
     -   [ ] private/public channels
         -   [ ] private invite only
         -   [ ] public discoverable

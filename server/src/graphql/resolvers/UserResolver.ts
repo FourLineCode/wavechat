@@ -11,11 +11,12 @@ UserObject.implement({
 		updatedAt: t.expose('updatedAt', { type: 'Date' }),
 		email: t.exposeString('email'),
 		username: t.exposeString('username'),
+		displayName: t.exposeString('displayName'),
 		role: t.exposeString('role'),
 		avatarUrl: t.expose('avatarUrl', { type: 'String', nullable: true }),
-		university: t.exposeString('university'),
-		department: t.exposeString('department'),
-		semester: t.exposeInt('semester'),
+		university: t.exposeString('university', { nullable: true }),
+		department: t.exposeString('department', { nullable: true }),
+		semester: t.exposeInt('semester', { nullable: true }),
 		sessions: t.field({
 			type: [SessionObject],
 			resolve: async (user, _args, { prisma }) => {
@@ -33,7 +34,7 @@ builder.queryField('getAllUsers', (t) =>
 	t.field({
 		type: [UserObject],
 		authScopes: {
-			// TODO: remove this later
+			// TODO: remove public scope later
 			public: true,
 			admin: true,
 		},

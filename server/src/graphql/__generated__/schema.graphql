@@ -1,5 +1,10 @@
 scalar Date
 
+type Mutation {
+  """Sign up new user"""
+  signup(input: SignUpInput!): SignupResult!
+}
+
 type Query {
   """returns all users"""
   getAllUsers: [User!]!
@@ -10,19 +15,34 @@ type Session {
   id: ID!
   updatedAt: Date!
   user: User!
-  userid: ID!
+  userId: ID!
+}
+
+input SignUpInput {
+  department: String
+  email: String!
+  password: String!
+  semester: Int
+  university: String
+  username: String!
+}
+
+type SignupResult {
+  success: Boolean!
+  user: User!
 }
 
 type User {
   avatarUrl: String
   createdAt: Date!
-  department: String!
+  department: String
+  displayName: String!
   email: String!
   id: ID!
   role: String!
-  semester: Int!
+  semester: Int
   sessions: [Session!]!
-  university: String!
+  university: String
   updatedAt: Date!
   username: String!
 }

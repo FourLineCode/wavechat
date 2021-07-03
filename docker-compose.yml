@@ -19,8 +19,6 @@ services:
         working_dir: /app/server
         restart: on-failure
         command: yarn --cwd server dev
-        env_file:
-            - server/.env
         volumes:
             - .:/app/server:rw
         ports:
@@ -28,6 +26,12 @@ services:
             - 5001:5001
         depends_on:
             - postgres
+        environment:
+            NODE_ENV: development
+            PORT: 5000
+            DATABASE_URL: postgresql://postgres:pgadmin@postgres:5432/wavechat?schema=public
+            ADMIN_PASS: admin00
+            JWT_SECRET: verysecretkey
 
     client:
         container_name: client
