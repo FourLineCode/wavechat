@@ -12,7 +12,7 @@ const seed = async () => {
 		data: {
 			email: 'akmal@wave.com',
 			username: 'akmal',
-			displayname: 'Akmal',
+			displayName: 'Akmal',
 			password: bcrypt.hashSync(process.env.ADMIN_PASS!, 10),
 			role: 'ADMIN',
 			avatarUrl: 'https://avatars.githubusercontent.com/u/56719270?v=4',

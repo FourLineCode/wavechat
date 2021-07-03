@@ -37,7 +37,7 @@ SignupResultObject.implement({
 	}),
 });
 
-const SignupInput = builder.inputType('SignUpInput', {
+const SignupInput = builder.inputType('SignupInput', {
 	fields: (t) => ({
 		// TODO: add error messages
 		email: t.string({
@@ -121,6 +121,97 @@ builder.mutationField('signup', (t) =>
 			});
 
 			return { success: true, user: newUser };
+		},
+	})
+);
+
+interface SuccessResult {
+	success: boolean;
+}
+
+const SuccessResultObject = builder.objectRef<SuccessResult>('SuccessResult');
+
+SuccessResultObject.implement({
+	fields: (t) => ({
+		success: t.exposeBoolean('success'),
+	}),
+});
+
+const SigninInput = builder.inputType('SigninInput', {
+	fields: (t) => ({
+		email: t.string({
+			required: true,
+			validate: {
+				email: true,
+			},
+		}),
+		password: t.string({
+			required: true,
+			validate: {
+				minLength: 6,
+				maxLength: 18,
+			},
+		}),
+	}),
+});
+
+builder.mutationField('signin', (t) =>
+	t.field({
+		type: SuccessResultObject,
+		description: 'Sign in user',
+		args: { input: t.arg({ type: SigninInput, required: true }) },
+		resolve: async (_root, { input }, { prisma, res }) => {
+			const user = await prisma.user.findFirst({
+				where: {
+					email: input.email,
+				},
+				rejectOnNotFound: true,
+			});
+
+			const validated = bcrypt.compareSync(input.password, user.password);
+			if (!validated) {
+				throw new Error('Invalid Credentials');
+			}
+
+			const session = await prisma.session.create({
+				data: {
+					userId: user.id,
+				},
+			});
+
+			const payload = {
+				sessionId: session.id,
+				userId: session.userId,
+			};
+
+			const token = jwt.sign(payload, process.env.JWT_SECRET!);
+
+			res.cookie('session', token, {
+				httpOnly: true,
+				secure: true,
+				sameSite: true,
+			});
+
+			return { success: true };
+		},
+	})
+);
+
+builder.mutationField('signout', (t) =>
+	t.field({
+		type: SuccessResultObject,
+		description: 'Sign out user',
+		resolve: async (_root, _args, { req, res }) => {
+			console.log(req.cookies);
+			const token = req.cookies['session'];
+
+			if (!token) {
+				throw new Error('You are not logged in');
+			}
+
+			res.clearCookie('session');
+
+			return { success: true };
 		},
 	})
 );

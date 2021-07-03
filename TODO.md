@@ -39,6 +39,7 @@
     -   [ ] persist auth
     -   [ ] protected routes
         -   [ ] server sided auth redirects
+    -   [ ] sign out of all devices
 
 -   [ ] users
 

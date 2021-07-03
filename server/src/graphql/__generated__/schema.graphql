@@ -1,8 +1,14 @@
 scalar Date
 
 type Mutation {
+  """Sign in user"""
+  signin(input: SigninInput!): SuccessResult!
+
+  """Sign out user"""
+  signout: SuccessResult!
+
   """Sign up new user"""
-  signup(input: SignUpInput!): SignupResult!
+  signup(input: SignupInput!): SignupResult!
 }
 
 type Query {
@@ -18,7 +24,12 @@ type Session {
   userId: ID!
 }
 
-input SignUpInput {
+input SigninInput {
+  email: String!
+  password: String!
+}
+
+input SignupInput {
   department: String
   email: String!
   password: String!
@@ -30,6 +41,10 @@ input SignUpInput {
 type SignupResult {
   success: Boolean!
   user: User!
+}
+
+type SuccessResult {
+  success: Boolean!
 }
 
 type User {
