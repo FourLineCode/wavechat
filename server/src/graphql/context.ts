@@ -10,6 +10,7 @@ export interface Context {
 	req: Request;
 	res: Response;
 	prisma: PrismaClient;
+	public: boolean;
 	authorized: boolean;
 	user?: User;
 	session?: Session;
@@ -23,6 +24,7 @@ export const createContext = async ({ req, res }: ExpressContext): Promise<Conte
 		req: req,
 		res: res,
 		prisma: prisma,
+		public: false,
 		authorized: false,
 		loader: new Loader(),
 	};
@@ -54,6 +56,9 @@ export const createContext = async ({ req, res }: ExpressContext): Promise<Conte
 			}
 		}
 	}
+
+	// TODO: add csrf token check to set public access to true
+	ctx.public = true;
 
 	return ctx;
 };

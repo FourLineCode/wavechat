@@ -20,11 +20,21 @@ export const builder = new SchemaBuilder<{
 }>({
 	plugins: [ScopeAuthPlugin, DataloaderPlugin, ValidationPlugin],
 	authScopes: async (context) => ({
-		public: true,
+		// TODO: make public based on csrf token validity
+		public: context.public,
 		user: context.authorized,
 		admin: !!context.admin,
 	}),
 });
 
-builder.queryType({});
-builder.mutationType({});
+builder.queryType({
+	authScopes: {
+		public: true,
+	},
+});
+
+builder.mutationType({
+	authScopes: {
+		public: true,
+	},
+});

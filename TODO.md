@@ -34,6 +34,8 @@
     -   [x] sessions model
     -   [x] signup/ signin/ signout
     -   [x] auth scope plugin
+        -   [ ] add top level auth
+        -   [ ] csrf token
     -   [ ] auth ui
         -   [ ] multi page signup
     -   [ ] persist auth

@@ -8,7 +8,7 @@ const seed = async () => {
 
 	if (user) return;
 
-	const newUser = await prisma.user.create({
+	await prisma.user.create({
 		data: {
 			email: 'akmal@wave.com',
 			username: 'akmal',
@@ -21,14 +21,6 @@ const seed = async () => {
 			semester: 6,
 		},
 	});
-
-	for (const _ of Array(10).keys()) {
-		await prisma.session.create({
-			data: {
-				userId: newUser.id,
-			},
-		});
-	}
 };
 
 seed()
