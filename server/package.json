@@ -15,7 +15,7 @@
 		"generate": "yarn prisma:docker generate",
 		"seed": "yarn prisma:docker db seed --preview-feature",
 		"studio": "yarn prisma:docker studio --browser none",
-		"db:reset": "yarn migrate -n init && yarn generate && yarn seed"
+		"db:reset": "yarn migrate -n init && yarn seed"
 	},
 	"dependencies": {
 		"@giraphql/core": "^2.10.0",

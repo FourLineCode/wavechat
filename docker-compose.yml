@@ -4,7 +4,6 @@ services:
     postgres:
         container_name: postgres
         image: postgres:13.3-alpine
-        restart: on-failure
         ports:
             - 5432:5432
         volumes:
@@ -17,7 +16,6 @@ services:
         container_name: server
         image: node:16
         working_dir: /app/server
-        restart: on-failure
         command: yarn --cwd server dev
         volumes:
             - .:/app/server:rw
@@ -37,7 +35,6 @@ services:
         container_name: client
         image: node:16
         working_dir: /app/client
-        restart: on-failure
         command: yarn --cwd client dev
         volumes:
             - .:/app/client:rw
@@ -51,7 +48,6 @@ services:
         container_name: codegen
         image: node:16
         working_dir: /app
-        restart: on-failure
         command: yarn --cwd client codegen
         network_mode: host
         volumes:

@@ -31,6 +31,13 @@ builder.queryType({
 	authScopes: {
 		public: true,
 	},
+	// TODO: temporary
+	fields: (t) => ({
+		hello: t.string({
+			args: { name: t.arg({ type: 'String', required: false }) },
+			resolve: (_parent, { name }) => (name ? `Hello, ${name}` : 'Hello World!'),
+		}),
+	}),
 });
 
 builder.mutationType({

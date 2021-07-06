@@ -48,6 +48,12 @@ cd server && yarn
 cd client && yarn
 ```
 
+## Migrate database
+
+```
+yarn --cwd server migrate
+```
+
 ## Run development server
 
 ```
