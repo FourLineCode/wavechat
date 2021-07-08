@@ -13,15 +13,21 @@ export type Scalars = {
   Date: any;
 };
 
+export type AuthResult = {
+  __typename?: 'AuthResult';
+  success: Scalars['Boolean'];
+  user: User;
+};
+
 
 export type Mutation = {
   __typename?: 'Mutation';
   /** Sign in user */
-  signin: SuccessResult;
+  signin: AuthResult;
   /** Sign out user */
   signout: SuccessResult;
   /** Sign up new user */
-  signup: SignupResult;
+  signup: AuthResult;
 };
 
 
@@ -67,12 +73,6 @@ export type SignupInput = {
   semester?: Maybe<Scalars['Int']>;
   university?: Maybe<Scalars['String']>;
   username: Scalars['String'];
-};
-
-export type SignupResult = {
-  __typename?: 'SignupResult';
-  success: Scalars['Boolean'];
-  user: User;
 };
 
 export type SuccessResult = {

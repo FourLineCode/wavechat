@@ -3,5 +3,5 @@
 @tailwind utilities;
 
 body {
-	@apply bg-gray-100 antialiased font-serif;
+	@apply antialiased bg-dark-800 text-light;
 }
