@@ -20,14 +20,14 @@ SessionObject.implement({
 	}),
 });
 
-interface SignupResult {
+interface AuthResult {
 	success: boolean;
 	user: User;
 }
 
-const SignupResultObject = builder.objectRef<SignupResult>('SignupResult');
+const AuthResultObject = builder.objectRef<AuthResult>('AuthResult');
 
-SignupResultObject.implement({
+AuthResultObject.implement({
 	fields: (t) => ({
 		success: t.exposeBoolean('success'),
 		user: t.field({
@@ -80,7 +80,7 @@ export interface JWTPayload {
 
 builder.mutationField('signup', (t) =>
 	t.field({
-		type: SignupResultObject,
+		type: AuthResultObject,
 		description: 'Sign up new user',
 		args: { input: t.arg({ type: SignupInput, required: true }) },
 		resolve: async (_root, { input }, { prisma, res }) => {
@@ -130,18 +130,6 @@ builder.mutationField('signup', (t) =>
 	})
 );
 
-interface SuccessResult {
-	success: boolean;
-}
-
-const SuccessResultObject = builder.objectRef<SuccessResult>('SuccessResult');
-
-SuccessResultObject.implement({
-	fields: (t) => ({
-		success: t.exposeBoolean('success'),
-	}),
-});
-
 const SigninInput = builder.inputType('SigninInput', {
 	fields: (t) => ({
 		email: t.string({
@@ -163,7 +151,7 @@ const SigninInput = builder.inputType('SigninInput', {
 // TODO: change response to user to avoid extra queries
 builder.mutationField('signin', (t) =>
 	t.field({
-		type: SuccessResultObject,
+		type: AuthResultObject,
 		description: 'Sign in user',
 		args: { input: t.arg({ type: SigninInput, required: true }) },
 		resolve: async (_root, { input }, { prisma, res }) => {
@@ -198,10 +186,22 @@ builder.mutationField('signin', (t) =>
 				sameSite: true,
 			});
 
-			return { success: true };
+			return { success: true, user: user };
 		},
 	})
 );
+
+interface SuccessResult {
+	success: boolean;
+}
+
+const SuccessResultObject = builder.objectRef<SuccessResult>('SuccessResult');
+
+SuccessResultObject.implement({
+	fields: (t) => ({
+		success: t.exposeBoolean('success'),
+	}),
+});
 
 builder.mutationField('signout', (t) =>
 	t.field({

@@ -1,14 +1,19 @@
+type AuthResult {
+  success: Boolean!
+  user: User!
+}
+
 scalar Date
 
 type Mutation {
   """Sign in user"""
-  signin(input: SigninInput!): SuccessResult!
+  signin(input: SigninInput!): AuthResult!
 
   """Sign out user"""
   signout: SuccessResult!
 
   """Sign up new user"""
-  signup(input: SignupInput!): SignupResult!
+  signup(input: SignupInput!): AuthResult!
 }
 
 type Query {
@@ -37,11 +42,6 @@ input SignupInput {
   semester: Int
   university: String
   username: String!
-}
-
-type SignupResult {
-  success: Boolean!
-  user: User!
 }
 
 type SuccessResult {
