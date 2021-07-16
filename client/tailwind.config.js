@@ -7,14 +7,22 @@ module.exports = {
 	theme: {
 		extend: {
 			colors: {
-				brand: colors.fuchsia,
+				brand: colors.sky,
 				light: colors.blueGray[200],
 				dark: colors.blueGray,
 			},
 		},
+		spinner: (theme) => ({
+			default: {
+				color: 'white',
+				size: '1em',
+				border: '2px',
+				speed: '500ms',
+			},
+		}),
 	},
 	variants: {
 		extend: {},
 	},
-	plugins: [],
+	plugins: [require('tailwindcss-spinner')],
 };

@@ -34,7 +34,6 @@ builder.queryField('getAllUsers', (t) =>
 	t.field({
 		type: [UserObject],
 		authScopes: {
-			public: true,
 			admin: true,
 		},
 		description: 'returns all users',

@@ -25,6 +25,7 @@
     -   [x] auth plugin
     -   [x] input server validation plugin
     -   [x] implement context properly
+    -   [ ] fix codegen
 
 -   [ ] auth
 
@@ -36,7 +37,7 @@
     -   [x] auth scope plugin
         -   [ ] add top level auth
         -   [ ] csrf token
-    -   [ ] auth ui
+    -   [x] auth ui
         -   [ ] multi page signup
     -   [ ] persist auth
     -   [ ] protected routes
