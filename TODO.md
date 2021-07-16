@@ -25,7 +25,7 @@
     -   [x] auth plugin
     -   [x] input server validation plugin
     -   [x] implement context properly
-    -   [ ] fix codegen
+    -   [x] fix codegen
 
 -   [ ] auth
 

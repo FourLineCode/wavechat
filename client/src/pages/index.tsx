@@ -1,10 +1,28 @@
+import { gql, useQuery } from '@apollo/client';
 import { useRouter } from 'next/dist/client/router';
+import { TestQuery, TestQueryVariables } from 'src/apollo/__generated__/types';
 import { Layout } from 'src/components/Layouts/Layout';
 import { NavBar } from 'src/components/Layouts/NavBar';
 import { Button } from 'src/components/ui/Button';
 
 export default function Index() {
 	const router = useRouter();
+
+	useQuery<TestQuery, TestQueryVariables>(
+		gql`
+			query Test($name: String!) {
+				hello(name: $name)
+			}
+		`,
+		{
+			variables: {
+				name: 'Akmal',
+			},
+			onCompleted: (data) => {
+				console.log('Graphql Response: ', data.hello);
+			},
+		}
+	);
 
 	return (
 		<Layout>
