@@ -39,7 +39,11 @@
         -   [ ] csrf token
     -   [x] auth ui
         -   [ ] multi page signup
+            -   [ ] uni infos
+    -   [ ] setup zustand stores
+    -   [ ] setup auth hooks
     -   [ ] persist auth
+        -   [ ] keep signed in option
     -   [ ] protected routes
         -   [ ] server sided auth redirects
     -   [ ] sign out of all devices
