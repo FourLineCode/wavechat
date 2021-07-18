@@ -1,13 +1,19 @@
 import { Form, Formik } from 'formik';
+import { useRouter } from 'next/dist/client/router';
 import Link from 'next/link';
 import React from 'react';
+import toast from 'react-hot-toast';
 import { Layout } from 'src/components/Layouts/Layout';
 import { NavBar } from 'src/components/Layouts/NavBar';
 import { Button } from 'src/components/ui/Button';
 import { Card } from 'src/components/ui/Card';
 import { Input } from 'src/components/ui/Input';
+import { useAuth } from 'src/store/useAuth';
 
 export default function SignIn() {
+	const auth = useAuth();
+	const router = useRouter();
+
 	return (
 		<Layout title='Sign In'>
 			<div className='w-screen h-screen'>
@@ -18,10 +24,20 @@ export default function SignIn() {
 							email: '',
 							password: '',
 						}}
-						onSubmit={async (values) => {
-							await new Promise((resolve) => setTimeout(resolve, 1000));
-							console.log(values);
-							return;
+						onSubmit={async ({ email, password }) => {
+							const res = await auth.signin({
+								email,
+								password,
+							});
+
+							if (!res.success) {
+								toast.error(res.message);
+								return;
+							}
+
+							// TODO: redirect properly, add spinner
+							toast.success(res.message);
+							router.push('/');
 						}}
 					>
 						{(props) => (

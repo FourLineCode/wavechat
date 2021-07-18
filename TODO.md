@@ -33,7 +33,7 @@
         -   [x] user infos
         -   [x] uni infos
     -   [x] sessions model
-    -   [x] signup/ signin/ signout
+    -   [x] signup/ signin/ signout backend
     -   [x] auth scope plugin
         -   [ ] add top level auth
         -   [ ] csrf token
@@ -42,6 +42,8 @@
             -   [ ] uni infos
     -   [x] setup zustand stores
     -   [x] setup auth hooks
+    -   [x] signup / signin frontend
+    -   [ ] signout frontend
     -   [ ] persist auth
         -   [ ] keep signed in option
     -   [ ] protected routes

@@ -1,6 +1,7 @@
 import { Form, Formik } from 'formik';
+import { useRouter } from 'next/dist/client/router';
 import Link from 'next/link';
-import { useEffect } from 'react';
+import toast from 'react-hot-toast';
 import { Layout } from 'src/components/Layouts/Layout';
 import { NavBar } from 'src/components/Layouts/NavBar';
 import { Button } from 'src/components/ui/Button';
@@ -10,10 +11,7 @@ import { useAuth } from 'src/store/useAuth';
 
 export default function SignUp() {
 	const auth = useAuth();
-
-	useEffect(() => {
-		console.log({ authorized: auth.authorized, ...auth.user });
-	}, [auth]);
+	const router = useRouter();
 
 	return (
 		<Layout title='Sign Up'>
@@ -27,11 +25,26 @@ export default function SignUp() {
 							password: '',
 							confirmPassword: '',
 						}}
-						onSubmit={async (values) => {
-							// TODO: validate stuff
-							const res = await auth.signup(values);
+						onSubmit={async ({ email, username, password, confirmPassword }) => {
+							if (password !== confirmPassword) {
+								toast.error('Passwords do not match');
+								return;
+							}
 
-							console.log(res);
+							const res = await auth.signup({
+								email,
+								username,
+								password,
+							});
+
+							if (!res.success) {
+								toast.error(res.message);
+								return;
+							}
+
+							// TODO: redirect properly, add spinner
+							toast.success(res.message);
+							router.push('/');
 						}}
 					>
 						{(props) => (
