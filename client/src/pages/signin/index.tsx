@@ -1,7 +1,7 @@
 import { Form, Formik } from 'formik';
 import { useRouter } from 'next/dist/client/router';
 import Link from 'next/link';
-import React from 'react';
+import React, { useEffect } from 'react';
 import toast from 'react-hot-toast';
 import { Layout } from 'src/components/Layouts/Layout';
 import { NavBar } from 'src/components/Layouts/NavBar';
@@ -13,6 +13,12 @@ import { useAuth } from 'src/store/useAuth';
 export default function SignIn() {
 	const auth = useAuth();
 	const router = useRouter();
+
+	useEffect(() => {
+		if (Boolean(router.query.redirect)) {
+			toast.error('Please sign in to view this page');
+		}
+	}, [router.query]);
 
 	return (
 		<Layout title='Sign In'>
@@ -37,7 +43,7 @@ export default function SignIn() {
 
 							// TODO: redirect properly, add spinner
 							toast.success(res.message);
-							router.push('/');
+							router.push('/friends');
 						}}
 					>
 						{(props) => (

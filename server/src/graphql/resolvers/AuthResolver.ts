@@ -85,7 +85,7 @@ builder.mutationField('signup', (t) =>
 		type: AuthResultObject,
 		description: 'Sign up new user',
 		args: { input: t.arg({ type: SignupInput, required: true }) },
-		resolve: async (_root, { input }, { prisma, res }) => {
+		resolve: async (_parent, { input }, { prisma, res }) => {
 			const existentUser = await prisma.user.findFirst({
 				where: {
 					OR: [{ email: input.email }, { username: input.username.toLowerCase() }],
@@ -156,7 +156,7 @@ builder.mutationField('signin', (t) =>
 		type: AuthResultObject,
 		description: 'Sign in user',
 		args: { input: t.arg({ type: SigninInput, required: true }) },
-		resolve: async (_root, { input }, { prisma, res }) => {
+		resolve: async (_parent, { input }, { prisma, res }) => {
 			const user = await prisma.user.findFirst({
 				where: {
 					email: input.email,
@@ -193,6 +193,23 @@ builder.mutationField('signin', (t) =>
 	})
 );
 
+builder.queryField('authorize', (t) =>
+	t.field({
+		type: AuthResultObject,
+		description: 'Authorize user session',
+		authScopes: {
+			public: true,
+		},
+		resolve: async (_parent, _args, { req, authorized, user }) => {
+			if (!authorized || !user) {
+				throw new Error('Unauthorized');
+			}
+
+			return { success: true, user };
+		},
+	})
+);
+
 interface SuccessResult {
 	success: boolean;
 }
@@ -212,7 +229,7 @@ builder.mutationField('signout', (t) =>
 		authScopes: {
 			user: true,
 		},
-		resolve: async (_root, _args, { prisma, authorized, session, res }) => {
+		resolve: async (_parent, _args, { prisma, authorized, session, res }) => {
 			if (!authorized) {
 				throw new Error('You are not signed in');
 			}

@@ -1,4 +1,5 @@
 import { gql } from '@apollo/client';
+import toast from 'react-hot-toast';
 import { client } from 'src/apollo/client';
 import {
 	SigninInput,
@@ -10,6 +11,7 @@ import {
 	SignupMutationVariables,
 	User,
 } from 'src/apollo/__generated__/types';
+import { parseErrorMessage } from 'src/utils/parseErrorMessage';
 import create, { State } from 'zustand';
 
 interface Response {
@@ -25,15 +27,6 @@ export interface AuthState extends State {
 	signout: () => Promise<Response>;
 	setAuthInfo: (arg: Partial<AuthState>) => void;
 }
-
-const parseErrorMessage = (error: any): string => {
-	try {
-		const [err] = JSON.parse(error.message);
-		return err.message;
-	} catch (e) {
-		return error.message;
-	}
-};
 
 export const useAuth = create<AuthState>((set, get) => ({
 	authorized: null,
@@ -135,6 +128,10 @@ export const useAuth = create<AuthState>((set, get) => ({
 
 				await client.clearStore();
 
+				if (process.browser) {
+					window.location.replace('/signin');
+					toast.success('Successfully signed out');
+				}
 				return { success: true, message: 'Successfully signed out' };
 			}
 		} catch (error) {

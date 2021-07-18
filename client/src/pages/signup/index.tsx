@@ -44,7 +44,7 @@ export default function SignUp() {
 
 							// TODO: redirect properly, add spinner
 							toast.success(res.message);
-							router.push('/');
+							router.push('/friends');
 						}}
 					>
 						{(props) => (

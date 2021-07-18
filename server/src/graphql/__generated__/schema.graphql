@@ -17,6 +17,9 @@ type Mutation {
 }
 
 type Query {
+  """Authorize user session"""
+  authorize: AuthResult!
+
   """returns all users"""
   getAllUsers: [User!]!
   hello(name: String): String!

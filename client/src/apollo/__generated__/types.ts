@@ -43,6 +43,8 @@ export type MutationSignupArgs = {
 
 export type Query = {
   __typename?: 'Query';
+  /** Authorize user session */
+  authorize: AuthResult;
   /** returns all users */
   getAllUsers: Array<User>;
   hello: Scalars['String'];
@@ -138,6 +140,21 @@ export type SignoutMutation = (
   ) }
 );
 
+export type AuthorizeQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type AuthorizeQuery = (
+  { __typename?: 'Query' }
+  & { authorize: (
+    { __typename?: 'AuthResult' }
+    & Pick<AuthResult, 'success'>
+    & { user: (
+      { __typename?: 'User' }
+      & Pick<User, 'id' | 'email' | 'username' | 'displayName' | 'avatarUrl' | 'role' | 'createdAt' | 'updatedAt' | 'university' | 'department' | 'semester'>
+    ) }
+  ) }
+);
+
 
 export const SignupDocument = gql`
     mutation Signup($input: SignupInput!) {
@@ -176,3 +193,23 @@ export const SignoutDocument = gql`
 }
     `;
 export type SignoutMutationOptions = Apollo.BaseMutationOptions<SignoutMutation, SignoutMutationVariables>;
+export const AuthorizeDocument = gql`
+    query Authorize {
+  authorize {
+    success
+    user {
+      id
+      email
+      username
+      displayName
+      avatarUrl
+      role
+      createdAt
+      updatedAt
+      university
+      department
+      semester
+    }
+  }
+}
+    `;

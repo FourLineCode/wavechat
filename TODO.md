@@ -26,6 +26,7 @@
     -   [x] input server validation plugin
     -   [x] implement context properly
     -   [x] fix codegen
+    -   [ ] custom not found page
 
 -   [ ] auth
 
@@ -43,11 +44,12 @@
     -   [x] setup zustand stores
     -   [x] setup auth hooks
     -   [x] signup / signin frontend
-    -   [ ] signout frontend
-    -   [ ] persist auth
+    -   [x] signout frontend
+    -   [ ] refactor signup, signin store redirects
+    -   [x] persist auth
         -   [ ] keep signed in option
-    -   [ ] protected routes
-        -   [ ] server sided auth redirects
+    -   [x] protected routes
+        -   [x] server sided auth redirects
     -   [ ] sign out of all devices
 
 -   [ ] users
