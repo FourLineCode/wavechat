@@ -40,8 +40,8 @@
     -   [x] auth ui
         -   [ ] multi page signup
             -   [ ] uni infos
-    -   [ ] setup zustand stores
-    -   [ ] setup auth hooks
+    -   [x] setup zustand stores
+    -   [x] setup auth hooks
     -   [ ] persist auth
         -   [ ] keep signed in option
     -   [ ] protected routes

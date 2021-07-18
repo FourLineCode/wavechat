@@ -12,14 +12,6 @@ export default function SignUp() {
 	const auth = useAuth();
 
 	useEffect(() => {
-		auth.signup({
-			email: 'akmal@wae.com',
-			password: 'akmal123',
-			username: 'akmalaksm',
-		}).then((res) => console.log(res));
-	}, []);
-
-	useEffect(() => {
 		console.log({ authorized: auth.authorized, ...auth.user });
 	}, [auth]);
 
@@ -36,9 +28,10 @@ export default function SignUp() {
 							confirmPassword: '',
 						}}
 						onSubmit={async (values) => {
-							await new Promise((resolve) => setTimeout(resolve, 1000));
-							console.log(values);
-							return;
+							// TODO: validate stuff
+							const res = await auth.signup(values);
+
+							console.log(res);
 						}}
 					>
 						{(props) => (

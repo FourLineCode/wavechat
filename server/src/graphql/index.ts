@@ -19,14 +19,15 @@ export const startServer = async () => {
 		context: createContext,
 	});
 
-	apolloserver.applyMiddleware({ app, path: '/graphql' });
+	apolloserver.applyMiddleware({ app, path: '/graphql', cors: false });
 
 	const server = createServer(app);
 
 	const io = new socketio.Server(server, {
 		path: '/ws',
 		cors: {
-			origin: '*',
+			origin: 'http://localhost:3000',
+			credentials: true,
 		},
 	});
 
