@@ -1,4 +1,5 @@
 import { gql } from '@apollo/client';
+import * as Apollo from '@apollo/client';
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
@@ -96,19 +97,82 @@ export type User = {
   username: Scalars['String'];
 };
 
-export type TestQueryVariables = Exact<{
-  name: Scalars['String'];
+export type SignupMutationVariables = Exact<{
+  input: SignupInput;
 }>;
 
 
-export type TestQuery = (
-  { __typename?: 'Query' }
-  & Pick<Query, 'hello'>
+export type SignupMutation = (
+  { __typename?: 'Mutation' }
+  & { signup: (
+    { __typename?: 'AuthResult' }
+    & Pick<AuthResult, 'success'>
+  ) }
+);
+
+export type SigninMutationVariables = Exact<{
+  input: SigninInput;
+}>;
+
+
+export type SigninMutation = (
+  { __typename?: 'Mutation' }
+  & { signin: (
+    { __typename?: 'AuthResult' }
+    & Pick<AuthResult, 'success'>
+    & { user: (
+      { __typename?: 'User' }
+      & Pick<User, 'id' | 'email' | 'username' | 'displayName' | 'avatarUrl' | 'role' | 'createdAt' | 'updatedAt' | 'university' | 'department' | 'semester'>
+    ) }
+  ) }
+);
+
+export type SignoutMutationVariables = Exact<{ [key: string]: never; }>;
+
+
+export type SignoutMutation = (
+  { __typename?: 'Mutation' }
+  & { signout: (
+    { __typename?: 'SuccessResult' }
+    & Pick<SuccessResult, 'success'>
+  ) }
 );
 
 
-export const TestDocument = gql`
-    query Test($name: String!) {
-  hello(name: $name)
+export const SignupDocument = gql`
+    mutation Signup($input: SignupInput!) {
+  signup(input: $input) {
+    success
+  }
 }
     `;
+export type SignupMutationOptions = Apollo.BaseMutationOptions<SignupMutation, SignupMutationVariables>;
+export const SigninDocument = gql`
+    mutation Signin($input: SigninInput!) {
+  signin(input: $input) {
+    success
+    user {
+      id
+      email
+      username
+      displayName
+      avatarUrl
+      role
+      createdAt
+      updatedAt
+      university
+      department
+      semester
+    }
+  }
+}
+    `;
+export type SigninMutationOptions = Apollo.BaseMutationOptions<SigninMutation, SigninMutationVariables>;
+export const SignoutDocument = gql`
+    mutation Signout {
+  signout {
+    success
+  }
+}
+    `;
+export type SignoutMutationOptions = Apollo.BaseMutationOptions<SignoutMutation, SignoutMutationVariables>;

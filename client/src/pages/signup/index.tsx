@@ -1,12 +1,28 @@
 import { Form, Formik } from 'formik';
 import Link from 'next/link';
+import { useEffect } from 'react';
 import { Layout } from 'src/components/Layouts/Layout';
 import { NavBar } from 'src/components/Layouts/NavBar';
 import { Button } from 'src/components/ui/Button';
 import { Card } from 'src/components/ui/Card';
 import { Input } from 'src/components/ui/Input';
+import { useAuth } from 'src/store/useAuth';
 
 export default function SignUp() {
+	const auth = useAuth();
+
+	useEffect(() => {
+		auth.signup({
+			email: 'akmal@wae.com',
+			password: 'akmal123',
+			username: 'akmalaksm',
+		}).then((res) => console.log(res));
+	}, []);
+
+	useEffect(() => {
+		console.log({ authorized: auth.authorized, ...auth.user });
+	}, [auth]);
+
 	return (
 		<Layout title='Sign Up'>
 			<div className='w-screen h-screen'>

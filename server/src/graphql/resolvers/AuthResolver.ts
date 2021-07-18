@@ -39,26 +39,28 @@ AuthResultObject.implement({
 
 const SignupInput = builder.inputType('SignupInput', {
 	fields: (t) => ({
-		// TODO: add error messages
 		email: t.string({
 			required: true,
 			validate: {
-				email: true,
+				email: [true, { message: 'Invalid email address' }],
 			},
 		}),
 		username: t.string({
 			required: true,
 			validate: {
-				minLength: 2,
-				maxLength: 32,
-				regex: /^[A-Za-z0-9_]{1,15}$/,
+				minLength: [2, { message: 'Username must be atleast 2 characters' }],
+				maxLength: [32, { message: 'Username can be up to 32 characters' }],
+				regex: [
+					/^[A-Za-z0-9_]{1,15}$/,
+					{ message: 'Username cantains invalid characters' },
+				],
 			},
 		}),
 		password: t.string({
 			required: true,
 			validate: {
-				minLength: 6,
-				maxLength: 18,
+				minLength: [6, { message: 'Password must be atleast 6 characters' }],
+				maxLength: [18, { message: 'Password can be up to 18 characters' }],
 			},
 		}),
 		// TODO: add validations for uni info
@@ -66,8 +68,8 @@ const SignupInput = builder.inputType('SignupInput', {
 		department: t.string(),
 		semester: t.int({
 			validate: {
-				min: 0,
-				max: 18,
+				min: [0, { message: 'Semester must be in range 0-18' }],
+				max: [18, { message: 'Semester must be in range 0-18' }],
 			},
 		}),
 	}),
@@ -135,14 +137,14 @@ const SigninInput = builder.inputType('SigninInput', {
 		email: t.string({
 			required: true,
 			validate: {
-				email: true,
+				email: [true, { message: 'Invalid email address' }],
 			},
 		}),
 		password: t.string({
 			required: true,
 			validate: {
-				minLength: 6,
-				maxLength: 18,
+				minLength: [6, { message: 'Password must be atleast 6 characters' }],
+				maxLength: [18, { message: 'Password can be up to 18 characters' }],
 			},
 		}),
 	}),
