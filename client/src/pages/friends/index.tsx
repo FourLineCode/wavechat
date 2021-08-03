@@ -10,10 +10,10 @@ export default function Friends() {
 
 	return (
 		<Layout title='Friends' desc='WaveChat | Friends'>
-			<div className='flex'>
+			<div className='flex w-screen h-screen'>
 				<NavigationSidebar />
 				<FriendsList />
-				<div className='flex flex-col items-center justify-center w-screen h-screen bg-dark-700'>
+				<div className='flex flex-col items-center justify-center flex-1 bg-dark-700'>
 					<div className='text-4xl font-bold text-light'>/Friends</div>
 					<Button onClick={auth.signout}>Sign out</Button>
 				</div>
