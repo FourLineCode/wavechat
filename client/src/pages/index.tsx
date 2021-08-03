@@ -1,6 +1,6 @@
 import { useRouter } from 'next/dist/client/router';
-import { Layout } from 'src/components/Layouts/Layout';
-import { NavBar } from 'src/components/Layouts/NavBar';
+import { Layout } from 'src/components/layouts/Layout';
+import { NavBar } from 'src/components/layouts/NavBar';
 import { Button } from 'src/components/ui/Button';
 
 export default function Index() {
