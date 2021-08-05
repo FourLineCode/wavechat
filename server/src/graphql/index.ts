@@ -1,3 +1,4 @@
+import { ApolloServerPluginLandingPageGraphQLPlayground } from 'apollo-server-core';
 import { ApolloServer } from 'apollo-server-express';
 import { createServer } from 'http';
 import socketio from 'socket.io';
@@ -8,18 +9,21 @@ import { SockerHandler } from '../socket';
 import { createContext } from './context';
 
 export const startServer = async () => {
-	const apolloserver = new ApolloServer({
+	const apolloServer = new ApolloServer({
 		schema,
-		playground: config.isDev && {
-			settings: {
-				'request.credentials': 'include',
-			},
-		},
-		tracing: config.isDev,
 		context: createContext,
+		plugins: [
+			ApolloServerPluginLandingPageGraphQLPlayground({
+				settings: {
+					'request.credentials': 'include',
+				},
+			}),
+		],
 	});
 
-	apolloserver.applyMiddleware({ app, path: '/graphql', cors: false });
+	await apolloServer.start();
+
+	apolloServer.applyMiddleware({ app, path: '/graphql', cors: false });
 
 	const server = createServer(app);
 
