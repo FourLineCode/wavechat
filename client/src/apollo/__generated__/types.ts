@@ -104,56 +104,24 @@ export type SignupMutationVariables = Exact<{
 }>;
 
 
-export type SignupMutation = (
-  { __typename?: 'Mutation' }
-  & { signup: (
-    { __typename?: 'AuthResult' }
-    & Pick<AuthResult, 'success'>
-  ) }
-);
+export type SignupMutation = { __typename?: 'Mutation', signup: { __typename?: 'AuthResult', success: boolean } };
 
 export type SigninMutationVariables = Exact<{
   input: SigninInput;
 }>;
 
 
-export type SigninMutation = (
-  { __typename?: 'Mutation' }
-  & { signin: (
-    { __typename?: 'AuthResult' }
-    & Pick<AuthResult, 'success'>
-    & { user: (
-      { __typename?: 'User' }
-      & Pick<User, 'id' | 'email' | 'username' | 'displayName' | 'avatarUrl' | 'role' | 'createdAt' | 'updatedAt' | 'university' | 'department' | 'semester'>
-    ) }
-  ) }
-);
+export type SigninMutation = { __typename?: 'Mutation', signin: { __typename?: 'AuthResult', success: boolean, user: { __typename?: 'User', id: string, email: string, username: string, displayName: string, avatarUrl?: Maybe<string>, role: string, createdAt: any, updatedAt: any, university?: Maybe<string>, department?: Maybe<string>, semester?: Maybe<number> } } };
 
 export type SignoutMutationVariables = Exact<{ [key: string]: never; }>;
 
 
-export type SignoutMutation = (
-  { __typename?: 'Mutation' }
-  & { signout: (
-    { __typename?: 'SuccessResult' }
-    & Pick<SuccessResult, 'success'>
-  ) }
-);
+export type SignoutMutation = { __typename?: 'Mutation', signout: { __typename?: 'SuccessResult', success: boolean } };
 
 export type AuthorizeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type AuthorizeQuery = (
-  { __typename?: 'Query' }
-  & { authorize: (
-    { __typename?: 'AuthResult' }
-    & Pick<AuthResult, 'success'>
-    & { user: (
-      { __typename?: 'User' }
-      & Pick<User, 'id' | 'email' | 'username' | 'displayName' | 'avatarUrl' | 'role' | 'createdAt' | 'updatedAt' | 'university' | 'department' | 'semester'>
-    ) }
-  ) }
-);
+export type AuthorizeQuery = { __typename?: 'Query', authorize: { __typename?: 'AuthResult', success: boolean, user: { __typename?: 'User', id: string, email: string, username: string, displayName: string, avatarUrl?: Maybe<string>, role: string, createdAt: any, updatedAt: any, university?: Maybe<string>, department?: Maybe<string>, semester?: Maybe<number> } } };
 
 
 export const SignupDocument = gql`
