@@ -73,6 +73,32 @@ builder.mutationField('sendRequest', (t) =>
 				throw new Error('You are not signed in to make a request');
 			}
 
+			if (userId === user.id) {
+				throw new Error('You cannot send yourself friend request');
+			}
+
+			const existedRequest = await prisma.friendRequest.findFirst({
+				where: {
+					fromUserId: user.id,
+					toUserId: userId,
+				},
+			});
+			if (existedRequest) {
+				throw new Error('You already sent a request to this user');
+			}
+
+			const existedFriendship = await prisma.friendship.findFirst({
+				where: {
+					OR: [
+						{ firstUserId: user.id, secondUserId: userId },
+						{ firstUserId: userId, secondUserId: user.id },
+					],
+				},
+			});
+			if (existedFriendship) {
+				throw new Error('You are already friends with this user');
+			}
+
 			return await prisma.friendRequest.create({
 				data: {
 					fromUserId: user.id,
@@ -95,7 +121,7 @@ builder.mutationField('acceptRequest', (t) =>
 			}
 
 			const pendingRequest = await prisma.friendRequest.findFirst({
-				where: { id: requestId },
+				where: { id: requestId, toUserId: user.id },
 				rejectOnNotFound: true,
 			});
 
@@ -124,6 +150,14 @@ builder.mutationField('declineRequest', (t) =>
 				throw new Error('You are not signed in to decline a request');
 			}
 
+			const request = await prisma.friendRequest.findFirst({
+				where: { id: requestId, toUserId: user.id },
+				rejectOnNotFound: true,
+			});
+			if (request.toUserId !== user.id) {
+				throw new Error('You cannot decline this request');
+			}
+
 			const declinedRequest = await prisma.friendRequest.delete({ where: { id: requestId } });
 
 			return declinedRequest;
@@ -146,6 +180,116 @@ builder.mutationField('declineAllRequests', (t) =>
 			});
 
 			return true;
+		},
+	})
+);
+
+builder.mutationField('unfriend', (t) =>
+	t.field({
+		type: FriendshipObject,
+		description: 'Unfriend a user',
+		authScopes: { user: true },
+		args: { userId: t.arg({ type: 'String', required: true }) },
+		resolve: async (_parent, { userId }, { prisma, user }) => {
+			if (!user) {
+				throw new Error('You are not signed in to unfriend a user');
+			}
+
+			if (userId === user.id) {
+				throw new Error('You cannot unfriend yourself');
+			}
+
+			const unfriend = await prisma.friendship.findFirst({
+				where: {
+					OR: [
+						{ firstUserId: user.id, secondUserId: userId },
+						{ firstUserId: userId, secondUserId: user.id },
+					],
+				},
+				rejectOnNotFound: true,
+			});
+
+			await prisma.friendship.delete({ where: { id: unfriend.id } });
+
+			return unfriend;
+		},
+	})
+);
+
+builder.queryField('getFriendsList', (t) =>
+	t.field({
+		type: [FriendshipObject],
+		description: 'Get friends list of current user',
+		authScopes: { user: true },
+		resolve: async (_parent, _args, { prisma, user }) => {
+			if (!user) {
+				throw new Error('You are not signed in');
+			}
+
+			return await prisma.friendship.findMany({
+				where: {
+					OR: [{ firstUserId: user.id }, { secondUserId: user.id }],
+				},
+			});
+		},
+	})
+);
+
+builder.queryField('isFriend', (t) =>
+	t.field({
+		type: 'Boolean',
+		description: 'Check if user is a friend',
+		authScopes: { user: true },
+		args: { userId: t.arg({ type: 'String', required: true }) },
+		resolve: async (_parent, { userId }, { prisma, user }) => {
+			if (!user) {
+				throw new Error('You are not signed in to unfriend a user');
+			}
+
+			if (userId === user.id) {
+				throw new Error('You cannot be friends with yourself');
+			}
+
+			const friendship = await prisma.friendship.findFirst({
+				where: {
+					OR: [
+						{ firstUserId: user.id, secondUserId: userId },
+						{ firstUserId: userId, secondUserId: user.id },
+					],
+				},
+			});
+
+			return !!friendship;
+		},
+	})
+);
+
+builder.queryField('getPendingRequests', (t) =>
+	t.field({
+		type: [FriendRequestObject],
+		description: 'Get pending requests of current user',
+		authScopes: { user: true },
+		resolve: async (_parent, _args, { prisma, user }) => {
+			if (!user) {
+				throw new Error('You are not signed in');
+			}
+
+			return await prisma.friendRequest.findMany({ where: { toUserId: user.id } });
+		},
+	})
+);
+
+builder.queryField('getSentRequests', (t) =>
+	t.field({
+		type: [FriendRequestObject],
+		description: 'Get sent requests of current user',
+		authScopes: { user: true },
+		resolve: async (_parent, _args, { prisma, user }) => {
+			if (!user) {
+				throw new Error('You are not signed in');
+			}
+
+			return await prisma.friendRequest.findMany({ where: { fromUserId: user.id } });
 		},
 	})
 );

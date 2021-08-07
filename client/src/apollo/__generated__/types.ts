@@ -21,14 +21,61 @@ export type AuthResult = {
 };
 
 
+export type FriendRequest = {
+  __typename?: 'FriendRequest';
+  createdAt: Scalars['Date'];
+  fromUser: User;
+  fromUserId: Scalars['ID'];
+  id: Scalars['ID'];
+  toUser: User;
+  toUserId: Scalars['ID'];
+  updatedAt: Scalars['Date'];
+};
+
+export type Friendship = {
+  __typename?: 'Friendship';
+  createdAt: Scalars['Date'];
+  firstUser: User;
+  firstUserId: Scalars['ID'];
+  id: Scalars['ID'];
+  secondUser: User;
+  secondUserId: Scalars['ID'];
+  updatedAt: Scalars['Date'];
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
+  /** Accept a pending friend request */
+  acceptRequest: Friendship;
+  /** Decline all pending friend requests */
+  declineAllRequests: Scalars['Boolean'];
+  /** Decline a pending friend request */
+  declineRequest: FriendRequest;
+  /** Send a friend request to a user */
+  sendRequest: FriendRequest;
   /** Sign in user */
   signin: AuthResult;
   /** Sign out user */
   signout: SuccessResult;
   /** Sign up new user */
   signup: AuthResult;
+  /** Unfriend a user */
+  unfriend: Friendship;
+};
+
+
+export type MutationAcceptRequestArgs = {
+  requestId: Scalars['String'];
+};
+
+
+export type MutationDeclineRequestArgs = {
+  requestId: Scalars['String'];
+};
+
+
+export type MutationSendRequestArgs = {
+  userId: Scalars['String'];
 };
 
 
@@ -41,18 +88,36 @@ export type MutationSignupArgs = {
   input: SignupInput;
 };
 
+
+export type MutationUnfriendArgs = {
+  userId: Scalars['String'];
+};
+
 export type Query = {
   __typename?: 'Query';
   /** Authorize user session */
   authorize: AuthResult;
   /** returns all users */
   getAllUsers: Array<User>;
+  /** Get friends list of current user */
+  getFriendsList: Array<Friendship>;
+  /** Get pending requests of current user */
+  getPendingRequests: Array<FriendRequest>;
+  /** Get sent requests of current user */
+  getSentRequests: Array<FriendRequest>;
   hello: Scalars['String'];
+  /** Check if user is a friend */
+  isFriend: Scalars['Boolean'];
 };
 
 
 export type QueryHelloArgs = {
   name?: Maybe<Scalars['String']>;
+};
+
+
+export type QueryIsFriendArgs = {
+  userId: Scalars['String'];
 };
 
 export type Session = {
@@ -90,9 +155,12 @@ export type User = {
   department?: Maybe<Scalars['String']>;
   displayName: Scalars['String'];
   email: Scalars['String'];
+  friends: Array<Friendship>;
   id: Scalars['ID'];
+  pendingRequests: Array<FriendRequest>;
   role: Scalars['String'];
   semester?: Maybe<Scalars['Int']>;
+  sentRequests: Array<FriendRequest>;
   sessions: Array<Session>;
   university?: Maybe<Scalars['String']>;
   updatedAt: Scalars['Date'];

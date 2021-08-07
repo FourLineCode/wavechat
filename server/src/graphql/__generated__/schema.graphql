@@ -46,6 +46,9 @@ type Mutation {
 
   """Sign up new user"""
   signup(input: SignupInput!): AuthResult!
+
+  """Unfriend a user"""
+  unfriend(userId: String!): Friendship!
 }
 
 type Query {
@@ -54,7 +57,19 @@ type Query {
 
   """returns all users"""
   getAllUsers: [User!]!
+
+  """Get friends list of current user"""
+  getFriendsList: [Friendship!]!
+
+  """Get pending requests of current user"""
+  getPendingRequests: [FriendRequest!]!
+
+  """Get sent requests of current user"""
+  getSentRequests: [FriendRequest!]!
   hello(name: String): String!
+
+  """Check if user is a friend"""
+  isFriend(userId: String!): Boolean!
 }
 
 type Session {

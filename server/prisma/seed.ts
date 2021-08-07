@@ -21,6 +21,17 @@ const seed = async () => {
 			semester: 6,
 		},
 	});
+
+	for (let i = 0; i < 10; i++) {
+		await prisma.user.create({
+			data: {
+				email: `bot${i}@wave.com`,
+				username: `bot${i}`,
+				displayName: `Bot${i}`,
+				password: bcrypt.hashSync(process.env.BOT_PASS!, 10),
+			},
+		});
+	}
 };
 
 seed()

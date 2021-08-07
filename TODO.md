@@ -61,11 +61,11 @@
         -   [x] accept req
         -   [x] decline req
         -   [x] decline all
-        -   [ ] unfriend
-        -   [ ] check if user is friend
-        -   [ ] get all friends of a user
-        -   [ ] get all pending requests of a user
-        -   [ ] get all sent requests of a user
+        -   [x] unfriend
+        -   [x] check if user is friend
+        -   [x] get all friends of a user
+        -   [x] get all pending requests of a user
+        -   [x] get all sent requests of a user
 
     -   [ ] profile modal
 

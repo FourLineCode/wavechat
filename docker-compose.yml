@@ -29,6 +29,7 @@ services:
             PORT: 5000
             DATABASE_URL: postgresql://postgres:pgadmin@postgres:5432/wavechat?schema=public
             ADMIN_PASS: admin00
+            BOT_PASS: adminpp
             JWT_SECRET: verysecretkey
 
     client:
