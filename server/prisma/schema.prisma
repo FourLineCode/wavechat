@@ -29,6 +29,11 @@ model User {
     semester   Int?
 
     sessions Session[] @relation("sessions")
+
+    friends_forward Friendship[]    @relation("friends_forward")
+    friends_inverse Friendship[]    @relation("friends_inverse")
+    pendingRequests FriendRequest[] @relation("pendingRequests")
+    sentRequests    FriendRequest[] @relation("sentRequests")
 }
 
 model Session {
@@ -38,4 +43,28 @@ model Session {
 
     user   User   @relation("sessions", fields: [userId], references: [id])
     userId String
+}
+
+model Friendship {
+    id        String   @id @default(uuid())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    firstUser   User   @relation("friends_forward", fields: [firstUserId], references: [id])
+    firstUserId String
+
+    secondUser   User   @relation("friends_inverse", fields: [secondUserId], references: [id])
+    secondUserId String
+}
+
+model FriendRequest {
+    id        String   @id @default(uuid())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    fromUser   User   @relation("sentRequests", fields: [fromUserId], references: [id])
+    fromUserId String
+
+    toUser   User   @relation("pendingRequests", fields: [toUserId], references: [id])
+    toUserId String
 }

@@ -5,6 +5,26 @@ type AuthResult {
 
 scalar Date
 
+type FriendRequest {
+  createdAt: Date!
+  fromUser: User!
+  fromUserId: ID!
+  id: ID!
+  toUser: User!
+  toUserId: ID!
+  updatedAt: Date!
+}
+
+type Friendship {
+  createdAt: Date!
+  firstUser: User!
+  firstUserId: ID!
+  id: ID!
+  secondUser: User!
+  secondUserId: ID!
+  updatedAt: Date!
+}
+
 type Mutation {
   """Sign in user"""
   signin(input: SigninInput!): AuthResult!
@@ -57,9 +77,12 @@ type User {
   department: String
   displayName: String!
   email: String!
+  friends: [Friendship!]!
   id: ID!
+  pendingRequests: [FriendRequest!]!
   role: String!
   semester: Int
+  sentRequests: [FriendRequest!]!
   sessions: [Session!]!
   university: String
   updatedAt: Date!
