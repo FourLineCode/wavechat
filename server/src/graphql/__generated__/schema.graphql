@@ -26,6 +26,18 @@ type Friendship {
 }
 
 type Mutation {
+  """Accept a pending friend request"""
+  acceptRequest(requestId: String!): Friendship!
+
+  """Decline all pending friend requests"""
+  declineAllRequests: Boolean!
+
+  """Decline a pending friend request"""
+  declineRequest(requestId: String!): FriendRequest!
+
+  """Send a friend request to a user"""
+  sendRequest(userId: String!): FriendRequest!
+
   """Sign in user"""
   signin(input: SigninInput!): AuthResult!
 

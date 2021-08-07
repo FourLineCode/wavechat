@@ -200,7 +200,7 @@ builder.queryField('authorize', (t) =>
 		authScopes: {
 			public: true,
 		},
-		resolve: async (_parent, _args, { req, authorized, user }) => {
+		resolve: async (_parent, _args, { authorized, user }) => {
 			if (!authorized || !user) {
 				throw new Error('Unauthorized');
 			}

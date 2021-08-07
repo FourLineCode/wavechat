@@ -61,3 +61,91 @@ FriendRequestObject.implement({
 		}),
 	}),
 });
+
+builder.mutationField('sendRequest', (t) =>
+	t.field({
+		type: FriendRequestObject,
+		description: 'Send a friend request to a user',
+		authScopes: { user: true },
+		args: { userId: t.arg({ type: 'String', required: true }) },
+		resolve: async (_parent, { userId }, { prisma, user }) => {
+			if (!user) {
+				throw new Error('You are not signed in to make a request');
+			}
+
+			return await prisma.friendRequest.create({
+				data: {
+					fromUserId: user.id,
+					toUserId: userId,
+				},
+			});
+		},
+	})
+);
+
+builder.mutationField('acceptRequest', (t) =>
+	t.field({
+		type: FriendshipObject,
+		description: 'Accept a pending friend request',
+		authScopes: { user: true },
+		args: { requestId: t.arg({ type: 'String', required: true }) },
+		resolve: async (_parent, { requestId }, { prisma, user }) => {
+			if (!user) {
+				throw new Error('You are not signed in to accept a request');
+			}
+
+			const pendingRequest = await prisma.friendRequest.findFirst({
+				where: { id: requestId },
+				rejectOnNotFound: true,
+			});
+
+			const newFriendship = await prisma.friendship.create({
+				data: {
+					firstUserId: pendingRequest.fromUserId,
+					secondUserId: pendingRequest.toUserId,
+				},
+			});
+
+			await prisma.friendRequest.delete({ where: { id: pendingRequest.id } });
+
+			return newFriendship;
+		},
+	})
+);
+
+builder.mutationField('declineRequest', (t) =>
+	t.field({
+		type: FriendRequestObject,
+		description: 'Decline a pending friend request',
+		authScopes: { user: true },
+		args: { requestId: t.arg({ type: 'String', required: true }) },
+		resolve: async (_parent, { requestId }, { prisma, user }) => {
+			if (!user) {
+				throw new Error('You are not signed in to decline a request');
+			}
+
+			const declinedRequest = await prisma.friendRequest.delete({ where: { id: requestId } });
+
+			return declinedRequest;
+		},
+	})
+);
+
+builder.mutationField('declineAllRequests', (t) =>
+	t.field({
+		type: 'Boolean',
+		description: 'Decline all pending friend requests',
+		authScopes: { user: true },
+		resolve: async (_parent, _args, { prisma, user }) => {
+			if (!user) {
+				throw new Error('You are not signed in to decline all requests');
+			}
+
+			await prisma.friendRequest.deleteMany({
+				where: { toUserId: user.id },
+			});
+
+			return true;
+		},
+	})
+);

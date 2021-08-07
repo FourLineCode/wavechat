@@ -27,6 +27,7 @@
     -   [x] implement context properly
     -   [x] fix codegen
     -   [ ] custom not found page
+    -   [ ] use prisma giraphql plugin
 
 -   [ ] auth
 
@@ -36,7 +37,7 @@
     -   [x] sessions model
     -   [x] signup/ signin/ signout backend
     -   [x] auth scope plugin
-        -   [ ] add top level auth
+        -   [ ] add top level public auth
         -   [ ] csrf token
     -   [x] auth ui
         -   [ ] multi page signup
@@ -55,6 +56,17 @@
 -   [ ] users
 
     -   [ ] friends
+
+        -   [x] send req
+        -   [x] accept req
+        -   [x] decline req
+        -   [x] decline all
+        -   [ ] unfriend
+        -   [ ] check if user is friend
+        -   [ ] get all friends of a user
+        -   [ ] get all pending requests of a user
+        -   [ ] get all sent requests of a user
+
     -   [ ] profile modal
 
 -   [ ] channels
