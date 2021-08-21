@@ -3,7 +3,7 @@ import { GetServerSideProps } from 'next';
 import { serverSidedClient } from 'src/apollo/client';
 import { AuthorizeQuery } from 'src/apollo/__generated__/types';
 
-export const authRedirect: GetServerSideProps = async (context) => {
+export const authRedirect: GetServerSideProps = async function (context) {
 	try {
 		const { data } = await serverSidedClient.query<AuthorizeQuery>({
 			query: gql`

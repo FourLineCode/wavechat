@@ -2,7 +2,7 @@ import React from 'react';
 import { FaPlus } from 'react-icons/fa';
 import { Tooltip } from 'src/components/ui/Tooltip';
 
-export const DirectMessages = () => {
+export function DirectMessages() {
 	return (
 		<div className='flex flex-col flex-1 px-2 py-4 bg-dark-800 w-80'>
 			<input
@@ -21,4 +21,4 @@ export const DirectMessages = () => {
 			</div>
 		</div>
 	);
-};
+}

@@ -8,19 +8,21 @@ export interface Props {
 	desc?: string;
 }
 
-export const Layout = ({
+export function Layout({
 	children,
 	title = 'WaveChat',
 	desc = 'Wave | New way of communication',
-}: Props) => (
-	<main>
-		<Head>
-			<title>{title} | WaveChat</title>
-			<meta charSet='utf-8' />
-			<meta name='viewport' content='initial-scale=1.0, width=device-width' />
-			<meta name='description' content={desc} />
-			<link rel='shortcut icon' href={config.iconUrl} type='image/x-icon' />
-		</Head>
-		{children}
-	</main>
-);
+}: Props) {
+	return (
+		<main>
+			<Head>
+				<title>{title} | WaveChat</title>
+				<meta charSet='utf-8' />
+				<meta name='viewport' content='initial-scale=1.0, width=device-width' />
+				<meta name='description' content={desc} />
+				<link rel='shortcut icon' href={config.iconUrl} type='image/x-icon' />
+			</Head>
+			{children}
+		</main>
+	);
+}

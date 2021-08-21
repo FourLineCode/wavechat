@@ -3,7 +3,7 @@ import React from 'react';
 import { FaEnvelope, FaPlus, FaQuestion } from 'react-icons/fa';
 import { Tooltip } from 'src/components/ui/Tooltip';
 
-export const NavigationSidebar = () => {
+export function NavigationSidebar() {
 	return (
 		<div className='w-20 px-2 py-2 divide-y-2 divide-dark-700 bg-dark-900'>
 			{/* Make this a component */}
@@ -32,4 +32,4 @@ export const NavigationSidebar = () => {
 			</div>
 		</div>
 	);
-};
+}

@@ -4,11 +4,11 @@ interface Props {
 	component: React.FC;
 }
 
-export const SidebarWithProfile = ({ component: Component }: Props) => {
+export function SidebarWithProfile({ component: Component }: Props) {
 	return (
 		<div className='flex flex-col justify-between'>
 			<Component />
 			<ProfileInfo />
 		</div>
 	);
-};
+}

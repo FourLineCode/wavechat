@@ -8,7 +8,7 @@ import { config } from '../internal/config';
 import { SockerHandler } from '../socket';
 import { createContext } from './context';
 
-export const startServer = async () => {
+export async function startServer() {
 	const apolloServer = new ApolloServer({
 		schema,
 		context: createContext,
@@ -40,4 +40,4 @@ export const startServer = async () => {
 	server.listen({ port: config.port }, () => {
 		console.log(`\nServer is now running on http://localhost:${config.port}\n`);
 	});
-};
+}

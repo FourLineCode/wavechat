@@ -1,8 +1,8 @@
 import { startServer } from './graphql';
 
-const main = async () => {
+async function main() {
 	startServer();
-};
+}
 
 main().catch((error) => {
 	console.log(error);

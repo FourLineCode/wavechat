@@ -19,7 +19,7 @@ export interface Context {
 	loader: Loader;
 }
 
-export const createContext = async ({ req, res }: ExpressContext): Promise<Context> => {
+export async function createContext({ req, res }: ExpressContext): Promise<Context> {
 	let ctx: Context = {
 		req: req,
 		res: res,
@@ -61,4 +61,4 @@ export const createContext = async ({ req, res }: ExpressContext): Promise<Conte
 	ctx.public = true;
 
 	return ctx;
-};
+}

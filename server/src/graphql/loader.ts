@@ -1,7 +1,7 @@
 import prisma from './prisma';
 
 export class Loader {
-	public loadUserByIDs = async (ids: string[]) => {
+	public async loadUserByIDs(ids: string[]) {
 		return await prisma.user.findMany({
 			where: {
 				id: {
@@ -9,5 +9,5 @@ export class Loader {
 				},
 			},
 		});
-	};
+	}
 }

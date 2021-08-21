@@ -3,7 +3,7 @@ import bcrypt from 'bcrypt';
 
 const prisma = new PrismaClient();
 
-const seed = async () => {
+async function seed() {
 	const user = await prisma.user.findFirst();
 
 	if (user) return;
@@ -32,7 +32,7 @@ const seed = async () => {
 			},
 		});
 	}
-};
+}
 
 seed()
 	.catch((e) => {

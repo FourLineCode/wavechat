@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { config } from 'src/internal/config';
 
-export const NavBar = () => {
+export function NavBar() {
 	return (
 		<div className='flex justify-between w-full h-16 px-16 pt-12 lg:px-48'>
 			<Link href='/'>
@@ -27,4 +27,4 @@ export const NavBar = () => {
 			</div>
 		</div>
 	);
-};
+}
