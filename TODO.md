@@ -27,6 +27,7 @@
     -   [x] implement context properly
     -   [x] fix codegen
     -   [ ] custom not found page
+    -   [ ] add loading state after signup/signin process
     -   [ ] use prisma giraphql plugin
 
 -   [ ] auth

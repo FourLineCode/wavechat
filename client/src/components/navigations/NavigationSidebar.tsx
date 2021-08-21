@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import React from 'react';
 import { FaEnvelope, FaPlus, FaQuestion } from 'react-icons/fa';
 import { Tooltip } from 'src/components/ui/Tooltip';
 

@@ -1,7 +1,7 @@
 import { Form, Formik } from 'formik';
 import { useRouter } from 'next/dist/client/router';
 import Link from 'next/link';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import toast from 'react-hot-toast';
 import { Layout } from 'src/components/layouts/Layout';
 import { NavBar } from 'src/components/layouts/NavBar';

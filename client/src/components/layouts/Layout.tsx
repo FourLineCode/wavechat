@@ -1,5 +1,4 @@
 import Head from 'next/head';
-import React from 'react';
 import { config } from 'src/internal/config';
 
 export interface Props {

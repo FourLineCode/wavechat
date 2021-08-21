@@ -1,4 +1,3 @@
-import React from 'react';
 import { FaPlus } from 'react-icons/fa';
 import { Tooltip } from 'src/components/ui/Tooltip';
 
