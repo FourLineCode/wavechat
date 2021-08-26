@@ -53,7 +53,7 @@ UserObject.implement({
 	}),
 });
 
-builder.queryField('getAllUsers', (t) =>
+builder.queryField('allUsers', (t) =>
 	t.field({
 		type: [UserObject],
 		authScopes: {

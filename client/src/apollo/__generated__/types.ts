@@ -95,10 +95,10 @@ export type MutationUnfriendArgs = {
 
 export type Query = {
   __typename?: 'Query';
+  /** returns all users */
+  allUsers: Array<User>;
   /** Authorize user session */
   authorize: AuthResult;
-  /** returns all users */
-  getAllUsers: Array<User>;
   /** Get friends list of current user */
   getFriendsList: Array<Friendship>;
   /** Get pending requests of current user */

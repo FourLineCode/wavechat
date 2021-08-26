@@ -52,24 +52,24 @@ type Mutation {
 }
 
 type Query {
+  """returns all users"""
+  allUsers: [User!]!
+
   """Authorize user session"""
   authorize: AuthResult!
 
-  """returns all users"""
-  getAllUsers: [User!]!
-
   """Get friends list of current user"""
-  getFriendsList: [Friendship!]!
-
-  """Get pending requests of current user"""
-  getPendingRequests: [FriendRequest!]!
-
-  """Get sent requests of current user"""
-  getSentRequests: [FriendRequest!]!
+  friendsList: [Friendship!]!
   hello(name: String): String!
 
   """Check if user is a friend"""
   isFriend(userId: String!): Boolean!
+
+  """Get pending requests of current user"""
+  pendingRequests: [FriendRequest!]!
+
+  """Get sent requests of current user"""
+  sentRequests: [FriendRequest!]!
 }
 
 type Session {

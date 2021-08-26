@@ -216,7 +216,7 @@ builder.mutationField('unfriend', (t) =>
 	})
 );
 
-builder.queryField('getFriendsList', (t) =>
+builder.queryField('friendsList', (t) =>
 	t.field({
 		type: [FriendshipObject],
 		description: 'Get friends list of current user',
@@ -264,7 +264,7 @@ builder.queryField('isFriend', (t) =>
 	})
 );
 
-builder.queryField('getPendingRequests', (t) =>
+builder.queryField('pendingRequests', (t) =>
 	t.field({
 		type: [FriendRequestObject],
 		description: 'Get pending requests of current user',
@@ -279,7 +279,7 @@ builder.queryField('getPendingRequests', (t) =>
 	})
 );
 
-builder.queryField('getSentRequests', (t) =>
+builder.queryField('sentRequests', (t) =>
 	t.field({
 		type: [FriendRequestObject],
 		description: 'Get sent requests of current user',
