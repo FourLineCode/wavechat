@@ -71,7 +71,18 @@
             -   [x] get all sent requests of a user
 
         -   [ ] client side
-            -   [ ] test
+
+            -   [ ] discover page
+
+                -   [ ] add navigation for diff searches (people, server)
+                -   [ ] search people
+                -   [ ] search servers
+
+            -   [ ] send request
+            -   [ ] show pending requests on friends page
+            -   [ ] accept req button
+            -   [ ] show friends on right side bar
+            -   [ ] update cache on request accepted
 
     -   [ ] profile modal
 

@@ -1,23 +1,18 @@
-import { DirectMessages } from 'src/components/friends/DirectMessages';
+import { DiscoverNavigation } from 'src/components/discover/DiscoverNavigation';
 import { FriendsList } from 'src/components/friends/FriendsList';
 import { Layout } from 'src/components/layouts/Layout';
 import { NavigationSidebar } from 'src/components/navigations/NavigationSidebar';
 import { SidebarWithProfile } from 'src/components/profile/SidebarWithProfile';
-import { Button } from 'src/components/ui/Button';
-import { useAuth } from 'src/store/useAuth';
 import { authRedirect } from 'src/utils/redirects/auth';
 
-export default function Friends() {
-	const auth = useAuth();
-
+export default function DiscoverUsers() {
 	return (
-		<Layout title='Friends' desc='WaveChat | Friends'>
+		<Layout title='Discover' desc='WaveChat | Discover new people and communities'>
 			<div className='flex w-screen h-screen'>
 				<NavigationSidebar />
-				<SidebarWithProfile component={DirectMessages} />
+				<SidebarWithProfile component={DiscoverNavigation} />
 				<div className='flex flex-col items-center justify-center flex-1 bg-dark-700'>
-					<div className='text-4xl font-bold text-light'>/Friends</div>
-					<Button onClick={auth.signout}>Sign out</Button>
+					<div className='text-4xl font-bold text-light'>Discover Users</div>
 				</div>
 				<FriendsList />
 			</div>
