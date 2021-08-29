@@ -26,8 +26,8 @@
     -   [x] input server validation plugin
     -   [x] implement context properly
     -   [x] fix codegen
-    -   [ ] custom not found page
-    -   [ ] add loading state after signup/signin process
+    -   [x] custom not found page
+    -   [x] add loading state after signup/signin process
     -   [ ] use prisma giraphql plugin
 
 -   [ ] auth
@@ -58,15 +58,20 @@
 
     -   [ ] friends
 
-        -   [x] send req
-        -   [x] accept req
-        -   [x] decline req
-        -   [x] decline all
-        -   [x] unfriend
-        -   [x] check if user is friend
-        -   [x] get all friends of a user
-        -   [x] get all pending requests of a user
-        -   [x] get all sent requests of a user
+        -   [ ] server side
+
+            -   [x] send req
+            -   [x] accept req
+            -   [x] decline req
+            -   [x] decline all
+            -   [x] unfriend
+            -   [x] check if user is friend
+            -   [x] get all friends of a user
+            -   [x] get all pending requests of a user
+            -   [x] get all sent requests of a user
+
+        -   [ ] client side
+            -   [ ] test
 
     -   [ ] profile modal
 

@@ -100,14 +100,14 @@ export type Query = {
   /** Authorize user session */
   authorize: AuthResult;
   /** Get friends list of current user */
-  getFriendsList: Array<Friendship>;
-  /** Get pending requests of current user */
-  getPendingRequests: Array<FriendRequest>;
-  /** Get sent requests of current user */
-  getSentRequests: Array<FriendRequest>;
+  friendsList: Array<Friendship>;
   hello: Scalars['String'];
   /** Check if user is a friend */
   isFriend: Scalars['Boolean'];
+  /** Get pending requests of current user */
+  pendingRequests: Array<FriendRequest>;
+  /** Get sent requests of current user */
+  sentRequests: Array<FriendRequest>;
 };
 
 
