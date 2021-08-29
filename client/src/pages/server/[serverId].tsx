@@ -2,6 +2,8 @@ import { useRouter } from 'next/router';
 import { FriendsList } from 'src/components/friends/FriendsList';
 import { Layout } from 'src/components/layouts/Layout';
 import { NavigationSidebar } from 'src/components/navigations/NavigationSidebar';
+import { SidebarWithProfile } from 'src/components/profile/SidebarWithProfile';
+import { ServerSidebar } from 'src/components/server/ServerSIdebar';
 import { authRedirect } from 'src/utils/redirects/auth';
 
 export default function ServerById() {
@@ -12,6 +14,7 @@ export default function ServerById() {
 		<Layout title='Server' desc='WaveChat | Server description'>
 			<div className='flex w-screen h-screen'>
 				<NavigationSidebar />
+				<SidebarWithProfile component={ServerSidebar} />
 				<div className='flex flex-col items-center justify-center flex-1 bg-dark-700'>
 					<div className='text-4xl font-bold text-light'>Server #{serverId}</div>
 				</div>

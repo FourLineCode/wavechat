@@ -3,6 +3,7 @@ import { Layout } from 'src/components/layouts/Layout';
 import { NavigationSidebar } from 'src/components/navigations/NavigationSidebar';
 import { authRedirect } from 'src/utils/redirects/auth';
 
+// TODO: idk if this is a page or should be a modal
 export default function CreateServer() {
 	return (
 		<Layout title='Create Server' desc='WaveChat | Create a new Server'>
