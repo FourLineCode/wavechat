@@ -1,4 +1,5 @@
 import { DiscoverNavigation } from 'src/components/discover/DiscoverNavigation';
+import { DiscoverServersPage } from 'src/components/discover/DiscoverServersPage';
 import { FriendsList } from 'src/components/friends/FriendsList';
 import { Layout } from 'src/components/layouts/Layout';
 import { NavigationSidebar } from 'src/components/navigations/NavigationSidebar';
@@ -11,9 +12,7 @@ export default function DiscoverServers() {
 			<div className='flex w-screen h-screen'>
 				<NavigationSidebar />
 				<SidebarWithProfile component={DiscoverNavigation} />
-				<div className='flex flex-col items-center justify-center flex-1 bg-dark-700'>
-					<div className='text-4xl font-bold text-light'>Discover Servers</div>
-				</div>
+				<DiscoverServersPage />
 				<FriendsList />
 			</div>
 		</Layout>
