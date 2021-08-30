@@ -61,7 +61,6 @@ builder.queryField('allUsers', (t) =>
 		},
 		description: 'returns all users',
 		resolve: async (_parent, _args, context) => {
-			console.log(context);
 			return await context.prisma.user.findMany();
 		},
 	})

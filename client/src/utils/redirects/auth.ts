@@ -1,38 +1,9 @@
-import { gql } from '@apollo/client';
 import { GetServerSideProps } from 'next';
-import { serverSidedClient } from 'src/apollo/client';
-import { AuthorizeQuery } from 'src/apollo/__generated__/types';
+import { authorize } from 'src/utils/authorize';
 
 export const authRedirect: GetServerSideProps = async (context) => {
 	try {
-		const { data } = await serverSidedClient.query<AuthorizeQuery>({
-			query: gql`
-				query Authorize {
-					authorize {
-						success
-						user {
-							id
-							email
-							username
-							displayName
-							avatarUrl
-							role
-							createdAt
-							updatedAt
-							university
-							department
-							semester
-						}
-					}
-				}
-			`,
-			context: {
-				headers: {
-					cookie: context.req.headers.cookie,
-				},
-			},
-			fetchPolicy: 'no-cache',
-		});
+		const data = await authorize(context);
 
 		if (!data.authorize.success) {
 			throw new Error('Unauthorized');
@@ -40,7 +11,8 @@ export const authRedirect: GetServerSideProps = async (context) => {
 
 		return {
 			props: {
-				user: data.authorize.user,
+				authorized: true,
+				authorizedUser: data.authorize.user,
 			},
 		};
 	} catch (error) {
