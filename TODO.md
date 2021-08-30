@@ -52,6 +52,7 @@
         -   [ ] keep signed in option
     -   [x] protected routes
         -   [x] server sided auth redirects
+    -   [x] when auth redirect happens, client store doesnt get auth info
     -   [ ] sign out of all devices
 
 -   [ ] users

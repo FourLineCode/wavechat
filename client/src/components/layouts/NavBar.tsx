@@ -5,7 +5,7 @@ import { config } from 'src/internal/config';
 export function NavBar() {
 	return (
 		<div className='flex justify-between w-full h-16 px-16 pt-12 lg:px-48'>
-			<Link href='/'>
+			<Link passHref href='/'>
 				<div className='flex items-center cursor-pointer'>
 					<Image src={config.iconUrl} alt='logo' height='40' width='60' />
 					<span className='ml-2 text-3xl italic font-bold'>
