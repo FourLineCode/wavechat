@@ -23,7 +23,7 @@ export function DiscoverRoute({ text, route, icon: IconComponent }: Props) {
 			)}
 		>
 			<IconComponent />
-			<span>{text}</span>
+			<span className='font-semibold'>{text}</span>
 		</div>
 	);
 }
