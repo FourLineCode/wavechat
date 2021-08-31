@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import { Field } from 'formik';
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 
 type ButtonTypes =
 	| 'button'
@@ -32,13 +32,24 @@ interface Props {
 	type?: ButtonTypes;
 	name: string;
 	disabled?: boolean;
+	initialFocus?: boolean;
 	className?: string;
 }
 
 export const Input = React.forwardRef<HTMLInputElement, Props>(function InputComponent(
-	{ label, placeholder, type = 'text', name, disabled, className },
-	ref
+	{ label, placeholder, type = 'text', name, disabled, initialFocus = false, className },
+	_ref
 ) {
+	const customRef = useRef<HTMLInputElement>(null);
+
+	useEffect(() => {
+		if (!initialFocus) return;
+
+		if (customRef.current) {
+			customRef.current.focus();
+		}
+	}, []);
+
 	return (
 		<div>
 			<label htmlFor={name} className='pl-1 text-light'>
@@ -49,7 +60,7 @@ export const Input = React.forwardRef<HTMLInputElement, Props>(function InputCom
 				placeholder={placeholder}
 				type={type}
 				name={name}
-				ref={ref}
+				innerRef={customRef}
 				autoComplete='off'
 				disabled={disabled}
 				className={clsx(

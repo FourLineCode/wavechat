@@ -77,6 +77,7 @@ export default function SignIn() {
 											placeholder='Email...'
 											type='email'
 											disabled={props.isSubmitting}
+											initialFocus
 										/>
 										<Input
 											label='Password'
