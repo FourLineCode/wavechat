@@ -27,7 +27,7 @@ type ButtonTypes =
 	| 'week';
 
 interface Props {
-	label: string;
+	label?: string;
 	placeholder: string;
 	type?: ButtonTypes;
 	name: string;
@@ -51,10 +51,12 @@ export const Input = React.forwardRef<HTMLInputElement, Props>(function InputCom
 	}, []);
 
 	return (
-		<div>
-			<label htmlFor={name} className='pl-1 text-light'>
-				{label}
-			</label>
+		<>
+			{label && (
+				<label htmlFor={name} className='pl-1 text-light'>
+					{label}
+				</label>
+			)}
 			<Field
 				as='input'
 				placeholder={placeholder}
@@ -68,6 +70,6 @@ export const Input = React.forwardRef<HTMLInputElement, Props>(function InputCom
 					'w-full p-2 rounded-lg mt-0.5 focus:ring-4 ring-brand-500 focus:outline-none text-dark-800'
 				)}
 			/>
-		</div>
+		</>
 	);
 });
