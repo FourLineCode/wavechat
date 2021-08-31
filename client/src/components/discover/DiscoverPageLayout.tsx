@@ -1,29 +1,34 @@
 import { Form, Formik } from 'formik';
+import React from 'react';
 import { Input } from 'src/components/ui/Input';
 
-export function DiscoverPageLayout() {
+interface Props {
+	title: string;
+	placeholder: string;
+	callback: (agrs: { searchTerm: string }) => Promise<void>;
+	children?: React.ReactNode;
+}
+
+export function DiscoverPageLayout({ title, placeholder, callback, children }: Props) {
 	return (
-		<div className='flex-1 p-2 bg-dark-700'>
-			<div className='w-full rounded-2xl h-72 bg-gradient-to-bl from-brand-700 to-dark-900'>
-				<Formik
-					initialValues={{ searchTerm: '' }}
-					onSubmit={async ({ searchTerm }) => {
-						console.log(searchTerm);
-					}}
-				>
+		<div className='flex flex-col flex-1 p-2 space-y-2 bg-dark-700'>
+			<div className='rounded-2xl h-72 bg-gradient-to-bl from-brand-700 to-dark-900'>
+				<Formik initialValues={{ searchTerm: '' }} onSubmit={callback}>
 					{(props) => (
-						<Form className='flex flex-col items-center justify-center w-full h-full'>
+						<Form className='flex flex-col items-center justify-center w-full h-full space-y-4'>
+							<div className='text-3xl font-bold'>{title}</div>
 							<Input
 								name='searchTerm'
-								placeholder='Username...'
+								placeholder={placeholder}
 								disabled={props.isSubmitting}
 								initialFocus
-								className='w-1/3'
+								className='w-2/5'
 							/>
 						</Form>
 					)}
 				</Formik>
 			</div>
+			{children}
 		</div>
 	);
 }

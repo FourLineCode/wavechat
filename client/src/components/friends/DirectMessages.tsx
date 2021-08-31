@@ -11,10 +11,10 @@ export function DirectMessages() {
 			/>
 			<hr className='my-2 border-dark-700' />
 			<div className='flex items-center justify-between'>
-				<span className='text-dark-400'>Direct Messages</span>
+				<span className='font-semibold text-dark-400'>Direct Messages</span>
 				<Tooltip text='Create Message' position='top'>
 					<div className='transform cursor-pointer hover:scale-125 text-dark-400 hover:text-dark-300'>
-						<FaPlus size='12' />
+						<FaPlus size='16' />
 					</div>
 				</Tooltip>
 			</div>
