@@ -3,7 +3,7 @@ import { Tooltip } from 'src/components/ui/Tooltip';
 
 export function DirectMessages() {
 	return (
-		<div className='flex flex-col flex-1 px-2 py-4 bg-dark-800 w-80'>
+		<div className='flex flex-col flex-1 w-64 px-2 py-4 bg-dark-800 xl:w-80'>
 			<input
 				type='text'
 				className='w-full p-2 text-sm rounded-lg placeholder-dark-500 text-light bg-dark-700 focus:ring-2 ring-brand-500 focus:outline-none'
