@@ -58,6 +58,9 @@ type Query {
   """Authorize user session"""
   authorize: AuthResult!
 
+  """Gets random discoverable users for a client"""
+  discoverUsers(cursor: String, limit: Int! = 12, query: String!): [User!]!
+
   """Get friends list of current user"""
   friendsList: [Friendship!]!
   hello(name: String): String!
