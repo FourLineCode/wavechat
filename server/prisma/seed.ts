@@ -12,7 +12,7 @@ async function seed() {
 		data: {
 			email: 'akmal@wave.com',
 			username: 'akmal',
-			displayName: 'Akmal',
+			displayName: 'Akmal Hossain',
 			password: bcrypt.hashSync(process.env.ADMIN_PASS!, 10),
 			role: 'ADMIN',
 			avatarUrl: 'https://avatars.githubusercontent.com/u/56719270?v=4',
@@ -22,7 +22,7 @@ async function seed() {
 		},
 	});
 
-	for (let i = 0; i < 10; i++) {
+	for (let i = 0; i < 20; i++) {
 		await prisma.user.create({
 			data: {
 				email: `bot${i}@wave.com`,

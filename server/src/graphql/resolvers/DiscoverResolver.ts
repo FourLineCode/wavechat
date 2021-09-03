@@ -14,11 +14,25 @@ builder.queryField('discoverUsers', (t) =>
 			cursor: t.arg({ type: 'String' }),
 		},
 		resolve: async (_parent, { query, limit, cursor }, { prisma }) => {
+			query = query.trim();
+			if (query === '') return [];
+
 			const searchedUsers = await prisma.user.findMany({
 				where: {
-					username: {
-						contains: query,
-					},
+					OR: [
+						{
+							username: {
+								contains: query,
+								mode: 'insensitive',
+							},
+						},
+						{
+							displayName: {
+								contains: query,
+								mode: 'insensitive',
+							},
+						},
+					],
 				},
 				take: limit,
 				cursor: cursor
