@@ -24,5 +24,5 @@ module.exports = {
 	variants: {
 		extend: {},
 	},
-	plugins: [require('tailwindcss-spinner')],
+	plugins: [require('tailwindcss-spinner'), require('@tailwindcss/line-clamp')],
 };

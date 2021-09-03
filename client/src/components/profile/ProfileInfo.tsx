@@ -4,7 +4,7 @@ import { useAuth } from 'src/store/useAuth';
 
 export function ProfileInfo() {
 	const user = useAuth().user;
-	const avatarUrl = useAvatarUrl(user?.avatarUrl, user?.username);
+	const avatarUrl = useAvatarUrl(user);
 
 	return (
 		<div className='flex items-center justify-between w-full h-16 p-2 bg-dark-900'>
@@ -15,7 +15,7 @@ export function ProfileInfo() {
 					className='w-12 h-full rounded-full cursor-pointer hover:ring-2 ring-brand-500'
 				/>
 				<div>
-					<div className='font-semibold cursor-pointer text-light hover:underline'>
+					<div className='font-semibold cursor-pointer text-light hover:underline line-clamp-1'>
 						{user?.displayName}
 					</div>
 					<div className='flex items-center text-sm text-dark-600'>

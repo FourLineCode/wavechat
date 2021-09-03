@@ -3,11 +3,16 @@ import clsx from 'clsx';
 interface Props {
 	as?: any;
 	className?: string;
+	inverted?: boolean;
 	children?: React.ReactNode;
 }
 
-export function Card({ as: Component = 'div', className, children }: Props) {
+export function Card({ as: Component = 'div', className, inverted = false, children }: Props) {
 	return (
-		<Component className={clsx(className, 'p-4 rounded-lg bg-dark-700')}>{children}</Component>
+		<Component
+			className={clsx(className, inverted ? 'bg-dark-800' : 'bg-dark-700', 'p-4 rounded-lg')}
+		>
+			{children}
+		</Component>
 	);
 }
