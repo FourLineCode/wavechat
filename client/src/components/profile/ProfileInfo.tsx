@@ -7,14 +7,14 @@ export function ProfileInfo() {
 	const avatarUrl = useAvatarUrl(user?.avatarUrl, user?.username);
 
 	return (
-		<div className='flex items-center justify-between w-full h-20 p-2 bg-dark-900'>
+		<div className='flex items-center justify-between w-full h-16 p-2 bg-dark-900'>
 			<div className='flex items-center space-x-2'>
 				<img
 					src={avatarUrl}
 					alt='avatar'
-					className='w-16 h-full rounded-full cursor-pointer hover:ring-2 ring-brand-500'
+					className='w-12 h-full rounded-full cursor-pointer hover:ring-2 ring-brand-500'
 				/>
-				<div className='space-y-1'>
+				<div>
 					<div className='font-semibold cursor-pointer text-light hover:underline'>
 						{user?.displayName}
 					</div>

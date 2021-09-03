@@ -99,6 +99,8 @@ export type Query = {
   allUsers: Array<User>;
   /** Authorize user session */
   authorize: AuthResult;
+  /** Gets random discoverable users for a client */
+  discoverUsers: Array<User>;
   /** Get friends list of current user */
   friendsList: Array<Friendship>;
   hello: Scalars['String'];
@@ -108,6 +110,13 @@ export type Query = {
   pendingRequests: Array<FriendRequest>;
   /** Get sent requests of current user */
   sentRequests: Array<FriendRequest>;
+};
+
+
+export type QueryDiscoverUsersArgs = {
+  cursor?: Maybe<Scalars['String']>;
+  limit?: Scalars['Int'];
+  query: Scalars['String'];
 };
 
 
