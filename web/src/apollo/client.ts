@@ -1,14 +1,13 @@
 import { ApolloClient, InMemoryCache } from '@apollo/client';
 
-export const client = new ApolloClient({
-	uri: 'http://localhost:5000/graphql',
-	ssrMode: typeof window === undefined,
-	credentials: 'include',
-	cache: new InMemoryCache(),
-});
+let hostname = 'localhost';
 
-export const serverSidedClient = new ApolloClient({
-	uri: 'http://api:5000/graphql',
+if (!process.browser) {
+	hostname = 'api';
+}
+
+export const client = new ApolloClient({
+	uri: `http://${hostname}:5000/graphql`,
 	ssrMode: typeof window === undefined,
 	credentials: 'include',
 	cache: new InMemoryCache(),

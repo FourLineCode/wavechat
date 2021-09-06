@@ -1,10 +1,10 @@
 import { gql } from '@apollo/client';
 import { GetServerSidePropsContext } from 'next';
-import { serverSidedClient } from 'src/apollo/client';
+import { client } from 'src/apollo/client';
 import { AuthorizeQuery } from 'src/apollo/__generated__/types';
 
 export async function authorize(context: GetServerSidePropsContext): Promise<AuthorizeQuery> {
-	const { data } = await serverSidedClient.query<AuthorizeQuery>({
+	const { data } = await client.query<AuthorizeQuery>({
 		query: gql`
 			query Authorize {
 				authorize {

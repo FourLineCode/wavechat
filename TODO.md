@@ -32,7 +32,7 @@
     -   [x] pnpm migration
     -   [ ] remove tailwind-spinner
     -   [x] prisma to name db
-    -   [ ] server side apollo client hostname dynamic
+    -   [x] server side apollo client hostname dynamic
     -   [ ] comments and docs
 
 -   [ ] auth
