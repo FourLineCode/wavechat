@@ -44,8 +44,8 @@ git clone https://github.com/FourLineCode/wavechat.git
 ## Install Dependencies
 
 ```
-cd server && yarn
-cd client && yarn
+yarn --cwd server
+yarn --cwd client
 ```
 
 ## Migrate database

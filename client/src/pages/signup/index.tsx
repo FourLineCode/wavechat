@@ -78,6 +78,7 @@ export default function SignUp() {
 											placeholder='Email...'
 											type='email'
 											disabled={props.isSubmitting}
+											initialFocus
 										/>
 										<Input
 											label='Username'

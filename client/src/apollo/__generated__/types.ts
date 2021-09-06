@@ -99,6 +99,8 @@ export type Query = {
   allUsers: Array<User>;
   /** Authorize user session */
   authorize: AuthResult;
+  /** Gets random discoverable users for a client */
+  discoverUsers: Array<User>;
   /** Get friends list of current user */
   friendsList: Array<Friendship>;
   hello: Scalars['String'];
@@ -108,6 +110,13 @@ export type Query = {
   pendingRequests: Array<FriendRequest>;
   /** Get sent requests of current user */
   sentRequests: Array<FriendRequest>;
+};
+
+
+export type QueryDiscoverUsersArgs = {
+  cursor?: Maybe<Scalars['String']>;
+  limit?: Scalars['Int'];
+  query: Scalars['String'];
 };
 
 
@@ -167,6 +176,13 @@ export type User = {
   username: Scalars['String'];
 };
 
+export type DiscoverUsersQueryVariables = Exact<{
+  query: Scalars['String'];
+}>;
+
+
+export type DiscoverUsersQuery = { __typename?: 'Query', discoverUsers: Array<{ __typename?: 'User', id: string, displayName: string, avatarUrl?: Maybe<string>, university?: Maybe<string> }> };
+
 export type SignupMutationVariables = Exact<{
   input: SignupInput;
 }>;
@@ -192,6 +208,16 @@ export type AuthorizeQueryVariables = Exact<{ [key: string]: never; }>;
 export type AuthorizeQuery = { __typename?: 'Query', authorize: { __typename?: 'AuthResult', success: boolean, user: { __typename?: 'User', id: string, email: string, username: string, displayName: string, avatarUrl?: Maybe<string>, role: string, createdAt: any, updatedAt: any, university?: Maybe<string>, department?: Maybe<string>, semester?: Maybe<number> } } };
 
 
+export const DiscoverUsersDocument = gql`
+    query DiscoverUsers($query: String!) {
+  discoverUsers(query: $query) {
+    id
+    displayName
+    avatarUrl
+    university
+  }
+}
+    `;
 export const SignupDocument = gql`
     mutation Signup($input: SignupInput!) {
   signup(input: $input) {

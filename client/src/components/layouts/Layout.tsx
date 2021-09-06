@@ -13,7 +13,7 @@ export function Layout({
 	desc = 'Wave | New way of communication',
 }: Props) {
 	return (
-		<main>
+		<main style={{ maxWidth: '100vw', maxHeight: '100vh' }}>
 			<Head>
 				<title>{title} | WaveChat</title>
 				<meta charSet='utf-8' />
