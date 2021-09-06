@@ -2,11 +2,11 @@ import { ApolloServerPluginLandingPageGraphQLPlayground } from 'apollo-server-co
 import { ApolloServer } from 'apollo-server-express';
 import { createServer } from 'http';
 import socketio from 'socket.io';
-import { app } from '../app';
-import { schema } from '../graphql/schema';
-import { config } from '../internal/config';
-import { SockerHandler } from '../socket';
-import { createContext } from './context';
+import { app } from 'src/app';
+import { createContext } from 'src/graphql/context';
+import { schema } from 'src/graphql/schema';
+import { config } from 'src/internal/config';
+import { SockerHandler } from 'src/socket';
 
 export async function startServer() {
 	const apolloServer = new ApolloServer({

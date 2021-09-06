@@ -1,7 +1,7 @@
 import { User } from '@prisma/client';
-import { builder } from '../builder';
-import { SessionObject } from './AuthResolver';
-import { FriendRequestObject, FriendshipObject } from './FriendshipResolver';
+import { builder } from 'src/graphql/builder';
+import { SessionObject } from 'src/graphql/resolvers/AuthResolver';
+import { FriendRequestObject, FriendshipObject } from 'src/graphql/resolvers/FriendshipResolver';
 
 export const UserObject = builder.objectRef<User>('User');
 

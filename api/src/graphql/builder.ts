@@ -2,7 +2,7 @@ import SchemaBuilder from '@giraphql/core';
 import DataloaderPlugin from '@giraphql/plugin-dataloader';
 import ScopeAuthPlugin from '@giraphql/plugin-scope-auth';
 import ValidationPlugin from '@giraphql/plugin-validation';
-import { Context } from './context';
+import { Context } from 'src/graphql/context';
 
 export const builder = new SchemaBuilder<{
 	Context: Context;

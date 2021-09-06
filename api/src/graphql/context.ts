@@ -2,9 +2,9 @@ import { PrismaClient, Session, User, UserRole } from '@prisma/client';
 import { ExpressContext } from 'apollo-server-express';
 import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
-import { Loader } from './loader';
-import db from './prisma';
-import { JWTPayload } from './resolvers/AuthResolver';
+import { Loader } from 'src/graphql/loader';
+import db from 'src/graphql/prisma';
+import { JWTPayload } from 'src/graphql/resolvers/AuthResolver';
 
 export interface Context {
 	req: Request;

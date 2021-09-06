@@ -1,8 +1,8 @@
 import fs from 'fs';
 import { lexicographicSortSchema, printSchema } from 'graphql';
 import path from 'path';
-import { builder } from './builder';
-import './resolvers';
+import { builder } from 'src/graphql/builder';
+import 'src/graphql/resolvers';
 
 export const schema = builder.toSchema({});
 

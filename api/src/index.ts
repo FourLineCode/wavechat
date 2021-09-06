@@ -1,4 +1,4 @@
-import { startServer } from './graphql';
+import { startServer } from 'src/graphql';
 
 async function main() {
 	startServer();

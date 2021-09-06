@@ -1,4 +1,4 @@
-import db from './prisma';
+import db from 'src/graphql/prisma';
 
 export class Loader {
 	public async loadUserByIDs(ids: string[]) {
