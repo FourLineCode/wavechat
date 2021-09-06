@@ -13,4 +13,6 @@ ENV JWT_SECRET=verysecretkey
 
 COPY . .
 
+RUN pnpm prisma generate
+
 EXPOSE 5000
