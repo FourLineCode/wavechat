@@ -10,7 +10,7 @@
 		"build": "next build",
 		"start": "next start",
 		"lint": "next lint",
-		"codegen": "yarn graphql-codegen --watch"
+		"codegen": "pnpm graphql-codegen --watch"
 	},
 	"dependencies": {
 		"@apollo/client": "^3.4.9",

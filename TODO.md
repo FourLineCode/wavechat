@@ -29,6 +29,11 @@
     -   [x] custom not found page
     -   [x] add loading state after signup/signin process
     -   [ ] use prisma giraphql plugin
+    -   [x] pnpm migration
+    -   [ ] remove tailwind-spinner
+    -   [x] prisma to name db
+    -   [x] server side apollo client hostname dynamic
+    -   [ ] comments and docs
 
 -   [ ] auth
 
@@ -75,8 +80,9 @@
 
             -   [ ] discover page
 
-                -   [ ] add navigation for diff searches (people, server)
-                -   [ ] search people
+                -   [x] add navigation for diff searches (people, server)
+                -   [x] search people
+                -   [ ] pagination
                 -   [ ] search servers
 
             -   [ ] send request

@@ -12,51 +12,44 @@ services:
             POSTGRES_DB: wavechat
             POSTGRES_PASSWORD: pgadmin
 
-    server:
-        container_name: server
-        image: node:16
-        working_dir: /app/server
-        command: yarn --cwd server dev
+    api:
+        container_name: api
+        build: ./api
+        working_dir: /api
+        command: pnpm dev
         volumes:
-            - .:/app/server:rw
+            - ./api:/api:rw
         ports:
             - 5000:5000
             - 5001:5001
         depends_on:
             - postgres
-        environment:
-            NODE_ENV: development
-            PORT: 5000
-            DATABASE_URL: postgresql://postgres:pgadmin@postgres:5432/wavechat?schema=public
-            ADMIN_PASS: admin00
-            BOT_PASS: adminpp
-            JWT_SECRET: verysecretkey
 
-    client:
-        container_name: client
-        image: node:16
-        working_dir: /app/client
-        command: yarn --cwd client dev
+    web:
+        container_name: web
+        build: ./web
+        working_dir: /web
+        command: pnpm dev
         volumes:
-            - .:/app/client:rw
+            - ./web:/web:rw
         ports:
             - 3000:3000
         depends_on:
             - postgres
-            - server
+            - api
 
     codegen:
         container_name: codegen
-        image: node:16
-        working_dir: /app
-        command: yarn --cwd client codegen
+        build: ./web
+        working_dir: /web
+        command: pnpm codegen
         network_mode: host
         volumes:
-            - .:/app:rw
+            - ./web:/web:rw
         depends_on:
             - postgres
-            - server
-            - client
+            - api
+            - web
 
 volumes:
     pgdata: {}

@@ -1,8 +1,8 @@
-import prisma from './prisma';
+import db from './prisma';
 
 export class Loader {
 	public async loadUserByIDs(ids: string[]) {
-		return await prisma.user.findMany({
+		return await db.user.findMany({
 			where: {
 				id: {
 					in: ids,

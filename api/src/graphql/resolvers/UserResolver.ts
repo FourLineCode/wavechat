@@ -20,8 +20,8 @@ UserObject.implement({
 		semester: t.exposeInt('semester', { nullable: true }),
 		sessions: t.field({
 			type: [SessionObject],
-			resolve: async (user, _args, { prisma }) => {
-				return await prisma.session.findMany({
+			resolve: async (user, _args, { db }) => {
+				return await db.session.findMany({
 					where: {
 						userId: user.id,
 					},
@@ -30,8 +30,8 @@ UserObject.implement({
 		}),
 		friends: t.field({
 			type: [FriendshipObject],
-			resolve: async (parent, _args, { prisma }) => {
-				return await prisma.friendship.findMany({
+			resolve: async (parent, _args, { db }) => {
+				return await db.friendship.findMany({
 					where: {
 						OR: [{ firstUserId: parent.id }, { secondUserId: parent.id }],
 					},
@@ -40,14 +40,14 @@ UserObject.implement({
 		}),
 		pendingRequests: t.field({
 			type: [FriendRequestObject],
-			resolve: async (parent, _args, { prisma }) => {
-				return await prisma.friendRequest.findMany({ where: { toUserId: parent.id } });
+			resolve: async (parent, _args, { db }) => {
+				return await db.friendRequest.findMany({ where: { toUserId: parent.id } });
 			},
 		}),
 		sentRequests: t.field({
 			type: [FriendRequestObject],
-			resolve: async (parent, _args, { prisma }) => {
-				return await prisma.friendRequest.findMany({ where: { fromUserId: parent.id } });
+			resolve: async (parent, _args, { db }) => {
+				return await db.friendRequest.findMany({ where: { fromUserId: parent.id } });
 			},
 		}),
 	}),
@@ -61,7 +61,7 @@ builder.queryField('allUsers', (t) =>
 			admin: true,
 		},
 		resolve: async (_parent, _args, context) => {
-			return await context.prisma.user.findMany();
+			return await context.db.user.findMany();
 		},
 	})
 );
