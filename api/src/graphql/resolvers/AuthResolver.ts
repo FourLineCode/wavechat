@@ -85,8 +85,8 @@ builder.mutationField('signup', (t) =>
 		type: AuthResultObject,
 		description: 'Sign up new user',
 		args: { input: t.arg({ type: SignupInput, required: true }) },
-		resolve: async (_parent, { input }, { prisma, res }) => {
-			const existentUser = await prisma.user.findFirst({
+		resolve: async (_parent, { input }, { db, res }) => {
+			const existentUser = await db.user.findFirst({
 				where: {
 					OR: [{ email: input.email }, { username: input.username.toLowerCase() }],
 				},
@@ -96,7 +96,7 @@ builder.mutationField('signup', (t) =>
 				throw new Error('User already exists with given username or email');
 			}
 
-			const newUser = await prisma.user.create({
+			const newUser = await db.user.create({
 				data: {
 					email: input.email,
 					username: input.username.toLowerCase(),
@@ -108,7 +108,7 @@ builder.mutationField('signup', (t) =>
 				},
 			});
 
-			const session = await prisma.session.create({
+			const session = await db.session.create({
 				data: {
 					userId: newUser.id,
 				},
@@ -156,8 +156,8 @@ builder.mutationField('signin', (t) =>
 		type: AuthResultObject,
 		description: 'Sign in user',
 		args: { input: t.arg({ type: SigninInput, required: true }) },
-		resolve: async (_parent, { input }, { prisma, res }) => {
-			const user = await prisma.user.findFirst({
+		resolve: async (_parent, { input }, { db, res }) => {
+			const user = await db.user.findFirst({
 				where: {
 					email: input.email,
 				},
@@ -169,7 +169,7 @@ builder.mutationField('signin', (t) =>
 				throw new Error('Invalid Credentials');
 			}
 
-			const session = await prisma.session.create({
+			const session = await db.session.create({
 				data: {
 					userId: user.id,
 				},
@@ -229,12 +229,12 @@ builder.mutationField('signout', (t) =>
 		authScopes: {
 			user: true,
 		},
-		resolve: async (_parent, _args, { prisma, authorized, session, res }) => {
+		resolve: async (_parent, _args, { db, authorized, session, res }) => {
 			if (!authorized) {
 				throw new Error('You are not signed in');
 			}
 
-			await prisma.session.delete({ where: { id: session?.id } });
+			await db.session.delete({ where: { id: session?.id } });
 
 			res.clearCookie('session');
 

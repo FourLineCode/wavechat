@@ -13,11 +13,11 @@ builder.queryField('discoverUsers', (t) =>
 			limit: t.arg({ type: 'Int', defaultValue: 12, required: true }),
 			cursor: t.arg({ type: 'String' }),
 		},
-		resolve: async (_parent, { query, limit, cursor }, { prisma }) => {
+		resolve: async (_parent, { query, limit, cursor }, { db }) => {
 			query = query.trim();
 			if (query === '') return [];
 
-			const searchedUsers = await prisma.user.findMany({
+			const searchedUsers = await db.user.findMany({
 				where: {
 					OR: [
 						{

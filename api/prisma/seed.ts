@@ -1,14 +1,14 @@
 import { PrismaClient } from '@prisma/client';
 import bcrypt from 'bcrypt';
 
-const prisma = new PrismaClient();
+const db = new PrismaClient();
 
 async function seed() {
-	const user = await prisma.user.findFirst();
+	const user = await db.user.findFirst();
 
 	if (user) return;
 
-	await prisma.user.create({
+	await db.user.create({
 		data: {
 			email: 'akmal@wave.com',
 			username: 'akmal',
@@ -23,7 +23,7 @@ async function seed() {
 	});
 
 	for (let i = 0; i < 20; i++) {
-		await prisma.user.create({
+		await db.user.create({
 			data: {
 				email: `bot${i}@wave.com`,
 				username: `bot${i}`,
@@ -40,5 +40,5 @@ seed()
 		process.exit(1);
 	})
 	.finally(async () => {
-		await prisma.$disconnect();
+		await db.$disconnect();
 	});

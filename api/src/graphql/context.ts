@@ -3,13 +3,13 @@ import { ExpressContext } from 'apollo-server-express';
 import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import { Loader } from './loader';
-import prisma from './prisma';
+import db from './prisma';
 import { JWTPayload } from './resolvers/AuthResolver';
 
 export interface Context {
 	req: Request;
 	res: Response;
-	prisma: PrismaClient;
+	db: PrismaClient;
 	public: boolean;
 	authorized: boolean;
 	user?: User;
@@ -23,7 +23,7 @@ export async function createContext({ req, res }: ExpressContext): Promise<Conte
 	let ctx: Context = {
 		req: req,
 		res: res,
-		prisma: prisma,
+		db: db,
 		public: false,
 		authorized: false,
 		loader: new Loader(),
@@ -37,7 +37,7 @@ export async function createContext({ req, res }: ExpressContext): Promise<Conte
 		if (verified) {
 			const { sessionId, userId } = jwt.decode(token) as JWTPayload;
 
-			const session = await prisma.session.findFirst({
+			const session = await db.session.findFirst({
 				where: {
 					id: sessionId,
 					userId: userId,
