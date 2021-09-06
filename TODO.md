@@ -29,6 +29,9 @@
     -   [x] custom not found page
     -   [x] add loading state after signup/signin process
     -   [ ] use prisma giraphql plugin
+    -   [ ] pnpm migration
+    -   [ ] remove tailwind-spinner
+    -   [ ] prisma to name db
 
 -   [ ] auth
 

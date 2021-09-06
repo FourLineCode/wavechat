@@ -10,12 +10,12 @@
 		"dev": "ts-node-dev --respawn --transpile-only src/index.ts",
 		"build": "tsc",
 		"start": "node dist/index.js",
-		"prisma:docker": "docker-compose run -p 5555:5555 server yarn --cwd server prisma",
-		"migrate": "yarn prisma:docker migrate dev",
-		"generate": "yarn prisma:docker generate",
-		"seed": "yarn prisma:docker db seed --preview-feature",
-		"studio": "yarn prisma:docker studio --browser none",
-		"db:reset": "yarn migrate -n init && yarn seed"
+		"prisma:docker": "docker-compose run -p 5555:5555 api pnpm prisma",
+		"migrate": "docker-compose run -p 5555:5555 api pnpm prisma migrate dev",
+		"generate": "docker-compose run -p 5555:5555 api pnpm prisma generate",
+		"seed": "docker-compose run -p 5555:5555 api pnpm prisma db seed --preview-feature",
+		"studio": "docker-compose run -p 5555:5555 api pnpm prisma studio --browser none",
+		"db:reset": "pnpm migrate -n init && pnpm seed"
 	},
 	"dependencies": {
 		"@giraphql/core": "^2.14.1",

@@ -20,7 +20,6 @@ export type AuthResult = {
   user: User;
 };
 
-
 export type FriendRequest = {
   __typename?: 'FriendRequest';
   createdAt: Scalars['Date'];
