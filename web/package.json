@@ -14,7 +14,6 @@
 	},
 	"dependencies": {
 		"@apollo/client": "^3.4.9",
-		"@tailwindcss/line-clamp": "^0.2.1",
 		"@tippyjs/react": "^4.2.5",
 		"clsx": "^1.1.1",
 		"formik": "^2.2.9",
@@ -33,6 +32,7 @@
 		"@graphql-codegen/typescript": "^2.1.2",
 		"@graphql-codegen/typescript-operations": "^2.1.2",
 		"@graphql-codegen/typescript-react-apollo": "^3.1.2",
+		"@tailwindcss/line-clamp": "^0.2.1",
 		"@types/react": "17.0.19",
 		"autoprefixer": "^10.3.2",
 		"eslint": "7.32.0",
