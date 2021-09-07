@@ -109,6 +109,29 @@ builder.mutationField('sendRequest', (t) =>
 	})
 );
 
+builder.mutationField('unsendRequest', (t) =>
+	t.field({
+		type: 'Boolean',
+		description: 'Unsend a sent friend request',
+		authScopes: { user: true },
+		args: { requestId: t.arg({ type: 'String', required: true }) },
+		resolve: async (_parent, { requestId }, { db, user }) => {
+			if (!user) {
+				throw new Error('You are not signed in to unsend a request');
+			}
+
+			const pendingRequest = await db.friendRequest.findFirst({
+				where: { id: requestId, fromUserId: user.id },
+				rejectOnNotFound: true,
+			});
+
+			await db.friendRequest.delete({ where: { id: pendingRequest.id } });
+
+			return true;
+		},
+	})
+);
+
 builder.mutationField('acceptRequest', (t) =>
 	t.field({
 		type: FriendshipObject,

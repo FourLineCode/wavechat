@@ -49,6 +49,9 @@ type Mutation {
 
   """Unfriend a user"""
   unfriend(userId: String!): Friendship!
+
+  """Unsend a sent friend request"""
+  unsendRequest(requestId: String!): Boolean!
 }
 
 type Query {

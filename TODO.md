@@ -32,7 +32,7 @@
     -   [x] remove tailwind-spinner
     -   [x] prisma to name db
     -   [x] server side apollo client hostname dynamic
-    -   [ ] comments and docs
+    -   [x] comments and docs
     -   [ ] use prisma giraphql plugin
 
 -   [ ] auth
@@ -75,6 +75,7 @@
             -   [x] get all friends of a user
             -   [x] get all pending requests of a user
             -   [x] get all sent requests of a user
+            -   [x] unsend requests
 
         -   [ ] client side
 
@@ -82,10 +83,18 @@
 
                 -   [x] add navigation for diff searches (people, server)
                 -   [x] search people
+                    -   [x] add friend button states
+                        -   [x] already friend
+                        -   [x] sent request
+                            -   [x] unsend a request
+                        -   [x] yourself (currently not rendered at all)
+                    -   [x] error handling
+                    -   [x] refetching data
                 -   [ ] pagination
+                    -   [ ] has next page info
                 -   [ ] search servers
 
-            -   [ ] send request
+            -   [x] send request
             -   [ ] show pending requests on friends page
             -   [ ] accept req button
             -   [ ] show friends on right side bar
