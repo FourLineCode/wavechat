@@ -7,7 +7,7 @@
 	"license": "MIT",
 	"homepage": "https://github.com/FourLineCode/wavechat#readme",
 	"scripts": {
-		"dev": "ts-node-dev --respawn --transpile-only src/index.ts",
+		"dev": "ts-node-dev --respawn --transpile-only -r tsconfig-paths/register src/index.ts",
 		"build": "tsc",
 		"start": "node dist/index.js",
 		"prisma:docker": "docker-compose run -p 5555:5555 api pnpm prisma",

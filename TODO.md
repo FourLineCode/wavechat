@@ -28,12 +28,12 @@
     -   [x] fix codegen
     -   [x] custom not found page
     -   [x] add loading state after signup/signin process
-    -   [ ] use prisma giraphql plugin
     -   [x] pnpm migration
-    -   [ ] remove tailwind-spinner
+    -   [x] remove tailwind-spinner
     -   [x] prisma to name db
     -   [x] server side apollo client hostname dynamic
     -   [ ] comments and docs
+    -   [ ] use prisma giraphql plugin
 
 -   [ ] auth
 

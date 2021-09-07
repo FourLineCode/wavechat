@@ -1,7 +1,7 @@
 import { startServer } from 'src/graphql';
 
 async function main() {
-	startServer();
+	await startServer();
 }
 
 main().catch((error) => {

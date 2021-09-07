@@ -12,17 +12,9 @@ module.exports = {
 				dark: colors.blueGray,
 			},
 		},
-		spinner: (theme) => ({
-			default: {
-				color: 'white',
-				size: '1em',
-				border: '2px',
-				speed: '500ms',
-			},
-		}),
 	},
 	variants: {
 		extend: {},
 	},
-	plugins: [require('tailwindcss-spinner'), require('@tailwindcss/line-clamp')],
+	plugins: [require('@tailwindcss/line-clamp')],
 };

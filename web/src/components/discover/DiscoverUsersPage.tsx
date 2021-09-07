@@ -1,5 +1,6 @@
 import { gql } from '@apollo/client';
 import { useState } from 'react';
+import { BarLoader } from 'react-spinners';
 import { client } from 'src/apollo/client';
 import {
 	DiscoverUsersQuery,
@@ -57,7 +58,7 @@ export function DiscoverUsersPage() {
 			) : (
 				<div className='flex items-center justify-center flex-1'>
 					{loading ? (
-						<div className='text-4xl spinner'></div>
+						<BarLoader color='silver' speedMultiplier={1.5} />
 					) : (
 						<div className='text-4xl font-bold text-dark-500'>Search for a User</div>
 					)}
