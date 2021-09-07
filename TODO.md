@@ -88,6 +88,7 @@
                         -   [x] sent request
                             -   [x] unsend a request
                         -   [x] yourself (currently not rendered at all)
+                        -   [ ] loading states
                     -   [x] error handling
                     -   [x] refetching data
                 -   [ ] pagination
