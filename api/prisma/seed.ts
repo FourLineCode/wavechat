@@ -6,8 +6,10 @@ const db = new PrismaClient();
 async function seed() {
 	const user = await db.user.findFirst();
 
+	// If a user exists, database doesnt need seeding
 	if (user) return;
 
+	// Create Admin user account for testing purposes
 	await db.user.create({
 		data: {
 			email: 'akmal@wave.com',
@@ -22,6 +24,7 @@ async function seed() {
 		},
 	});
 
+	// Create some bot accounts for testing purposes
 	for (let i = 0; i < 20; i++) {
 		await db.user.create({
 			data: {

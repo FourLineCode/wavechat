@@ -2,8 +2,9 @@ import SchemaBuilder from '@giraphql/core';
 import DataloaderPlugin from '@giraphql/plugin-dataloader';
 import ScopeAuthPlugin from '@giraphql/plugin-scope-auth';
 import ValidationPlugin from '@giraphql/plugin-validation';
-import { Context } from './context';
+import { Context } from 'src/graphql/context';
 
+// GraphQL schema builder by GiraphQL plugin
 export const builder = new SchemaBuilder<{
 	Context: Context;
 	Scalars: {
@@ -27,6 +28,7 @@ export const builder = new SchemaBuilder<{
 	}),
 });
 
+// Define the default query type on the schema (required)
 builder.queryType({
 	authScopes: {
 		public: true,
@@ -40,6 +42,7 @@ builder.queryType({
 	}),
 });
 
+// Define the default mutation type on the schema (required)
 builder.mutationType({
 	authScopes: {
 		public: true,

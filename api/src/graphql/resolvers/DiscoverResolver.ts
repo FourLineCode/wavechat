@@ -1,5 +1,5 @@
-import { builder } from '../builder';
-import { UserObject } from './UserResolver';
+import { builder } from 'src/graphql/builder';
+import { UserObject } from 'src/graphql/resolvers/UserResolver';
 
 builder.queryField('discoverUsers', (t) =>
 	t.field({

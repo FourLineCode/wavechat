@@ -29,8 +29,8 @@ communicate with each other about their activities and help each other.
 
 ## Requirements
 
--   Node.js 12 or higher.
--   Yarn 1.22.5
+-   Node.js 14.0.0^
+-   Pnpm 6.0.0^
 -   Docker
 -   Docker-Compose
 -   Git
@@ -44,18 +44,24 @@ git clone https://github.com/FourLineCode/wavechat.git
 ## Install Dependencies
 
 ```
-yarn --cwd server
-yarn --cwd client
+pnpm --dir api install
+pnpm --dir web install
 ```
 
-## Migrate database
-
-```
-yarn --cwd server migrate
-```
+> You can run these commands from the root directory as specified or change your directory if you want.
 
 ## Run development server
 
 ```
 docker-compose up
 ```
+
+> Pass the `--build` flag to rebuild the containers.
+
+## Migrate database
+
+```
+pnpm --dir api migrate
+```
+
+> **This step is very important for the app to work**

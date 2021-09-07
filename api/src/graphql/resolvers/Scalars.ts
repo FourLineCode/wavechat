@@ -1,4 +1,4 @@
-import { builder } from '../builder';
+import { builder } from 'src/graphql/builder';
 
 builder.scalarType('Date', {
 	serialize: (value) => {

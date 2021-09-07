@@ -1,5 +1,8 @@
 import { ApolloClient, InMemoryCache } from '@apollo/client';
 
+/* Generates a ApolloClient instance used both server and client side */
+/* Dynamic hostname based on process.browser property (only for developent docker environment) */
+
 let hostname = 'localhost';
 
 if (!process.browser) {

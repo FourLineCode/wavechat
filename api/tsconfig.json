@@ -28,10 +28,9 @@
 		"experimentalDecorators": true,
 		"typeRoots": ["./node_modules/@types"],
 		"pretty": true,
-		"outDir": "dist"
-		// "rootDir": "src"
-		// "baseUrl": ".",
-		// "paths": {}
+		"outDir": "dist",
+		"baseUrl": ".",
+		"paths": {}
 	},
 	"include": ["**/*.ts"],
 	"exclude": ["node_modules"]

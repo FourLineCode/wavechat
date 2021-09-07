@@ -1,7 +1,8 @@
-import { startServer } from './graphql';
+import { startServer } from 'src/graphql';
 
+// Entry point for api server
 async function main() {
-	startServer();
+	await startServer();
 }
 
 main().catch((error) => {

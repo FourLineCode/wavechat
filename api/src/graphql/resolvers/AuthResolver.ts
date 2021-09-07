@@ -1,8 +1,8 @@
 import { Session, User } from '@prisma/client';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import { builder } from '../builder';
-import { UserObject } from './UserResolver';
+import { builder } from 'src/graphql/builder';
+import { UserObject } from 'src/graphql/resolvers/UserResolver';
 
 export const SessionObject = builder.objectRef<Session>('Session');
 
