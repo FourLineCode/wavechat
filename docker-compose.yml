@@ -1,6 +1,7 @@
 version: '3.8'
 
 services:
+    # PostgreSQL database container
     postgres:
         container_name: postgres
         image: postgres:13.3-alpine
@@ -9,9 +10,12 @@ services:
         volumes:
             - pgdata:/var/lib/postgresql/data
         environment:
+            # Database name
             POSTGRES_DB: wavechat
+            # Database password
             POSTGRES_PASSWORD: pgadmin
 
+    # WaveChat Api container (Backend)
     api:
         container_name: api
         build: ./api
@@ -25,6 +29,7 @@ services:
         depends_on:
             - postgres
 
+    # WaveChat Web app container (Frontend)
     web:
         container_name: web
         build: ./web
@@ -38,6 +43,7 @@ services:
             - postgres
             - api
 
+    # Codegen - GraphQL code generator for ApolloClient (Frontend)
     codegen:
         container_name: codegen
         build: ./web
@@ -51,5 +57,6 @@ services:
             - api
             - web
 
+# Volume for PostgreSQL database to persist data between development sessions
 volumes:
     pgdata: {}

@@ -19,6 +19,7 @@ export interface Context {
 	loader: Loader;
 }
 
+// Returns the context and authorized status for each request to the api
 export async function createContext({ req, res }: ExpressContext): Promise<Context> {
 	let ctx: Context = {
 		req: req,
@@ -29,11 +30,13 @@ export async function createContext({ req, res }: ExpressContext): Promise<Conte
 		loader: new Loader(),
 	};
 
+	// Read http only session cookie from request headers
 	const token = req.cookies['session'];
 
 	if (token) {
 		const verified = jwt.verify(token, process.env.JWT_SECRET!);
 
+		// User is verified
 		if (verified) {
 			const { sessionId, userId } = jwt.decode(token) as JWTPayload;
 

@@ -9,6 +9,7 @@ import { config } from 'src/internal/config';
 import { SockerHandler } from 'src/socket';
 
 export async function startServer() {
+	//Create ApolloServer instance with caching and authorized context
 	const apolloServer = new ApolloServer({
 		schema,
 		context: createContext,
@@ -21,12 +22,16 @@ export async function startServer() {
 		],
 	});
 
+	// Start ApolloServer instance - (new in apollo-server v3)
 	await apolloServer.start();
 
+	// Apply Express as middleware with cors disabled (cors handled by express)
 	apolloServer.applyMiddleware({ app, path: '/graphql', cors: false });
 
+	// Create the http server instance
 	const server = createServer(app);
 
+	// Apply WebSocket upgrader to the http server
 	const io = new socketio.Server(server, {
 		path: '/ws',
 		cors: {
@@ -35,8 +40,10 @@ export async function startServer() {
 		},
 	});
 
+	// Apply WebSocket event handler
 	io.on('connection', SockerHandler.onConnection);
 
+	// Start the server
 	server.listen({ port: config.port }, () => {
 		console.log(`\nServer is now running on http://localhost:${config.port}\n`);
 	});
