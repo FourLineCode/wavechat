@@ -13,6 +13,7 @@ specifiers:
   '@types/express': ^4.17.13
   '@types/jsonwebtoken': ^8.5.5
   '@types/morgan': ^1.9.3
+  '@types/node': ^16.7.13
   apollo-server-core: ^3.3.0
   apollo-server-express: ^3.3.0
   bcrypt: ^5.0.1
@@ -29,7 +30,6 @@ specifiers:
   socket.io: ^4.1.3
   ts-node: ^10.2.1
   ts-node-dev: ^1.1.8
-  tsconfig-paths: ^3.11.0
   typescript: ^4.3.5
   zod: ^3.8.1
 
@@ -61,11 +61,11 @@ devDependencies:
   '@types/express': 4.17.13
   '@types/jsonwebtoken': 8.5.5
   '@types/morgan': 1.9.3
+  '@types/node': 16.7.13
   apollo-server-core: 3.3.0_graphql@15.5.3
   prisma: 2.30.3
-  ts-node: 10.2.1_typescript@4.4.2
+  ts-node: 10.2.1_ba6070efdb19aacfdf37f0e70ee888df
   ts-node-dev: 1.1.8_typescript@4.4.2
-  tsconfig-paths: 3.11.0
   typescript: 4.4.2
 
 packages:
@@ -346,10 +346,6 @@ packages:
       '@types/qs': 6.9.7
       '@types/serve-static': 1.13.10
 
-  /@types/json5/0.0.29:
-    resolution: {integrity: sha1-7ihweulOEdK4J7y+UnC86n8+ce4=}
-    dev: true
-
   /@types/jsonwebtoken/8.5.5:
     resolution: {integrity: sha512-OGqtHQ7N5/Ap/TUwO6IgHDuLiAoTmHhGpNvgkCm/F4N6pKzx/RBSfr2OXZSwC6vkfnsEdb6+7DNZVtiXiwdwFw==}
     dependencies:
@@ -373,6 +369,10 @@ packages:
 
   /@types/node/16.7.10:
     resolution: {integrity: sha512-S63Dlv4zIPb8x6MMTgDq5WWRJQe56iBEY0O3SOFA9JrRienkOVDXSXBjjJw6HTNQYSE2JI6GMCR6LVbIMHJVvA==}
+
+  /@types/node/16.7.13:
+    resolution: {integrity: sha512-pLUPDn+YG3FYEt/pHI74HmnJOWzeR+tOIQzUx93pi9M7D8OE7PSLr97HboXwk5F+JS+TLtWuzCOW97AHjmOXXA==}
+    dev: true
 
   /@types/qs/6.9.7:
     resolution: {integrity: sha512-FGa1F62FT09qcrueBA6qYTrJPVDzah9a+493+o2PCXsesWHIn27G98TsSMs3WPNbZIEj4+VJf6saSFpvD+3Zsw==}
@@ -1114,13 +1114,6 @@ packages:
     resolution: {integrity: sha1-u5NdSFgsuhaMBoNJV6VKPgcSTxE=}
     dev: false
 
-  /json5/1.0.1:
-    resolution: {integrity: sha512-aKS4WQjPenRxiQsC93MNfjx+nbF4PAdYzmd/1JIj8HYzqfbu86beTuNgXDzPknWk0n0uARlyewZo4s++ES36Ow==}
-    hasBin: true
-    dependencies:
-      minimist: 1.2.5
-    dev: true
-
   /jsonwebtoken/8.5.1:
     resolution: {integrity: sha512-XjwVfRS6jTMsqYs0EsuJ4LGxXV14zQybNd4L2r0UvbVnSF9Af8x7p5MzbJ90Ioz/9TI41/hTCvznF/loiSzn8w==}
     engines: {node: '>=4', npm: '>=1.4.28'}
@@ -1677,7 +1670,7 @@ packages:
       typescript: 4.4.2
     dev: true
 
-  /ts-node/10.2.1_typescript@4.4.2:
+  /ts-node/10.2.1_ba6070efdb19aacfdf37f0e70ee888df:
     resolution: {integrity: sha512-hCnyOyuGmD5wHleOQX6NIjJtYVIO8bPP8F2acWkB4W06wdlkgyvJtubO/I9NkI88hCFECbsEgoLc0VNkYmcSfw==}
     engines: {node: '>=12.0.0'}
     hasBin: true
@@ -1697,6 +1690,7 @@ packages:
       '@tsconfig/node12': 1.0.9
       '@tsconfig/node14': 1.0.1
       '@tsconfig/node16': 1.0.2
+      '@types/node': 16.7.13
       acorn: 8.5.0
       acorn-walk: 8.2.0
       arg: 4.1.3
@@ -1721,15 +1715,6 @@ packages:
       source-map-support: 0.5.19
       typescript: 4.4.2
       yn: 3.1.1
-    dev: true
-
-  /tsconfig-paths/3.11.0:
-    resolution: {integrity: sha512-7ecdYDnIdmv639mmDwslG6KQg1Z9STTz1j7Gcz0xa+nshh/gKDAHcPxRbWOsA3SPp0tXP2leTcY9Kw+NAkfZzA==}
-    dependencies:
-      '@types/json5': 0.0.29
-      json5: 1.0.1
-      minimist: 1.2.5
-      strip-bom: 3.0.0
     dev: true
 
   /tsconfig/7.0.0:
