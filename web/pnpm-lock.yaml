@@ -23,13 +23,13 @@ specifiers:
   react-icons: ^4.2.0
   react-spinners: ^0.11.0
   socket.io-client: ^4.2.0
+  tailwind-scrollbar: ^1.3.1
   tailwindcss: ^2.2.10
   typescript: 4.4.2
   zustand: ^3.5.9
 
 dependencies:
   '@apollo/client': 3.4.10_graphql@15.5.3+react@17.0.2
-  '@tailwindcss/line-clamp': 0.2.1_tailwindcss@2.2.10
   '@tippyjs/react': 4.2.5_react-dom@17.0.2+react@17.0.2
   clsx: 1.1.1
   formik: 2.2.9_react@17.0.2
@@ -48,11 +48,13 @@ devDependencies:
   '@graphql-codegen/typescript': 2.2.0_graphql@15.5.3
   '@graphql-codegen/typescript-operations': 2.1.3_graphql@15.5.3
   '@graphql-codegen/typescript-react-apollo': 3.1.3_graphql@15.5.3
+  '@tailwindcss/line-clamp': 0.2.1_tailwindcss@2.2.10
   '@types/react': 17.0.19
   autoprefixer: 10.3.4_postcss@8.3.6
   eslint: 7.32.0
   eslint-config-next: 11.1.0_938b2072f5d2b522e167c3cc47068ce4
   postcss: 8.3.6
+  tailwind-scrollbar: 1.3.1_4dc2d3db2b138fb8fa7d5c7b0c803aba
   tailwindcss: 2.2.10_4dc2d3db2b138fb8fa7d5c7b0c803aba
   typescript: 4.4.2
 
@@ -1413,7 +1415,7 @@ packages:
       tailwindcss: '>=2.0.0'
     dependencies:
       tailwindcss: 2.2.10_4dc2d3db2b138fb8fa7d5c7b0c803aba
-    dev: false
+    dev: true
 
   /@tippyjs/react/4.2.5_react-dom@17.0.2+react@17.0.2:
     resolution: {integrity: sha512-YBLgy+1zznBNbx4JOoOdFXWMLXjBh9hLPwRtq3s8RRdrez2l3tPBRt2m2909wZd9S1KUeKjOOYYsnitccI9I3A==}
@@ -6050,6 +6052,16 @@ packages:
       slice-ansi: 4.0.0
       string-width: 4.2.2
       strip-ansi: 6.0.0
+    dev: true
+
+  /tailwind-scrollbar/1.3.1_4dc2d3db2b138fb8fa7d5c7b0c803aba:
+    resolution: {integrity: sha512-FeYuLxLtCRMO4PmjPJCzm5wQouFro2BInZXKPxqg54DR/55NAHoS8uNYWMiRG5l6qsLkWBfVEM34gq2XAQUwVg==}
+    dependencies:
+      tailwindcss: 2.2.10_4dc2d3db2b138fb8fa7d5c7b0c803aba
+    transitivePeerDependencies:
+      - autoprefixer
+      - postcss
+      - ts-node
     dev: true
 
   /tailwindcss/2.2.10_4dc2d3db2b138fb8fa7d5c7b0c803aba:
