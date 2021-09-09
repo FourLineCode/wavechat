@@ -4,7 +4,7 @@ import { useRouter } from 'next/dist/client/router';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import { SyncLoader } from 'react-spinners';
+import { HashLoader } from 'react-spinners';
 import { Layout } from 'src/components/layouts/Layout';
 import { NavBar } from 'src/components/layouts/NavBar';
 import { Button } from 'src/components/ui/Button';
@@ -66,7 +66,7 @@ export default function SignUp() {
 								)}
 							>
 								{redirecting ? (
-									<SyncLoader color='silver' />
+									<HashLoader color='white' />
 								) : (
 									<>
 										<div className='text-5xl italic font-bold text-center'>

@@ -10,6 +10,7 @@ type FriendRequest {
   fromUser: User!
   fromUserId: ID!
   id: ID!
+  pk: Int!
   toUser: User!
   toUserId: ID!
   updatedAt: Date!
@@ -20,6 +21,7 @@ type Friendship {
   firstUser: User!
   firstUserId: ID!
   id: ID!
+  pk: Int!
   secondUser: User!
   secondUserId: ID!
   updatedAt: Date!
@@ -49,6 +51,9 @@ type Mutation {
 
   """Unfriend a user"""
   unfriend(userId: String!): Friendship!
+
+  """Unsend a sent friend request"""
+  unsendRequest(requestId: String!): Boolean!
 }
 
 type Query {
@@ -59,7 +64,7 @@ type Query {
   authorize: AuthResult!
 
   """Gets random discoverable users for a client"""
-  discoverUsers(cursor: String, limit: Int! = 12, query: String!): [User!]!
+  discoverUsers(cursor: Int, limit: Int! = 12, query: String!): [User!]!
 
   """Get friends list of current user"""
   friendsList: [Friendship!]!
@@ -78,6 +83,7 @@ type Query {
 type Session {
   createdAt: Date!
   id: ID!
+  pk: Int!
   updatedAt: Date!
   user: User!
   userId: ID!
@@ -110,6 +116,7 @@ type User {
   friends: [Friendship!]!
   id: ID!
   pendingRequests: [FriendRequest!]!
+  pk: Int!
   role: String!
   semester: Int
   sentRequests: [FriendRequest!]!

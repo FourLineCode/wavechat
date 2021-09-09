@@ -26,6 +26,7 @@ export type FriendRequest = {
   fromUser: User;
   fromUserId: Scalars['ID'];
   id: Scalars['ID'];
+  pk: Scalars['Int'];
   toUser: User;
   toUserId: Scalars['ID'];
   updatedAt: Scalars['Date'];
@@ -37,6 +38,7 @@ export type Friendship = {
   firstUser: User;
   firstUserId: Scalars['ID'];
   id: Scalars['ID'];
+  pk: Scalars['Int'];
   secondUser: User;
   secondUserId: Scalars['ID'];
   updatedAt: Scalars['Date'];
@@ -60,6 +62,8 @@ export type Mutation = {
   signup: AuthResult;
   /** Unfriend a user */
   unfriend: Friendship;
+  /** Unsend a sent friend request */
+  unsendRequest: Scalars['Boolean'];
 };
 
 
@@ -92,6 +96,11 @@ export type MutationUnfriendArgs = {
   userId: Scalars['String'];
 };
 
+
+export type MutationUnsendRequestArgs = {
+  requestId: Scalars['String'];
+};
+
 export type Query = {
   __typename?: 'Query';
   /** returns all users */
@@ -113,7 +122,7 @@ export type Query = {
 
 
 export type QueryDiscoverUsersArgs = {
-  cursor?: Maybe<Scalars['String']>;
+  cursor?: Maybe<Scalars['Int']>;
   limit?: Scalars['Int'];
   query: Scalars['String'];
 };
@@ -132,6 +141,7 @@ export type Session = {
   __typename?: 'Session';
   createdAt: Scalars['Date'];
   id: Scalars['ID'];
+  pk: Scalars['Int'];
   updatedAt: Scalars['Date'];
   user: User;
   userId: Scalars['ID'];
@@ -166,6 +176,7 @@ export type User = {
   friends: Array<Friendship>;
   id: Scalars['ID'];
   pendingRequests: Array<FriendRequest>;
+  pk: Scalars['Int'];
   role: Scalars['String'];
   semester?: Maybe<Scalars['Int']>;
   sentRequests: Array<FriendRequest>;
@@ -177,10 +188,33 @@ export type User = {
 
 export type DiscoverUsersQueryVariables = Exact<{
   query: Scalars['String'];
+  limit?: Maybe<Scalars['Int']>;
+  cursor?: Maybe<Scalars['Int']>;
 }>;
 
 
-export type DiscoverUsersQuery = { __typename?: 'Query', discoverUsers: Array<{ __typename?: 'User', id: string, displayName: string, avatarUrl?: Maybe<string>, university?: Maybe<string> }> };
+export type DiscoverUsersQuery = { __typename?: 'Query', discoverUsers: Array<{ __typename?: 'User', id: string, pk: number, displayName: string, avatarUrl?: Maybe<string>, university?: Maybe<string>, friends: Array<{ __typename?: 'Friendship', id: string, firstUserId: string, secondUserId: string }>, pendingRequests: Array<{ __typename?: 'FriendRequest', id: string, fromUserId: string }> }> };
+
+export type DiscoverSendRequestMutationVariables = Exact<{
+  userId: Scalars['String'];
+}>;
+
+
+export type DiscoverSendRequestMutation = { __typename?: 'Mutation', sendRequest: { __typename?: 'FriendRequest', id: string } };
+
+export type DiscoverUnfriendMutationVariables = Exact<{
+  userId: Scalars['String'];
+}>;
+
+
+export type DiscoverUnfriendMutation = { __typename?: 'Mutation', unfriend: { __typename?: 'Friendship', id: string } };
+
+export type DiscoverUnsendRequestMutationVariables = Exact<{
+  requestId: Scalars['String'];
+}>;
+
+
+export type DiscoverUnsendRequestMutation = { __typename?: 'Mutation', unsendRequest: boolean };
 
 export type SignupMutationVariables = Exact<{
   input: SignupInput;
@@ -208,15 +242,47 @@ export type AuthorizeQuery = { __typename?: 'Query', authorize: { __typename?: '
 
 
 export const DiscoverUsersDocument = gql`
-    query DiscoverUsers($query: String!) {
-  discoverUsers(query: $query) {
+    query DiscoverUsers($query: String!, $limit: Int, $cursor: Int) {
+  discoverUsers(query: $query, limit: $limit, cursor: $cursor) {
     id
+    pk
     displayName
     avatarUrl
     university
+    friends {
+      id
+      firstUserId
+      secondUserId
+    }
+    pendingRequests {
+      id
+      fromUserId
+    }
   }
 }
     `;
+export const DiscoverSendRequestDocument = gql`
+    mutation DiscoverSendRequest($userId: String!) {
+  sendRequest(userId: $userId) {
+    id
+  }
+}
+    `;
+export type DiscoverSendRequestMutationOptions = Apollo.BaseMutationOptions<DiscoverSendRequestMutation, DiscoverSendRequestMutationVariables>;
+export const DiscoverUnfriendDocument = gql`
+    mutation DiscoverUnfriend($userId: String!) {
+  unfriend(userId: $userId) {
+    id
+  }
+}
+    `;
+export type DiscoverUnfriendMutationOptions = Apollo.BaseMutationOptions<DiscoverUnfriendMutation, DiscoverUnfriendMutationVariables>;
+export const DiscoverUnsendRequestDocument = gql`
+    mutation DiscoverUnsendRequest($requestId: String!) {
+  unsendRequest(requestId: $requestId)
+}
+    `;
+export type DiscoverUnsendRequestMutationOptions = Apollo.BaseMutationOptions<DiscoverUnsendRequestMutation, DiscoverUnsendRequestMutationVariables>;
 export const SignupDocument = gql`
     mutation Signup($input: SignupInput!) {
   signup(input: $input) {

@@ -1,5 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 import bcrypt from 'bcrypt';
+import faker from 'faker';
 
 const db = new PrismaClient();
 
@@ -25,13 +26,18 @@ async function seed() {
 	});
 
 	// Create some bot accounts for testing purposes
-	for (let i = 0; i < 20; i++) {
+	for (let i = 0; i < 50; i++) {
+		const name = faker.name.findName();
 		await db.user.create({
 			data: {
-				email: `bot${i}@wave.com`,
-				username: `bot${i}`,
-				displayName: `Bot${i}`,
+				email: faker.internet.email(),
+				username: name.split(' ').join('').toLowerCase(),
+				displayName: name,
 				password: bcrypt.hashSync(process.env.BOT_PASS!, 10),
+				avatarUrl: faker.internet.avatar(),
+				university: faker.company.companyName(),
+				department: faker.commerce.department(),
+				semester: faker.datatype.number(12),
 			},
 		});
 	}
