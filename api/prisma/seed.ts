@@ -27,11 +27,12 @@ async function seed() {
 
 	// Create some bot accounts for testing purposes
 	for (let i = 0; i < 50; i++) {
+		const name = faker.name.findName();
 		await db.user.create({
 			data: {
 				email: faker.internet.email(),
-				username: faker.internet.userName(),
-				displayName: faker.name.findName(),
+				username: name.split(' ').join('').toLowerCase(),
+				displayName: name,
 				password: bcrypt.hashSync(process.env.BOT_PASS!, 10),
 				avatarUrl: faker.internet.avatar(),
 				university: faker.company.companyName(),

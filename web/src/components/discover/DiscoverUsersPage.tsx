@@ -6,7 +6,6 @@ import { DiscoverUsersQuery, DiscoverUsersQueryVariables } from 'src/apollo/__ge
 import { DiscoveredUser } from 'src/components/discover/DiscoveredUser';
 import { DiscoverPageLayout } from 'src/components/discover/DiscoverPageLayout';
 import { Button } from 'src/components/ui/Button';
-import { useAuth } from 'src/store/useAuth';
 
 export const GET_DISCOVER_USERS = gql`
 	query DiscoverUsers($query: String!, $limit: Int, $cursor: Int) {
@@ -30,7 +29,6 @@ export const GET_DISCOVER_USERS = gql`
 `;
 
 export function DiscoverUsersPage() {
-	const currentUser = useAuth().user;
 	const [users, setUsers] = useState<any[]>([]);
 	const [queryTerm, setQueryTerm] = useState('');
 	const [prevQueryTerm, setPrevQueryTerm] = useState('');
@@ -56,9 +54,7 @@ export function DiscoverUsersPage() {
 			return;
 		}
 
-		setUsers(
-			searchData ? searchData.discoverUsers.filter((user) => user.id !== currentUser?.id) : []
-		);
+		setUsers(searchData ? searchData.discoverUsers : []);
 	}, [searchData]);
 
 	useEffect(() => {
@@ -75,7 +71,10 @@ export function DiscoverUsersPage() {
 				}
 				setQueryTerm(searchTerm);
 
-				if (queryTerm === '') return;
+				if (queryTerm === '') {
+					setUsers([]);
+					return;
+				}
 
 				await refetch({ query: searchTerm });
 			}}
@@ -83,16 +82,9 @@ export function DiscoverUsersPage() {
 			{users.length > 0 && !loading ? (
 				<>
 					<div className='grid grid-cols-2 gap-2 overflow-y-auto 2xl:grid-cols-4'>
-						{users.map(
-							(user) =>
-								user.id !== currentUser?.id && (
-									<DiscoveredUser
-										user={user}
-										key={user.id}
-										searchTerm={queryTerm}
-									/>
-								)
-						)}
+						{users.map((user) => (
+							<DiscoveredUser user={user} key={user.id} searchTerm={queryTerm} />
+						))}
 					</div>
 					<div className='flex justify-center'>
 						<Button

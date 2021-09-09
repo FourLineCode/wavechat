@@ -13,23 +13,32 @@ builder.queryField('discoverUsers', (t) =>
 			limit: t.arg({ type: 'Int', defaultValue: 12, required: true }),
 			cursor: t.arg({ type: 'Int' }),
 		},
-		resolve: async (_parent, { query, limit, cursor }, { db }) => {
+		resolve: async (_parent, { query, limit, cursor }, { db, user }) => {
 			query = query.trim();
 			if (query === '') return [];
 
 			const searchedUsers = await db.user.findMany({
 				where: {
-					OR: [
+					AND: [
 						{
-							username: {
-								contains: query,
-								mode: 'insensitive',
-							},
+							OR: [
+								{
+									username: {
+										contains: query,
+										mode: 'insensitive',
+									},
+								},
+								{
+									displayName: {
+										contains: query,
+										mode: 'insensitive',
+									},
+								},
+							],
 						},
 						{
-							displayName: {
-								contains: query,
-								mode: 'insensitive',
+							id: {
+								not: user?.id,
 							},
 						},
 					],
