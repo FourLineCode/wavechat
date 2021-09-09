@@ -24,6 +24,7 @@ communicate with each other about their activities and help each other.
 -   [Socket.IO](https://socket.io/)
 -   [Prisma](https://www.prisma.io/)
 -   [PostgresSQL](https://www.postgresql.org/)
+-   [Docker](https://www.docker.com/)
 
 # If you want to run this application on your own follow the procedure below
 
