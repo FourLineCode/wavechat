@@ -11,7 +11,7 @@ builder.queryField('discoverUsers', (t) =>
 		args: {
 			query: t.arg({ type: 'String', required: true }),
 			limit: t.arg({ type: 'Int', defaultValue: 12, required: true }),
-			cursor: t.arg({ type: 'String' }),
+			cursor: t.arg({ type: 'Int' }),
 		},
 		resolve: async (_parent, { query, limit, cursor }, { db }) => {
 			query = query.trim();
@@ -35,13 +35,15 @@ builder.queryField('discoverUsers', (t) =>
 					],
 				},
 				take: limit,
-				cursor: cursor
-					? {
-							id: cursor,
-					  }
-					: undefined,
+				skip: cursor !== null && cursor !== undefined ? 1 : undefined,
+				cursor:
+					cursor !== null && cursor !== undefined
+						? {
+								pk: cursor,
+						  }
+						: undefined,
 				orderBy: {
-					username: 'asc',
+					pk: 'asc',
 				},
 			});
 

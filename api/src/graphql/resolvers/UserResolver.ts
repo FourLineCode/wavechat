@@ -8,6 +8,7 @@ export const UserObject = builder.objectRef<User>('User');
 UserObject.implement({
 	fields: (t) => ({
 		id: t.exposeID('id'),
+		pk: t.exposeInt('pk'),
 		createdAt: t.expose('createdAt', { type: 'Date' }),
 		updatedAt: t.expose('updatedAt', { type: 'Date' }),
 		email: t.exposeString('email'),

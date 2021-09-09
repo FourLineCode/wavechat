@@ -7,6 +7,7 @@ export const FriendshipObject = builder.objectRef<Friendship>('Friendship');
 FriendshipObject.implement({
 	fields: (t) => ({
 		id: t.exposeID('id'),
+		pk: t.exposeInt('pk'),
 		createdAt: t.expose('createdAt', { type: 'Date' }),
 		updatedAt: t.expose('updatedAt', { type: 'Date' }),
 		firstUserId: t.exposeID('firstUserId'),
@@ -37,6 +38,7 @@ export const FriendRequestObject = builder.objectRef<FriendRequest>('FriendReque
 FriendRequestObject.implement({
 	fields: (t) => ({
 		id: t.exposeID('id'),
+		pk: t.exposeInt('pk'),
 		createdAt: t.expose('createdAt', { type: 'Date' }),
 		updatedAt: t.expose('updatedAt', { type: 'Date' }),
 		fromUserId: t.exposeID('fromUserId'),

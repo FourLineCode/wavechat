@@ -9,6 +9,7 @@ export const SessionObject = builder.objectRef<Session>('Session');
 SessionObject.implement({
 	fields: (t) => ({
 		id: t.exposeID('id'),
+		pk: t.exposeInt('pk'),
 		createdAt: t.expose('createdAt', { type: 'Date' }),
 		updatedAt: t.expose('updatedAt', { type: 'Date' }),
 		userId: t.exposeID('userId'),

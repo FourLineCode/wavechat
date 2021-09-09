@@ -5,12 +5,14 @@ import { BarLoader } from 'react-spinners';
 import { DiscoverUsersQuery, DiscoverUsersQueryVariables } from 'src/apollo/__generated__/types';
 import { DiscoveredUser } from 'src/components/discover/DiscoveredUser';
 import { DiscoverPageLayout } from 'src/components/discover/DiscoverPageLayout';
+import { Button } from 'src/components/ui/Button';
 import { useAuth } from 'src/store/useAuth';
 
 export const GET_DISCOVER_USERS = gql`
-	query DiscoverUsers($query: String!) {
-		discoverUsers(query: $query) {
+	query DiscoverUsers($query: String!, $limit: Int, $cursor: Int) {
+		discoverUsers(query: $query, limit: $limit, cursor: $cursor) {
 			id
+			pk
 			displayName
 			avatarUrl
 			university
@@ -31,43 +33,83 @@ export function DiscoverUsersPage() {
 	const currentUser = useAuth().user;
 	const [users, setUsers] = useState<any[]>([]);
 	const [queryTerm, setQueryTerm] = useState('');
+	const [prevQueryTerm, setPrevQueryTerm] = useState('');
+	const [currentCursor, setCurrentCursor] = useState<number | null>(null);
+	const [paginationLoading, setPaginationLoading] = useState(false);
 
-	const { data, refetch, loading } = useQuery<DiscoverUsersQuery, DiscoverUsersQueryVariables>(
-		GET_DISCOVER_USERS,
-		{
-			variables: {
-				query: queryTerm,
-			},
-			onError: (error) => {
-				toast.error(error.message);
-			},
-		}
-	);
+	const {
+		data: searchData,
+		refetch,
+		loading,
+	} = useQuery<DiscoverUsersQuery, DiscoverUsersQueryVariables>(GET_DISCOVER_USERS, {
+		variables: {
+			query: queryTerm,
+		},
+		onError: (error) => {
+			toast.error(error.message);
+		},
+	});
 
 	useEffect(() => {
-		setUsers(data ? data.discoverUsers : []);
-	}, [data]);
+		if (prevQueryTerm === queryTerm) {
+			setUsers(searchData ? [...users, ...searchData.discoverUsers] : users);
+			return;
+		}
+
+		setUsers(
+			searchData ? searchData.discoverUsers.filter((user) => user.id !== currentUser?.id) : []
+		);
+	}, [searchData]);
+
+	useEffect(() => {
+		setCurrentCursor(users[users.length - 1]?.pk ?? null);
+	}, [users]);
 
 	return (
 		<DiscoverPageLayout
 			title='Search for people you may know'
 			placeholder='Username...'
 			callback={async ({ searchTerm }) => {
+				if (prevQueryTerm !== searchTerm) {
+					setPrevQueryTerm(queryTerm);
+				}
 				setQueryTerm(searchTerm);
+
 				if (queryTerm === '') return;
 
 				await refetch({ query: searchTerm });
 			}}
 		>
 			{users.length > 0 && !loading ? (
-				<div className='grid grid-cols-2 gap-2 overflow-y-auto 2xl:grid-cols-4'>
-					{users.map(
-						(user) =>
-							user.id !== currentUser?.id && (
-								<DiscoveredUser user={user} key={user.id} searchTerm={queryTerm} />
-							)
-					)}
-				</div>
+				<>
+					<div className='grid grid-cols-2 gap-2 overflow-y-auto 2xl:grid-cols-4'>
+						{users.map(
+							(user) =>
+								user.id !== currentUser?.id && (
+									<DiscoveredUser
+										user={user}
+										key={user.id}
+										searchTerm={queryTerm}
+									/>
+								)
+						)}
+					</div>
+					<div className='flex justify-center'>
+						<Button
+							onClick={async () => {
+								setPrevQueryTerm(queryTerm);
+								setPaginationLoading(true);
+								await refetch({ query: queryTerm, cursor: currentCursor });
+								setPaginationLoading(false);
+							}}
+							type='submit'
+							isSubmitting={paginationLoading}
+							variant='outlined'
+						>
+							Load more
+						</Button>
+					</div>
+				</>
 			) : (
 				<div className='flex items-center justify-center flex-1'>
 					{loading ? (

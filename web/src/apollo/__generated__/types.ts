@@ -26,6 +26,7 @@ export type FriendRequest = {
   fromUser: User;
   fromUserId: Scalars['ID'];
   id: Scalars['ID'];
+  pk: Scalars['Int'];
   toUser: User;
   toUserId: Scalars['ID'];
   updatedAt: Scalars['Date'];
@@ -37,6 +38,7 @@ export type Friendship = {
   firstUser: User;
   firstUserId: Scalars['ID'];
   id: Scalars['ID'];
+  pk: Scalars['Int'];
   secondUser: User;
   secondUserId: Scalars['ID'];
   updatedAt: Scalars['Date'];
@@ -120,7 +122,7 @@ export type Query = {
 
 
 export type QueryDiscoverUsersArgs = {
-  cursor?: Maybe<Scalars['String']>;
+  cursor?: Maybe<Scalars['Int']>;
   limit?: Scalars['Int'];
   query: Scalars['String'];
 };
@@ -139,6 +141,7 @@ export type Session = {
   __typename?: 'Session';
   createdAt: Scalars['Date'];
   id: Scalars['ID'];
+  pk: Scalars['Int'];
   updatedAt: Scalars['Date'];
   user: User;
   userId: Scalars['ID'];
@@ -173,6 +176,7 @@ export type User = {
   friends: Array<Friendship>;
   id: Scalars['ID'];
   pendingRequests: Array<FriendRequest>;
+  pk: Scalars['Int'];
   role: Scalars['String'];
   semester?: Maybe<Scalars['Int']>;
   sentRequests: Array<FriendRequest>;
@@ -184,10 +188,12 @@ export type User = {
 
 export type DiscoverUsersQueryVariables = Exact<{
   query: Scalars['String'];
+  limit?: Maybe<Scalars['Int']>;
+  cursor?: Maybe<Scalars['Int']>;
 }>;
 
 
-export type DiscoverUsersQuery = { __typename?: 'Query', discoverUsers: Array<{ __typename?: 'User', id: string, displayName: string, avatarUrl?: Maybe<string>, university?: Maybe<string>, friends: Array<{ __typename?: 'Friendship', id: string, firstUserId: string, secondUserId: string }>, pendingRequests: Array<{ __typename?: 'FriendRequest', id: string, fromUserId: string }> }> };
+export type DiscoverUsersQuery = { __typename?: 'Query', discoverUsers: Array<{ __typename?: 'User', id: string, pk: number, displayName: string, avatarUrl?: Maybe<string>, university?: Maybe<string>, friends: Array<{ __typename?: 'Friendship', id: string, firstUserId: string, secondUserId: string }>, pendingRequests: Array<{ __typename?: 'FriendRequest', id: string, fromUserId: string }> }> };
 
 export type DiscoverSendRequestMutationVariables = Exact<{
   userId: Scalars['String'];
@@ -236,9 +242,10 @@ export type AuthorizeQuery = { __typename?: 'Query', authorize: { __typename?: '
 
 
 export const DiscoverUsersDocument = gql`
-    query DiscoverUsers($query: String!) {
-  discoverUsers(query: $query) {
+    query DiscoverUsers($query: String!, $limit: Int, $cursor: Int) {
+  discoverUsers(query: $query, limit: $limit, cursor: $cursor) {
     id
+    pk
     displayName
     avatarUrl
     university

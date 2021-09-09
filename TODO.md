@@ -59,6 +59,7 @@
         -   [x] server sided auth redirects
     -   [x] when auth redirect happens, client store doesnt get auth info
     -   [ ] sign out of all devices
+    -   [x] add faker.js for test user generation
 
 -   [ ] users
 
@@ -88,7 +89,7 @@
                         -   [x] sent request
                             -   [x] unsend a request
                         -   [x] yourself (currently not rendered at all)
-                        -   [ ] loading states
+                        -   [x] loading states
                     -   [x] error handling
                     -   [x] refetching data
                 -   [ ] pagination

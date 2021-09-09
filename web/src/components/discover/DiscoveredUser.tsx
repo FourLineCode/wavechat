@@ -1,6 +1,6 @@
 import gql from '.pnpm/graphql-tag@2.12.5_graphql@15.5.3/node_modules/graphql-tag';
 import { useMutation } from '@apollo/client';
-import { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import toast from 'react-hot-toast';
 import { AiOutlineUsergroupAdd } from 'react-icons/ai';
 import { FaUserPlus } from 'react-icons/fa';
@@ -51,6 +51,7 @@ export function DiscoveredUser({ user, searchTerm }: Props) {
 	const currentUserId = auth.user?.id;
 	const avatarUrl = useAvatarUrl(user);
 	const [sentRequestId, setSentRequestId] = useState<string>('');
+	const [loading, setLoading] = useState(false);
 
 	const sentRequest = useMemo(() => {
 		const length = user.pendingRequests.length;
@@ -86,21 +87,21 @@ export function DiscoveredUser({ user, searchTerm }: Props) {
 		else return 'Add Friend';
 	}, [sentRequest, alreadyFriend]);
 
-	const [unfriend] = useMutation<DiscoverUnfriendMutation, DiscoverUnfriendMutationVariables>(
-		UNFRIEND_USER,
-		{
-			variables: { userId: user.id },
-			refetchQueries: [{ query: GET_DISCOVER_USERS, variables: { query: searchTerm } }],
-			onCompleted: () => {
-				toast.success('Unfriended successfully');
-			},
-			onError: (error) => {
-				toast.error(error.message);
-			},
-		}
-	);
+	const [unfriend, { loading: unfriendLoading }] = useMutation<
+		DiscoverUnfriendMutation,
+		DiscoverUnfriendMutationVariables
+	>(UNFRIEND_USER, {
+		variables: { userId: user.id },
+		refetchQueries: [{ query: GET_DISCOVER_USERS, variables: { query: searchTerm } }],
+		onCompleted: () => {
+			toast.success('Unfriended successfully');
+		},
+		onError: (error) => {
+			toast.error(error.message);
+		},
+	});
 
-	const [unsendRequest] = useMutation<
+	const [unsendRequest, { loading: unsendLoading }] = useMutation<
 		DiscoverUnsendRequestMutation,
 		DiscoverUnsendRequestMutationVariables
 	>(UNSEND_REQUEST, {
@@ -116,7 +117,7 @@ export function DiscoveredUser({ user, searchTerm }: Props) {
 		},
 	});
 
-	const [sendRequest] = useMutation<
+	const [sendRequest, { loading: sendLoading }] = useMutation<
 		DiscoverSendRequestMutation,
 		DiscoverSendRequestMutationVariables
 	>(SEND_REQUEST, {
@@ -132,7 +133,27 @@ export function DiscoveredUser({ user, searchTerm }: Props) {
 		},
 	});
 
-	const requestButtonHandler = () => {
+	useEffect(() => {
+		const isLoading = sendLoading || unsendLoading || unfriendLoading;
+
+		if (isLoading) {
+			setLoading(true);
+			return;
+		}
+
+		// Delay the loding to prevent spam clicking button
+		const loadingTimeout = setTimeout(() => {
+			setLoading(false);
+		}, 500);
+
+		return () => {
+			clearTimeout(loadingTimeout);
+		};
+	}, [sendLoading, unsendLoading, unfriendLoading]);
+
+	const requestButtonHandler = (event: React.ChangeEvent<HTMLButtonElement>) => {
+		event.preventDefault();
+
 		if (alreadyFriend) unfriend();
 		else if (sentRequest) unsendRequest();
 		else return sendRequest();
@@ -160,7 +181,12 @@ export function DiscoveredUser({ user, searchTerm }: Props) {
 					</div>
 				</div>
 			</div>
-			<Button className='w-full text-sm 2xl:text-base' onClick={requestButtonHandler}>
+			<Button
+				type='submit'
+				className='w-full text-sm 2xl:text-base'
+				onClick={requestButtonHandler}
+				isSubmitting={loading}
+			>
 				<div className='flex items-center justify-center space-x-1'>
 					<FaUserPlus />
 					<span className='line-clamp-1'>{primaryButtonText}</span>
