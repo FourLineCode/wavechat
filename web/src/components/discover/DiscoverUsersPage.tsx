@@ -71,7 +71,7 @@ export function DiscoverUsersPage() {
 				}
 				setQueryTerm(searchTerm);
 
-				if (queryTerm === '') {
+				if (searchTerm === '') {
 					setUsers([]);
 					return;
 				}
