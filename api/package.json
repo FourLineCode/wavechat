@@ -10,6 +10,7 @@
 		"dev": "ts-node-dev --respawn --transpile-only -r tsconfig-paths/register src/index.ts",
 		"build": "tsc",
 		"start": "node dist/index.js",
+		"typecheck": "pnpx tsc --noEmit",
 		"prisma:docker": "docker-compose run api pnpm prisma",
 		"migrate": "docker-compose run api pnpm prisma migrate dev",
 		"generate": "docker-compose run api pnpm prisma generate",
