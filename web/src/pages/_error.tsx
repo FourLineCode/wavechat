@@ -11,7 +11,7 @@ export default function Error() {
 			<div className='flex items-center justify-center w-screen h-screen'>
 				<div className='flex flex-col items-center justify-center space-y-2'>
 					<BiMessageAltError size='120' className='text-dark-500' />
-					<div className='text-4xl font-bold text-dark-500'>
+					<div className='text-4xl font-bold text-secondary'>
 						Oops, Something went wrong
 					</div>
 					<Button onClick={() => router.push('/')}>Go Back To Home</Button>

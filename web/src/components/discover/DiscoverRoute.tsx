@@ -17,7 +17,7 @@ export function DiscoverRoute({ text, route, icon: IconComponent }: Props) {
 			onClick={() => router.push(`/discover/${route}`)}
 			className={clsx(
 				pathname.endsWith(route)
-					? 'bg-brand-500 hover:bg-brand-600 hover:text-light'
+					? 'bg-brand-500 hover:bg-brand-600 hover:text-primary'
 					: 'hover:bg-dark-700 hover:text-brand-500',
 				'flex items-center p-3 my-1 space-x-2 rounded-lg cursor-pointer transition-colors'
 			)}

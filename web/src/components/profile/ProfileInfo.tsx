@@ -15,10 +15,10 @@ export function ProfileInfo() {
 					className='w-12 h-full rounded-full cursor-pointer hover:ring-2 ring-brand-500'
 				/>
 				<div>
-					<div className='font-semibold cursor-pointer text-light hover:underline line-clamp-1'>
+					<div className='font-semibold cursor-pointer text-primary hover:underline line-clamp-1'>
 						{user?.displayName}
 					</div>
-					<div className='flex items-center text-sm text-dark-600'>
+					<div className='flex items-center text-sm text-muted'>
 						<span className='mr-0.5 text-green-500'>•</span>
 						<span>Online</span>
 					</div>

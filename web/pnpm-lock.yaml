@@ -25,6 +25,7 @@ specifiers:
   socket.io-client: ^4.2.0
   tailwind-scrollbar: ^1.3.1
   tailwindcss: ^2.2.15
+  tippy.js: ^6.3.1
   typescript: 4.4.2
   zustand: ^3.5.9
 
@@ -56,6 +57,7 @@ devDependencies:
   postcss: 8.3.6
   tailwind-scrollbar: 1.3.1_4dc2d3db2b138fb8fa7d5c7b0c803aba
   tailwindcss: 2.2.15_4dc2d3db2b138fb8fa7d5c7b0c803aba
+  tippy.js: 6.3.1
   typescript: 4.4.2
 
 packages:
@@ -1378,7 +1380,6 @@ packages:
 
   /@popperjs/core/2.10.1:
     resolution: {integrity: sha512-HnUhk1Sy9IuKrxEMdIRCxpIqPw6BFsbYSEUO9p/hNw5sMld/+3OLMWQP80F8/db9qsv3qUjs7ZR5bS/R+iinXw==}
-    dev: false
 
   /@rushstack/eslint-patch/1.0.6:
     resolution: {integrity: sha512-Myxw//kzromB9yWgS8qYGuGVf91oBUUJpNvy5eM50sqvmKLbKjwLxohJnkWGTeeI9v9IBMtPLxz5Gc60FIfvCA==}
@@ -6171,7 +6172,6 @@ packages:
     resolution: {integrity: sha512-JnFncCq+rF1dTURupoJ4yPie5Cof978inW6/4S6kmWV7LL9YOSEVMifED3KdrVPEG+Z/TFH2CDNJcQEfaeuQww==}
     dependencies:
       '@popperjs/core': 2.10.1
-    dev: false
 
   /title-case/3.0.3:
     resolution: {integrity: sha512-e1zGYRvbffpcHIrnuqT0Dh+gEJtDaxDSoG4JAIpq4oDFyooziLBIiYQv0GBT4FUAnUop5uZ1hiIAj7oAF6sOCA==}

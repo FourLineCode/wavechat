@@ -107,9 +107,9 @@ export function DiscoverUsersPage() {
 					{loading ? (
 						<BarLoader color='silver' speedMultiplier={1.5} />
 					) : queryTerm.length > 0 ? (
-						<div className='text-4xl font-bold text-dark-500'>No user found</div>
+						<div className='text-4xl font-bold text-secondary'>No user found</div>
 					) : (
-						<div className='text-4xl font-bold text-dark-500'>Search for a User</div>
+						<div className='text-4xl font-bold text-secondary'>Search for a User</div>
 					)}
 				</div>
 			)}
