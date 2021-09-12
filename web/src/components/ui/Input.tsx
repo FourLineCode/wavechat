@@ -53,7 +53,7 @@ export const Input = React.forwardRef<HTMLInputElement, Props>(function InputCom
 	return (
 		<>
 			{label && (
-				<label htmlFor={name} className='pl-1 text-light'>
+				<label htmlFor={name} className='pl-1 text-primary'>
 					{label}
 				</label>
 			)}

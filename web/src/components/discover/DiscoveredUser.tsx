@@ -64,7 +64,7 @@ export function DiscoveredUser({ user, searchTerm }: Props) {
 		}
 
 		return false;
-	}, [user]);
+	}, [user, currentUserId]);
 
 	const alreadyFriend = useMemo(() => {
 		const length = user.friends.length;
@@ -79,7 +79,7 @@ export function DiscoveredUser({ user, searchTerm }: Props) {
 		}
 
 		return false;
-	}, [user]);
+	}, [user, currentUserId]);
 
 	const primaryButtonText = useMemo(() => {
 		if (alreadyFriend) return 'Unfriend';
@@ -176,7 +176,7 @@ export function DiscoveredUser({ user, searchTerm }: Props) {
 					<div className='text-lg font-semibold cursor-pointer line-clamp-1 hover:underline'>
 						{user.displayName}
 					</div>
-					<div className='text-sm line-clamp-1 text-dark-500'>
+					<div className='text-sm line-clamp-1 text-secondary'>
 						{user.university ?? 'unknown'}
 					</div>
 				</div>

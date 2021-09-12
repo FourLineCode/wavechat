@@ -16,7 +16,7 @@ export default function ServerById() {
 				<NavigationSidebar />
 				<SidebarWithProfile component={ServerSidebar} />
 				<div className='flex flex-col items-center justify-center flex-1 bg-dark-700'>
-					<div className='text-4xl font-bold text-light'>Server #{serverId}</div>
+					<div className='text-4xl font-bold text-primary'>Server #{serverId}</div>
 				</div>
 				<FriendsList />
 			</div>
