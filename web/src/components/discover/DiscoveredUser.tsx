@@ -64,7 +64,7 @@ export function DiscoveredUser({ user, searchTerm }: Props) {
 		}
 
 		return false;
-	}, [user]);
+	}, [user, currentUserId]);
 
 	const alreadyFriend = useMemo(() => {
 		const length = user.friends.length;
@@ -79,7 +79,7 @@ export function DiscoveredUser({ user, searchTerm }: Props) {
 		}
 
 		return false;
-	}, [user]);
+	}, [user, currentUserId]);
 
 	const primaryButtonText = useMemo(() => {
 		if (alreadyFriend) return 'Unfriend';
