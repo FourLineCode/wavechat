@@ -12,6 +12,9 @@ export function NavBar() {
 						<span>Wave</span>
 						<span className='underline'>Chat</span>
 					</span>
+					<div className='uppercase bg-brand-500 rounded-md py-0.5 px-1 ml-2 text-xs'>
+						BETA
+					</div>
 				</div>
 			</Link>
 			<div className='flex space-x-4 font-medium text-md'>
