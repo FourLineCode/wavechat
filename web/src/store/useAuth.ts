@@ -21,7 +21,7 @@ interface Response {
 
 export interface AuthState extends State {
 	authorized: boolean | null;
-	user: Partial<User> | null;
+	user: User | null;
 	signup: (arg: SignupInput) => Promise<Response>;
 	signin: (arg: SigninInput) => Promise<Response>;
 	signout: () => Promise<Response>;
@@ -97,7 +97,7 @@ export const useAuth = create<AuthState>((set, get) => ({
 			if (data?.signin.success) {
 				get().setAuthInfo({
 					authorized: data.signin.success,
-					user: data.signin.user,
+					user: data.signin.user as User,
 				});
 
 				return { success: true, message: 'Successfully signed in' };
