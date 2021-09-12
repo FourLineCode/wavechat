@@ -1,6 +1,6 @@
 import { DiscoverNavigation } from 'src/components/discover/DiscoverNavigation';
 import { DiscoverServersPage } from 'src/components/discover/DiscoverServersPage';
-import { FriendsList } from 'src/components/friends/FriendsList';
+import { FriendsInfo } from 'src/components/friends/FriendsInfo';
 import { Layout } from 'src/components/layouts/Layout';
 import { NavigationSidebar } from 'src/components/navigations/NavigationSidebar';
 import { SidebarWithProfile } from 'src/components/profile/SidebarWithProfile';
@@ -13,7 +13,7 @@ export default function DiscoverServers() {
 				<NavigationSidebar />
 				<SidebarWithProfile component={DiscoverNavigation} />
 				<DiscoverServersPage />
-				<FriendsList />
+				<FriendsInfo />
 			</div>
 		</Layout>
 	);

@@ -92,8 +92,8 @@
                         -   [x] loading states
                     -   [x] error handling
                     -   [x] refetching data
-                -   [ ] pagination
-                    -   [ ] has next page info
+                -   [x] pagination
+                    -   [x] infinite scroll
                 -   [ ] search servers
 
             -   [x] send request
