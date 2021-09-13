@@ -16,7 +16,7 @@
 		"generate": "docker-compose run api pnpm prisma generate",
 		"seed": "docker-compose run api pnpm prisma db seed --preview-feature",
 		"studio": "docker-compose run -p 5555:5555 api pnpm prisma studio --browser none",
-		"db:reset": "pnpm migrate -n init && pnpm seed"
+		"db:reset": "pnpm migrate && pnpm seed"
 	},
 	"dependencies": {
 		"@giraphql/core": "^2.14.1",
