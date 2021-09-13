@@ -21,7 +21,7 @@ services:
         container_name: postgres
         image: postgres:13-alpine
         ports:
-            - 127.0.0.1:5432:5432
+            - 5432:5432
         volumes:
             - pgdata:/var/lib/postgresql/data
         environment:
@@ -43,15 +43,16 @@ services:
         volumes:
             - ./api:/api:rw
         ports:
-            - 127.0.0.1:5000:5000
-            - 127.0.0.1:5001:5001
+            - 5000:5000
+            - 5001:5001
         depends_on:
             - traefik
             - postgres
         labels:
             - traefik.enable=true
             - traefik.http.routers.api.entrypoints=web
-            - traefik.http.routers.api.rule=Host(`api.wavechat.localhost`)
+            # Web route prefixed with specific routes gets forwarded to api
+            - traefik.http.routers.api.rule=Host(`wavechat.localhost`) && PathPrefix(`/graphql`) || PathPrefix(`/ws`)
 
     # WaveChat Web app container (Frontend)
     web:
@@ -64,7 +65,7 @@ services:
         volumes:
             - ./web:/web:rw
         ports:
-            - 127.0.0.1:3000:3000
+            - 3000:3000
         depends_on:
             - traefik
             - postgres
@@ -72,7 +73,8 @@ services:
         labels:
             - traefik.enable=true
             - traefik.http.routers.web.entrypoints=web
-            - traefik.http.routers.web.rule=Host(`web.wavechat.localhost`)
+            # Web route other than api routes gets forwarded to api
+            - traefik.http.routers.web.rule=Host(`wavechat.localhost`)
 
     # Codegen - GraphQL code generator for ApolloClient (Frontend)
     codegen:

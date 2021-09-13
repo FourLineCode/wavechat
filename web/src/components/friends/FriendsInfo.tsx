@@ -8,10 +8,10 @@ const tabs = [
 	{
 		id: 'friends',
 		title: 'Friends',
-		component: FriendsList,
+		Component: FriendsList,
 	},
 
-	{ id: 'requests', title: 'Requests', component: Requestslist },
+	{ id: 'requests', title: 'Requests', Component: Requestslist },
 ];
 
 export function FriendsInfo() {
@@ -38,12 +38,11 @@ export function FriendsInfo() {
 					</Tab.List>
 				</div>
 				<Tab.Panels className='flex-1 px-2 pb-2'>
-					<Tab.Panel as={Fragment}>
-						<FriendsList />
-					</Tab.Panel>
-					<Tab.Panel as={Fragment}>
-						<Requestslist />
-					</Tab.Panel>
+					{tabs.map((tab) => (
+						<Tab.Panel as={Fragment} key={tab.id}>
+							<tab.Component />
+						</Tab.Panel>
+					))}
 				</Tab.Panels>
 			</Tab.Group>
 		</div>

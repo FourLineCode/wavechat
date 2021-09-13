@@ -70,5 +70,5 @@ pnpm --dir api migrate
 
 ## Visit the site at your local custom domain
 
--   **[http://web.wavechat.localhost](http://web.wavechat.localhost)**
--   **[http://api.wavechat.localhost](http://api.wavechat.localhost)**
+-   **Frontend [http://wavechat.localhost](http://wavechat.localhost)**
+-   **GraphQL Playground [http://wavechat.localhost/graphql](http://wavechat.localhost/graphql)**
