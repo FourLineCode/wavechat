@@ -20,7 +20,7 @@
 	},
 	"dependencies": {
 		"@giraphql/core": "^2.14.1",
-		"@giraphql/plugin-dataloader": "^2.12.0",
+		"@giraphql/plugin-dataloader": "^2.16.0",
 		"@giraphql/plugin-scope-auth": "^2.9.0",
 		"@giraphql/plugin-validation": "^2.9.1",
 		"@paljs/plugins": "^3.8.2",

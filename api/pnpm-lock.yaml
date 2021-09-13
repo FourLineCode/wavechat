@@ -2,7 +2,7 @@ lockfileVersion: 5.3
 
 specifiers:
   '@giraphql/core': ^2.14.1
-  '@giraphql/plugin-dataloader': ^2.12.0
+  '@giraphql/plugin-dataloader': ^2.16.0
   '@giraphql/plugin-scope-auth': ^2.9.0
   '@giraphql/plugin-validation': ^2.9.1
   '@paljs/plugins': ^3.8.2
@@ -38,7 +38,7 @@ specifiers:
 
 dependencies:
   '@giraphql/core': 2.15.1_graphql@15.5.3
-  '@giraphql/plugin-dataloader': 2.15.0_dataloader@2.0.0+graphql@15.5.3
+  '@giraphql/plugin-dataloader': 2.16.0_dataloader@2.0.0+graphql@15.5.3
   '@giraphql/plugin-scope-auth': 2.10.1_graphql@15.5.3
   '@giraphql/plugin-validation': 2.10.1_graphql@15.5.3+zod@3.8.2
   '@paljs/plugins': 3.8.3_graphql@15.5.3
@@ -124,8 +124,8 @@ packages:
       graphql: 15.5.3
     dev: false
 
-  /@giraphql/plugin-dataloader/2.15.0_dataloader@2.0.0+graphql@15.5.3:
-    resolution: {integrity: sha512-5AjTRZxs5IL1YsNh1IFAZEJQ/EeXAED2sWgog8FvOFk7Ku2eebH7Q0bO2XYgBMJsK+XrmTvdAi7yb66v0gpkwA==}
+  /@giraphql/plugin-dataloader/2.16.0_dataloader@2.0.0+graphql@15.5.3:
+    resolution: {integrity: sha512-4I3Uv1g6M0CDt4GTJtXr6QxeNKDELdsmyraQscREfrfCMvz4gAtjdvpCX0Syu15BKjE2BpFJHXczYGG7xhTrHg==}
     peerDependencies:
       dataloader: '2'
       graphql: '>=15.1.0'
