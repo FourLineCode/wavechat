@@ -3,13 +3,14 @@ import cors from 'cors';
 import express from 'express';
 import helmet from 'helmet';
 import morgan from 'morgan';
+import { config } from 'src/internal/config';
 
 export const app = express();
 
 /* === Adding Global Middlewares === */
 
 // Allow requests from only one origin
-app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
+app.use(cors({ origin: config.origins, credentials: true }));
 
 // For default security headers
 app.use(helmet({ contentSecurityPolicy: false }));

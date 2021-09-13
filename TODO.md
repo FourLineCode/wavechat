@@ -33,6 +33,8 @@
     -   [x] prisma to name db
     -   [x] server side apollo client hostname dynamic
     -   [x] comments and docs
+    -   [x] use alpine images
+    -   [x] add traefik reverse proxy
     -   [ ] use prisma giraphql plugin
 
 -   [ ] auth

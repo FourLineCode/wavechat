@@ -25,6 +25,7 @@ communicate with each other about their activities and help each other.
 -   [Prisma](https://www.prisma.io/)
 -   [PostgresSQL](https://www.postgresql.org/)
 -   [Docker](https://www.docker.com/)
+-   [Traefik](https://traefik.io/)
 
 # If you want to run this application on your own follow the procedure below
 
@@ -66,3 +67,8 @@ pnpm --dir api migrate
 ```
 
 > **This step is very important for the app to work**
+
+## Visit the site at your local custom domain
+
+-   **[http://web.wavechat.localhost](http://web.wavechat.localhost)**
+-   **[http://api.wavechat.localhost](http://api.wavechat.localhost)**
