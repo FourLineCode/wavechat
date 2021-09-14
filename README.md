@@ -12,10 +12,10 @@ communicate with each other about their activities and help each other.
 
 ## Stack
 
-| [![TypeScript](images/typescript.png)](https://www.typescriptlang.org/)| [![TypeScript](images/nextjs.png)](https://nextjs.org/)| [![TypeScript](images/react.png)](https://reactjs.org) | [![TypeScript](images/apollo.png)](https://www.apollographql.com/) |
+| [![TypeScript](images/typescript.png)](https://www.typescriptlang.org/)| [![Next JS](images/nextjs.png)](https://nextjs.org/)| [![React JS](images/react.png)](https://reactjs.org) | [![Apollo](images/apollo.png)](https://www.apollographql.com/) |
 |---|---|---|---|
-| [![TypeScript](images/tailwind.png)](https://tailwindcss.com/) | [![TypeScript](images/nodejs.png)](https://nodejs.org/en/)| [![TypeScript](images/graphql.png)](https://graphql.org/) | [![TypeScript](images/socket.png)](https://socket.io) |
-| [![TypeScript](images/prisma.png)](https://www.prisma.io/) | [![TypeScript](images/postgres.png)](https://www.postgresql.org/) | [![TypeScript](images/docker.png)](https://www.docker.com/)| [![TypeScript](images/giraphql.png)](https://giraphql.com/) |
+| [![Tailwind](images/tailwind.png)](https://tailwindcss.com/) | [![node JS](images/nodejs.png)](https://nodejs.org/en/)| [![GraphQL](images/graphql.png)](https://graphql.org/) | [![Socket](images/socket.png)](https://socket.io) |
+| [![Prisma](images/prisma.png)](https://www.prisma.io/) | [![PostgreSQL](images/postgres.png)](https://www.postgresql.org/) | [![Docker](images/docker.png)](https://www.docker.com/)| [![GiraphQL](images/giraphql.png)](https://giraphql.com/) |
 
 ## If you want to run this application on your own follow the procedure below
 
