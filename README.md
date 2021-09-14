@@ -2,7 +2,7 @@
 
 **This is a Real Time Chat Application**
 
--   Preview - [WaveChat (Coming Soon)](#)
+- Preview - [WaveChat (Coming Soon)](#)
 
 This is a real time chat app made for college/university students. In the recent couple years, the covid-19 pandemic
 has changed how students of all level interact with each other. It has been really tough for students
@@ -10,41 +10,32 @@ to meet new people and make friends over the internet. This app was made for stu
 of their similar level and make new friends. It also makes it easy for students of a certain course or section to
 communicate with each other about their activities and help each other.
 
-# Stack
+## Stack
 
--   [Typescript](https://www.typescriptlang.org/)
--   [Next.js](https://nextjs.org/)
--   [React](https://reactjs.org)
--   [Apollo](https://www.apollographql.com/)
--   [Zustand](https://github.com/pmndrs/zustand)
--   [TailwindCSS](https://tailwindcss.com/)
--   [Nodejs](https://nodejs.org/en/)
--   [GraphQL](https://graphql.org/)
--   [GiraphQL - SchemaBuilder](https://giraphql.com/)
--   [Socket.IO](https://socket.io/)
--   [Prisma](https://www.prisma.io/)
--   [PostgresSQL](https://www.postgresql.org/)
--   [Docker](https://www.docker.com/)
+| [![TypeScript](images/typescript.png)](https://www.typescriptlang.org/)| [![TypeScript](images/nextjs.png)](https://nextjs.org/)| [![TypeScript](images/react.png)](https://reactjs.org) | [![TypeScript](images/apollo.png)](https://www.apollographql.com/) |
+|---|---|---|---|
+| [![TypeScript](images/tailwind.png)](https://tailwindcss.com/) | [![TypeScript](images/nodejs.png)](https://nodejs.org/en/)| [![TypeScript](images/graphql.png)](https://graphql.org/) | [![TypeScript](images/socket.png)](https://socket.io) |
+| [![TypeScript](images/prisma.png)](https://www.prisma.io/) | [![TypeScript](images/postgres.png)](https://www.postgresql.org/) | [![TypeScript](images/docker.png)](https://www.docker.com/)| [![TypeScript](images/giraphql.png)](https://giraphql.com/) |
 
-# If you want to run this application on your own follow the procedure below
+## If you want to run this application on your own follow the procedure below
 
 ## Requirements
 
--   Node.js 14.0.0^
--   Pnpm 6.0.0^
--   Docker
--   Docker-Compose
--   Git
+- Node.js 14.0.0^
+- Pnpm 6.0.0^
+- Docker
+- Docker-Compose
+- Git
 
 ## Clone the Repository
 
-```
+```bash
 git clone https://github.com/FourLineCode/wavechat.git
 ```
 
 ## Install Dependencies
 
-```
+```bash
 pnpm --dir api install
 pnpm --dir web install
 ```
@@ -53,7 +44,7 @@ pnpm --dir web install
 
 ## Run development server
 
-```
+```bash
 docker-compose up
 ```
 
@@ -61,7 +52,7 @@ docker-compose up
 
 ## Migrate database
 
-```
+```bash
 pnpm --dir api migrate
 ```
 
