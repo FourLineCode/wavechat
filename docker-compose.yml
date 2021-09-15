@@ -1,10 +1,25 @@
 version: '3.8'
 
 services:
+    # Traefik reverse proxy for localised domains
+    traefik:
+        image: traefik:v2.5
+        container_name: traefik
+        command:
+            - --api.insecure=true
+            - --providers.docker=true
+            - --providers.docker.exposedbydefault=false
+            - --entrypoints.web.address=:80
+        ports:
+            - 80:80
+            - 8080:8080
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock:ro
+
     # PostgreSQL database container
     postgres:
         container_name: postgres
-        image: postgres:13.3-alpine
+        image: postgres:13-alpine
         ports:
             - 5432:5432
         volumes:
@@ -14,11 +29,15 @@ services:
             POSTGRES_DB: wavechat
             # Database password
             POSTGRES_PASSWORD: pgadmin
+        depends_on:
+            - traefik
 
     # WaveChat Api container (Backend)
     api:
         container_name: api
-        build: ./api
+        build:
+            context: ./api
+            target: development
         working_dir: /api
         command: pnpm dev
         volumes:
@@ -27,12 +46,20 @@ services:
             - 5000:5000
             - 5001:5001
         depends_on:
+            - traefik
             - postgres
+        labels:
+            - traefik.enable=true
+            - traefik.http.routers.api.entrypoints=web
+            # Web route prefixed with specific routes gets forwarded to api
+            - traefik.http.routers.api.rule=Host(`wavechat.localhost`) && PathPrefix(`/graphql`) || PathPrefix(`/ws`)
 
     # WaveChat Web app container (Frontend)
     web:
         container_name: web
-        build: ./web
+        build:
+            context: ./web
+            target: development
         working_dir: /web
         command: pnpm dev
         volumes:
@@ -40,19 +67,28 @@ services:
         ports:
             - 3000:3000
         depends_on:
+            - traefik
             - postgres
             - api
+        labels:
+            - traefik.enable=true
+            - traefik.http.routers.web.entrypoints=web
+            # Web route other than api routes gets forwarded to api
+            - traefik.http.routers.web.rule=Host(`wavechat.localhost`)
 
     # Codegen - GraphQL code generator for ApolloClient (Frontend)
     codegen:
         container_name: codegen
-        build: ./web
+        build:
+            context: ./web
+            target: development
         working_dir: /web
         command: pnpm codegen
         network_mode: host
         volumes:
             - ./web:/web:rw
         depends_on:
+            - traefik
             - postgres
             - api
             - web

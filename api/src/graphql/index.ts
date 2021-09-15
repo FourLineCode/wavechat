@@ -35,7 +35,7 @@ export async function startServer() {
 	const io = new socketio.Server(server, {
 		path: '/ws',
 		cors: {
-			origin: 'http://localhost:3000',
+			origin: config.origins,
 			credentials: true,
 		},
 	});

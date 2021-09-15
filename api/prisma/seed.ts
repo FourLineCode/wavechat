@@ -16,7 +16,7 @@ async function seed() {
 			email: 'akmal@wave.com',
 			username: 'akmal',
 			displayName: 'Akmal Hossain',
-			password: bcrypt.hashSync(process.env.ADMIN_PASS!, 10),
+			password: bcrypt.hashSync(process.env.ADMIN_PASS!, 12),
 			role: 'ADMIN',
 			avatarUrl: 'https://avatars.githubusercontent.com/u/56719270?v=4',
 			university: 'East West University',
@@ -25,7 +25,7 @@ async function seed() {
 		},
 	});
 
-	// Create some bot accounts for testing purposes
+	// Create some fake accounts for testing purposes
 	for (let i = 0; i < 50; i++) {
 		const name = faker.name.findName();
 		await db.user.create({
@@ -33,6 +33,22 @@ async function seed() {
 				email: faker.internet.email(),
 				username: name.split(' ').join('').toLowerCase(),
 				displayName: name,
+				password: bcrypt.hashSync(process.env.BOT_PASS!, 10),
+				avatarUrl: faker.internet.avatar(),
+				university: faker.company.companyName(),
+				department: faker.commerce.department(),
+				semester: faker.datatype.number(12),
+			},
+		});
+	}
+
+	// Create some bot accounts for testing purposes
+	for (let i = 0; i < 20; i++) {
+		await db.user.create({
+			data: {
+				email: `bot${i}@wave.com`,
+				username: `bot${i}`,
+				displayName: `BOT${i}`,
 				password: bcrypt.hashSync(process.env.BOT_PASS!, 10),
 				avatarUrl: faker.internet.avatar(),
 				university: faker.company.companyName(),

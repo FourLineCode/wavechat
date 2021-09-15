@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { FriendsList } from 'src/components/friends/FriendsList';
+import { FriendsInfo } from 'src/components/friends/FriendsInfo';
 import { Layout } from 'src/components/layouts/Layout';
 import { NavigationSidebar } from 'src/components/navigations/NavigationSidebar';
 import { SidebarWithProfile } from 'src/components/profile/SidebarWithProfile';
@@ -18,7 +18,7 @@ export default function ServerById() {
 				<div className='flex flex-col items-center justify-center flex-1 bg-dark-700'>
 					<div className='text-4xl font-bold text-primary'>Server #{serverId}</div>
 				</div>
-				<FriendsList />
+				<FriendsInfo />
 			</div>
 		</Layout>
 	);

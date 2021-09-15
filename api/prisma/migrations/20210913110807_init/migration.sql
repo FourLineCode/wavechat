@@ -4,6 +4,7 @@ CREATE TYPE "UserRole" AS ENUM ('USER', 'ADMIN');
 -- CreateTable
 CREATE TABLE "User" (
     "id" TEXT NOT NULL,
+    "pk" SERIAL NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
     "email" TEXT NOT NULL,
@@ -22,6 +23,7 @@ CREATE TABLE "User" (
 -- CreateTable
 CREATE TABLE "Session" (
     "id" TEXT NOT NULL,
+    "pk" SERIAL NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
     "userId" TEXT NOT NULL,
@@ -32,6 +34,7 @@ CREATE TABLE "Session" (
 -- CreateTable
 CREATE TABLE "Friendship" (
     "id" TEXT NOT NULL,
+    "pk" SERIAL NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
     "firstUserId" TEXT NOT NULL,
@@ -43,6 +46,7 @@ CREATE TABLE "Friendship" (
 -- CreateTable
 CREATE TABLE "FriendRequest" (
     "id" TEXT NOT NULL,
+    "pk" SERIAL NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
     "fromUserId" TEXT NOT NULL,
@@ -50,6 +54,9 @@ CREATE TABLE "FriendRequest" (
 
     PRIMARY KEY ("id")
 );
+
+-- CreateIndex
+CREATE UNIQUE INDEX "User.pk_unique" ON "User"("pk");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "User.email_unique" ON "User"("email");

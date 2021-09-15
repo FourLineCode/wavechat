@@ -8,7 +8,7 @@ module.exports = {
 		extend: {
 			colors: {
 				brand: colors.rose,
-				dark: colors.blueGray,
+				dark: colors.gray,
 				primary: colors.blueGray[200],
 				secondary: colors.blueGray[500],
 				muted: colors.blueGray[600],

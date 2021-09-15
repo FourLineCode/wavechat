@@ -1,5 +1,5 @@
 import { DirectMessages } from 'src/components/friends/DirectMessages';
-import { FriendsList } from 'src/components/friends/FriendsList';
+import { FriendsInfo } from 'src/components/friends/FriendsInfo';
 import { Layout } from 'src/components/layouts/Layout';
 import { NavigationSidebar } from 'src/components/navigations/NavigationSidebar';
 import { SidebarWithProfile } from 'src/components/profile/SidebarWithProfile';
@@ -19,7 +19,7 @@ export default function Friends() {
 					<div className='text-4xl font-bold text-primary'>/Friends</div>
 					<Button onClick={auth.signout}>Sign out</Button>
 				</div>
-				<FriendsList />
+				<FriendsInfo />
 			</div>
 		</Layout>
 	);

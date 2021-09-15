@@ -216,6 +216,11 @@ export type DiscoverUnsendRequestMutationVariables = Exact<{
 
 export type DiscoverUnsendRequestMutation = { __typename?: 'Mutation', unsendRequest: boolean };
 
+export type PendingRequestsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type PendingRequestsQuery = { __typename?: 'Query', pendingRequests: Array<{ __typename?: 'FriendRequest', id: string, fromUserId: string, toUserId: string, fromUser: { __typename?: 'User', id: string, displayName: string }, toUser: { __typename?: 'User', id: string, displayName: string } }> };
+
 export type SignupMutationVariables = Exact<{
   input: SignupInput;
 }>;
@@ -283,6 +288,23 @@ export const DiscoverUnsendRequestDocument = gql`
 }
     `;
 export type DiscoverUnsendRequestMutationOptions = Apollo.BaseMutationOptions<DiscoverUnsendRequestMutation, DiscoverUnsendRequestMutationVariables>;
+export const PendingRequestsDocument = gql`
+    query PendingRequests {
+  pendingRequests {
+    id
+    fromUserId
+    fromUser {
+      id
+      displayName
+    }
+    toUserId
+    toUser {
+      id
+      displayName
+    }
+  }
+}
+    `;
 export const SignupDocument = gql`
     mutation Signup($input: SignupInput!) {
   signup(input: $input) {
