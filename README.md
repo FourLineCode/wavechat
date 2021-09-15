@@ -29,7 +29,7 @@ communicate with each other about their activities and help each other.
     <td align="center"><a href="https://www.prisma.io/"><img src="images/prisma.png" width="110px;" height="75px;" alt="Prisma"/><br /><b><font color="#777"> Prisma</font></b></a></td>
     <td align="center"><a href="https://www.postgresql.org/"><img src="images/postgres.png" width="75px;" height="75px;" alt="PostgreSQL"/><br /><b><font color="#777"> PostgreSQL</font></b></a></td>
     <td align="center"><a href="https://www.docker.com/"><img src="images/docker.png" width="75px;" height="75px;" alt="Docker"/><br /><b><font color="#777"> Docker</font></b></a></td>
-    <td align="center"><a href="#gcp"><img src="images/giraphql.png" width="80px;" height="75px;" alt="GiraphQL"/><br /><b><font color="#777"> GiraphQL</font></b></a></td>
+    <td align="center"><a href="https://giraphql.com/"><img src="images/giraphql.png" width="80px;" height="75px;" alt="GiraphQL"/><br /><b><font color="#777"> GiraphQL</font></b></a></td>
   </tr>
 </table>
 
