@@ -32,7 +32,7 @@ export default function SignIn() {
 	return (
 		<Layout title='Sign In'>
 			<div className='w-screen h-screen'>
-				<div className='w-full bg-gradient-to-b from-brand-800 to-dark-800 h-2/3'>
+				<div className='w-full bg-gradient-to-b from-brand-800 to-dark-900 h-2/3'>
 					<NavBar />
 
 					<Formik
