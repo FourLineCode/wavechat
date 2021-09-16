@@ -47,7 +47,7 @@
 		"@types/faker": "^5.5.8",
 		"@types/jsonwebtoken": "^8.5.5",
 		"@types/morgan": "^1.9.3",
-		"@types/node": "^16.9.1",
+		"@types/node": "^16.9.2",
 		"apollo-server-core": "^3.3.0",
 		"faker": "^5.5.3",
 		"prisma": "^2.30.0",

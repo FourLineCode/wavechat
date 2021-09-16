@@ -37,7 +37,9 @@
     -   [x] add traefik reverse proxy
     -   [x] requirement updates
     -   [x] images folder refactor
+    -   [x] add prettierrc
     -   [ ] full color revamp
+    -   [ ] docker prod env
     -   [ ] use prisma giraphql plugin
 
 -   [ ] auth
