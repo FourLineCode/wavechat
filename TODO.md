@@ -35,6 +35,9 @@
     -   [x] comments and docs
     -   [x] use alpine images
     -   [x] add traefik reverse proxy
+    -   [x] requirement updates
+    -   [x] images folder refactor
+    -   [ ] full color revamp
     -   [ ] use prisma giraphql plugin
 
 -   [ ] auth
