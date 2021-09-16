@@ -26,7 +26,7 @@ export default function SignUp() {
 	return (
 		<Layout title='Sign Up'>
 			<div className='w-screen h-screen'>
-				<div className='w-full bg-gradient-to-b from-brand-800 to-dark-800 h-2/3'>
+				<div className='w-full bg-gradient-to-b from-brand-800 to-dark-900 h-2/3'>
 					<NavBar />
 					<Formik
 						initialValues={{

@@ -6,7 +6,7 @@ export function DirectMessages() {
 		<div className='flex flex-col flex-1 w-64 px-2 py-4 bg-dark-800 xl:w-80'>
 			<input
 				type='text'
-				className='w-full p-2 text-sm rounded-lg placeholder-dark-500 text-primary bg-dark-700 focus:ring-2 ring-brand-500 focus:outline-none'
+				className='w-full p-2 text-sm transition rounded-lg placeholder-dark-500 text-primary bg-dark-700 focus:bg-dark-600 focus:ring-2 ring-brand-500 focus:outline-none'
 				placeholder='Search a friend'
 			/>
 			<hr className='my-2 border-dark-700' />

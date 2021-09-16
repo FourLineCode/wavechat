@@ -1,5 +1,17 @@
 const colors = require('tailwindcss/colors');
 
+const customDark = {
+	100: '#f8f9fa',
+	200: '#e9ecef',
+	300: '#dee2e6',
+	400: '#ced4da',
+	500: '#adb5bd',
+	600: '#495057',
+	700: '#373D43',
+	800: '#25292D',
+	900: '#121417',
+};
+
 module.exports = {
 	mode: 'jit',
 	purge: ['./src/**/*.{ts,tsx}'],
@@ -8,10 +20,10 @@ module.exports = {
 		extend: {
 			colors: {
 				brand: colors.rose,
-				dark: colors.gray,
-				primary: colors.blueGray[200],
-				secondary: colors.blueGray[500],
-				muted: colors.blueGray[600],
+				dark: customDark,
+				primary: customDark[200],
+				secondary: customDark[500],
+				muted: customDark[600],
 			},
 		},
 	},

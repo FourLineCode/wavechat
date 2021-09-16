@@ -9,7 +9,7 @@ export default function Index() {
 	return (
 		<Layout>
 			<div className='w-screen h-screen'>
-				<div className='w-full h-2/3 bg-gradient-to-b to-dark-800 from-brand-800'>
+				<div className='w-full h-2/3 bg-gradient-to-b to-dark-900 from-brand-800'>
 					<NavBar />
 					<div className='flex flex-col items-center justify-center w-full pt-44'>
 						<div className='text-6xl font-bold'>Imagine A Place ...</div>
