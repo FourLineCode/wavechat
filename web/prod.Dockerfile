@@ -1,5 +1,5 @@
-# Development Environment
-FROM node:16-alpine AS development
+# Production Environment
+FROM node:16-alpine AS production
 
 # Default work directory for the container
 WORKDIR /web
@@ -11,6 +11,12 @@ RUN apk --no-cache add curl
 RUN curl -f https://get.pnpm.io/v6.14.js | node - add --global pnpm
 RUN pnpm add -g pnpm
 
+# Copy the dependency files
+COPY package.json pnpm-lock.yaml ./
+
+# Install and cache the dependencies
+RUN pnpm install
+
 # Copy all the local files to the container (includes node_modules for development mode)
 COPY . .
 
@@ -18,4 +24,4 @@ COPY . .
 EXPOSE 3000
 
 # Start the API
-CMD [ "pnpm", "dev" ]
+CMD [ "pnpm", "prod" ]

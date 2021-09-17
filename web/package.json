@@ -9,6 +9,7 @@
 		"dev": "next dev",
 		"build": "next build",
 		"start": "next start",
+		"prod": "pnpm build && pnpm start",
 		"lint": "next lint",
 		"typecheck": "pnpx tsc --noEmit",
 		"codegen": "pnpm graphql-codegen --watch"

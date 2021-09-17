@@ -2,9 +2,9 @@ version: '3.8'
 
 services:
     # Traefik reverse proxy for localised domains
-    traefik:
+    traefik-prod:
         image: traefik:v2.5
-        container_name: traefik
+        container_name: traefik-prod
         command:
             - --api.insecure=true
             - --providers.docker=true
@@ -17,36 +17,36 @@ services:
             - /var/run/docker.sock:/var/run/docker.sock:ro
 
     # PostgreSQL database container
-    postgres:
-        container_name: postgres
+    postgres-prod:
+        container_name: postgres-prod
         image: postgres:13-alpine
         ports:
             - 5432:5432
         volumes:
-            - pgdata:/var/lib/postgresql/data
+            - pgdata-prod:/var/lib/postgresql/data
         environment:
             # Database name
             POSTGRES_DB: wavechat
             # Database password
             POSTGRES_PASSWORD: pgadmin
         depends_on:
-            - traefik
+            - traefik-prod
 
     # WaveChat Api container (Backend)
-    api:
-        container_name: api
+    api-prod:
+        container_name: api-prod
         build:
             context: ./api
-            target: development
+            dockerfile: ./prod.Dockerfile
+            target: production
         working_dir: /api
-        volumes:
-            - ./api:/api:rw
+        restart: on-failure
         ports:
             - 5000:5000
             - 5001:5001
         depends_on:
-            - traefik
-            - postgres
+            - traefik-prod
+            - postgres-prod
         labels:
             - traefik.enable=true
             - traefik.http.routers.api.entrypoints=web
@@ -54,43 +54,26 @@ services:
             - traefik.http.routers.api.rule=Host(`wavechat.localhost`) && PathPrefix(`/graphql`) || PathPrefix(`/ws`)
 
     # WaveChat Web app container (Frontend)
-    web:
-        container_name: web
+    web-prod:
+        container_name: web-prod
         build:
             context: ./web
-            target: development
+            dockerfile: ./prod.Dockerfile
+            target: production
         working_dir: /web
-        volumes:
-            - ./web:/web:rw
+        restart: on-failure
         ports:
             - 3000:3000
         depends_on:
-            - traefik
-            - postgres
-            - api
+            - traefik-prod
+            - postgres-prod
+            - api-prod
         labels:
             - traefik.enable=true
             - traefik.http.routers.web.entrypoints=web
             # Web route other than api routes gets forwarded to api
             - traefik.http.routers.web.rule=Host(`wavechat.localhost`)
 
-    # Codegen - GraphQL code generator for ApolloClient (Frontend)
-    codegen:
-        container_name: codegen
-        build:
-            context: ./web
-            target: development
-        working_dir: /web
-        command: pnpm codegen
-        network_mode: host
-        volumes:
-            - ./web:/web:rw
-        depends_on:
-            - traefik
-            - postgres
-            - api
-            - web
-
 # Volume for PostgreSQL database to persist data between development sessions
 volumes:
-    pgdata: {}
+    pgdata-prod: {}
