@@ -1,4 +1,7 @@
-import { ApolloServerPluginLandingPageGraphQLPlayground } from 'apollo-server-core';
+import {
+	ApolloServerPluginLandingPageGraphQLPlayground,
+	ApolloServerPluginLandingPageProductionDefault,
+} from 'apollo-server-core';
 import { ApolloServer } from 'apollo-server-express';
 import { createServer } from 'http';
 import socketio from 'socket.io';
@@ -14,11 +17,13 @@ export async function startServer() {
 		schema,
 		context: createContext,
 		plugins: [
-			ApolloServerPluginLandingPageGraphQLPlayground({
-				settings: {
-					'request.credentials': 'include',
-				},
-			}),
+			config.isDev
+				? ApolloServerPluginLandingPageGraphQLPlayground({
+						settings: {
+							'request.credentials': 'include',
+						},
+				  })
+				: ApolloServerPluginLandingPageProductionDefault(),
 		],
 	});
 
