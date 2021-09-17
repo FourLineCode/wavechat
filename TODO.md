@@ -39,7 +39,7 @@
     -   [x] images folder refactor
     -   [x] add prettierrc
     -   [x] full color revamp
-    -   [ ] docker prod env
+    -   [x] docker prod env
     -   [ ] use prisma giraphql plugin
 
 -   [ ] auth
