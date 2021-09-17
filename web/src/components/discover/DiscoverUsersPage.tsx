@@ -35,27 +35,26 @@ export function DiscoverUsersPage() {
 	const [currentCursor, setCurrentCursor] = useState<number | null>(null);
 	const [paginationLoading, setPaginationLoading] = useState(false);
 
-	const {
-		data: searchData,
-		refetch,
-		loading,
-	} = useQuery<DiscoverUsersQuery, DiscoverUsersQueryVariables>(GET_DISCOVER_USERS, {
-		variables: {
-			query: queryTerm,
-		},
-		onError: (error) => {
-			toast.error(error.message);
-		},
-	});
+	const { data, refetch, loading } = useQuery<DiscoverUsersQuery, DiscoverUsersQueryVariables>(
+		GET_DISCOVER_USERS,
+		{
+			variables: {
+				query: queryTerm,
+			},
+			onError: (error) => {
+				toast.error(error.message);
+			},
+		}
+	);
 
 	useEffect(() => {
 		if (prevQueryTerm === queryTerm) {
-			setUsers(searchData ? [...users, ...searchData.discoverUsers] : users);
+			setUsers(data ? [...users, ...data.discoverUsers] : users);
 			return;
 		}
 
-		setUsers(searchData ? searchData.discoverUsers : []);
-	}, [searchData]);
+		setUsers(data ? data.discoverUsers : []);
+	}, [data]);
 
 	useEffect(() => {
 		setCurrentCursor(users[users.length - 1]?.pk ?? null);
@@ -83,7 +82,7 @@ export function DiscoverUsersPage() {
 				<>
 					<div className='grid grid-cols-2 gap-2 overflow-y-auto 2xl:grid-cols-4'>
 						{users.map((user) => (
-							<DiscoveredUser user={user} key={user.id} searchTerm={queryTerm} />
+							<DiscoveredUser user={user} key={user.id} />
 						))}
 					</div>
 					<div className='flex justify-center'>
