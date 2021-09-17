@@ -9,6 +9,7 @@ RUN apk --no-cache add curl
 
 # Install pnpm in the container
 RUN curl -f https://get.pnpm.io/v6.14.js | node - add --global pnpm
+RUN pnpm add -g pnpm
 
 # Sets all the environment variables for development server
 ENV NODE_ENV=development

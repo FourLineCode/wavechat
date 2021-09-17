@@ -23,7 +23,7 @@ services:
         ports:
             - 5432:5432
         volumes:
-            - pgdata:/var/lib/postgresql/data
+            - pgdata-prod:/var/lib/postgresql/data
         environment:
             # Database name
             POSTGRES_DB: wavechat
@@ -76,4 +76,4 @@ services:
 
 # Volume for PostgreSQL database to persist data between development sessions
 volumes:
-    pgdata: {}
+    pgdata-prod: {}
