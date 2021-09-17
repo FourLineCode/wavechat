@@ -13,7 +13,6 @@ import {
 	DiscoverUnsendRequestMutationVariables,
 	User,
 } from 'src/apollo/__generated__/types';
-import { GET_DISCOVER_USERS } from 'src/components/discover/DiscoverUsersPage';
 import { Button } from 'src/components/ui/Button';
 import { Card } from 'src/components/ui/Card';
 import { useAvatarUrl } from 'src/hooks/useAvatarUrl';
@@ -21,7 +20,6 @@ import { useAuth } from 'src/store/useAuth';
 
 interface Props {
 	user: User;
-	searchTerm: string;
 }
 
 const SEND_REQUEST = gql`
@@ -46,54 +44,59 @@ const UNSEND_REQUEST = gql`
 	}
 `;
 
-export function DiscoveredUser({ user, searchTerm }: Props) {
+export function DiscoveredUser({ user }: Props) {
 	const auth = useAuth();
 	const currentUserId = auth.user?.id;
 	const avatarUrl = useAvatarUrl(user);
 	const [sentRequestId, setSentRequestId] = useState<string>('');
 	const [loading, setLoading] = useState(false);
+	const [sentRequest, setSentRequest] = useState(false);
+	const [alreadyFriend, setAlreadyFriend] = useState(false);
 
-	const sentRequest = useMemo(() => {
-		const length = user.pendingRequests.length;
+	const didSendRequest = (u: User) => {
+		const length = u.pendingRequests.length;
+		console.log('length');
 
 		for (let i = 0; i < length; i++) {
-			if (user.pendingRequests[i].fromUserId === currentUserId) {
-				setSentRequestId(user.pendingRequests[i].id);
+			console.log('it');
+			if (u.pendingRequests[i].fromUserId === currentUserId) {
+				console.log('found');
+				setSentRequestId(u.pendingRequests[i].id);
 				return true;
 			}
 		}
 
 		return false;
-	}, [user, currentUserId]);
+	};
 
-	const alreadyFriend = useMemo(() => {
-		const length = user.friends.length;
+	const isAlreadyFriend = (u: User) => {
+		const length = u.friends.length;
 
 		for (let i = 0; i < length; i++) {
 			if (
-				user.friends[i].firstUserId === currentUserId ||
-				user.friends[i].secondUserId === currentUserId
+				u.friends[i].firstUserId === currentUserId ||
+				u.friends[i].secondUserId === currentUserId
 			) {
 				return true;
 			}
 		}
 
 		return false;
-	}, [user, currentUserId]);
+	};
 
-	const primaryButtonText = useMemo(() => {
-		if (alreadyFriend) return 'Unfriend';
-		else if (sentRequest) return 'Unsend Request';
-		else return 'Add Friend';
-	}, [sentRequest, alreadyFriend]);
+	// Sets the initial state of friendship between current user and this user
+	useEffect(() => {
+		setSentRequest(didSendRequest(user));
+		setAlreadyFriend(isAlreadyFriend(user));
+	}, []);
 
 	const [unfriend, { loading: unfriendLoading }] = useMutation<
 		DiscoverUnfriendMutation,
 		DiscoverUnfriendMutationVariables
 	>(UNFRIEND_USER, {
 		variables: { userId: user.id },
-		refetchQueries: [{ query: GET_DISCOVER_USERS, variables: { query: searchTerm } }],
 		onCompleted: () => {
+			setAlreadyFriend(false);
 			toast.success('Unfriended successfully');
 		},
 		onError: (error) => {
@@ -108,8 +111,8 @@ export function DiscoveredUser({ user, searchTerm }: Props) {
 		variables: {
 			requestId: sentRequestId,
 		},
-		refetchQueries: [{ query: GET_DISCOVER_USERS, variables: { query: searchTerm } }],
 		onCompleted: () => {
+			setSentRequest(false);
 			toast.success('Unsent request successfully');
 		},
 		onError: (error) => {
@@ -124,14 +127,29 @@ export function DiscoveredUser({ user, searchTerm }: Props) {
 		variables: {
 			userId: user.id,
 		},
-		refetchQueries: [{ query: GET_DISCOVER_USERS, variables: { query: searchTerm } }],
-		onCompleted: () => {
+		onCompleted: (data) => {
+			setSentRequest(true);
+			setSentRequestId(data.sendRequest.id);
 			toast.success('Sent request successfully');
 		},
 		onError: (error) => {
 			toast.error(error.message);
 		},
 	});
+
+	const requestButtonHandler = (event: React.ChangeEvent<HTMLButtonElement>) => {
+		event.preventDefault();
+
+		if (alreadyFriend) unfriend();
+		else if (sentRequest) unsendRequest();
+		else return sendRequest();
+	};
+
+	const primaryButtonText = useMemo(() => {
+		if (alreadyFriend) return 'Unfriend';
+		else if (sentRequest) return 'Unsend Request';
+		else return 'Add Friend';
+	}, [sentRequest, alreadyFriend]);
 
 	useEffect(() => {
 		const isLoading = sendLoading || unsendLoading || unfriendLoading;
@@ -141,23 +159,8 @@ export function DiscoveredUser({ user, searchTerm }: Props) {
 			return;
 		}
 
-		// Delay the loding to prevent spam clicking button
-		const loadingTimeout = setTimeout(() => {
-			setLoading(false);
-		}, 500);
-
-		return () => {
-			clearTimeout(loadingTimeout);
-		};
+		setLoading(false);
 	}, [sendLoading, unsendLoading, unfriendLoading]);
-
-	const requestButtonHandler = (event: React.ChangeEvent<HTMLButtonElement>) => {
-		event.preventDefault();
-
-		if (alreadyFriend) unfriend();
-		else if (sentRequest) unsendRequest();
-		else return sendRequest();
-	};
 
 	// TODO: implement this feature after servers are done
 	const inviteToServer = () => {
