@@ -1,5 +1,4 @@
-import gql from '.pnpm/graphql-tag@2.12.5_graphql@15.5.3/node_modules/graphql-tag';
-import { useMutation } from '@apollo/client';
+import { gql, useMutation } from '@apollo/client';
 import React, { useEffect, useMemo, useState } from 'react';
 import toast from 'react-hot-toast';
 import { AiOutlineUsergroupAdd } from 'react-icons/ai';
