@@ -12,6 +12,7 @@ import {
 	DiscoverUnsendRequestMutationVariables,
 	User,
 } from 'src/apollo/__generated__/types';
+import { GET_FRIENDS_LIST } from 'src/components/friends/FriendsList';
 import { Button } from 'src/components/ui/Button';
 import { Card } from 'src/components/ui/Card';
 import { useAvatarUrl } from 'src/hooks/useAvatarUrl';
@@ -21,7 +22,7 @@ interface Props {
 	user: User;
 }
 
-const SEND_REQUEST = gql`
+const DISCOVER_SEND_REQUEST = gql`
 	mutation DiscoverSendRequest($userId: String!) {
 		sendRequest(userId: $userId) {
 			id
@@ -29,7 +30,7 @@ const SEND_REQUEST = gql`
 	}
 `;
 
-const UNFRIEND_USER = gql`
+const DISCOVER_UNFRIEND_USER = gql`
 	mutation DiscoverUnfriend($userId: String!) {
 		unfriend(userId: $userId) {
 			id
@@ -37,7 +38,7 @@ const UNFRIEND_USER = gql`
 	}
 `;
 
-const UNSEND_REQUEST = gql`
+const DISCOVER_UNSEND_REQUEST = gql`
 	mutation DiscoverUnsendRequest($requestId: String!) {
 		unsendRequest(requestId: $requestId)
 	}
@@ -92,7 +93,7 @@ export function DiscoveredUser({ user }: Props) {
 	const [unfriend, { loading: unfriendLoading }] = useMutation<
 		DiscoverUnfriendMutation,
 		DiscoverUnfriendMutationVariables
-	>(UNFRIEND_USER, {
+	>(DISCOVER_UNFRIEND_USER, {
 		variables: { userId: user.id },
 		onCompleted: () => {
 			setAlreadyFriend(false);
@@ -101,12 +102,13 @@ export function DiscoveredUser({ user }: Props) {
 		onError: (error) => {
 			toast.error(error.message);
 		},
+		refetchQueries: [{ query: GET_FRIENDS_LIST }],
 	});
 
 	const [unsendRequest, { loading: unsendLoading }] = useMutation<
 		DiscoverUnsendRequestMutation,
 		DiscoverUnsendRequestMutationVariables
-	>(UNSEND_REQUEST, {
+	>(DISCOVER_UNSEND_REQUEST, {
 		variables: {
 			requestId: sentRequestId,
 		},
@@ -122,7 +124,7 @@ export function DiscoveredUser({ user }: Props) {
 	const [sendRequest, { loading: sendLoading }] = useMutation<
 		DiscoverSendRequestMutation,
 		DiscoverSendRequestMutationVariables
-	>(SEND_REQUEST, {
+	>(DISCOVER_SEND_REQUEST, {
 		variables: {
 			userId: user.id,
 		},

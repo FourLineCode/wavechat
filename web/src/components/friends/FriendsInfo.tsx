@@ -2,7 +2,7 @@ import { Tab } from '@headlessui/react';
 import clsx from 'clsx';
 import { Fragment } from 'react';
 import { FriendsList } from 'src/components/friends/FriendsList';
-import { Requestslist } from 'src/components/friends/RequestsList';
+import { RequestsList } from 'src/components/friends/RequestsList';
 
 const tabs = [
 	{
@@ -11,7 +11,7 @@ const tabs = [
 		Component: FriendsList,
 	},
 
-	{ id: 'requests', title: 'Requests', Component: Requestslist },
+	{ id: 'requests', title: 'Requests', Component: RequestsList },
 ];
 
 export function FriendsInfo() {

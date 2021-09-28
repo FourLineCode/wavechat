@@ -1,6 +1,15 @@
+import { gql, useMutation } from '@apollo/client';
 import React from 'react';
 import toast from 'react-hot-toast';
-import { FriendRequest } from 'src/apollo/__generated__/types';
+import {
+	AcceptRequestMutation,
+	AcceptRequestMutationVariables,
+	DeclineRequestMutation,
+	DeclineRequestMutationVariables,
+	FriendRequest,
+} from 'src/apollo/__generated__/types';
+import { GET_FRIENDS_LIST } from 'src/components/friends/FriendsList';
+import { GET_PENDING_REQUESTS } from 'src/components/friends/RequestsList';
 import { Button } from 'src/components/ui/Button';
 import { Card } from 'src/components/ui/Card';
 import { useAvatarUrl } from 'src/hooks/useAvatarUrl';
@@ -9,8 +18,56 @@ interface Props {
 	request: FriendRequest;
 }
 
+const ACCEPT_REQUEST = gql`
+	mutation AcceptRequest($requestId: String!) {
+		acceptRequest(requestId: $requestId) {
+			id
+		}
+	}
+`;
+
+const DECLINE_REQUEST = gql`
+	mutation DeclineRequest($requestId: String!) {
+		declineRequest(requestId: $requestId) {
+			id
+		}
+	}
+`;
+
 export function FriendRequestCard({ request }: Props) {
 	const avatarUrl = useAvatarUrl(request.fromUser);
+
+	const [acceptRequest, { loading: acceptRequestLoading }] = useMutation<
+		AcceptRequestMutation,
+		AcceptRequestMutationVariables
+	>(ACCEPT_REQUEST, {
+		variables: {
+			requestId: request.id,
+		},
+		onCompleted: () => {
+			toast.success('Request Accepted');
+		},
+		onError: (error) => {
+			toast.error(error.message);
+		},
+		refetchQueries: [{ query: GET_PENDING_REQUESTS }, { query: GET_FRIENDS_LIST }],
+	});
+
+	const [declineRequest, { loading: declineRequestLoading }] = useMutation<
+		DeclineRequestMutation,
+		DeclineRequestMutationVariables
+	>(DECLINE_REQUEST, {
+		variables: {
+			requestId: request.id,
+		},
+		onCompleted: () => {
+			toast.success('Request Declined');
+		},
+		onError: (error) => {
+			toast.error(error.message);
+		},
+		refetchQueries: [{ query: GET_PENDING_REQUESTS }, { query: GET_FRIENDS_LIST }],
+	});
 
 	return (
 		<Card className='w-full !p-2 space-y-2'>
@@ -32,15 +89,17 @@ export function FriendRequestCard({ request }: Props) {
 			<div className='flex space-x-2'>
 				<Button
 					type='submit'
-					onClick={() => toast.success('accepted')}
+					isSubmitting={acceptRequestLoading}
+					onClick={acceptRequest}
 					className='w-full text-sm 2xl:text-base'
-					isSubmitting={false}
 				>
 					<span className='line-clamp-1'>Accept</span>
 				</Button>
 				<Button
-					onClick={() => toast.error('declined')}
+					type='submit'
 					variant='outlined'
+					isSubmitting={declineRequestLoading}
+					onClick={declineRequest}
 					className='w-full text-sm 2xl:text-base'
 				>
 					<span className='line-clamp-1'>Decline</span>

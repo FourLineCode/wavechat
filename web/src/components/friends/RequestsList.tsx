@@ -3,7 +3,7 @@ import { BarLoader } from 'react-spinners';
 import { FriendRequest, PendingRequestsQuery } from 'src/apollo/__generated__/types';
 import { FriendRequestCard } from 'src/components/friends/FriendRequestCard';
 
-const GET_PENDING_REQUESTS = gql`
+export const GET_PENDING_REQUESTS = gql`
 	query PendingRequests {
 		pendingRequests {
 			id
@@ -11,17 +11,19 @@ const GET_PENDING_REQUESTS = gql`
 			fromUser {
 				id
 				displayName
+				university
 			}
 			toUserId
 			toUser {
 				id
 				displayName
+				university
 			}
 		}
 	}
 `;
 
-export function Requestslist() {
+export function RequestsList() {
 	const { data, loading } = useQuery<PendingRequestsQuery>(GET_PENDING_REQUESTS);
 
 	return loading ? (
@@ -30,9 +32,13 @@ export function Requestslist() {
 		</div>
 	) : (
 		<div className='space-y-2'>
-			{data?.pendingRequests.map((request) => (
-				<FriendRequestCard request={request as FriendRequest} />
-			))}
+			{data && data?.pendingRequests.length > 0 ? (
+				data?.pendingRequests.map((request) => (
+					<FriendRequestCard request={request as FriendRequest} key={request.id} />
+				))
+			) : (
+				<div className='mt-6 text-center text-secondary'>No Pending Requests</div>
+			)}
 		</div>
 	);
 }
