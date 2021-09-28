@@ -247,6 +247,11 @@ export type PendingRequestsQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type PendingRequestsQuery = { __typename?: 'Query', pendingRequests: Array<{ __typename?: 'FriendRequest', id: string, fromUserId: string, toUserId: string, fromUser: { __typename?: 'User', id: string, displayName: string, university?: Maybe<string> }, toUser: { __typename?: 'User', id: string, displayName: string, university?: Maybe<string> } }> };
 
+export type DeclineAllRequestMutationVariables = Exact<{ [key: string]: never; }>;
+
+
+export type DeclineAllRequestMutation = { __typename?: 'Mutation', declineAllRequests: boolean };
+
 export type SignupMutationVariables = Exact<{
   input: SignupInput;
 }>;
@@ -376,6 +381,12 @@ export const PendingRequestsDocument = gql`
   }
 }
     `;
+export const DeclineAllRequestDocument = gql`
+    mutation DeclineAllRequest {
+  declineAllRequests
+}
+    `;
+export type DeclineAllRequestMutationOptions = Apollo.BaseMutationOptions<DeclineAllRequestMutation, DeclineAllRequestMutationVariables>;
 export const SignupDocument = gql`
     mutation Signup($input: SignupInput!) {
   signup(input: $input) {

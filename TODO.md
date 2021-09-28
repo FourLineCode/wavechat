@@ -114,7 +114,7 @@
                 -   [ ] unfriend from modal
             -   [x] update cache on request accepted
                 -   [x] friends tab + requests tab
-            -   [ ] decline all button
+            -   [x] decline all button
 
     -   [ ] profile modal
 
