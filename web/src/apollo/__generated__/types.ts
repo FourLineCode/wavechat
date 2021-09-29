@@ -216,10 +216,41 @@ export type DiscoverUnsendRequestMutationVariables = Exact<{
 
 export type DiscoverUnsendRequestMutation = { __typename?: 'Mutation', unsendRequest: boolean };
 
+export type UnfriendUserMutationVariables = Exact<{
+  userId: Scalars['String'];
+}>;
+
+
+export type UnfriendUserMutation = { __typename?: 'Mutation', unfriend: { __typename?: 'Friendship', id: string } };
+
+export type AcceptRequestMutationVariables = Exact<{
+  requestId: Scalars['String'];
+}>;
+
+
+export type AcceptRequestMutation = { __typename?: 'Mutation', acceptRequest: { __typename?: 'Friendship', id: string } };
+
+export type DeclineRequestMutationVariables = Exact<{
+  requestId: Scalars['String'];
+}>;
+
+
+export type DeclineRequestMutation = { __typename?: 'Mutation', declineRequest: { __typename?: 'FriendRequest', id: string } };
+
+export type FriendsListQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type FriendsListQuery = { __typename?: 'Query', friendsList: Array<{ __typename?: 'Friendship', id: string, firstUserId: string, secondUserId: string, firstUser: { __typename?: 'User', id: string, username: string, displayName: string, university?: Maybe<string> }, secondUser: { __typename?: 'User', id: string, username: string, displayName: string, university?: Maybe<string> } }> };
+
 export type PendingRequestsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type PendingRequestsQuery = { __typename?: 'Query', pendingRequests: Array<{ __typename?: 'FriendRequest', id: string, fromUserId: string, toUserId: string, fromUser: { __typename?: 'User', id: string, displayName: string }, toUser: { __typename?: 'User', id: string, displayName: string } }> };
+export type PendingRequestsQuery = { __typename?: 'Query', pendingRequests: Array<{ __typename?: 'FriendRequest', id: string, fromUserId: string, toUserId: string, fromUser: { __typename?: 'User', id: string, username: string, displayName: string, university?: Maybe<string> }, toUser: { __typename?: 'User', id: string, username: string, displayName: string, university?: Maybe<string> } }> };
+
+export type DeclineAllRequestMutationVariables = Exact<{ [key: string]: never; }>;
+
+
+export type DeclineAllRequestMutation = { __typename?: 'Mutation', declineAllRequests: boolean };
 
 export type SignupMutationVariables = Exact<{
   input: SignupInput;
@@ -288,6 +319,51 @@ export const DiscoverUnsendRequestDocument = gql`
 }
     `;
 export type DiscoverUnsendRequestMutationOptions = Apollo.BaseMutationOptions<DiscoverUnsendRequestMutation, DiscoverUnsendRequestMutationVariables>;
+export const UnfriendUserDocument = gql`
+    mutation UnfriendUser($userId: String!) {
+  unfriend(userId: $userId) {
+    id
+  }
+}
+    `;
+export type UnfriendUserMutationOptions = Apollo.BaseMutationOptions<UnfriendUserMutation, UnfriendUserMutationVariables>;
+export const AcceptRequestDocument = gql`
+    mutation AcceptRequest($requestId: String!) {
+  acceptRequest(requestId: $requestId) {
+    id
+  }
+}
+    `;
+export type AcceptRequestMutationOptions = Apollo.BaseMutationOptions<AcceptRequestMutation, AcceptRequestMutationVariables>;
+export const DeclineRequestDocument = gql`
+    mutation DeclineRequest($requestId: String!) {
+  declineRequest(requestId: $requestId) {
+    id
+  }
+}
+    `;
+export type DeclineRequestMutationOptions = Apollo.BaseMutationOptions<DeclineRequestMutation, DeclineRequestMutationVariables>;
+export const FriendsListDocument = gql`
+    query FriendsList {
+  friendsList {
+    id
+    firstUserId
+    firstUser {
+      id
+      username
+      displayName
+      university
+    }
+    secondUserId
+    secondUser {
+      id
+      username
+      displayName
+      university
+    }
+  }
+}
+    `;
 export const PendingRequestsDocument = gql`
     query PendingRequests {
   pendingRequests {
@@ -295,16 +371,26 @@ export const PendingRequestsDocument = gql`
     fromUserId
     fromUser {
       id
+      username
       displayName
+      university
     }
     toUserId
     toUser {
       id
+      username
       displayName
+      university
     }
   }
 }
     `;
+export const DeclineAllRequestDocument = gql`
+    mutation DeclineAllRequest {
+  declineAllRequests
+}
+    `;
+export type DeclineAllRequestMutationOptions = Apollo.BaseMutationOptions<DeclineAllRequestMutation, DeclineAllRequestMutationVariables>;
 export const SignupDocument = gql`
     mutation Signup($input: SignupInput!) {
   signup(input: $input) {

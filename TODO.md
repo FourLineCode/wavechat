@@ -104,12 +104,44 @@
                 -   [ ] search servers
 
             -   [x] send request
-            -   [ ] show pending requests on friends page
-            -   [ ] accept req button
-            -   [ ] show friends on right side bar
-            -   [ ] update cache on request accepted
+            -   [x] show pending requests on friends sidebar tab
+            -   [x] accept/decline req button
+            -   [x] show friends on right sidebar tab
+                -   [x] open context menu
+                    -   [x] show profile button
+                    -   [x] unfriend button
+                -   [ ] onclick open profile modal
+                -   [ ] unfriend from modal
+            -   [x] update cache on request accepted
+                -   [x] friends tab + requests tab
+            -   [x] decline all button
 
     -   [ ] profile modal
+
+        -   [ ] improve the signup before this maybe
+
+        -   [ ] integrate in curr user profile
+        -   [ ] integrate in friends tab
+        -   [ ] integrate in requests tab
+        -   [ ] integrate in discovered users
+        -   [ ] integrate in messages
+
+-   [ ] direct messages
+
+    -   [ ] search friends with suggestions (eligible)
+    -   [ ] click "+" opens modal with list of eligible people
+    -   [ ] clicking on user creates thread
+
+-   [ ] messages
+
+    -   [ ] mentions
+        -   [ ] shows user card on click
+    -   [ ] images/videos
+        -   [ ] use mediafire maybe
+    -   [ ] reply to messages
+    -   [ ] reactions to messages
+        -   [ ] only emojis
+    -   [ ] maybe markup
 
 -   [ ] channels
 
@@ -123,17 +155,6 @@
         -   [ ] private invite only
         -   [ ] public discoverable
             -   [ ] anyone can join
-
--   [ ] messages
-
-    -   [ ] mentions
-        -   [ ] shows user card on click
-    -   [ ] images/videos
-        -   [ ] use mediafire maybe
-    -   [ ] reply to messages
-    -   [ ] reactions to messages
-        -   [ ] only emojis
-    -   [ ] maybe markup
 
 -   [ ] discover
     -   [ ] search users

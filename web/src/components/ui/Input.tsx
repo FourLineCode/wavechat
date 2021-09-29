@@ -26,7 +26,7 @@ type ButtonTypes =
 	| 'url'
 	| 'week';
 
-interface Props {
+interface Props extends React.HTMLAttributes<HTMLInputElement> {
 	label?: string;
 	placeholder: string;
 	type?: ButtonTypes;
@@ -37,7 +37,16 @@ interface Props {
 }
 
 export const Input = React.forwardRef<HTMLInputElement, Props>(function InputComponent(
-	{ label, placeholder, type = 'text', name, disabled, initialFocus = false, className },
+	{
+		label,
+		placeholder,
+		type = 'text',
+		name,
+		disabled,
+		initialFocus = false,
+		className,
+		...props
+	},
 	_ref
 ) {
 	const customRef = useRef<HTMLInputElement>(null);
@@ -69,6 +78,7 @@ export const Input = React.forwardRef<HTMLInputElement, Props>(function InputCom
 					className,
 					'w-full p-2 rounded-lg mt-0.5 bg-dark-300 focus:bg-white transition focus:ring-4 ring-brand-500 focus:outline-none text-dark-800'
 				)}
+				{...props}
 			/>
 		</>
 	);

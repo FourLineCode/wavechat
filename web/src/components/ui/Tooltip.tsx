@@ -1,15 +1,15 @@
-import Tippy from '@tippyjs/react';
+import Tippy, { TippyProps } from '@tippyjs/react';
 import React from 'react';
 import { Placement } from 'tippy.js';
 
-interface Props {
+interface Props extends TippyProps {
 	text?: string;
 	position?: Placement;
 	children: React.ReactElement;
 }
 
 export const Tooltip = React.forwardRef<Element, Props>(function TooltipComponent(
-	{ text, children, position = 'right' },
+	{ text, children, position = 'right', ...props },
 	ref
 ) {
 	return (
@@ -20,6 +20,7 @@ export const Tooltip = React.forwardRef<Element, Props>(function TooltipComponen
 			placement={position}
 			offset={[0, 12]}
 			ref={ref}
+			{...props}
 		>
 			{children}
 		</Tippy>
