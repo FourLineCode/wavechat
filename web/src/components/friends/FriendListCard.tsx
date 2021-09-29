@@ -65,18 +65,18 @@ export function FriendListCard({ friendship }: Props) {
 				</div>
 			</Card>
 			<ContextMenu
-				className='p-2 rounded-lg bg-dark-900'
+				className='p-2 rounded-md bg-dark-900'
 				id={`friend-list-card-${friend.id}`}
 			>
 				<MenuItem
 					onClick={() => toast.success(`profile modal ${friend.displayName}`)}
-					className='px-4 py-2 font-semibold text-center rounded-md cursor-pointer hover:bg-brand-500'
+					className='px-4 py-2 font-semibold text-center rounded-sm cursor-pointer hover:bg-brand-500'
 				>
 					View Profile
 				</MenuItem>
 				<MenuItem
 					onClick={unfriend}
-					className='px-4 py-2 font-semibold text-center rounded-md cursor-pointer hover:bg-brand-500'
+					className='px-4 py-2 font-semibold text-center rounded-sm cursor-pointer hover:bg-brand-500'
 				>
 					Unfriend
 				</MenuItem>
