@@ -15,12 +15,14 @@ export const GET_PENDING_REQUESTS = gql`
 			fromUserId
 			fromUser {
 				id
+				username
 				displayName
 				university
 			}
 			toUserId
 			toUser {
 				id
+				username
 				displayName
 				university
 			}

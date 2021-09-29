@@ -240,12 +240,12 @@ export type DeclineRequestMutation = { __typename?: 'Mutation', declineRequest: 
 export type FriendsListQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type FriendsListQuery = { __typename?: 'Query', friendsList: Array<{ __typename?: 'Friendship', id: string, firstUserId: string, secondUserId: string, firstUser: { __typename?: 'User', id: string, displayName: string, university?: Maybe<string> }, secondUser: { __typename?: 'User', id: string, displayName: string, university?: Maybe<string> } }> };
+export type FriendsListQuery = { __typename?: 'Query', friendsList: Array<{ __typename?: 'Friendship', id: string, firstUserId: string, secondUserId: string, firstUser: { __typename?: 'User', id: string, username: string, displayName: string, university?: Maybe<string> }, secondUser: { __typename?: 'User', id: string, username: string, displayName: string, university?: Maybe<string> } }> };
 
 export type PendingRequestsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type PendingRequestsQuery = { __typename?: 'Query', pendingRequests: Array<{ __typename?: 'FriendRequest', id: string, fromUserId: string, toUserId: string, fromUser: { __typename?: 'User', id: string, displayName: string, university?: Maybe<string> }, toUser: { __typename?: 'User', id: string, displayName: string, university?: Maybe<string> } }> };
+export type PendingRequestsQuery = { __typename?: 'Query', pendingRequests: Array<{ __typename?: 'FriendRequest', id: string, fromUserId: string, toUserId: string, fromUser: { __typename?: 'User', id: string, username: string, displayName: string, university?: Maybe<string> }, toUser: { __typename?: 'User', id: string, username: string, displayName: string, university?: Maybe<string> } }> };
 
 export type DeclineAllRequestMutationVariables = Exact<{ [key: string]: never; }>;
 
@@ -350,12 +350,14 @@ export const FriendsListDocument = gql`
     firstUserId
     firstUser {
       id
+      username
       displayName
       university
     }
     secondUserId
     secondUser {
       id
+      username
       displayName
       university
     }
@@ -369,12 +371,14 @@ export const PendingRequestsDocument = gql`
     fromUserId
     fromUser {
       id
+      username
       displayName
       university
     }
     toUserId
     toUser {
       id
+      username
       displayName
       university
     }

@@ -10,12 +10,14 @@ export const GET_FRIENDS_LIST = gql`
 			firstUserId
 			firstUser {
 				id
+				username
 				displayName
 				university
 			}
 			secondUserId
 			secondUser {
 				id
+				username
 				displayName
 				university
 			}
