@@ -9,8 +9,8 @@ import {
 } from 'src/apollo/__generated__/types';
 import { GET_FRIENDS_LIST } from 'src/components/friends/FriendsList';
 import { ProfileDetails } from 'src/components/profile/ProfileDetails';
+import { UserAvatar } from 'src/components/profile/UserAvatar';
 import { Card } from 'src/components/ui/Card';
-import { useAvatarUrl } from 'src/hooks/useAvatarUrl';
 import { useModal } from 'src/hooks/useModal';
 import { useAuth } from 'src/store/useAuth';
 import { UNFRIEND_USER } from 'src/utils/requestMutations';
@@ -22,7 +22,6 @@ interface Props {
 export function FriendListCard({ friendship }: Props) {
 	const id = useAuth().user?.id;
 	const friend = friendship.firstUserId === id ? friendship.secondUser : friendship.firstUser;
-	const avatarUrl = useAvatarUrl(friend);
 	const { show, onOpen, onClose } = useModal();
 
 	const [unfriend] = useMutation<UnfriendMutation, UnfriendMutationVariables>(UNFRIEND_USER, {
@@ -40,19 +39,17 @@ export function FriendListCard({ friendship }: Props) {
 
 	return (
 		<ContextMenuTrigger id={`friend-list-card-${friend.id}`}>
-			<Card className='w-full !p-3 hover:bg-opacity-75 group cursor-pointer space-y-2'>
+			<Card
+				onClick={onOpen}
+				className='w-full !p-3 hover:bg-opacity-75 group cursor-pointer space-y-2'
+			>
 				<div className='flex items-center space-x-2'>
-					<img
-						src={avatarUrl}
-						alt='user-avatar'
-						onClick={onOpen}
+					<UserAvatar
+						user={friend}
 						className='flex-shrink-0 w-10 h-10 rounded-lg cursor-pointer hover:ring-2 ring-brand-500'
 					/>
 					<div className='w-full'>
-						<div
-							onClick={onOpen}
-							className='font-semibold cursor-pointer line-clamp-1 group-hover:underline'
-						>
+						<div className='font-semibold cursor-pointer line-clamp-1 group-hover:underline'>
 							{friend.displayName}
 						</div>
 						<div className='text-xs line-clamp-1 text-secondary'>

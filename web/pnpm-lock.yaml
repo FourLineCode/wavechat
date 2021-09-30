@@ -18,6 +18,7 @@ specifiers:
   formik: ^2.2.9
   graphql: ^15.6.0
   next: 11.1.0
+  ordinal: ^1.0.3
   postcss: ^8.3.8
   react: 17.0.2
   react-contextmenu: ^2.14.0
@@ -41,6 +42,7 @@ dependencies:
   formik: 2.2.9_react@17.0.2
   graphql: 15.6.0
   next: 11.1.0_01b6e46c81e6fda6a6d233df547d9171
+  ordinal: 1.0.3
   react: 17.0.2
   react-contextmenu: 2.14.0_react-dom@17.0.2+react@17.0.2
   react-dom: 17.0.2_react@17.0.2
@@ -4872,6 +4874,10 @@ packages:
       type-check: 0.4.0
       word-wrap: 1.2.3
     dev: true
+
+  /ordinal/1.0.3:
+    resolution: {integrity: sha512-cMddMgb2QElm8G7vdaa02jhUNbTSrhsgAGUz1OokD83uJTwSUn+nKoNoKVVaRa08yF6sgfO7Maou1+bgLd9rdQ==}
+    dev: false
 
   /os-browserify/0.3.0:
     resolution: {integrity: sha1-hUNzx/XCMVkU/Jv8a9gjj92h7Cc=}

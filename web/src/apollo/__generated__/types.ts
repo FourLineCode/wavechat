@@ -176,6 +176,7 @@ export type SuccessResult = {
 export type User = {
   __typename?: 'User';
   avatarUrl?: Maybe<Scalars['String']>;
+  bio?: Maybe<Scalars['String']>;
   createdAt: Scalars['Date'];
   department?: Maybe<Scalars['String']>;
   displayName: Scalars['String'];
@@ -236,7 +237,7 @@ export type GetUserDataQueryVariables = Exact<{
 }>;
 
 
-export type GetUserDataQuery = { __typename?: 'Query', user: { __typename?: 'User', id: string, email: string, username: string, displayName: string, avatarUrl?: Maybe<string>, role: string, createdAt: any, updatedAt: any, university?: Maybe<string>, department?: Maybe<string>, semester?: Maybe<number>, pendingRequests: Array<{ __typename?: 'FriendRequest', id: string, fromUserId: string }>, friends: Array<{ __typename?: 'Friendship', firstUserId: string, secondUserId: string }> } };
+export type GetUserDataQuery = { __typename?: 'Query', user: { __typename?: 'User', id: string, email: string, username: string, displayName: string, avatarUrl?: Maybe<string>, role: string, bio?: Maybe<string>, createdAt: any, updatedAt: any, university?: Maybe<string>, department?: Maybe<string>, semester?: Maybe<number>, pendingRequests: Array<{ __typename?: 'FriendRequest', id: string, fromUserId: string }>, friends: Array<{ __typename?: 'Friendship', firstUserId: string, secondUserId: string }> } };
 
 export type SignupMutationVariables = Exact<{
   input: SignupInput;
@@ -381,6 +382,7 @@ export const GetUserDataDocument = gql`
     displayName
     avatarUrl
     role
+    bio
     createdAt
     updatedAt
     university

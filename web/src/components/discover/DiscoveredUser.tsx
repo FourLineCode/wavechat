@@ -2,18 +2,16 @@ import React from 'react';
 import toast from 'react-hot-toast';
 import { AiOutlineUsergroupAdd } from 'react-icons/ai';
 import { User } from 'src/apollo/__generated__/types';
+import { UserAvatar } from 'src/components/profile/UserAvatar';
 import { RequestButton } from 'src/components/requests/RequestButton';
 import { Button } from 'src/components/ui/Button';
 import { Card } from 'src/components/ui/Card';
-import { useAvatarUrl } from 'src/hooks/useAvatarUrl';
 
 interface Props {
 	user: User;
 }
 
 export function DiscoveredUser({ user }: Props) {
-	const avatarUrl = useAvatarUrl(user);
-
 	// TODO: implement this feature after servers are done
 	const inviteToServer = () => {
 		toast.success('Server features coming soon');
@@ -22,9 +20,8 @@ export function DiscoveredUser({ user }: Props) {
 	return (
 		<Card inverted className='mx-2 mb-4 space-y-2 min-w-64'>
 			<div className='flex items-center space-x-2'>
-				<img
-					src={avatarUrl}
-					alt='user-avatar'
+				<UserAvatar
+					user={user}
 					className='w-16 h-16 rounded-lg cursor-pointer hover:ring-2 ring-brand-500'
 				/>
 				<div>

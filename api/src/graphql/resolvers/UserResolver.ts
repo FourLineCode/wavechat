@@ -15,6 +15,7 @@ UserObject.implement({
 		username: t.exposeString('username'),
 		displayName: t.exposeString('displayName'),
 		role: t.exposeString('role'),
+		bio: t.expose('bio', { type: 'String', nullable: true }),
 		avatarUrl: t.expose('avatarUrl', { type: 'String', nullable: true }),
 		university: t.exposeString('university', { nullable: true }),
 		department: t.exposeString('department', { nullable: true }),

@@ -1,8 +1,12 @@
 import { gql, useQuery } from '@apollo/client';
 import { format } from 'date-fns';
+import ordinal from 'ordinal';
 import React from 'react';
+import { FaBuilding, FaGraduationCap, FaUniversity } from 'react-icons/fa';
+import { RiFileUserFill } from 'react-icons/ri';
 import { HashLoader } from 'react-spinners';
 import { GetUserDataQuery, GetUserDataQueryVariables, User } from 'src/apollo/__generated__/types';
+import { UserAvatar } from 'src/components/profile/UserAvatar';
 import { RequestButton } from 'src/components/requests/RequestButton';
 import { Modal } from 'src/components/ui/Modal';
 import { useAuth } from 'src/store/useAuth';
@@ -22,6 +26,7 @@ export const GET_USER_DATA = gql`
 			displayName
 			avatarUrl
 			role
+			bio
 			createdAt
 			updatedAt
 			university
@@ -51,23 +56,50 @@ export function ProfileDetails({ userId, show, onClose }: Props) {
 	return (
 		<Modal large isOpen={show} onClose={onClose}>
 			{data && !loading ? (
-				<div className='flex items-center justify-between'>
-					<div className='flex items-center flex-1 space-x-2'>
-						<img
-							src={data.user.avatarUrl ?? ''}
-							alt='avatar'
-							className='w-16 h-16 rounded-full'
-						/>
-						<div>
-							<div className='text-lg font-semibold line-clamp-1'>
-								{data.user.displayName}
+				<div>
+					<div className='flex items-center justify-between'>
+						<div className='flex items-center flex-1 space-x-2'>
+							<UserAvatar user={data.user as User} />
+							<div>
+								<div className='text-lg font-semibold line-clamp-1'>
+									{data.user.displayName}
+								</div>
+								<div className='text-sm text-muted line-clamp-1'>
+									{'Joined: ' +
+										format(new Date(data.user.createdAt), 'dd MMM, yyyy')}
+								</div>
 							</div>
-							<div className='text-sm text-muted line-clamp-1'>
-								{'Joined: ' + format(new Date(data.user.createdAt), 'dd MMM, yyyy')}
+						</div>
+						{data.user.id !== currUserId && <RequestButton user={data.user as User} />}
+					</div>
+					<div className='px-4 mt-4 space-y-2'>
+						<div className='flex space-x-2'>
+							<div>
+								<RiFileUserFill className='w-5 h-5 mt-1 text-muted' />
+							</div>
+							<div className='text-base'>{data.user.bio}</div>
+						</div>
+						<div className='flex space-x-2'>
+							<div>
+								<FaUniversity className='w-5 h-5 mt-1 text-muted' />
+							</div>
+							<div className='text-base'>{data.user.university}</div>
+						</div>
+						<div className='flex space-x-2'>
+							<div>
+								<FaBuilding className='w-5 h-5 mt-1 text-muted' />
+							</div>
+							<div className='text-base'>{data.user.department}</div>
+						</div>
+						<div className='flex space-x-2'>
+							<div>
+								<FaGraduationCap className='w-5 h-5 mt-1 text-muted' />
+							</div>
+							<div className='text-base'>
+								{ordinal(data.user.semester as number) + ' semester'}
 							</div>
 						</div>
 					</div>
-					{data.user.id !== currUserId && <RequestButton user={data.user as User} />}
 				</div>
 			) : (
 				<div className='flex items-center justify-center w-full h-32'>

@@ -112,6 +112,7 @@ type SuccessResult {
 
 type User {
   avatarUrl: String
+  bio: String
   createdAt: Date!
   department: String
   displayName: String!

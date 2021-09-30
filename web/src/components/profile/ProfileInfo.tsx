@@ -1,20 +1,19 @@
 import { FaCog } from 'react-icons/fa';
+import { User } from 'src/apollo/__generated__/types';
 import { ProfileDetails } from 'src/components/profile/ProfileDetails';
-import { useAvatarUrl } from 'src/hooks/useAvatarUrl';
+import { UserAvatar } from 'src/components/profile/UserAvatar';
 import { useModal } from 'src/hooks/useModal';
 import { useAuth } from 'src/store/useAuth';
 
 export function ProfileInfo() {
 	const user = useAuth().user;
-	const avatarUrl = useAvatarUrl(user);
 	const { show, onOpen, onClose } = useModal();
 
 	return (
 		<div className='flex items-center justify-between w-full h-16 p-2 bg-dark-900'>
 			<div className='flex items-center space-x-2'>
-				<img
-					src={avatarUrl}
-					alt='avatar'
+				<UserAvatar
+					user={user as User}
 					onClick={onOpen}
 					className='w-12 h-full rounded-full cursor-pointer hover:ring-2 ring-brand-500'
 				/>
