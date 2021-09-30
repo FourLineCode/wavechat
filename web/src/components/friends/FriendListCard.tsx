@@ -8,7 +8,7 @@ import {
 	UnfriendMutationVariables,
 } from 'src/apollo/__generated__/types';
 import { GET_FRIENDS_LIST } from 'src/components/friends/FriendsList';
-import { ProfileDetails } from 'src/components/profile/ProfileDetails';
+import { ProfileModal } from 'src/components/profile/ProfileModal';
 import { UserAvatar } from 'src/components/profile/UserAvatar';
 import { Card } from 'src/components/ui/Card';
 import { useModal } from 'src/hooks/useModal';
@@ -57,7 +57,7 @@ export function FriendListCard({ friendship }: Props) {
 						</div>
 					</div>
 				</div>
-				<ProfileDetails userId={friend.id} show={show} onClose={onClose} />
+				<ProfileModal userId={friend.id} show={show} onClose={onClose} />
 			</Card>
 			<ContextMenu
 				className='p-2 rounded-md bg-dark-900'

@@ -1,6 +1,6 @@
 import { FaCog } from 'react-icons/fa';
 import { User } from 'src/apollo/__generated__/types';
-import { ProfileDetails } from 'src/components/profile/ProfileDetails';
+import { ProfileModal } from 'src/components/profile/ProfileModal';
 import { UserAvatar } from 'src/components/profile/UserAvatar';
 import { useModal } from 'src/hooks/useModal';
 import { useAuth } from 'src/store/useAuth';
@@ -33,7 +33,7 @@ export function ProfileInfo() {
 			<div className='p-2 transition transform rounded-full cursor-pointer hover:scale-110 text-dark-500 hover:text-dark-300 hover:bg-dark-700'>
 				<FaCog size='20' />
 			</div>
-			{user && <ProfileDetails userId={user.id} show={show} onClose={onClose} />}
+			{user && <ProfileModal userId={user.id} show={show} onClose={onClose} />}
 		</div>
 	);
 }

@@ -10,7 +10,7 @@ import {
 } from 'src/apollo/__generated__/types';
 import { GET_FRIENDS_LIST } from 'src/components/friends/FriendsList';
 import { GET_PENDING_REQUESTS } from 'src/components/friends/RequestsList';
-import { ProfileDetails } from 'src/components/profile/ProfileDetails';
+import { ProfileModal } from 'src/components/profile/ProfileModal';
 import { UserAvatar } from 'src/components/profile/UserAvatar';
 import { Button } from 'src/components/ui/Button';
 import { Card } from 'src/components/ui/Card';
@@ -110,7 +110,7 @@ export function FriendRequestCard({ request }: Props) {
 					<span className='line-clamp-1'>Decline</span>
 				</Button>
 			</div>
-			<ProfileDetails userId={request.fromUserId} show={show} onClose={onClose} />
+			<ProfileModal userId={request.fromUserId} show={show} onClose={onClose} />
 		</Card>
 	);
 }
