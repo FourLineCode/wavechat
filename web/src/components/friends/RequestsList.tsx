@@ -17,6 +17,7 @@ export const GET_PENDING_REQUESTS = gql`
 				id
 				username
 				displayName
+				avatarUrl
 				university
 			}
 			toUserId
@@ -24,6 +25,7 @@ export const GET_PENDING_REQUESTS = gql`
 				id
 				username
 				displayName
+				avatarUrl
 				university
 			}
 		}

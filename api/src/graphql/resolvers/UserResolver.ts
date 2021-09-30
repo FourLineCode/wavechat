@@ -61,8 +61,22 @@ builder.queryField('allUsers', (t) =>
 		authScopes: {
 			admin: true,
 		},
-		resolve: async (_parent, _args, context) => {
-			return await context.db.user.findMany();
+		resolve: async (_parent, _args, { db }) => {
+			return await db.user.findMany();
+		},
+	})
+);
+
+builder.queryField('user', (t) =>
+	t.field({
+		type: UserObject,
+		description: 'returns info for a user',
+		authScopes: {
+			user: true,
+		},
+		args: { userId: t.arg({ type: 'String', required: true }) },
+		resolve: async (_parent, { userId }, { db }) => {
+			return await db.user.findUnique({ where: { id: userId }, rejectOnNotFound: true });
 		},
 	})
 );

@@ -78,6 +78,9 @@ type Query {
 
   """Get sent requests of current user"""
   sentRequests: [FriendRequest!]!
+
+  """returns info for a user"""
+  user(userId: String!): User!
 }
 
 type Session {

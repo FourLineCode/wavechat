@@ -10,9 +10,11 @@ import {
 } from 'src/apollo/__generated__/types';
 import { GET_FRIENDS_LIST } from 'src/components/friends/FriendsList';
 import { GET_PENDING_REQUESTS } from 'src/components/friends/RequestsList';
+import { ProfileDetails } from 'src/components/profile/ProfileDetails';
 import { Button } from 'src/components/ui/Button';
 import { Card } from 'src/components/ui/Card';
 import { useAvatarUrl } from 'src/hooks/useAvatarUrl';
+import { useModal } from 'src/hooks/useModal';
 
 interface Props {
 	request: FriendRequest;
@@ -36,6 +38,7 @@ const DECLINE_REQUEST = gql`
 
 export function FriendRequestCard({ request }: Props) {
 	const avatarUrl = useAvatarUrl(request.fromUser);
+	const { show, onOpen, onClose } = useModal();
 
 	const [acceptRequest, { loading: acceptRequestLoading }] = useMutation<
 		AcceptRequestMutation,
@@ -75,10 +78,14 @@ export function FriendRequestCard({ request }: Props) {
 				<img
 					src={avatarUrl}
 					alt='user-avatar'
+					onClick={onOpen}
 					className='w-10 h-10 rounded-lg cursor-pointer hover:ring-2 ring-brand-500'
 				/>
 				<div>
-					<div className='font-semibold cursor-pointer line-clamp-1 hover:underline'>
+					<div
+						onClick={onOpen}
+						className='font-semibold cursor-pointer line-clamp-1 hover:underline'
+					>
 						{request.fromUser.displayName}
 					</div>
 					<div className='text-xs line-clamp-1 text-secondary'>
@@ -105,6 +112,7 @@ export function FriendRequestCard({ request }: Props) {
 					<span className='line-clamp-1'>Decline</span>
 				</Button>
 			</div>
+			<ProfileDetails userId={request.fromUserId} show={show} onClose={onClose} />
 		</Card>
 	);
 }
