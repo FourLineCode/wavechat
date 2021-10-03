@@ -7,7 +7,7 @@ interface Props extends React.HTMLAttributes<HTMLTextAreaElement> {
 	placeholder: string;
 	name: string;
 	rows?: number;
-	maxlength?: number;
+	maxLength?: number;
 	disabled?: boolean;
 	initialFocus?: boolean;
 	className?: string;
@@ -19,7 +19,7 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, Props>(function Te
 		placeholder,
 		name,
 		rows = 2,
-		maxlength = 256,
+		maxLength = 256,
 		disabled,
 		initialFocus = false,
 		className,
@@ -52,7 +52,7 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, Props>(function Te
 				autoComplete='off'
 				disabled={disabled}
 				rows={rows}
-				maxlength={maxlength}
+				maxLength={maxLength}
 				className={clsx(
 					className,
 					'w-full p-2 resize-none rounded-lg mt-0.5 bg-dark-300 focus:bg-white transition focus:ring-4 ring-brand-500 focus:outline-none text-dark-800'
