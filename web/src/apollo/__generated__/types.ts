@@ -160,6 +160,7 @@ export type SigninInput = {
 };
 
 export type SignupInput = {
+  bio?: Maybe<Scalars['String']>;
   department?: Maybe<Scalars['String']>;
   email: Scalars['String'];
   password: Scalars['String'];

@@ -64,11 +64,27 @@ const SignupInput = builder.inputType('SignupInput', {
 				maxLength: [18, { message: 'Password can be up to 18 characters' }],
 			},
 		}),
-		// TODO: add validations for uni info
-		university: t.string(),
-		department: t.string(),
+		bio: t.string({
+			validate: {
+				minLength: [2, { message: 'Bio is too short (minimum 2 characters)' }],
+				maxLength: [256, { message: 'Bio is too long (maximum 256 characters)' }],
+			},
+		}),
+		university: t.string({
+			validate: {
+				minLength: [2, { message: 'University name is too short' }],
+				maxLength: [64, { message: 'University name too long' }],
+			},
+		}),
+		department: t.string({
+			validate: {
+				minLength: [2, { message: 'Department name is too short' }],
+				maxLength: [64, { message: 'Department name too long' }],
+			},
+		}),
 		semester: t.int({
 			validate: {
+				positive: true,
 				min: [0, { message: 'Semester must be in range 0-18' }],
 				max: [18, { message: 'Semester must be in range 0-18' }],
 			},
@@ -103,6 +119,7 @@ builder.mutationField('signup', (t) =>
 					username: input.username.toLowerCase(),
 					displayName: input.username,
 					password: bcrypt.hashSync(input.password, 10),
+					bio: input.bio,
 					university: input.university,
 					department: input.department,
 					semester: input.semester,
@@ -151,7 +168,6 @@ const SigninInput = builder.inputType('SigninInput', {
 	}),
 });
 
-// TODO: change response to user to avoid extra queries
 builder.mutationField('signin', (t) =>
 	t.field({
 		type: AuthResultObject,

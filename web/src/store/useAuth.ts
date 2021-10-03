@@ -31,7 +31,7 @@ export interface AuthState extends State {
 export const useAuth = create<AuthState>((set, get) => ({
 	authorized: null,
 	user: null,
-	signup: async ({ email, password, username, department, semester, university }) => {
+	signup: async ({ email, password, username, bio, department, semester, university }) => {
 		try {
 			const { data } = await client.mutate<SignupMutation, SignupMutationVariables>({
 				mutation: gql`
@@ -46,6 +46,7 @@ export const useAuth = create<AuthState>((set, get) => ({
 						email,
 						password,
 						username,
+						bio,
 						department,
 						semester,
 						university,

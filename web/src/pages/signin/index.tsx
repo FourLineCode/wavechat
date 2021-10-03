@@ -71,21 +71,23 @@ export default function SignIn() {
 										<div className='text-5xl italic font-bold text-center'>
 											Sign In
 										</div>
-										<Input
-											label='Email'
-											name='email'
-											placeholder='Email...'
-											type='email'
-											disabled={props.isSubmitting}
-											initialFocus
-										/>
-										<Input
-											label='Password'
-											name='password'
-											placeholder='Password...'
-											type='password'
-											disabled={props.isSubmitting}
-										/>
+										<div>
+											<Input
+												label='Email'
+												name='email'
+												placeholder='Email...'
+												type='email'
+												disabled={props.isSubmitting}
+												initialFocus
+											/>
+											<Input
+												label='Password'
+												name='password'
+												placeholder='Password...'
+												type='password'
+												disabled={props.isSubmitting}
+											/>
+										</div>
 										<div className='flex flex-row-reverse items-center justify-between'>
 											<Button type='submit' isSubmitting={props.isSubmitting}>
 												Sign in

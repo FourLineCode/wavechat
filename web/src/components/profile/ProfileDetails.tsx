@@ -67,32 +67,40 @@ export function ProfileDetails({ userId }: Props) {
 				{data.user.id !== currUserId && <RequestButton user={data.user as User} />}
 			</div>
 			<div className='px-4 mt-4 space-y-2'>
-				<div className='flex space-x-2'>
-					<div>
-						<RiFileUserFill className='w-5 h-5 mt-1 text-muted' />
+				{data.user.bio && (
+					<div className='flex space-x-2'>
+						<div>
+							<RiFileUserFill className='w-5 h-5 mt-1 text-muted' />
+						</div>
+						<div className='text-base'>{data.user.bio}</div>
 					</div>
-					<div className='text-base'>{data.user.bio}</div>
-				</div>
-				<div className='flex space-x-2'>
-					<div>
-						<FaUniversity className='w-5 h-5 mt-1 text-muted' />
+				)}
+				{data.user.university && (
+					<div className='flex space-x-2'>
+						<div>
+							<FaUniversity className='w-5 h-5 mt-1 text-muted' />
+						</div>
+						<div className='text-base'>{data.user.university}</div>
 					</div>
-					<div className='text-base'>{data.user.university}</div>
-				</div>
-				<div className='flex space-x-2'>
-					<div>
-						<FaBuilding className='w-5 h-5 mt-1 text-muted' />
+				)}
+				{data.user.department && (
+					<div className='flex space-x-2'>
+						<div>
+							<FaBuilding className='w-5 h-5 mt-1 text-muted' />
+						</div>
+						<div className='text-base'>{data.user.department}</div>
 					</div>
-					<div className='text-base'>{data.user.department}</div>
-				</div>
-				<div className='flex space-x-2'>
-					<div>
-						<FaGraduationCap className='w-5 h-5 mt-1 text-muted' />
+				)}
+				{data.user.semester && (
+					<div className='flex space-x-2'>
+						<div>
+							<FaGraduationCap className='w-5 h-5 mt-1 text-muted' />
+						</div>
+						<div className='text-base'>
+							{ordinal(data.user.semester as number) + ' semester'}
+						</div>
 					</div>
-					<div className='text-base'>
-						{ordinal(data.user.semester as number) + ' semester'}
-					</div>
-				</div>
+				)}
 			</div>
 		</>
 	) : (
