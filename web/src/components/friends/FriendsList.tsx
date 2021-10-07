@@ -12,6 +12,7 @@ export const GET_FRIENDS_LIST = gql`
 				id
 				username
 				displayName
+				avatarUrl
 				university
 			}
 			secondUserId
@@ -19,6 +20,7 @@ export const GET_FRIENDS_LIST = gql`
 				id
 				username
 				displayName
+				avatarUrl
 				university
 			}
 		}

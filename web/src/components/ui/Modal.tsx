@@ -1,13 +1,16 @@
 import { Dialog, Transition } from '@headlessui/react';
+import clsx from 'clsx';
 import React, { Fragment } from 'react';
 
 interface Props {
 	isOpen: boolean;
 	onClose: () => void;
-	children: React.ReactNode;
+	large?: boolean;
+	className?: string;
+	children?: React.ReactNode;
 }
 
-export function Modal({ isOpen, onClose, children }: Props) {
+export function Modal({ isOpen, onClose, large = false, className, children }: Props) {
 	return (
 		<Transition show={isOpen} as={Fragment}>
 			<Dialog as='div' className='fixed inset-0 z-10' onClose={onClose}>
@@ -21,7 +24,7 @@ export function Modal({ isOpen, onClose, children }: Props) {
 						leaveFrom='opacity-100'
 						leaveTo='opacity-0'
 					>
-						<Dialog.Overlay className='fixed inset-0 bg-black opacity-40' />
+						<Dialog.Overlay className='fixed inset-0 bg-black opacity-50' />
 					</Transition.Child>
 					<Transition.Child
 						as={Fragment}
@@ -32,7 +35,13 @@ export function Modal({ isOpen, onClose, children }: Props) {
 						leaveFrom='opacity-100 scale-100'
 						leaveTo='opacity-0 scale-95'
 					>
-						<div className='w-full max-w-md p-6 transition-all transform rounded-lg shadow-xl bg-dark-900 text-primary'>
+						<div
+							className={clsx(
+								large ? 'max-w-xl' : 'max-w-md',
+								className,
+								'w-full p-6 transition-all border border-dark-800 transform rounded-lg shadow-xl bg-dark-900 text-primary'
+							)}
+						>
 							{children}
 						</div>
 					</Transition.Child>

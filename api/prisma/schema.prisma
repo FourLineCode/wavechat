@@ -23,6 +23,7 @@ model User {
     displayName String   @unique
     password    String
     role        UserRole @default(USER)
+    bio         String?
     avatarUrl   String?
 
     university String?

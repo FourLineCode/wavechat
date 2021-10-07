@@ -78,6 +78,9 @@ type Query {
 
   """Get sent requests of current user"""
   sentRequests: [FriendRequest!]!
+
+  """returns info for a user"""
+  user(userId: String!): User!
 }
 
 type Session {
@@ -95,6 +98,7 @@ input SigninInput {
 }
 
 input SignupInput {
+  bio: String
   department: String
   email: String!
   password: String!
@@ -109,6 +113,7 @@ type SuccessResult {
 
 type User {
   avatarUrl: String
+  bio: String
   createdAt: Date!
   department: String
   displayName: String!

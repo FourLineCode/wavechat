@@ -15,6 +15,7 @@ UserObject.implement({
 		username: t.exposeString('username'),
 		displayName: t.exposeString('displayName'),
 		role: t.exposeString('role'),
+		bio: t.expose('bio', { type: 'String', nullable: true }),
 		avatarUrl: t.expose('avatarUrl', { type: 'String', nullable: true }),
 		university: t.exposeString('university', { nullable: true }),
 		department: t.exposeString('department', { nullable: true }),
@@ -61,8 +62,22 @@ builder.queryField('allUsers', (t) =>
 		authScopes: {
 			admin: true,
 		},
-		resolve: async (_parent, _args, context) => {
-			return await context.db.user.findMany();
+		resolve: async (_parent, _args, { db }) => {
+			return await db.user.findMany();
+		},
+	})
+);
+
+builder.queryField('user', (t) =>
+	t.field({
+		type: UserObject,
+		description: 'returns info for a user',
+		authScopes: {
+			user: true,
+		},
+		args: { userId: t.arg({ type: 'String', required: true }) },
+		resolve: async (_parent, { userId }, { db }) => {
+			return await db.user.findUnique({ where: { id: userId }, rejectOnNotFound: true });
 		},
 	})
 );

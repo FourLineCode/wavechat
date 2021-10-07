@@ -53,8 +53,9 @@
         -   [ ] add top level public auth
         -   [ ] csrf token
     -   [x] auth ui
-        -   [ ] multi page signup
-            -   [ ] uni infos
+        -   [x] multi page signup
+            -   [x] uni infos
+            -   [x] bio
     -   [x] setup zustand stores
     -   [x] setup auth hooks
     -   [x] signup / signin frontend
@@ -110,21 +111,24 @@
                 -   [x] open context menu
                     -   [x] show profile button
                     -   [x] unfriend button
-                -   [ ] onclick open profile modal
-                -   [ ] unfriend from modal
+                -   [x] onclick open profile modal
+                -   [x] unfriend from modal
             -   [x] update cache on request accepted
                 -   [x] friends tab + requests tab
             -   [x] decline all button
 
     -   [ ] profile modal
 
-        -   [ ] improve the signup before this maybe
+        -   [x] improve the signup before profile
 
-        -   [ ] integrate in curr user profile
-        -   [ ] integrate in friends tab
-        -   [ ] integrate in requests tab
-        -   [ ] integrate in discovered users
+        -   [x] integrate in curr user profile
+        -   [x] integrate in friends tab
+        -   [x] integrate in requests tab
+        -   [x] integrate in discovered users
         -   [ ] integrate in messages
+
+        -   [ ] add profile edit
+        -   [ ] add profile picture + banner maybe
 
 -   [ ] direct messages
 
