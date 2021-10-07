@@ -10,6 +10,7 @@ import {
 } from 'src/apollo/__generated__/types';
 import { GET_FRIENDS_LIST } from 'src/components/friends/FriendsList';
 import { GET_PENDING_REQUESTS } from 'src/components/friends/RequestsList';
+import { GET_USER_DATA } from 'src/components/profile/ProfileDetails';
 import { ProfileModal } from 'src/components/profile/ProfileModal';
 import { UserAvatar } from 'src/components/profile/UserAvatar';
 import { Button } from 'src/components/ui/Button';
@@ -52,7 +53,11 @@ export function FriendRequestCard({ request }: Props) {
 		onError: (error) => {
 			toast.error(error.message);
 		},
-		refetchQueries: [{ query: GET_PENDING_REQUESTS }, { query: GET_FRIENDS_LIST }],
+		refetchQueries: [
+			{ query: GET_PENDING_REQUESTS },
+			{ query: GET_FRIENDS_LIST },
+			{ query: GET_USER_DATA, variables: { userId: request.fromUserId } },
+		],
 	});
 
 	const [declineRequest, { loading: declineRequestLoading }] = useMutation<
@@ -68,7 +73,11 @@ export function FriendRequestCard({ request }: Props) {
 		onError: (error) => {
 			toast.error(error.message);
 		},
-		refetchQueries: [{ query: GET_PENDING_REQUESTS }, { query: GET_FRIENDS_LIST }],
+		refetchQueries: [
+			{ query: GET_PENDING_REQUESTS },
+			{ query: GET_FRIENDS_LIST },
+			{ query: GET_USER_DATA, variables: { userId: request.fromUserId } },
+		],
 	});
 
 	return (
