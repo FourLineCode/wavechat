@@ -15,38 +15,38 @@
 		"codegen": "pnpm graphql-codegen --watch"
 	},
 	"dependencies": {
-		"@apollo/client": "^3.4.15",
+		"@apollo/client": "^3.4.16",
 		"@headlessui/react": "^1.4.1",
 		"@tippyjs/react": "^4.2.5",
 		"clsx": "^1.1.1",
-		"date-fns": "^2.24.0",
+		"date-fns": "^2.25.0",
 		"formik": "^2.2.9",
-		"graphql": "^15.6.0",
+		"graphql": "^15.6.1",
 		"next": "11.1.0",
 		"ordinal": "^1.0.3",
 		"react": "17.0.2",
 		"react-contextmenu": "^2.14.0",
 		"react-dom": "17.0.2",
 		"react-hot-toast": "^2.1.1",
-		"react-icons": "^4.2.0",
+		"react-icons": "^4.3.1",
 		"react-spinners": "^0.11.0",
 		"socket.io-client": "^4.2.0",
-		"zustand": "^3.5.9"
+		"zustand": "^3.5.12"
 	},
 	"devDependencies": {
 		"@graphql-codegen/cli": "^2.2.0",
 		"@graphql-codegen/typescript": "^2.2.2",
-		"@graphql-codegen/typescript-operations": "^2.1.4",
+		"@graphql-codegen/typescript-operations": "^2.1.6",
 		"@graphql-codegen/typescript-react-apollo": "^3.1.4",
-		"@tailwindcss/line-clamp": "^0.2.1",
+		"@tailwindcss/line-clamp": "^0.2.2",
 		"@types/react": "17.0.19",
-		"autoprefixer": "^10.3.6",
+		"autoprefixer": "^10.3.7",
 		"eslint": "7.32.0",
 		"eslint-config-next": "11.1.0",
-		"postcss": "^8.3.8",
+		"postcss": "^8.3.9",
 		"tailwind-scrollbar": "^1.3.1",
 		"tailwindcss": "^2.2.16",
-		"tippy.js": "^6.3.1",
+		"tippy.js": "^6.3.2",
 		"typescript": "4.4.2"
 	}
 }
