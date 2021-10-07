@@ -39,7 +39,7 @@ async function seed() {
 				avatarUrl: faker.internet.avatar(),
 				university: faker.company.companyName(),
 				department: faker.commerce.department(),
-				semester: faker.datatype.number(12),
+				semester: faker.datatype.number(16) + 1,
 			},
 		});
 
@@ -72,7 +72,7 @@ async function seed() {
 				avatarUrl: faker.internet.avatar(),
 				university: faker.company.companyName(),
 				department: faker.commerce.department(),
-				semester: faker.datatype.number(12),
+				semester: faker.datatype.number(16) + 1,
 			},
 		});
 	}

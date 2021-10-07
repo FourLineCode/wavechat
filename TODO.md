@@ -121,10 +121,10 @@
 
         -   [x] improve the signup before profile
 
-        -   [ ] integrate in curr user profile
-        -   [ ] integrate in friends tab
-        -   [ ] integrate in requests tab
-        -   [ ] integrate in discovered users
+        -   [x] integrate in curr user profile
+        -   [x] integrate in friends tab
+        -   [x] integrate in requests tab
+        -   [x] integrate in discovered users
         -   [ ] integrate in messages
 
         -   [ ] add profile edit

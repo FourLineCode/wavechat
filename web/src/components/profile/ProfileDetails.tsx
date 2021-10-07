@@ -8,10 +8,12 @@ import { HashLoader } from 'react-spinners';
 import { GetUserDataQuery, GetUserDataQueryVariables, User } from 'src/apollo/__generated__/types';
 import { UserAvatar } from 'src/components/profile/UserAvatar';
 import { RequestButton } from 'src/components/requests/RequestButton';
+import { ApiMutationCallback } from 'src/hooks/useSignal';
 import { useAuth } from 'src/store/useAuth';
 
 interface Props {
 	userId: string;
+	mutationCallback?: ApiMutationCallback;
 }
 
 export const GET_USER_DATA = gql`
@@ -41,7 +43,7 @@ export const GET_USER_DATA = gql`
 	}
 `;
 
-export function ProfileDetails({ userId }: Props) {
+export function ProfileDetails({ userId, mutationCallback }: Props) {
 	const currUserId = useAuth().user?.id;
 
 	const { data, loading } = useQuery<GetUserDataQuery, GetUserDataQueryVariables>(GET_USER_DATA, {
@@ -64,7 +66,9 @@ export function ProfileDetails({ userId }: Props) {
 						</div>
 					</div>
 				</div>
-				{data.user.id !== currUserId && <RequestButton user={data.user as User} />}
+				{data.user.id !== currUserId && (
+					<RequestButton user={data.user as User} mutationCallback={mutationCallback} />
+				)}
 			</div>
 			<div className='px-4 mt-4 space-y-2'>
 				{data.user.bio && (

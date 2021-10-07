@@ -11,10 +11,12 @@ import {
 	User,
 } from 'src/apollo/__generated__/types';
 import { GET_FRIENDS_LIST } from 'src/components/friends/FriendsList';
+import { GET_USER_DATA } from 'src/components/profile/ProfileDetails';
+import { ApiMutationCallback } from 'src/hooks/useSignal';
 import { useAuth } from 'src/store/useAuth';
 import { SEND_REQUEST, UNFRIEND_USER, UNSEND_REQUEST } from 'src/utils/requestMutations';
 
-export function useRequestButton(user: User) {
+export function useRequestButton(user: User, callback?: ApiMutationCallback) {
 	const auth = useAuth();
 	const currentUserId = auth.user?.id;
 	const [sentRequestId, setSentRequestId] = useState<string>('');
@@ -50,6 +52,22 @@ export function useRequestButton(user: User) {
 		return false;
 	};
 
+	const updateButtonState = {
+		setIsAlreadyFriend: () => {
+			setAlreadyFriend(true);
+			setSentRequest(false);
+		},
+		setAlreadySentRequest: (reqId: string) => {
+			setAlreadyFriend(false);
+			setSentRequest(true);
+			setSentRequestId(reqId);
+		},
+		setNotFriend: () => {
+			setAlreadyFriend(false);
+			setSentRequest(false);
+		},
+	};
+
 	// Sets the initial state of friendship between current user and this user
 	useEffect(() => {
 		setSentRequest(didSendRequest(user));
@@ -63,12 +81,16 @@ export function useRequestButton(user: User) {
 		variables: { userId: user.id },
 		onCompleted: () => {
 			setAlreadyFriend(false);
+			if (callback) callback({ message: 'unfriend' });
 			toast.success('Unfriended successfully');
 		},
 		onError: (error) => {
 			toast.error(error.message);
 		},
-		refetchQueries: [{ query: GET_FRIENDS_LIST }],
+		refetchQueries: [
+			{ query: GET_FRIENDS_LIST },
+			{ query: GET_USER_DATA, variables: { userId: user.id } },
+		],
 	});
 
 	const [unsendRequest, { loading: unsendLoading }] = useMutation<
@@ -80,11 +102,13 @@ export function useRequestButton(user: User) {
 		},
 		onCompleted: () => {
 			setSentRequest(false);
+			if (callback) callback({ message: 'unsend' });
 			toast.success('Unsent request successfully');
 		},
 		onError: (error) => {
 			toast.error(error.message);
 		},
+		refetchQueries: [{ query: GET_USER_DATA, variables: { userId: user.id } }],
 	});
 
 	const [sendRequest, { loading: sendLoading }] = useMutation<
@@ -97,11 +121,13 @@ export function useRequestButton(user: User) {
 		onCompleted: (data) => {
 			setSentRequest(true);
 			setSentRequestId(data.sendRequest.id);
+			if (callback) callback({ message: 'send', reqId: data.sendRequest.id });
 			toast.success('Sent request successfully');
 		},
 		onError: (error) => {
 			toast.error(error.message);
 		},
+		refetchQueries: [{ query: GET_USER_DATA, variables: { userId: user.id } }],
 	});
 
 	const requestButtonHandler = (event: React.ChangeEvent<HTMLButtonElement>) => {
@@ -136,5 +162,6 @@ export function useRequestButton(user: User) {
 		loading,
 		requestButtonHandler,
 		primaryButtonText,
+		updateButtonState,
 	};
 }

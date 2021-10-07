@@ -24,7 +24,7 @@ export function Modal({ isOpen, onClose, large = false, className, children }: P
 						leaveFrom='opacity-100'
 						leaveTo='opacity-0'
 					>
-						<Dialog.Overlay className='fixed inset-0 bg-black opacity-40' />
+						<Dialog.Overlay className='fixed inset-0 bg-black opacity-50' />
 					</Transition.Child>
 					<Transition.Child
 						as={Fragment}
@@ -39,7 +39,7 @@ export function Modal({ isOpen, onClose, large = false, className, children }: P
 							className={clsx(
 								large ? 'max-w-xl' : 'max-w-md',
 								className,
-								'w-full p-6 transition-all transform rounded-lg shadow-xl bg-dark-900 text-primary'
+								'w-full p-6 transition-all border border-dark-800 transform rounded-lg shadow-xl bg-dark-900 text-primary'
 							)}
 						>
 							{children}
