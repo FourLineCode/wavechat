@@ -1,11 +1,11 @@
-import { gql, useLazyQuery } from '@apollo/client';
+import { gql, useApolloClient, useLazyQuery } from '@apollo/client';
 import React, { useEffect, useState } from 'react';
 import {
 	SearchFriendsQuery,
 	SearchFriendsQueryVariables,
 	User,
 } from 'src/apollo/__generated__/types';
-import { SearchedUserList } from 'src/components/messages/SearchedUserList';
+import { SearchedUserList } from 'src/components/search/SearchedUserList';
 import { useDebounceValue } from 'src/hooks/useDebounceValue';
 import { useModal } from 'src/hooks/useModal';
 
@@ -22,6 +22,7 @@ const SEARCH_FRIENDS = gql`
 `;
 
 export function SearchFriendsInput() {
+	const apolloClient = useApolloClient();
 	const [searchTerm, setSearchTerm] = useState('');
 	const { show, onOpen, onClose } = useModal(true);
 	const [users, setUsers] = useState<User[]>([]);
@@ -36,6 +37,17 @@ export function SearchFriendsInput() {
 		if (!debounceSearchTerm.trim() || debounceSearchTerm.trim().length > 32) {
 			setUsers([]);
 			return;
+		} else if (debounceSearchTerm.trim()) {
+			const cachedData = apolloClient.readQuery<
+				SearchFriendsQuery,
+				SearchFriendsQueryVariables
+			>({ query: SEARCH_FRIENDS, variables: { searchTerm: debounceSearchTerm } });
+
+			// NOTE: if cache already exists, just use cached data
+			if (cachedData) {
+				setUsers(cachedData.searchFriends as User[]);
+				return;
+			}
 		}
 
 		getSearchedFriends({ variables: { searchTerm: debounceSearchTerm } });
@@ -60,7 +72,13 @@ export function SearchFriendsInput() {
 				onKeyDown={(e) => ['ArrowUp', 'ArrowDown'].includes(e.key) && e.preventDefault()}
 				className='w-full p-2 text-sm transition rounded-lg placeholder-dark-500 text-primary bg-dark-700 focus:bg-dark-600 focus:ring-2 ring-brand-500 focus:outline-none'
 			/>
-			{users.length > 0 && show && <SearchedUserList onEscape={onClose} users={users} />}
+			{users.length > 0 && show && (
+				<SearchedUserList
+					users={users}
+					onEscape={onClose}
+					clearSearchInput={() => setSearchTerm('')}
+				/>
+			)}
 		</div>
 	);
 }

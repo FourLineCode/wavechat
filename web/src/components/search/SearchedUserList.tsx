@@ -1,13 +1,14 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { User } from 'src/apollo/__generated__/types';
-import { SearchUserCard } from 'src/components/messages/SearchUserCard';
+import { SearchUserCard } from 'src/components/search/SearchUserCard';
 
 interface Props {
 	users: User[];
+	clearSearchInput: () => void;
 	onEscape: () => void;
 }
 
-export function SearchedUserList({ users, onEscape }: Props) {
+export function SearchedUserList({ users, clearSearchInput, onEscape }: Props) {
 	const [active, setActive] = useState(-1);
 	const ref = useRef<HTMLDivElement>(null);
 
@@ -60,7 +61,10 @@ export function SearchedUserList({ users, onEscape }: Props) {
 				<SearchUserCard
 					key={user.id}
 					user={user}
-					onClose={onEscape}
+					onClose={() => {
+						onEscape();
+						clearSearchInput();
+					}}
 					active={active === index}
 				/>
 			))}

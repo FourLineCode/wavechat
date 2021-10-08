@@ -265,19 +265,19 @@ export type DeclineAllRequestMutationVariables = Exact<{ [key: string]: never; }
 
 export type DeclineAllRequestMutation = { __typename?: 'Mutation', declineAllRequests: boolean };
 
-export type SearchFriendsQueryVariables = Exact<{
-  searchTerm: Scalars['String'];
-}>;
-
-
-export type SearchFriendsQuery = { __typename?: 'Query', searchFriends: Array<{ __typename?: 'User', id: string, username: string, displayName: string, university?: string | null | undefined, avatarUrl?: string | null | undefined }> };
-
 export type GetUserDataQueryVariables = Exact<{
   userId: Scalars['String'];
 }>;
 
 
 export type GetUserDataQuery = { __typename?: 'Query', user: { __typename?: 'User', id: string, email: string, username: string, displayName: string, avatarUrl?: string | null | undefined, role: string, bio?: string | null | undefined, createdAt: any, updatedAt: any, university?: string | null | undefined, department?: string | null | undefined, semester?: number | null | undefined, pendingRequests: Array<{ __typename?: 'FriendRequest', id: string, fromUserId: string }>, friends: Array<{ __typename?: 'Friendship', firstUserId: string, secondUserId: string }> } };
+
+export type SearchFriendsQueryVariables = Exact<{
+  searchTerm: Scalars['String'];
+}>;
+
+
+export type SearchFriendsQuery = { __typename?: 'Query', searchFriends: Array<{ __typename?: 'User', id: string, username: string, displayName: string, university?: string | null | undefined, avatarUrl?: string | null | undefined }> };
 
 export type SignupMutationVariables = Exact<{
   input: SignupInput;
@@ -413,17 +413,6 @@ export const DeclineAllRequestDocument = gql`
 }
     `;
 export type DeclineAllRequestMutationOptions = Apollo.BaseMutationOptions<DeclineAllRequestMutation, DeclineAllRequestMutationVariables>;
-export const SearchFriendsDocument = gql`
-    query SearchFriends($searchTerm: String!) {
-  searchFriends(searchTerm: $searchTerm) {
-    id
-    username
-    displayName
-    university
-    avatarUrl
-  }
-}
-    `;
 export const GetUserDataDocument = gql`
     query GetUserData($userId: String!) {
   user(userId: $userId) {
@@ -447,6 +436,17 @@ export const GetUserDataDocument = gql`
       firstUserId
       secondUserId
     }
+  }
+}
+    `;
+export const SearchFriendsDocument = gql`
+    query SearchFriends($searchTerm: String!) {
+  searchFriends(searchTerm: $searchTerm) {
+    id
+    username
+    displayName
+    university
+    avatarUrl
   }
 }
     `;

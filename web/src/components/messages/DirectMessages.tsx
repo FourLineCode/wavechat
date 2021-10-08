@@ -1,4 +1,4 @@
-import { SearchFriendsInput } from 'src/components/messages/SearchFriendsInput';
+import { SearchFriendsInput } from 'src/components/search/SearchFriendsInput';
 
 export function DirectMessages() {
 	return (
