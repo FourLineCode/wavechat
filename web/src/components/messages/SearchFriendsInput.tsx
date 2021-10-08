@@ -4,7 +4,7 @@ import { SearchedUserList } from 'src/components/messages/SearchedUserList';
 import { useDebounceValue } from 'src/hooks/useDebounceValue';
 import { useModal } from 'src/hooks/useModal';
 
-export function SearchFriends() {
+export function SearchFriendsInput() {
 	const [searchTerm, setSearchTerm] = useState('');
 	const { show, onOpen, onClose } = useModal(true);
 	const debounceSearchTerm = useDebounceValue(searchTerm, 500);

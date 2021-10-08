@@ -1,9 +1,9 @@
-import { SearchFriends } from 'src/components/messages/SearchFriends';
+import { SearchFriendsInput } from 'src/components/messages/SearchFriendsInput';
 
 export function DirectMessages() {
 	return (
 		<div className='flex flex-col flex-1 w-64 px-2 py-4 bg-dark-800 xl:w-80'>
-			<SearchFriends />
+			<SearchFriendsInput />
 			<hr className='my-2 border-dark-700' />
 			<div className='flex items-center justify-between'>
 				<span className='font-semibold text-primary'>Direct Messages</span>
