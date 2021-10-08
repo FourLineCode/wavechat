@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
-export function useModal() {
-	const [show, setShow] = useState(false);
+export function useModal(initialState = false) {
+	const [show, setShow] = useState(initialState);
 
 	const onOpen = () => setShow(true);
 	const onClose = () => setShow(false);

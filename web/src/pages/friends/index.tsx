@@ -1,6 +1,6 @@
-import { DirectMessages } from 'src/components/friends/DirectMessages';
 import { FriendsInfo } from 'src/components/friends/FriendsInfo';
 import { Layout } from 'src/components/layouts/Layout';
+import { DirectMessages } from 'src/components/messages/DirectMessages';
 import { NavigationSidebar } from 'src/components/navigations/NavigationSidebar';
 import { SidebarWithProfile } from 'src/components/profile/SidebarWithProfile';
 import { Button } from 'src/components/ui/Button';

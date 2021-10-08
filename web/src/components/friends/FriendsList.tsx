@@ -1,7 +1,7 @@
 import { gql, useQuery } from '@apollo/client';
 import { BarLoader } from 'react-spinners';
 import { Friendship, FriendsListQuery } from 'src/apollo/__generated__/types';
-import { FriendListCard } from 'src/components/friends/FriendListCard';
+import { FriendListUserCard } from 'src/components/friends/FriendListUserCard';
 
 export const GET_FRIENDS_LIST = gql`
 	query FriendsList {
@@ -38,7 +38,7 @@ export function FriendsList() {
 		<div className='space-y-2'>
 			{data && data?.friendsList.length > 0 ? (
 				data?.friendsList.map((friendship) => (
-					<FriendListCard friendship={friendship as Friendship} key={friendship.id} />
+					<FriendListUserCard friendship={friendship as Friendship} key={friendship.id} />
 				))
 			) : (
 				<div className='mt-6 text-center text-secondary'>No Friends Found</div>

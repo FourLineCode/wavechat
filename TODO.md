@@ -41,6 +41,8 @@
     -   [x] full color revamp
     -   [x] docker prod env
     -   [ ] use prisma giraphql plugin
+    -   [ ] implement front page urls (about/contact)
+    -   [ ] beta warnings
 
 -   [ ] auth
 
@@ -68,6 +70,7 @@
     -   [x] when auth redirect happens, client store doesnt get auth info
     -   [ ] sign out of all devices
     -   [x] add faker.js for test user generation
+    -   [ ] signin with username or email
 
 -   [ ] users
 
@@ -116,6 +119,8 @@
             -   [x] update cache on request accepted
                 -   [x] friends tab + requests tab
             -   [x] decline all button
+            -   [ ] request button state update on pending request already
+                -   [ ] on click opens modal and confirms accept or decline (maybe)
 
     -   [ ] profile modal
 
@@ -127,14 +132,23 @@
         -   [x] integrate in discovered users
         -   [ ] integrate in messages
 
-        -   [ ] add profile edit
-        -   [ ] add profile picture + banner maybe
+-   [ ] settings page
+
+    -   [ ] add profile edit
+    -   [ ] add profile picture + banner maybe
 
 -   [ ] direct messages
 
     -   [ ] search friends with suggestions (eligible)
-    -   [ ] click "+" opens modal with list of eligible people
-    -   [ ] clicking on user creates thread
+        -   [ ] server side searching with debounce
+    -   [ ] click "+" opens modal with list of eligible people (not sure about this button, might be removed)
+        -   [ ] implement searching with debounce in modal
+    -   [ ] clicking on user in search creates thread
+        -   [ ] threads are always there
+        -   [ ] add active message threads on user
+    -   [ ] profile modal message button
+        -   [ ] created thread on click
+    -   [ ] usercards in friends tab context menu message option
 
 -   [ ] messages
 

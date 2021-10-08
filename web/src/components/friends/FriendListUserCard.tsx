@@ -19,7 +19,7 @@ interface Props {
 	friendship: Friendship;
 }
 
-export function FriendListCard({ friendship }: Props) {
+export function FriendListUserCard({ friendship }: Props) {
 	const id = useAuth().user?.id;
 	const friend = friendship.firstUserId === id ? friendship.secondUser : friendship.firstUser;
 	const { show, onOpen, onClose } = useModal();
