@@ -44,6 +44,29 @@ export type Friendship = {
   updatedAt: Scalars['Date'];
 };
 
+export type Message = {
+  __typename?: 'Message';
+  author: User;
+  authorId: Scalars['ID'];
+  body: Scalars['String'];
+  createdAt: Scalars['Date'];
+  id: Scalars['ID'];
+  pk: Scalars['Int'];
+  thread: MessageThread;
+  threadId: Scalars['ID'];
+  updatedAt: Scalars['Date'];
+};
+
+export type MessageThread = {
+  __typename?: 'MessageThread';
+  createdAt: Scalars['Date'];
+  id: Scalars['ID'];
+  messages: Array<Message>;
+  participants: Array<User>;
+  pk: Scalars['Int'];
+  updatedAt: Scalars['Date'];
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   /** Accept a pending friend request */
@@ -184,6 +207,8 @@ export type User = {
   email: Scalars['String'];
   friends: Array<Friendship>;
   id: Scalars['ID'];
+  messageThreads: Array<MessageThread>;
+  messages: Array<Message>;
   pendingRequests: Array<FriendRequest>;
   pk: Scalars['Int'];
   role: Scalars['String'];

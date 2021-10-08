@@ -5,12 +5,14 @@ import { UserAvatar } from 'src/components/profile/UserAvatar';
 
 interface Props {
 	user: User;
+	onClose: () => void;
 	active?: boolean;
 }
 
-export function SearchUserCard({ user, active = true }: Props) {
+export function SearchUserCard({ user, onClose, active = true }: Props) {
 	const clickHandler = () => {
 		console.log('clicked user');
+		onClose();
 	};
 
 	const enterKeyHandler = useRef((e: KeyboardEvent) => {

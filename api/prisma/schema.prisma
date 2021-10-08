@@ -36,6 +36,10 @@ model User {
     friends_inverse Friendship[]    @relation("friends_inverse")
     pendingRequests FriendRequest[] @relation("pendingRequests")
     sentRequests    FriendRequest[] @relation("sentRequests")
+
+    messages            Message[]             @relation("user_messages")
+    messageThreads      MessageThread[]       @relation("user_threads")
+    MessageThreadOnUser MessageThreadOnUser[]
 }
 
 model Session {
@@ -72,4 +76,45 @@ model FriendRequest {
 
     toUser   User   @relation("pendingRequests", fields: [toUserId], references: [id])
     toUserId String
+}
+
+model Message {
+    id        String   @id @default(uuid())
+    pk        Int      @default(autoincrement())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    body String @default("")
+
+    author   User   @relation("user_messages", fields: [authorId], references: [id])
+    authorId String
+
+    thread   MessageThread @relation("thread_messages", fields: [threadId], references: [id])
+    threadId String
+}
+
+model MessageThread {
+    id        String   @id @default(uuid())
+    pk        Int      @default(autoincrement())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    participants        User[]                @relation("user_threads")
+    MessageThreadOnUser MessageThreadOnUser[]
+
+    messages Message[] @relation("thread_messages")
+}
+
+model MessageThreadOnUser {
+    pk        Int      @default(autoincrement())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    user   User   @relation(fields: [userId], references: [id])
+    userId String
+
+    messageThread   MessageThread @relation(fields: [messageThreadId], references: [id])
+    messageThreadId String
+
+    @@id([userId, messageThreadId])
 }

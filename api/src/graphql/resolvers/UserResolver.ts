@@ -2,6 +2,8 @@ import { User } from '@prisma/client';
 import { builder } from 'src/graphql/builder';
 import { SessionObject } from 'src/graphql/resolvers/AuthResolver';
 import { FriendRequestObject, FriendshipObject } from 'src/graphql/resolvers/FriendshipResolver';
+import { MessageObject } from 'src/graphql/resolvers/MessageResolver';
+import { MessageThreadObject } from 'src/graphql/resolvers/MessageThreadResolver';
 
 export const UserObject = builder.objectRef<User>('User');
 
@@ -32,24 +34,44 @@ UserObject.implement({
 		}),
 		friends: t.field({
 			type: [FriendshipObject],
-			resolve: async (parent, _args, { db }) => {
+			resolve: async (user, _args, { db }) => {
 				return await db.friendship.findMany({
 					where: {
-						OR: [{ firstUserId: parent.id }, { secondUserId: parent.id }],
+						OR: [{ firstUserId: user.id }, { secondUserId: user.id }],
 					},
 				});
 			},
 		}),
 		pendingRequests: t.field({
 			type: [FriendRequestObject],
-			resolve: async (parent, _args, { db }) => {
-				return await db.friendRequest.findMany({ where: { toUserId: parent.id } });
+			resolve: async (user, _args, { db }) => {
+				return await db.friendRequest.findMany({ where: { toUserId: user.id } });
 			},
 		}),
 		sentRequests: t.field({
 			type: [FriendRequestObject],
-			resolve: async (parent, _args, { db }) => {
-				return await db.friendRequest.findMany({ where: { fromUserId: parent.id } });
+			resolve: async (user, _args, { db }) => {
+				return await db.friendRequest.findMany({ where: { fromUserId: user.id } });
+			},
+		}),
+		messages: t.field({
+			type: [MessageObject],
+			resolve: async (user, _args, { db }) => {
+				return await db.message.findMany({ where: { authorId: user.id } });
+			},
+		}),
+		messageThreads: t.field({
+			type: [MessageThreadObject],
+			resolve: async (user, _args, { db }) => {
+				return await db.messageThread.findMany({
+					where: {
+						participants: {
+							some: {
+								id: user.id,
+							},
+						},
+					},
+				});
 			},
 		}),
 	}),

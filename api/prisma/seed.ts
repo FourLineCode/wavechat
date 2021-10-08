@@ -10,7 +10,7 @@ async function seed() {
 	// If a user exists, database doesnt need seeding
 	if (user) return;
 
-	// Create Admin user account for testing purposes
+	// Create Admin user account
 	const admin = await db.user.create({
 		data: {
 			email: 'akmal@wave.com',
@@ -26,7 +26,7 @@ async function seed() {
 		},
 	});
 
-	// Create some fake accounts for testing purposes
+	// Create some fake accounts
 	for (let i = 0; i < 50; i++) {
 		const name = faker.name.findName();
 		const user = await db.user.create({
@@ -50,6 +50,33 @@ async function seed() {
 					secondUserId: user.id,
 				},
 			});
+
+			if (i % 4 === 0) {
+				const thread = await db.messageThread.create({
+					data: {
+						participants: {
+							connect: [{ id: admin.id }, { id: user.id }],
+						},
+						messages: {
+							createMany: {
+								data: [
+									{ body: `Example User Message ${i}`, authorId: user.id },
+									{ body: `Example Admin Message ${i}`, authorId: admin.id },
+									{ body: `Example User Message ${i}`, authorId: user.id },
+								],
+							},
+						},
+					},
+				});
+
+				await db.message.create({
+					data: {
+						body: `Test message ${i} - [Extra]`,
+						authorId: user.id,
+						threadId: thread.id,
+					},
+				});
+			}
 		} else if (i < 20 && i % 2 !== 0) {
 			await db.friendRequest.create({
 				data: {
@@ -60,7 +87,7 @@ async function seed() {
 		}
 	}
 
-	// Create some bot accounts for testing purposes
+	// Create some bot accounts
 	for (let i = 0; i < 20; i++) {
 		await db.user.create({
 			data: {

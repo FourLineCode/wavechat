@@ -11,4 +11,24 @@ export class Loader {
 			},
 		});
 	}
+
+	public async loadMessageByIDs(ids: string[]) {
+		return await db.message.findMany({
+			where: {
+				id: {
+					in: ids,
+				},
+			},
+		});
+	}
+
+	public async loadMessageThreadByIDs(ids: string[]) {
+		return await db.messageThread.findMany({
+			where: {
+				id: {
+					in: ids,
+				},
+			},
+		});
+	}
 }

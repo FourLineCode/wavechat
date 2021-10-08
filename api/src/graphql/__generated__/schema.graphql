@@ -27,6 +27,27 @@ type Friendship {
   updatedAt: Date!
 }
 
+type Message {
+  author: User!
+  authorId: ID!
+  body: String!
+  createdAt: Date!
+  id: ID!
+  pk: Int!
+  thread: MessageThread!
+  threadId: ID!
+  updatedAt: Date!
+}
+
+type MessageThread {
+  createdAt: Date!
+  id: ID!
+  messages: [Message!]!
+  participants: [User!]!
+  pk: Int!
+  updatedAt: Date!
+}
+
 type Mutation {
   """Accept a pending friend request"""
   acceptRequest(requestId: String!): Friendship!
@@ -120,6 +141,8 @@ type User {
   email: String!
   friends: [Friendship!]!
   id: ID!
+  messageThreads: [MessageThread!]!
+  messages: [Message!]!
   pendingRequests: [FriendRequest!]!
   pk: Int!
   role: String!

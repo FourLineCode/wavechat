@@ -58,7 +58,12 @@ export function SearchedUserList({ users, onEscape }: Props) {
 		>
 			{users.map((user, i) => (
 				// TODO: change this index
-				<SearchUserCard key={user.id ?? i} user={user} active={active === i} />
+				<SearchUserCard
+					key={user.id ?? i}
+					user={user}
+					onClose={onEscape}
+					active={active === i}
+				/>
 			))}
 		</div>
 	);
