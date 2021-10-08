@@ -1,17 +1,51 @@
+import { gql, useLazyQuery } from '@apollo/client';
 import React, { useEffect, useState } from 'react';
-import { User } from 'src/apollo/__generated__/types';
+import {
+	SearchFriendsQuery,
+	SearchFriendsQueryVariables,
+	User,
+} from 'src/apollo/__generated__/types';
 import { SearchedUserList } from 'src/components/messages/SearchedUserList';
 import { useDebounceValue } from 'src/hooks/useDebounceValue';
 import { useModal } from 'src/hooks/useModal';
 
+const SEARCH_FRIENDS = gql`
+	query SearchFriends($searchTerm: String!) {
+		searchFriends(searchTerm: $searchTerm) {
+			id
+			username
+			displayName
+			university
+			avatarUrl
+		}
+	}
+`;
+
 export function SearchFriendsInput() {
 	const [searchTerm, setSearchTerm] = useState('');
 	const { show, onOpen, onClose } = useModal(true);
+	const [users, setUsers] = useState<User[]>([]);
 	const debounceSearchTerm = useDebounceValue(searchTerm, 500);
 
+	const [getSearchedFriends, { data }] = useLazyQuery<
+		SearchFriendsQuery,
+		SearchFriendsQueryVariables
+	>(SEARCH_FRIENDS);
+
 	useEffect(() => {
-		// TODO: fetch data
+		if (!debounceSearchTerm.trim() || debounceSearchTerm.trim().length > 32) {
+			setUsers([]);
+			return;
+		}
+
+		getSearchedFriends({ variables: { searchTerm: debounceSearchTerm } });
 	}, [debounceSearchTerm]);
+
+	useEffect(() => {
+		if (data) {
+			setUsers(data.searchFriends as User[]);
+		}
+	}, [data]);
 
 	return (
 		<div className='relative w-full'>
@@ -26,18 +60,7 @@ export function SearchFriendsInput() {
 				onKeyDown={(e) => ['ArrowUp', 'ArrowDown'].includes(e.key) && e.preventDefault()}
 				className='w-full p-2 text-sm transition rounded-lg placeholder-dark-500 text-primary bg-dark-700 focus:bg-dark-600 focus:ring-2 ring-brand-500 focus:outline-none'
 			/>
-			{debounceSearchTerm && show && (
-				<SearchedUserList
-					onEscape={onClose}
-					users={
-						Array.from({ length: debounceSearchTerm.length / 4 }).fill({
-							displayName: debounceSearchTerm,
-							university: 'East West University',
-							avatarUrl: 'http://github.com/fourlinecode.png',
-						} as User) as User[]
-					}
-				/>
-			)}
+			{users.length > 0 && show && <SearchedUserList onEscape={onClose} users={users} />}
 		</div>
 	);
 }

@@ -56,13 +56,12 @@ export function SearchedUserList({ users, onEscape }: Props) {
 			ref={ref}
 			className='absolute left-0 w-full p-2 mt-1 space-y-1 overflow-x-hidden overflow-y-auto transition-all transform border rounded-lg shadow-lg max-h-96 scrollbar-none bg-dark-900 border-dark-700 top-full'
 		>
-			{users.map((user, i) => (
-				// TODO: change this index
+			{users.map((user, index) => (
 				<SearchUserCard
-					key={user.id ?? i}
+					key={user.id}
 					user={user}
 					onClose={onEscape}
-					active={active === i}
+					active={active === index}
 				/>
 			))}
 		</div>

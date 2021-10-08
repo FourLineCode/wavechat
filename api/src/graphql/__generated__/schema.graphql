@@ -97,6 +97,9 @@ type Query {
   """Get pending requests of current user"""
   pendingRequests: [FriendRequest!]!
 
+  """Returns list of friends matching search term"""
+  searchFriends(searchTerm: String!): [User!]!
+
   """Get sent requests of current user"""
   sentRequests: [FriendRequest!]!
 

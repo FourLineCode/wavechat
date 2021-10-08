@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import React, { useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import { User } from 'src/apollo/__generated__/types';
 import { UserAvatar } from 'src/components/profile/UserAvatar';
 
@@ -9,28 +9,43 @@ interface Props {
 	active?: boolean;
 }
 
-export function SearchUserCard({ user, onClose, active = true }: Props) {
+export function SearchUserCard({ user, onClose, active = false }: Props) {
+	const ref = useRef<HTMLDivElement>(null);
+
 	const clickHandler = () => {
-		console.log('clicked user');
+		console.log(user.username);
 		onClose();
 	};
 
-	const enterKeyHandler = useRef((e: KeyboardEvent) => {
-		if (e.key === 'Enter') {
-			clickHandler();
-		}
-	});
+	const enterKeyHandler = useCallback(
+		(e: KeyboardEvent) => {
+			if (e.key === 'Enter' && active) {
+				clickHandler();
+			}
+		},
+		[active]
+	);
 
 	useEffect(() => {
-		window.addEventListener('keydown', enterKeyHandler.current);
+		window.addEventListener('keydown', enterKeyHandler);
 
 		return () => {
-			window.removeEventListener('keydown', enterKeyHandler.current);
+			window.removeEventListener('keydown', enterKeyHandler);
 		};
-	}, []);
+	}, [active]);
+
+	useEffect(() => {
+		if (active && ref.current) {
+			ref.current.scrollIntoView({
+				behavior: 'smooth',
+				block: 'nearest',
+			});
+		}
+	}, [active]);
 
 	return (
 		<div
+			ref={ref}
 			onClick={clickHandler}
 			className={clsx(
 				active && '!bg-dark-800',

@@ -139,6 +139,8 @@ export type Query = {
   isFriend: Scalars['Boolean'];
   /** Get pending requests of current user */
   pendingRequests: Array<FriendRequest>;
+  /** Returns list of friends matching search term */
+  searchFriends: Array<User>;
   /** Get sent requests of current user */
   sentRequests: Array<FriendRequest>;
   /** returns info for a user */
@@ -160,6 +162,11 @@ export type QueryHelloArgs = {
 
 export type QueryIsFriendArgs = {
   userId: Scalars['String'];
+};
+
+
+export type QuerySearchFriendsArgs = {
+  searchTerm: Scalars['String'];
 };
 
 
@@ -257,6 +264,13 @@ export type DeclineAllRequestMutationVariables = Exact<{ [key: string]: never; }
 
 
 export type DeclineAllRequestMutation = { __typename?: 'Mutation', declineAllRequests: boolean };
+
+export type SearchFriendsQueryVariables = Exact<{
+  searchTerm: Scalars['String'];
+}>;
+
+
+export type SearchFriendsQuery = { __typename?: 'Query', searchFriends: Array<{ __typename?: 'User', id: string, username: string, displayName: string, university?: string | null | undefined, avatarUrl?: string | null | undefined }> };
 
 export type GetUserDataQueryVariables = Exact<{
   userId: Scalars['String'];
@@ -399,6 +413,17 @@ export const DeclineAllRequestDocument = gql`
 }
     `;
 export type DeclineAllRequestMutationOptions = Apollo.BaseMutationOptions<DeclineAllRequestMutation, DeclineAllRequestMutationVariables>;
+export const SearchFriendsDocument = gql`
+    query SearchFriends($searchTerm: String!) {
+  searchFriends(searchTerm: $searchTerm) {
+    id
+    username
+    displayName
+    university
+    avatarUrl
+  }
+}
+    `;
 export const GetUserDataDocument = gql`
     query GetUserData($userId: String!) {
   user(userId: $userId) {
