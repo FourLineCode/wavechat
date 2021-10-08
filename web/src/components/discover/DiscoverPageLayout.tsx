@@ -22,7 +22,7 @@ export function DiscoverPageLayout({ title, placeholder, callback, children }: P
 								placeholder={placeholder}
 								disabled={props.isSubmitting}
 								initialFocus
-								className='w-2/5'
+								className='w-4/5 lg:w-2/5'
 							/>
 						</Form>
 					)}
