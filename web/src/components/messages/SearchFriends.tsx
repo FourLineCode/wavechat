@@ -23,6 +23,7 @@ export function SearchFriends() {
 					setSearchTerm(e.target.value);
 					onOpen();
 				}}
+				onKeyDown={(e) => ['ArrowUp', 'ArrowDown'].includes(e.key) && e.preventDefault()}
 				className='w-full p-2 text-sm transition rounded-lg placeholder-dark-500 text-primary bg-dark-700 focus:bg-dark-600 focus:ring-2 ring-brand-500 focus:outline-none'
 			/>
 			{debounceSearchTerm && show && (
