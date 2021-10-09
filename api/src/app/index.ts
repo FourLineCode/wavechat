@@ -16,7 +16,11 @@ app.use(cors({ origin: config.origins, credentials: true }));
 app.use(helmet({ contentSecurityPolicy: false }));
 
 // For logging api request data
-app.use(morgan('dev'));
+app.use(
+	morgan('dev', {
+		skip: () => !config.isDev,
+	})
+);
 
 // Json body parser
 app.use(express.json());
