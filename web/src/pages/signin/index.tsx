@@ -53,7 +53,7 @@ export default function SignIn() {
 
 							toast.success(res.message);
 							setRedirecting(true);
-							router.push('/friends');
+							router.push('/messages');
 						}}
 					>
 						{(props) => (

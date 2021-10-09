@@ -11,7 +11,7 @@ export default function ServerById() {
 	const serverId = router.query.serverId as string;
 
 	return (
-		<Layout title='Server' desc='WaveChat | Server description'>
+		<Layout title={`Server #${serverId}`} desc='WaveChat | Server description'>
 			<div className='flex w-screen h-screen'>
 				<NavigationSidebar />
 				<SidebarWithProfile component={ServerSidebar} />

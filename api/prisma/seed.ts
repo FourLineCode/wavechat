@@ -44,40 +44,15 @@ async function seed() {
 		});
 
 		if (i < 20 && i % 2 === 0) {
+			// Create friendships
 			await db.friendship.create({
 				data: {
 					firstUserId: admin.id,
 					secondUserId: user.id,
 				},
 			});
-
-			if (i % 4 === 0) {
-				const thread = await db.messageThread.create({
-					data: {
-						participants: {
-							connect: [{ id: admin.id }, { id: user.id }],
-						},
-						messages: {
-							createMany: {
-								data: [
-									{ body: `Example User Message ${i}`, authorId: user.id },
-									{ body: `Example Admin Message ${i}`, authorId: admin.id },
-									{ body: `Example User Message ${i}`, authorId: user.id },
-								],
-							},
-						},
-					},
-				});
-
-				await db.message.create({
-					data: {
-						body: `Test message ${i} - [Extra]`,
-						authorId: user.id,
-						threadId: thread.id,
-					},
-				});
-			}
 		} else if (i < 20 && i % 2 !== 0) {
+			// Send some requests
 			await db.friendRequest.create({
 				data: {
 					fromUserId: user.id,

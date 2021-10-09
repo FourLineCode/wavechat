@@ -80,7 +80,7 @@ export default function SignUp() {
 
 							toast.success(res.message);
 							setRedirecting(true);
-							router.push('/friends');
+							router.push('/messages');
 						}}
 					>
 						{(props) => (

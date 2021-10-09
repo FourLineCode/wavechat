@@ -37,3 +37,111 @@ MessageThreadObject.implement({
 		}),
 	}),
 });
+
+builder.mutationField('createMessageThread', (t) =>
+	t.field({
+		type: MessageThreadObject,
+		description: 'Returns an existing or newly created MessageThread',
+		authScopes: {
+			user: true,
+		},
+		args: { userId: t.arg({ type: 'String', required: true }) },
+		resolve: async (_parent, { userId }, { db, user }) => {
+			if (!user) {
+				throw new Error('You are not authorized to create new Message Thread');
+			}
+
+			if (user.id === userId) {
+				throw new Error('You cannot Message yourself');
+			}
+
+			const existingThread = await db.messageThread.findFirst({
+				where: {
+					participants: {
+						every: {
+							id: {
+								in: [userId, user?.id],
+							},
+						},
+					},
+				},
+			});
+
+			if (existingThread) {
+				return existingThread;
+			}
+
+			return await db.messageThread.create({
+				data: {
+					participants: {
+						connect: [{ id: user.id }, { id: userId }],
+					},
+				},
+			});
+		},
+	})
+);
+
+builder.queryField('activeMessageThreads', (t) =>
+	t.field({
+		type: [MessageThreadObject],
+		description: 'Returns currently active MessageThreads for user',
+		authScopes: {
+			user: true,
+		},
+		resolve: async (_parent, _args, { db, user }) => {
+			if (!user) {
+				throw new Error('You are not authorized to query Message Threads');
+			}
+
+			const currentUser = await db.user.findFirst({
+				where: { id: user.id },
+				include: {
+					messageThreads: {
+						orderBy: {
+							updatedAt: 'asc',
+						},
+					},
+				},
+				rejectOnNotFound: true,
+			});
+
+			return currentUser.messageThreads;
+		},
+	})
+);
+
+builder.queryField('messageThread', (t) =>
+	t.field({
+		type: MessageThreadObject,
+		description: 'Returns a MessageThread by id',
+		authScopes: {
+			user: true,
+		},
+		args: { threadId: t.arg({ type: 'String', required: true }) },
+		resolve: async (_parent, { threadId }, { db, user }) => {
+			if (!user) {
+				throw new Error('You are not authorized to get a Message Thread');
+			}
+
+			const thread = await db.messageThread.findFirst({
+				where: { id: threadId },
+				include: {
+					participants: true,
+				},
+				rejectOnNotFound: true,
+			});
+
+			const userIsInThread = thread.participants.reduce(
+				(acc, part) => acc || user.id === part.id,
+				false
+			);
+
+			if (!userIsInThread) {
+				throw new Error('You do not have participation in this Message Thread');
+			}
+
+			return thread;
+		},
+	})
+);
