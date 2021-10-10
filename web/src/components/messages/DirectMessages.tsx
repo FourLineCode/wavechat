@@ -1,15 +1,17 @@
 import { gql, useQuery } from '@apollo/client';
-import { useRouter } from 'next/router';
 import {
 	ActiveMessageThreadsQuery,
 	ActiveMessageThreadsQueryVariables,
+	MessageThread,
 } from 'src/apollo/__generated__/types';
+import { MessageThreadCard } from 'src/components/messages/MessageThreadCard';
 import { SearchFriendsInput } from 'src/components/search/SearchFriendsInput';
 
 export const ACTIVE_MESSAGE_THREADS = gql`
 	query ActiveMessageThreads {
 		activeMessageThreads {
 			id
+			updatedAt
 			participants {
 				id
 				username
@@ -21,8 +23,6 @@ export const ACTIVE_MESSAGE_THREADS = gql`
 `;
 
 export function DirectMessages() {
-	const router = useRouter();
-
 	const { data } = useQuery<ActiveMessageThreadsQuery, ActiveMessageThreadsQueryVariables>(
 		ACTIVE_MESSAGE_THREADS
 	);
@@ -33,23 +33,18 @@ export function DirectMessages() {
 			<hr className='my-2 border-dark-700' />
 			<div className='flex items-center justify-between'>
 				<span className='font-semibold text-primary'>Direct Messages</span>
-				{/* I am not sure if i want this component, it will overcomplicate things in the future */}
+				{/* TODO: I am not sure if i want this component, it will overcomplicate things in the future */}
 				{/* <Tooltip text='Create Message' position='top'>
 					<div className='transform cursor-pointer hover:scale-125 text-dark-400 hover:text-dark-300'>
 						<FaPlus size='16' />
 					</div>
 				</Tooltip> */}
 			</div>
-			<div>
+			<div className='mt-2'>
 				{data && data.activeMessageThreads.length > 0 ? (
-					<div className='space-y-4'>
+					<div className='space-y-2'>
 						{data.activeMessageThreads.map((thread) => (
-							<div
-								onClick={() => router.push(`/messages/thread/${thread.id}`)}
-								className='cursor-pointer'
-							>
-								{thread.id}
-							</div>
+							<MessageThreadCard thread={thread as MessageThread} />
 						))}
 					</div>
 				) : null}

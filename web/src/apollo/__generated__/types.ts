@@ -284,7 +284,7 @@ export type DeclineAllRequestMutation = { __typename?: 'Mutation', declineAllReq
 export type ActiveMessageThreadsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ActiveMessageThreadsQuery = { __typename?: 'Query', activeMessageThreads: Array<{ __typename?: 'MessageThread', id: string, participants: Array<{ __typename?: 'User', id: string, username: string, displayName: string, avatarUrl?: string | null | undefined }> }> };
+export type ActiveMessageThreadsQuery = { __typename?: 'Query', activeMessageThreads: Array<{ __typename?: 'MessageThread', id: string, updatedAt: any, participants: Array<{ __typename?: 'User', id: string, username: string, displayName: string, avatarUrl?: string | null | undefined }> }> };
 
 export type GetUserDataQueryVariables = Exact<{
   userId: Scalars['String'];
@@ -452,6 +452,7 @@ export const ActiveMessageThreadsDocument = gql`
     query ActiveMessageThreads {
   activeMessageThreads {
     id
+    updatedAt
     participants {
       id
       username

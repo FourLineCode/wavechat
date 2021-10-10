@@ -10,7 +10,6 @@ import {
 import { GET_FRIENDS_LIST } from 'src/components/friends/FriendsList';
 import { ProfileModal } from 'src/components/profile/ProfileModal';
 import { UserAvatar } from 'src/components/profile/UserAvatar';
-import { Card } from 'src/components/ui/Card';
 import { useModal } from 'src/hooks/useModal';
 import { useAuth } from 'src/store/useAuth';
 import { UNFRIEND_USER } from 'src/utils/requestMutations';
@@ -39,17 +38,17 @@ export function FriendListUserCard({ friendship }: Props) {
 
 	return (
 		<ContextMenuTrigger id={`friend-list-card-${friend.id}`}>
-			<Card
+			<div
 				onClick={onOpen}
-				className='w-full !p-3 hover:bg-opacity-75 group cursor-pointer space-y-2'
+				className='w-full p-2 space-y-2 rounded-lg cursor-pointer bg-dark-800 hover:bg-dark-700'
 			>
 				<div className='flex items-center space-x-2'>
 					<UserAvatar
 						user={friend}
-						className='flex-shrink-0 w-10 h-10 rounded-lg cursor-pointer hover:ring-2 ring-brand-500'
+						className='flex-shrink-0 w-10 h-10 rounded-lg cursor-pointer'
 					/>
 					<div className='w-full'>
-						<div className='font-semibold cursor-pointer line-clamp-1 group-hover:underline'>
+						<div className='font-semibold cursor-pointer line-clamp-1'>
 							{friend.displayName}
 						</div>
 						<div className='text-xs line-clamp-1 text-secondary'>
@@ -58,7 +57,7 @@ export function FriendListUserCard({ friendship }: Props) {
 					</div>
 				</div>
 				<ProfileModal userId={friend.id} show={show} onClose={onClose} />
-			</Card>
+			</div>
 			<ContextMenu
 				className='p-2 rounded-md bg-dark-900'
 				id={`friend-list-card-${friend.id}`}

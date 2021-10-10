@@ -99,7 +99,7 @@ builder.queryField('activeMessageThreads', (t) =>
 				include: {
 					messageThreads: {
 						orderBy: {
-							updatedAt: 'asc',
+							updatedAt: 'desc',
 						},
 					},
 				},

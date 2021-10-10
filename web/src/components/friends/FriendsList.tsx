@@ -35,7 +35,7 @@ export function FriendsList() {
 			<BarLoader color='silver' speedMultiplier={1.5} />
 		</div>
 	) : (
-		<div className='space-y-2'>
+		<div className='space-y-1'>
 			{data && data?.friendsList.length > 0 ? (
 				data?.friendsList.map((friendship) => (
 					<FriendListUserCard friendship={friendship as Friendship} key={friendship.id} />
