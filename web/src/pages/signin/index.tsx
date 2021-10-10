@@ -58,6 +58,7 @@ export default function SignIn() {
 					>
 						{(props) => (
 							<Card
+								inverted
 								as={Form}
 								className={clsx(
 									'max-w-md mx-auto mt-16 space-y-4',

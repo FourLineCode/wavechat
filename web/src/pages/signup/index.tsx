@@ -4,6 +4,7 @@ import { useRouter } from 'next/dist/client/router';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
+import { FaCaretLeft, FaCaretRight } from 'react-icons/fa';
 import { HashLoader } from 'react-spinners';
 import { Layout } from 'src/components/layouts/Layout';
 import { NavBar } from 'src/components/layouts/NavBar';
@@ -85,6 +86,7 @@ export default function SignUp() {
 					>
 						{(props) => (
 							<Card
+								inverted
 								as={Form}
 								className={clsx(
 									'max-w-md mx-auto mt-16 space-y-4',
@@ -117,12 +119,12 @@ export default function SignUp() {
 														<Button
 															onClick={() => page !== 1 && setPage(1)}
 														>
-															{'>'}
+															<FaCaretRight className='w-[16px] h-[24px]' />
 														</Button>
 													</>
 												)}
 												<Button onClick={() => page !== 0 && setPage(0)}>
-													{'<'}
+													<FaCaretLeft className='w-[16px] h-[24px]' />
 												</Button>
 												<div
 													className={clsx(page === 1 && 'text-brand-500')}
