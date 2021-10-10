@@ -4,7 +4,7 @@ import { NavigationSidebarRoute } from 'src/components/navigations/NavigationSid
 export function NavigationSidebar() {
 	return (
 		<div className='w-16 px-2 py-2 overflow-y-auto divide-y-2 divide-dark-700 bg-dark-900 scrollbar-none'>
-			<NavigationSidebarRoute route='/friends' tooltip='Friends' icon={FaEnvelope} />
+			<NavigationSidebarRoute route='/messages' tooltip='Friends' icon={FaEnvelope} />
 			<div>
 				{Array.from({ length: 5 }).map((_, i) => (
 					<NavigationSidebarRoute
