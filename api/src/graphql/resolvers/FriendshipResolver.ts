@@ -255,6 +255,9 @@ builder.queryField('friendsList', (t) =>
 				where: {
 					OR: [{ firstUserId: user.id }, { secondUserId: user.id }],
 				},
+				orderBy: {
+					updatedAt: 'asc',
+				},
 			});
 		},
 	})

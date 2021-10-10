@@ -28,7 +28,7 @@ export function DirectMessages() {
 	);
 
 	return (
-		<div className='flex flex-col flex-1 w-64 px-2 py-4 bg-dark-800 xl:w-80'>
+		<div className='flex flex-col flex-grow w-64 min-h-0 px-2 py-4 bg-dark-800 xl:w-80'>
 			<SearchFriendsInput />
 			<hr className='my-2 border-dark-700' />
 			<div className='flex items-center justify-between'>
@@ -40,9 +40,9 @@ export function DirectMessages() {
 					</div>
 				</Tooltip> */}
 			</div>
-			<div className='mt-2'>
+			<div className='flex flex-col min-h-0 mt-2'>
 				{data && data.activeMessageThreads.length > 0 ? (
-					<div className='space-y-2'>
+					<div className='px-1 space-y-2 overflow-y-auto scrollbar-thin'>
 						{data.activeMessageThreads.map((thread) => (
 							<MessageThreadCard thread={thread as MessageThread} />
 						))}

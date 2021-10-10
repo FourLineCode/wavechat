@@ -98,15 +98,34 @@ builder.queryField('activeMessageThreads', (t) =>
 				where: { id: user.id },
 				include: {
 					messageThreads: {
+						include: {
+							participants: true,
+						},
 						orderBy: {
 							updatedAt: 'desc',
 						},
 					},
+					friends_forward: true,
+					friends_inverse: true,
 				},
 				rejectOnNotFound: true,
 			});
 
-			return currentUser.messageThreads;
+			const friendsIds = [
+				...currentUser.friends_forward.map((f) =>
+					f.firstUserId !== user.id ? f.firstUserId : f.secondUserId
+				),
+				...currentUser.friends_inverse.map((f) =>
+					f.firstUserId !== user.id ? f.firstUserId : f.secondUserId
+				),
+			];
+
+			const threads = currentUser.messageThreads.filter((thread) => {
+				const id = thread.participants.filter((u) => u.id !== user.id)[0].id;
+				return friendsIds.includes(id);
+			});
+
+			return threads;
 		},
 	})
 );
