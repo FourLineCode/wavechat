@@ -1,5 +1,6 @@
 import { gql, useQuery } from '@apollo/client';
 import { useRouter } from 'next/router';
+import toast from 'react-hot-toast';
 import {
 	GetMessageThreadQuery,
 	GetMessageThreadQueryVariables,
@@ -45,6 +46,9 @@ export default function Thread() {
 		{
 			variables: {
 				threadId: threadId,
+			},
+			onError: (error) => {
+				toast.error(error.message);
 			},
 		}
 	);

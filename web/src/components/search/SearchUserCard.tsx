@@ -1,14 +1,8 @@
-import { gql, useMutation } from '@apollo/client';
 import clsx from 'clsx';
-import { useRouter } from 'next/router';
 import React, { useCallback, useEffect, useRef } from 'react';
-import {
-	CreateMessageThreadMutation,
-	CreateMessageThreadMutationVariables,
-	User,
-} from 'src/apollo/__generated__/types';
-import { ACTIVE_MESSAGE_THREADS } from 'src/components/messages/DirectMessages';
+import { User } from 'src/apollo/__generated__/types';
 import { UserAvatar } from 'src/components/profile/UserAvatar';
+import { useMessageUserMutation } from 'src/hooks/useMessageUserMutation';
 
 interface Props {
 	user: User;
@@ -16,33 +10,9 @@ interface Props {
 	active?: boolean;
 }
 
-export const CREATE_MESSAGE_THREAD = gql`
-	mutation CreateMessageThread($userId: String!) {
-		createMessageThread(userId: $userId) {
-			id
-			participants {
-				id
-				username
-				displayName
-				avatarUrl
-			}
-		}
-	}
-`;
-
 export function SearchUserCard({ user, onClose, active = false }: Props) {
-	const router = useRouter();
 	const ref = useRef<HTMLDivElement>(null);
-
-	const [getOrCreateMessageThread] = useMutation<
-		CreateMessageThreadMutation,
-		CreateMessageThreadMutationVariables
-	>(CREATE_MESSAGE_THREAD, {
-		onCompleted: (data) => {
-			router.push(`/messages/thread/${data.createMessageThread.id}`);
-		},
-		refetchQueries: [{ query: ACTIVE_MESSAGE_THREADS }],
-	});
+	const getOrCreateMessageThread = useMessageUserMutation();
 
 	const getMessageThread = () => {
 		getOrCreateMessageThread({ variables: { userId: user.id } });

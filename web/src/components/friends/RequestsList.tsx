@@ -41,7 +41,11 @@ const DECLINE_ALL_REQUESTS = gql`
 export function RequestsList() {
 	const { show, onOpen, onClose } = useModal();
 
-	const { data, loading } = useQuery<PendingRequestsQuery>(GET_PENDING_REQUESTS);
+	const { data, loading } = useQuery<PendingRequestsQuery>(GET_PENDING_REQUESTS, {
+		onError: (error) => {
+			toast.error(error.message);
+		},
+	});
 
 	const [declineAll, { loading: declineAllLoading }] = useMutation(DECLINE_ALL_REQUESTS, {
 		onCompleted: () => {

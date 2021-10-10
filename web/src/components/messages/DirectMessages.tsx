@@ -1,4 +1,5 @@
 import { gql, useQuery } from '@apollo/client';
+import toast from 'react-hot-toast';
 import {
 	ActiveMessageThreadsQuery,
 	ActiveMessageThreadsQueryVariables,
@@ -24,7 +25,12 @@ export const ACTIVE_MESSAGE_THREADS = gql`
 
 export function DirectMessages() {
 	const { data } = useQuery<ActiveMessageThreadsQuery, ActiveMessageThreadsQueryVariables>(
-		ACTIVE_MESSAGE_THREADS
+		ACTIVE_MESSAGE_THREADS,
+		{
+			onError: (error) => {
+				toast.error(error.message);
+			},
+		}
 	);
 
 	return (

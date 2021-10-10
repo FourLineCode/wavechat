@@ -1,4 +1,5 @@
 import { gql, useQuery } from '@apollo/client';
+import toast from 'react-hot-toast';
 import { BarLoader } from 'react-spinners';
 import { Friendship, FriendsListQuery } from 'src/apollo/__generated__/types';
 import { FriendListUserCard } from 'src/components/friends/FriendListUserCard';
@@ -28,7 +29,11 @@ export const GET_FRIENDS_LIST = gql`
 `;
 
 export function FriendsList() {
-	const { data, loading } = useQuery<FriendsListQuery>(GET_FRIENDS_LIST);
+	const { data, loading } = useQuery<FriendsListQuery>(GET_FRIENDS_LIST, {
+		onError: (error) => {
+			toast.error(error.message);
+		},
+	});
 
 	return loading ? (
 		<div className='flex justify-center flex-1 pt-16'>

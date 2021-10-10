@@ -1,5 +1,6 @@
 import { gql, useApolloClient, useLazyQuery } from '@apollo/client';
 import React, { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 import {
 	SearchFriendsQuery,
 	SearchFriendsQueryVariables,
@@ -31,7 +32,11 @@ export function SearchFriendsInput() {
 	const [getSearchedFriends, { data }] = useLazyQuery<
 		SearchFriendsQuery,
 		SearchFriendsQueryVariables
-	>(SEARCH_FRIENDS);
+	>(SEARCH_FRIENDS, {
+		onError: (error) => {
+			toast.error(error.message);
+		},
+	});
 
 	useEffect(() => {
 		if (!debounceSearchTerm.trim() || debounceSearchTerm.trim().length > 32) {

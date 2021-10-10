@@ -14,9 +14,7 @@ export default function Messages() {
 				<SidebarWithProfile component={DirectMessages} />
 				<div className='flex flex-col items-center justify-center flex-1 text-muted bg-dark-700'>
 					<TiMessages size='256px' />
-					<div className='text-2xl font-semibold'>
-						Click on a user to start chatting...
-					</div>
+					<div className='text-2xl font-semibold'>Click on a user to start chatting</div>
 				</div>
 				<FriendsInfo />
 			</div>

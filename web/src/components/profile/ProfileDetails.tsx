@@ -2,6 +2,7 @@ import { gql, useQuery } from '@apollo/client';
 import { format } from 'date-fns';
 import ordinal from 'ordinal';
 import React from 'react';
+import toast from 'react-hot-toast';
 import { FaBuilding, FaGraduationCap, FaUniversity } from 'react-icons/fa';
 import { RiFileUserFill } from 'react-icons/ri';
 import { HashLoader } from 'react-spinners';
@@ -49,6 +50,9 @@ export function ProfileDetails({ userId, mutationCallback }: Props) {
 	const { data, loading } = useQuery<GetUserDataQuery, GetUserDataQueryVariables>(GET_USER_DATA, {
 		variables: {
 			userId: userId,
+		},
+		onError: (error) => {
+			toast.error(error.message);
 		},
 	});
 

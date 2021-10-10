@@ -1,18 +1,13 @@
-import { useMutation } from '@apollo/client';
 import React from 'react';
-import { ContextMenu, ContextMenuTrigger, MenuItem } from 'react-contextmenu';
-import toast from 'react-hot-toast';
-import {
-	Friendship,
-	UnfriendMutation,
-	UnfriendMutationVariables,
-} from 'src/apollo/__generated__/types';
-import { GET_FRIENDS_LIST } from 'src/components/friends/FriendsList';
+import { ContextMenuTrigger } from 'react-contextmenu';
+import { Friendship } from 'src/apollo/__generated__/types';
 import { ProfileModal } from 'src/components/profile/ProfileModal';
 import { UserAvatar } from 'src/components/profile/UserAvatar';
+import { ContextMenu, ContextMenuItem } from 'src/components/ui/ContextMenu';
+import { useMessageUserMutation } from 'src/hooks/useMessageUserMutation';
 import { useModal } from 'src/hooks/useModal';
+import { useUnfriendMutation } from 'src/hooks/useUnfriendMutation';
 import { useAuth } from 'src/store/useAuth';
-import { UNFRIEND_USER } from 'src/utils/requestMutations';
 
 interface Props {
 	friendship: Friendship;
@@ -20,21 +15,10 @@ interface Props {
 
 export function FriendListUserCard({ friendship }: Props) {
 	const id = useAuth().user?.id;
-	const friend = friendship.firstUserId === id ? friendship.secondUser : friendship.firstUser;
 	const { show, onOpen, onClose } = useModal();
-
-	const [unfriend] = useMutation<UnfriendMutation, UnfriendMutationVariables>(UNFRIEND_USER, {
-		variables: {
-			userId: friend.id,
-		},
-		onCompleted: () => {
-			toast.success('Unfriended Successfully');
-		},
-		onError: (error) => {
-			toast.error(error.message);
-		},
-		refetchQueries: [{ query: GET_FRIENDS_LIST }],
-	});
+	const friend = friendship.firstUserId === id ? friendship.secondUser : friendship.firstUser;
+	const unfriend = useUnfriendMutation(friend.id);
+	const getOrCreateMessageThread = useMessageUserMutation();
 
 	return (
 		<ContextMenuTrigger id={`friend-list-card-${friend.id}`}>
@@ -56,24 +40,16 @@ export function FriendListUserCard({ friendship }: Props) {
 						</div>
 					</div>
 				</div>
-				<ProfileModal userId={friend.id} show={show} onClose={onClose} />
 			</div>
-			<ContextMenu
-				className='p-2 rounded-md bg-dark-900'
-				id={`friend-list-card-${friend.id}`}
-			>
-				<MenuItem
-					onClick={() => toast.success(`profile modal ${friend.displayName}`)}
-					className='px-4 py-2 font-semibold text-center rounded-sm cursor-pointer hover:bg-brand-500'
+			<ProfileModal userId={friend.id} show={show} onClose={onClose} />
+			<ContextMenu id={`friend-list-card-${friend.id}`}>
+				<ContextMenuItem onClick={onOpen}>View Profile</ContextMenuItem>
+				<ContextMenuItem
+					onClick={() => getOrCreateMessageThread({ variables: { userId: friend.id } })}
 				>
-					View Profile
-				</MenuItem>
-				<MenuItem
-					onClick={unfriend}
-					className='px-4 py-2 font-semibold text-center rounded-sm cursor-pointer hover:bg-brand-500'
-				>
-					Unfriend
-				</MenuItem>
+					Message
+				</ContextMenuItem>
+				<ContextMenuItem onClick={unfriend}>Unfriend</ContextMenuItem>
 			</ContextMenu>
 		</ContextMenuTrigger>
 	);
