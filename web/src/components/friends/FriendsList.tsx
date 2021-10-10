@@ -31,11 +31,11 @@ export function FriendsList() {
 	const { data, loading } = useQuery<FriendsListQuery>(GET_FRIENDS_LIST);
 
 	return loading ? (
-		<div className='flex justify-center h-full pt-16'>
+		<div className='flex justify-center flex-1 pt-16'>
 			<BarLoader color='silver' speedMultiplier={1.5} />
 		</div>
 	) : (
-		<div className='space-y-1'>
+		<div className='pr-1 space-y-1 overflow-y-auto scrollbar-thin'>
 			{data && data?.friendsList.length > 0 ? (
 				data?.friendsList.map((friendship) => (
 					<FriendListUserCard friendship={friendship as Friendship} key={friendship.id} />

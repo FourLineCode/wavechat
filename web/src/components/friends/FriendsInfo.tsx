@@ -16,9 +16,9 @@ const tabs = [
 
 export function FriendsInfo() {
 	return (
-		<div className='w-64 h-full overflow-y-auto scrollbar-none xl:w-80 bg-dark-800'>
-			<Tab.Group as='div' className='flex flex-col'>
-				<div className='sticky top-0 p-2 pb-3 bg-dark-800'>
+		<div className='flex flex-col w-64 h-full xl:w-80 bg-dark-800'>
+			<Tab.Group as={Fragment}>
+				<div className='p-2 pb-3 bg-dark-800'>
 					<Tab.List className='flex w-full overflow-hidden rounded-lg'>
 						{tabs.map((tab) => (
 							<Tab
@@ -37,7 +37,7 @@ export function FriendsInfo() {
 						))}
 					</Tab.List>
 				</div>
-				<Tab.Panels className='flex-1 px-2 pb-2'>
+				<Tab.Panels className='flex flex-col flex-grow min-h-0 px-2 pb-2'>
 					{tabs.map((tab) => (
 						<Tab.Panel as={Fragment} key={tab.id}>
 							<tab.Component />

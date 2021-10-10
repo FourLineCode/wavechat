@@ -59,7 +59,7 @@ export function RequestsList() {
 			<BarLoader color='silver' speedMultiplier={1.5} />
 		</div>
 	) : (
-		<div className='space-y-2'>
+		<div className='pr-1 space-y-2 overflow-y-auto scrollbar-thin'>
 			{data && data?.pendingRequests.length > 0 ? (
 				<>
 					<div className='flex justify-end px-2'>
