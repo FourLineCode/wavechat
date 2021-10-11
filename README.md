@@ -43,16 +43,16 @@ communicate with each other about their activities and help each other.
 
 ## Clone the Repository
 
-```bash
-git clone https://github.com/FourLineCode/wavechat.git
+```console
+$ git clone https://github.com/FourLineCode/wavechat.git
 ```
 
 ## Run in production mode
 
 #### Command
 
-```bash
-docker-comopse -f docker-compose.prod.yml up
+```console
+$ docker-comopse -f docker-compose.prod.yml up
 ```
 
 > Pass the `--build` flag to rebuild the containers.
@@ -67,25 +67,25 @@ docker-comopse -f docker-compose.prod.yml up
 
 ### Install Dependencies
 
-```bash
-pnpm --dir api install
-pnpm --dir web install
+```console
+$ pnpm --dir api install
+$ pnpm --dir web install
 ```
 
 > You can run these commands from the root directory as specified or change your directory if you want.
 
 ### Run development server
 
-```bash
-docker-compose up
+```console
+$ docker-compose up
 ```
 
 > Pass the `--build` flag to rebuild the containers.
 
 ### Migrate database
 
-```bash
-pnpm --dir api migrate
+```console
+$ pnpm --dir api migrate
 ```
 
 > **This step is very important for the app to work**
