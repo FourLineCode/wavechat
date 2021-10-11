@@ -14,7 +14,7 @@ communicate with each other about their activities and help each other.
 
 <table align="center" width="500">
   <tr>
-    <td align="center" ><a href="https://www.typescriptlang.org/vops"><img src=".github/images/typescript.png" width="70px;" height="75px;" alt="TypeScript" /><br /><b><font color="#777"> TypeScript</font></b></a></td>
+    <td align="center" ><a href="https://www.typescriptlang.org"><img src=".github/images/typescript.png" width="70px;" height="75px;" alt="TypeScript" /><br /><b><font color="#777"> TypeScript</font></b></a></td>
     <td align="center"><a href="https://nextjs.org/"><img src=".github/images/nextjs.png" width="70px;" height="75px;" alt="Next JS"/><br /><b><font color="#777"> NextJs</font></b></a></td>
     <td align="center"><a href="https://reactjs.org"><img src=".github/images/react.png" width="80px;" height="75px;" alt="React JS"/><br /><b><font color="#777"> ReactJs</font></b></a></td>
     <td align="center"><a href="https://www.apollographql.com/"><img src=".github/images/apollo.png" width="75px;" height="75px;" alt="Apollo"/><br /><b><font color="#777"> Apollo</font></b></a></td>
@@ -44,7 +44,7 @@ communicate with each other about their activities and help each other.
 ## Clone the Repository
 
 ```console
-$ git clone https://github.com/FourLineCode/wavechat.git
+git clone https://github.com/FourLineCode/wavechat.git
 ```
 
 ## Run in production mode
@@ -52,7 +52,7 @@ $ git clone https://github.com/FourLineCode/wavechat.git
 #### Command
 
 ```console
-$ docker-comopse -f docker-compose.prod.yml up
+docker-comopse -f docker-compose.prod.yml up
 ```
 
 > Pass the `--build` flag to rebuild the containers.
@@ -68,8 +68,11 @@ $ docker-comopse -f docker-compose.prod.yml up
 ### Install Dependencies
 
 ```console
-$ pnpm --dir api install
-$ pnpm --dir web install
+pnpm --dir api install
+```
+
+```console
+pnpm --dir web install
 ```
 
 > You can run these commands from the root directory as specified or change your directory if you want.
@@ -77,7 +80,7 @@ $ pnpm --dir web install
 ### Run development server
 
 ```console
-$ docker-compose up
+docker-compose up
 ```
 
 > Pass the `--build` flag to rebuild the containers.
@@ -85,7 +88,7 @@ $ docker-compose up
 ### Migrate database
 
 ```console
-$ pnpm --dir api migrate
+pnpm --dir api migrate
 ```
 
 > **This step is very important for the app to work**
