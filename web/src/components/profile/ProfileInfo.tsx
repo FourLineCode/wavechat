@@ -7,19 +7,19 @@ import { useAuth } from 'src/store/useAuth';
 
 export function ProfileInfo() {
 	const user = useAuth().user;
-	const { show, onOpen, onClose } = useModal();
+	const profileModal = useModal();
 
 	return (
 		<div className='flex items-center justify-between w-full h-16 p-2 bg-dark-900'>
 			<div className='flex items-center space-x-2'>
 				<UserAvatar
 					user={user as User}
-					onClick={onOpen}
+					onClick={profileModal.onOpen}
 					className='w-12 h-full rounded-full cursor-pointer hover:ring-2 ring-brand-500'
 				/>
 				<div>
 					<div
-						onClick={onOpen}
+						onClick={profileModal.onOpen}
 						className='font-semibold cursor-pointer text-primary hover:underline line-clamp-1'
 					>
 						{user?.displayName}
@@ -31,7 +31,7 @@ export function ProfileInfo() {
 				</div>
 			</div>
 			<ProfileSettings />
-			{user && <ProfileModal userId={user.id} show={show} onClose={onClose} />}
+			{user && <ProfileModal userId={user.id} {...profileModal} />}
 		</div>
 	);
 }

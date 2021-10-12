@@ -15,7 +15,7 @@ interface Props {
 }
 
 export function DiscoveredUser({ user }: Props) {
-	const { show, onOpen, onClose } = useModal();
+	const discoverUserProfile = useModal();
 	const [signal, sendSignal] = useSignal();
 
 	// TODO: implement this feature after servers are done
@@ -28,12 +28,12 @@ export function DiscoveredUser({ user }: Props) {
 			<div className='flex items-center space-x-2'>
 				<UserAvatar
 					user={user}
-					onClick={onOpen}
+					onClick={discoverUserProfile.onOpen}
 					className='w-16 h-16 rounded-lg cursor-pointer hover:ring-2 ring-brand-500'
 				/>
 				<div>
 					<div
-						onClick={onOpen}
+						onClick={discoverUserProfile.onOpen}
 						className='text-lg font-semibold cursor-pointer line-clamp-1 hover:underline'
 					>
 						{user.displayName}
@@ -54,12 +54,7 @@ export function DiscoveredUser({ user }: Props) {
 					<span className='line-clamp-1'>Invite to server</span>
 				</div>
 			</Button>
-			<ProfileModal
-				userId={user.id}
-				show={show}
-				onClose={onClose}
-				mutationCallback={sendSignal}
-			/>
+			<ProfileModal userId={user.id} mutationCallback={sendSignal} {...discoverUserProfile} />
 		</Card>
 	);
 }

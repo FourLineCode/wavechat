@@ -1,6 +1,13 @@
 import { useState } from 'react';
 
-export function useModal(initialState = false) {
+export interface ModalProps {
+	show: boolean;
+	onOpen: () => void;
+	onClose: () => void;
+	onToggle: () => void;
+}
+
+export function useModal(initialState = false): ModalProps {
 	const [show, setShow] = useState(initialState);
 
 	const onOpen = () => setShow(true);

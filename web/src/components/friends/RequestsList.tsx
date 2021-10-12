@@ -39,7 +39,7 @@ const DECLINE_ALL_REQUESTS = gql`
 `;
 
 export function RequestsList() {
-	const { show, onOpen, onClose } = useModal();
+	const declineRequestModal = useModal();
 
 	const { data, loading } = useQuery<PendingRequestsQuery>(GET_PENDING_REQUESTS, {
 		onError: (error) => {
@@ -49,7 +49,7 @@ export function RequestsList() {
 
 	const [declineAll, { loading: declineAllLoading }] = useMutation(DECLINE_ALL_REQUESTS, {
 		onCompleted: () => {
-			onClose();
+			declineRequestModal.onClose();
 			toast.success('Declined All Requests');
 		},
 		onError: (error) => {
@@ -67,17 +67,20 @@ export function RequestsList() {
 			{data && data?.pendingRequests.length > 0 ? (
 				<>
 					<div className='flex justify-end px-2'>
-						<span onClick={onOpen} className='cursor-pointer hover:text-red-500'>
+						<span
+							onClick={declineRequestModal.onOpen}
+							className='cursor-pointer hover:text-red-500'
+						>
 							Decline all
 						</span>
-						<Modal isOpen={show} onClose={onClose}>
+						<Modal {...declineRequestModal}>
 							<div className='text-lg font-semibold'>Decline all Requests?</div>
 							<div className='mt-2 text-sm'>
 								All the current pending requests will be declined and this action is
 								not reversible. Click <b>Confirm</b> to decline all requests.
 							</div>
 							<div className='flex justify-center mt-4 space-x-4'>
-								<Button variant='outlined' onClick={onClose}>
+								<Button variant='outlined' onClick={declineRequestModal.onClose}>
 									Cancel
 								</Button>
 								<Button

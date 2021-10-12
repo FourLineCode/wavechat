@@ -18,7 +18,7 @@ interface Props {
 
 export function MessageThreadCard({ thread }: Props) {
 	const router = useRouter();
-	const { show, onOpen, onClose } = useModal();
+	const messageThreadProfile = useModal();
 	const currentUserId = useAuth().user?.id;
 	const active = process.browser && window.location.pathname.endsWith(thread.id);
 	const [user] = thread.participants.filter((u) => u.id !== currentUserId);
@@ -51,9 +51,11 @@ export function MessageThreadCard({ thread }: Props) {
 					</div>
 				</div>
 			</div>
-			<ProfileModal userId={user.id} show={show} onClose={onClose} />
+			<ProfileModal userId={user.id} {...messageThreadProfile} />
 			<ContextMenu id={`message-thread-${user.id}`}>
-				<ContextMenuItem onClick={onOpen}>View Profile</ContextMenuItem>
+				<ContextMenuItem onClick={messageThreadProfile.onOpen}>
+					View Profile
+				</ContextMenuItem>
 				<ContextMenuItem onClick={() => router.push(`/messages/thread/${thread.id}`)}>
 					Message
 				</ContextMenuItem>

@@ -7,24 +7,23 @@ import { useAuth } from 'src/store/useAuth';
 
 export function ProfileSettings() {
 	const auth = useAuth();
-	const { show, onOpen, onClose } = useModal();
+	const profileSettingsModal = useModal();
 
 	return (
 		<>
 			<div
-				onClick={onOpen}
+				onClick={profileSettingsModal.onOpen}
 				className='p-2 transition transform rounded-full cursor-pointer hover:scale-110 text-dark-500 hover:text-dark-300 hover:bg-dark-700'
 			>
 				<FaCog size='20' />
 			</div>
 			<Modal
-				isOpen={show}
-				onClose={onClose}
+				{...profileSettingsModal}
 				className='flex flex-col items-center justify-center space-y-2'
 			>
 				<div className='text-xl font-semibold'>Are you sure you want to sign out?</div>
 				<div className='flex items-center space-x-4'>
-					<Button variant='outlined' onClick={onClose}>
+					<Button variant='outlined' onClick={profileSettingsModal.onClose}>
 						Cancel
 					</Button>
 					<Button

@@ -5,10 +5,10 @@ import { GET_FRIENDS_LIST } from 'src/components/friends/FriendsList';
 import { ACTIVE_MESSAGE_THREADS } from 'src/components/messages/sidebar/DirectMessages';
 import { UNFRIEND_USER } from 'src/utils/requestMutations';
 
-export function useUnfriendMutation(id: string) {
+export function useUnfriendMutation(userId: string) {
 	const [unfriend] = useMutation<UnfriendMutation, UnfriendMutationVariables>(UNFRIEND_USER, {
 		variables: {
-			userId: id,
+			userId: userId,
 		},
 		onCompleted: () => {
 			toast.success('Unfriended Successfully');

@@ -15,7 +15,7 @@ interface Props {
 
 export function FriendListUserCard({ friendship }: Props) {
 	const id = useAuth().user?.id;
-	const { show, onOpen, onClose } = useModal();
+	const friendListProfile = useModal();
 	const friend = friendship.firstUserId === id ? friendship.secondUser : friendship.firstUser;
 	const unfriend = useUnfriendMutation(friend.id);
 	const getOrCreateMessageThread = useMessageUserMutation();
@@ -23,7 +23,7 @@ export function FriendListUserCard({ friendship }: Props) {
 	return (
 		<ContextMenuTrigger id={`friend-list-card-${friend.id}`}>
 			<div
-				onClick={onOpen}
+				onClick={friendListProfile.onOpen}
 				className='w-full p-2 space-y-2 rounded-lg cursor-pointer bg-dark-800 hover:bg-dark-700'
 			>
 				<div className='flex items-center space-x-2'>
@@ -41,9 +41,9 @@ export function FriendListUserCard({ friendship }: Props) {
 					</div>
 				</div>
 			</div>
-			<ProfileModal userId={friend.id} show={show} onClose={onClose} />
+			<ProfileModal userId={friend.id} {...friendListProfile} />
 			<ContextMenu id={`friend-list-card-${friend.id}`}>
-				<ContextMenuItem onClick={onOpen}>View Profile</ContextMenuItem>
+				<ContextMenuItem onClick={friendListProfile.onOpen}>View Profile</ContextMenuItem>
 				<ContextMenuItem
 					onClick={() => getOrCreateMessageThread({ variables: { userId: friend.id } })}
 				>

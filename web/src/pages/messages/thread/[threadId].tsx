@@ -75,11 +75,13 @@ export default function Thread() {
 			<div className='flex w-screen h-screen'>
 				<NavigationSidebar />
 				<SidebarWithProfile component={DirectMessages} />
-				<div className='flex flex-col items-center justify-center flex-1 bg-dark-700'>
+				<div className='flex-1 bg-dark-700'>
 					{data && !loading ? (
 						<MessageThreadPage thread={data.messageThread as MessageThread} />
 					) : (
-						<BarLoader color='white' />
+						<div className='flex flex-col items-center justify-center w-full h-full'>
+							<BarLoader color='white' />
+						</div>
 					)}
 				</div>
 				<FriendsInfo />

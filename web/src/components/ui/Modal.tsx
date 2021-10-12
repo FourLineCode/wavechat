@@ -3,16 +3,16 @@ import clsx from 'clsx';
 import React, { Fragment } from 'react';
 
 interface Props {
-	isOpen: boolean;
+	show: boolean;
 	onClose: () => void;
 	large?: boolean;
 	className?: string;
 	children?: React.ReactNode;
 }
 
-export function Modal({ isOpen, onClose, large = false, className, children }: Props) {
+export function Modal({ show, onClose, large = false, className, children }: Props) {
 	return (
-		<Transition show={isOpen} as={Fragment}>
+		<Transition show={show} as={Fragment}>
 			<Dialog as='div' className='fixed inset-0 z-10' onClose={onClose}>
 				<div className='flex items-center justify-center min-h-screen px-4'>
 					<Transition.Child

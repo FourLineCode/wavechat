@@ -38,7 +38,7 @@ const DECLINE_REQUEST = gql`
 `;
 
 export function FriendRequestCard({ request }: Props) {
-	const { show, onOpen, onClose } = useModal();
+	const friendRequestProfile = useModal();
 
 	const [acceptRequest, { loading: acceptRequestLoading }] = useMutation<
 		AcceptRequestMutation,
@@ -85,12 +85,12 @@ export function FriendRequestCard({ request }: Props) {
 			<div className='flex items-center space-x-2'>
 				<UserAvatar
 					user={request.fromUser}
-					onClick={onOpen}
+					onClick={friendRequestProfile.onOpen}
 					className='w-10 h-10 rounded-lg cursor-pointer hover:ring-2 ring-brand-500'
 				/>
 				<div>
 					<div
-						onClick={onOpen}
+						onClick={friendRequestProfile.onOpen}
 						className='font-semibold cursor-pointer line-clamp-1 hover:underline'
 					>
 						{request.fromUser.displayName}
@@ -119,7 +119,7 @@ export function FriendRequestCard({ request }: Props) {
 					<span className='line-clamp-1'>Decline</span>
 				</Button>
 			</div>
-			<ProfileModal userId={request.fromUserId} show={show} onClose={onClose} />
+			<ProfileModal userId={request.fromUserId} {...friendRequestProfile} />
 		</Card>
 	);
 }
