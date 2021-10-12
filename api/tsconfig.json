@@ -27,11 +27,13 @@
 		"emitDecoratorMetadata": true,
 		"experimentalDecorators": true,
 		"typeRoots": ["./node_modules/@types"],
+		"declaration": false,
+		"declarationMap": false,
 		"pretty": true,
 		"outDir": "dist",
 		"baseUrl": ".",
 		"paths": {}
 	},
 	"include": ["**/*.ts"],
-	"exclude": ["node_modules"]
+	"exclude": ["node_modules", "dist", "build"]
 }
