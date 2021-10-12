@@ -6,11 +6,13 @@ import { BarLoader } from 'react-spinners';
 import {
 	GetMessageThreadQuery,
 	GetMessageThreadQueryVariables,
+	MessageThread,
 	User,
 } from 'src/apollo/__generated__/types';
 import { FriendsInfo } from 'src/components/friends/FriendsInfo';
 import { Layout } from 'src/components/layouts/Layout';
-import { DirectMessages } from 'src/components/messages/DirectMessages';
+import { DirectMessages } from 'src/components/messages/sidebar/DirectMessages';
+import { MessageThreadPage } from 'src/components/messages/thread/MessageThreadPage';
 import { NavigationSidebar } from 'src/components/navigations/NavigationSidebar';
 import { SidebarWithProfile } from 'src/components/profile/SidebarWithProfile';
 import { useAuth } from 'src/store/useAuth';
@@ -47,7 +49,7 @@ export default function Thread() {
 	const [user, setUser] = useState<User | null>(null);
 	const threadId = router.query.threadId as string;
 
-	const { data } = useQuery<GetMessageThreadQuery, GetMessageThreadQueryVariables>(
+	const { data, loading } = useQuery<GetMessageThreadQuery, GetMessageThreadQueryVariables>(
 		GET_MESSAGE_THREAD,
 		{
 			variables: {
@@ -55,6 +57,7 @@ export default function Thread() {
 			},
 			onError: (error) => {
 				toast.error(error.message);
+				router.push('/messages');
 			},
 		}
 	);
@@ -73,13 +76,8 @@ export default function Thread() {
 				<NavigationSidebar />
 				<SidebarWithProfile component={DirectMessages} />
 				<div className='flex flex-col items-center justify-center flex-1 bg-dark-700'>
-					<div className='text-xl font-bold text-primary'>Thread - {threadId}</div>
-					{data ? (
-						<>
-							<div>Participants: </div>
-							<div>{data.messageThread.participants[0].displayName}</div>
-							<div>{data.messageThread.participants[1].displayName}</div>
-						</>
+					{data && !loading ? (
+						<MessageThreadPage thread={data.messageThread as MessageThread} />
 					) : (
 						<BarLoader color='white' />
 					)}

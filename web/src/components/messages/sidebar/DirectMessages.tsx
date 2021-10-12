@@ -5,7 +5,7 @@ import {
 	ActiveMessageThreadsQueryVariables,
 	MessageThread,
 } from 'src/apollo/__generated__/types';
-import { MessageThreadCard } from 'src/components/messages/MessageThreadCard';
+import { MessageThreadCard } from 'src/components/messages/sidebar/MessageThreadCard';
 import { SearchFriendsInput } from 'src/components/search/SearchFriendsInput';
 
 export const ACTIVE_MESSAGE_THREADS = gql`

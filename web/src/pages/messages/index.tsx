@@ -1,7 +1,7 @@
 import { TiMessages } from 'react-icons/ti';
 import { FriendsInfo } from 'src/components/friends/FriendsInfo';
 import { Layout } from 'src/components/layouts/Layout';
-import { DirectMessages } from 'src/components/messages/DirectMessages';
+import { DirectMessages } from 'src/components/messages/sidebar/DirectMessages';
 import { NavigationSidebar } from 'src/components/navigations/NavigationSidebar';
 import { SidebarWithProfile } from 'src/components/profile/SidebarWithProfile';
 import { authRedirect } from 'src/utils/redirects/auth';

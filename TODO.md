@@ -149,10 +149,10 @@
     -   [x] query active threads in direct messages component
         -   [x] redirect to thread page on click
     -   [x] make thread page by id
-        -   [ ] invalid thread id ui handling (probably redirect to index)
+        -   [x] invalid thread id ui handling (probably redirect to index)
         -   [ ] make a default page for initial render
-    -   [ ] usercards in friends tab context menu message option
-    -   [ ] default index page for /messages and /thread
+    -   [x] usercards in friends tab context menu message option
+    -   [x] default index page for /messages and /thread
     -   [ ] profile modal message button
         -   [ ] created thread on click
 
