@@ -6,7 +6,7 @@ import { UserObject } from 'src/graphql/resolvers/UserResolver';
 export const FriendshipObject: ObjectRef<Friendship, Friendship> = builder
 	.objectRef<Friendship>('Friendship')
 	.implement({
-		name: 'FriendshipObject',
+		name: 'Friendship',
 		description: 'Friendship object type',
 		fields: (t) => ({
 			id: t.exposeID('id'),
@@ -39,7 +39,7 @@ export const FriendshipObject: ObjectRef<Friendship, Friendship> = builder
 export const FriendRequestObject: ObjectRef<FriendRequest, FriendRequest> = builder
 	.objectRef<FriendRequest>('FriendRequest')
 	.implement({
-		name: 'FriendRequestObject',
+		name: 'FriendRequest',
 		description: 'FriendRequest object type',
 		fields: (t) => ({
 			id: t.exposeID('id'),

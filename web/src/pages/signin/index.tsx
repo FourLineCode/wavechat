@@ -94,7 +94,7 @@ export default function SignIn() {
 												Sign in
 											</Button>
 											<div>
-												<span>{"Don't Have an account?"}</span>
+												<span>{"Don't have an account?"}</span>
 												<Link passHref href='/signup'>
 													<a className='ml-2 font-semibold cursor-pointer hover:underline text-brand-500'>
 														Sign up

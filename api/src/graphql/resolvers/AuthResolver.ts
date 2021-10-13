@@ -8,7 +8,7 @@ import { UserObject } from 'src/graphql/resolvers/UserResolver';
 export const SessionObject: ObjectRef<Session, Session> = builder
 	.objectRef<Session>('Session')
 	.implement({
-		name: 'SessionObject',
+		name: 'Session',
 		description: 'Information about user session',
 		fields: (t) => ({
 			id: t.exposeID('id'),
@@ -239,7 +239,7 @@ interface SuccessResult {
 const SuccessResultObject: ObjectRef<SuccessResult, SuccessResult> = builder
 	.objectRef<SuccessResult>('SuccessResult')
 	.implement({
-		name: 'SuccessResultObject',
+		name: 'SuccessResult',
 		description: 'Response object for succesful queries',
 		fields: (t) => ({
 			success: t.exposeBoolean('success'),

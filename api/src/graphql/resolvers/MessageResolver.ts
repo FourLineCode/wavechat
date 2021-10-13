@@ -7,7 +7,7 @@ import { UserObject } from 'src/graphql/resolvers/UserResolver';
 export const MessageObject: ObjectRef<Message, Message> = builder
 	.objectRef<Message>('Message')
 	.implement({
-		name: 'MessageObject',
+		name: 'Message',
 		description: 'Message object type',
 		fields: (t) => ({
 			id: t.exposeID('id'),

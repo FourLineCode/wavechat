@@ -150,7 +150,7 @@
         -   [x] redirect to thread page on click
     -   [x] make thread page by id
         -   [x] invalid thread id ui handling (probably redirect to index)
-        -   [ ] make a default page for initial render
+        -   [x] make a default page for initial render
     -   [x] usercards in friends tab context menu message option
     -   [x] default index page for /messages and /thread
     -   [ ] profile modal message button
