@@ -1,3 +1,4 @@
+import { ObjectRef } from '@giraphql/core';
 import { User } from '@prisma/client';
 import { builder } from 'src/graphql/builder';
 import { SessionObject } from 'src/graphql/resolvers/AuthResolver';
@@ -5,9 +6,9 @@ import { FriendRequestObject, FriendshipObject } from 'src/graphql/resolvers/Fri
 import { MessageObject } from 'src/graphql/resolvers/MessageResolver';
 import { MessageThreadObject } from 'src/graphql/resolvers/MessageThreadResolver';
 
-export const UserObject = builder.objectRef<User>('User');
-
-UserObject.implement({
+export const UserObject: ObjectRef<User, User> = builder.objectRef<User>('User').implement({
+	name: 'UserObject',
+	description: 'User object type',
 	fields: (t) => ({
 		id: t.exposeID('id'),
 		pk: t.exposeInt('pk'),

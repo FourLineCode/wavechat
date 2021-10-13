@@ -1,80 +1,85 @@
+"""Response object for authentication queries"""
 type AuthResult {
   success: Boolean!
-  user: User!
+  user: UserObject!
 }
 
 scalar Date
 
-type FriendRequest {
+"""FriendRequest object type"""
+type FriendRequestObject {
   createdAt: Date!
-  fromUser: User!
+  fromUser: UserObject!
   fromUserId: ID!
   id: ID!
   pk: Int!
-  toUser: User!
+  toUser: UserObject!
   toUserId: ID!
   updatedAt: Date!
 }
 
-type Friendship {
+"""Friendship object type"""
+type FriendshipObject {
   createdAt: Date!
-  firstUser: User!
+  firstUser: UserObject!
   firstUserId: ID!
   id: ID!
   pk: Int!
-  secondUser: User!
+  secondUser: UserObject!
   secondUserId: ID!
   updatedAt: Date!
 }
 
-type Message {
-  author: User!
+"""Message object type"""
+type MessageObject {
+  author: UserObject!
   authorId: ID!
   body: String!
   createdAt: Date!
   id: ID!
   pk: Int!
-  thread: MessageThread!
+  thread: MessageThreadObject!
   threadId: ID!
   updatedAt: Date!
 }
 
-type MessageThread {
+"""MessageThread object type"""
+type MessageThreadObject {
   createdAt: Date!
   id: ID!
-  messages: [Message!]!
-  participants: [User!]!
+  messages: [MessageObject!]!
+  participants: [UserObject!]!
   pk: Int!
   updatedAt: Date!
 }
 
 type Mutation {
   """Accept a pending friend request"""
-  acceptRequest(requestId: String!): Friendship!
+  acceptRequest(requestId: String!): FriendshipObject!
 
   """Returns an existing or newly created MessageThread"""
-  createMessageThread(userId: String!): MessageThread!
+  createMessageThread(userId: String!): MessageThreadObject!
 
   """Decline all pending friend requests"""
   declineAllRequests: Boolean!
 
   """Decline a pending friend request"""
-  declineRequest(requestId: String!): FriendRequest!
+  declineRequest(requestId: String!): FriendRequestObject!
 
   """Send a friend request to a user"""
-  sendRequest(userId: String!): FriendRequest!
+  sendRequest(userId: String!): FriendRequestObject!
 
   """Sign in user"""
   signin(input: SigninInput!): AuthResult!
 
   """Sign out user"""
-  signout: SuccessResult!
+  signout: SuccessResultObject!
 
   """Sign up new user"""
   signup(input: SignupInput!): AuthResult!
 
   """Unfriend a user"""
-  unfriend(userId: String!): Friendship!
+  unfriend(userId: String!): FriendshipObject!
 
   """Unsend a sent friend request"""
   unsendRequest(requestId: String!): Boolean!
@@ -82,46 +87,47 @@ type Mutation {
 
 type Query {
   """Returns currently active MessageThreads for user"""
-  activeMessageThreads: [MessageThread!]!
+  activeMessageThreads: [MessageThreadObject!]!
 
   """returns all users"""
-  allUsers: [User!]!
+  allUsers: [UserObject!]!
 
   """Authorize user session"""
   authorize: AuthResult!
 
   """Gets random discoverable users for a client"""
-  discoverUsers(cursor: Int, limit: Int! = 12, query: String!): [User!]!
+  discoverUsers(cursor: Int, limit: Int! = 12, query: String!): [UserObject!]!
 
   """Get friends list of current user"""
-  friendsList: [Friendship!]!
+  friendsList: [FriendshipObject!]!
   hello(name: String): String!
 
   """Check if user is a friend"""
   isFriend(userId: String!): Boolean!
 
   """Returns a MessageThread by id"""
-  messageThread(threadId: String!): MessageThread!
+  messageThread(threadId: String!): MessageThreadObject!
 
   """Get pending requests of current user"""
-  pendingRequests: [FriendRequest!]!
+  pendingRequests: [FriendRequestObject!]!
 
   """Returns list of friends matching search term"""
-  searchFriends(searchTerm: String!): [User!]!
+  searchFriends(searchTerm: String!): [UserObject!]!
 
   """Get sent requests of current user"""
-  sentRequests: [FriendRequest!]!
+  sentRequests: [FriendRequestObject!]!
 
   """returns info for a user"""
-  user(userId: String!): User!
+  user(userId: String!): UserObject!
 }
 
-type Session {
+"""Information about user session"""
+type SessionObject {
   createdAt: Date!
   id: ID!
   pk: Int!
   updatedAt: Date!
-  user: User!
+  user: UserObject!
   userId: ID!
 }
 
@@ -140,27 +146,29 @@ input SignupInput {
   username: String!
 }
 
-type SuccessResult {
+"""Response object for succesful queries"""
+type SuccessResultObject {
   success: Boolean!
 }
 
-type User {
+"""User object type"""
+type UserObject {
   avatarUrl: String
   bio: String
   createdAt: Date!
   department: String
   displayName: String!
   email: String!
-  friends: [Friendship!]!
+  friends: [FriendshipObject!]!
   id: ID!
-  messageThreads: [MessageThread!]!
-  messages: [Message!]!
-  pendingRequests: [FriendRequest!]!
+  messageThreads: [MessageThreadObject!]!
+  messages: [MessageObject!]!
+  pendingRequests: [FriendRequestObject!]!
   pk: Int!
   role: String!
   semester: Int
-  sentRequests: [FriendRequest!]!
-  sessions: [Session!]!
+  sentRequests: [FriendRequestObject!]!
+  sessions: [SessionObject!]!
   university: String
   updatedAt: Date!
   username: String!
