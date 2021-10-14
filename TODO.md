@@ -15,7 +15,7 @@
     -   [x] socket client
     -   [x] yarn migration
     -   [x] readme
-    -   [ ] path alias
+    -   [x] path alias
 
 -   [ ] general
 
@@ -74,9 +74,9 @@
 
 -   [ ] users
 
-    -   [ ] friends
+    -   [x] friends
 
-        -   [ ] server side
+        -   [x] server side
 
             -   [x] send req
             -   [x] accept req
@@ -153,8 +153,8 @@
         -   [x] make a default page for initial render
     -   [x] usercards in friends tab context menu message option
     -   [x] default index page for /messages and /thread
-    -   [ ] profile modal message button
-        -   [ ] created thread on click
+    -   [x] profile modal message button
+        -   [x] created thread on click
 
 -   [ ] messages
 
