@@ -56,14 +56,14 @@ export type Message = {
   createdAt: Scalars['Date'];
   id: Scalars['ID'];
   pk: Scalars['Int'];
-  thread: MessageThreadObject;
+  thread: MessageThread;
   threadId: Scalars['ID'];
   updatedAt: Scalars['Date'];
 };
 
 /** MessageThread object type */
-export type MessageThreadObject = {
-  __typename?: 'MessageThreadObject';
+export type MessageThread = {
+  __typename?: 'MessageThread';
   createdAt: Scalars['Date'];
   id: Scalars['ID'];
   messages: Array<Message>;
@@ -77,7 +77,7 @@ export type Mutation = {
   /** Accept a pending friend request */
   acceptRequest: Friendship;
   /** Returns an existing or newly created MessageThread */
-  createMessageThread: MessageThreadObject;
+  createMessageThread: MessageThread;
   /** Decline all pending friend requests */
   declineAllRequests: Scalars['Boolean'];
   /** Decline a pending friend request */
@@ -139,7 +139,7 @@ export type MutationUnsendRequestArgs = {
 export type Query = {
   __typename?: 'Query';
   /** Returns currently active MessageThreads for user */
-  activeMessageThreads: Array<MessageThreadObject>;
+  activeMessageThreads: Array<MessageThread>;
   /** returns all users */
   allUsers: Array<User>;
   /** Authorize user session */
@@ -152,7 +152,7 @@ export type Query = {
   /** Check if user is a friend */
   isFriend: Scalars['Boolean'];
   /** Returns a MessageThread by id */
-  messageThread: MessageThreadObject;
+  messageThread: MessageThread;
   /** Get pending requests of current user */
   pendingRequests: Array<FriendRequest>;
   /** Returns list of friends matching search term */
@@ -238,7 +238,7 @@ export type User = {
   email: Scalars['String'];
   friends: Array<Friendship>;
   id: Scalars['ID'];
-  messageThreads: Array<MessageThreadObject>;
+  messageThreads: Array<MessageThread>;
   messages: Array<Message>;
   pendingRequests: Array<FriendRequest>;
   pk: Scalars['Int'];
@@ -292,7 +292,7 @@ export type DeclineAllRequestMutation = { __typename?: 'Mutation', declineAllReq
 export type ActiveMessageThreadsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ActiveMessageThreadsQuery = { __typename?: 'Query', activeMessageThreads: Array<{ __typename?: 'MessageThreadObject', id: string, updatedAt: any, participants: Array<{ __typename?: 'User', id: string, username: string, displayName: string, avatarUrl?: string | null | undefined }> }> };
+export type ActiveMessageThreadsQuery = { __typename?: 'Query', activeMessageThreads: Array<{ __typename?: 'MessageThread', id: string, updatedAt: any, participants: Array<{ __typename?: 'User', id: string, username: string, displayName: string, avatarUrl?: string | null | undefined }> }> };
 
 export type GetUserDataQueryVariables = Exact<{
   userId: Scalars['String'];
@@ -308,19 +308,26 @@ export type SearchFriendsQueryVariables = Exact<{
 
 export type SearchFriendsQuery = { __typename?: 'Query', searchFriends: Array<{ __typename?: 'User', id: string, username: string, displayName: string, university?: string | null | undefined, avatarUrl?: string | null | undefined }> };
 
+export type IsFriendQueryVariables = Exact<{
+  userId: Scalars['String'];
+}>;
+
+
+export type IsFriendQuery = { __typename?: 'Query', isFriend: boolean };
+
 export type CreateMessageThreadMutationVariables = Exact<{
   userId: Scalars['String'];
 }>;
 
 
-export type CreateMessageThreadMutation = { __typename?: 'Mutation', createMessageThread: { __typename?: 'MessageThreadObject', id: string, participants: Array<{ __typename?: 'User', id: string, username: string, displayName: string, avatarUrl?: string | null | undefined }> } };
+export type CreateMessageThreadMutation = { __typename?: 'Mutation', createMessageThread: { __typename?: 'MessageThread', id: string, participants: Array<{ __typename?: 'User', id: string, username: string, displayName: string, avatarUrl?: string | null | undefined }> } };
 
 export type GetMessageThreadQueryVariables = Exact<{
   threadId: Scalars['String'];
 }>;
 
 
-export type GetMessageThreadQuery = { __typename?: 'Query', messageThread: { __typename?: 'MessageThreadObject', id: string, participants: Array<{ __typename?: 'User', id: string, username: string, displayName: string, avatarUrl?: string | null | undefined }>, messages: Array<{ __typename?: 'Message', id: string, body: string, createdAt: any, author: { __typename?: 'User', id: string, username: string, displayName: string, avatarUrl?: string | null | undefined } }> } };
+export type GetMessageThreadQuery = { __typename?: 'Query', messageThread: { __typename?: 'MessageThread', id: string, participants: Array<{ __typename?: 'User', id: string, username: string, displayName: string, avatarUrl?: string | null | undefined }>, messages: Array<{ __typename?: 'Message', id: string, body: string, createdAt: any, author: { __typename?: 'User', id: string, username: string, displayName: string, avatarUrl?: string | null | undefined } }> } };
 
 export type SignupMutationVariables = Exact<{
   input: SignupInput;
@@ -505,6 +512,11 @@ export const SearchFriendsDocument = gql`
     university
     avatarUrl
   }
+}
+    `;
+export const IsFriendDocument = gql`
+    query IsFriend($userId: String!) {
+  isFriend(userId: $userId)
 }
     `;
 export const CreateMessageThreadDocument = gql`

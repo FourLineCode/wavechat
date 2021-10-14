@@ -12,7 +12,7 @@ interface Props extends ModalProps {
 export function ProfileModal({ userId, show, onClose, mutationCallback }: Props) {
 	return (
 		<Modal large show={show} onClose={onClose}>
-			<ProfileDetails userId={userId} mutationCallback={mutationCallback} />
+			<ProfileDetails userId={userId} mutationCallback={mutationCallback} onClose={onClose} />
 		</Modal>
 	);
 }

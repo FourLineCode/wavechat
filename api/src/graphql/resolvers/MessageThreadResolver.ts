@@ -58,6 +58,25 @@ builder.mutationField('createMessageThread', (t) =>
 				throw new Error('You cannot Message yourself');
 			}
 
+			const currentUser = await db.user.findFirst({
+				where: { id: user.id },
+				include: { friends_forward: true, friends_inverse: true },
+				rejectOnNotFound: true,
+			});
+
+			const friendsIds = [
+				...currentUser.friends_forward.map((f) =>
+					f.firstUserId !== user.id ? f.firstUserId : f.secondUserId
+				),
+				...currentUser.friends_inverse.map((f) =>
+					f.firstUserId !== user.id ? f.firstUserId : f.secondUserId
+				),
+			];
+
+			if (!friendsIds.includes(userId)) {
+				throw new Error('You are not friends with this user');
+			}
+
 			const existingThread = await db.messageThread.findFirst({
 				where: {
 					participants: {

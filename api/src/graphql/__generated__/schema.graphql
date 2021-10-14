@@ -38,13 +38,13 @@ type Message {
   createdAt: Date!
   id: ID!
   pk: Int!
-  thread: MessageThreadObject!
+  thread: MessageThread!
   threadId: ID!
   updatedAt: Date!
 }
 
 """MessageThread object type"""
-type MessageThreadObject {
+type MessageThread {
   createdAt: Date!
   id: ID!
   messages: [Message!]!
@@ -58,7 +58,7 @@ type Mutation {
   acceptRequest(requestId: String!): Friendship!
 
   """Returns an existing or newly created MessageThread"""
-  createMessageThread(userId: String!): MessageThreadObject!
+  createMessageThread(userId: String!): MessageThread!
 
   """Decline all pending friend requests"""
   declineAllRequests: Boolean!
@@ -87,7 +87,7 @@ type Mutation {
 
 type Query {
   """Returns currently active MessageThreads for user"""
-  activeMessageThreads: [MessageThreadObject!]!
+  activeMessageThreads: [MessageThread!]!
 
   """returns all users"""
   allUsers: [User!]!
@@ -106,7 +106,7 @@ type Query {
   isFriend(userId: String!): Boolean!
 
   """Returns a MessageThread by id"""
-  messageThread(threadId: String!): MessageThreadObject!
+  messageThread(threadId: String!): MessageThread!
 
   """Get pending requests of current user"""
   pendingRequests: [FriendRequest!]!
@@ -161,7 +161,7 @@ type User {
   email: String!
   friends: [Friendship!]!
   id: ID!
-  messageThreads: [MessageThreadObject!]!
+  messageThreads: [MessageThread!]!
   messages: [Message!]!
   pendingRequests: [FriendRequest!]!
   pk: Int!
