@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
 import React from 'react';
+import { BiMessage } from 'react-icons/bi';
 import { HiDotsVertical } from 'react-icons/hi';
 import { MessageThread } from 'src/apollo/__generated__/types';
 import { ProfileModal } from 'src/components/profile/ProfileModal';
@@ -57,11 +58,9 @@ export function MessageThreadPage({ thread }: Props) {
 					</DropdownMenu>
 				</div>
 			</div>
-			<div className='flex flex-col items-center justify-center flex-1 w-full'>
-				<div className='text-xl font-bold text-primary'>Thread - {thread.id}</div>
-				<div>Participants:</div>
-				<div>{thread.participants[0].displayName}</div>
-				<div>{thread.participants[1].displayName}</div>
+			<div className='flex flex-col items-center justify-center flex-1 w-full text-muted'>
+				<BiMessage size='156px' />
+				<div className='text-xl font-semibold'>Send a message</div>
 			</div>
 		</div>
 	);

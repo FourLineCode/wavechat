@@ -139,22 +139,23 @@
 
 -   [ ] direct messages
 
-    -   [x] search friends with suggestions (eligible)
-        -   [x] server side searching with debounce
-    -   [ ] click "+" opens modal with list of eligible people (not sure about this button, might be removed)
-        -   [ ] implement searching with debounce in modal
-    -   [x] clicking on user in search creates thread
-        -   [x] threads are always there
-        -   [x] add active message threads on user
-    -   [x] query active threads in direct messages component
-        -   [x] redirect to thread page on click
-    -   [x] make thread page by id
-        -   [x] invalid thread id ui handling (probably redirect to index)
-        -   [x] make a default page for initial render
-    -   [x] usercards in friends tab context menu message option
-    -   [x] default index page for /messages and /thread
-    -   [x] profile modal message button
-        -   [x] created thread on click
+    -   [x] message threads
+        -   [x] search friends with suggestions (eligible)
+            -   [x] server side searching with debounce
+        -   [x] clicking on user in search creates thread
+            -   [x] threads are always there
+            -   [x] add active message threads on user
+        -   [x] query active threads in direct messages component
+            -   [x] redirect to thread page on click
+        -   [x] make thread page by id
+            -   [x] invalid thread id ui handling (probably redirect to index)
+            -   [x] make a default page for initial render
+        -   [x] usercards in friends tab context menu message option
+        -   [x] default index page for /messages and /thread
+        -   [x] profile modal message button
+            -   [x] created thread on click
+        -   [ ] click "+" opens modal with list of eligible people (not sure about this button, might be removed)
+            -   [ ] implement searching with debounce in modal
 
 -   [ ] messages
 

@@ -30,14 +30,14 @@
 		"react-hot-toast": "^2.1.1",
 		"react-icons": "^4.3.1",
 		"react-spinners": "^0.11.0",
-		"socket.io-client": "^4.2.0",
+		"socket.io-client": "^4.3.0",
 		"zustand": "^3.5.13"
 	},
 	"devDependencies": {
 		"@graphql-codegen/cli": "^2.2.1",
-		"@graphql-codegen/typescript": "^2.2.3",
-		"@graphql-codegen/typescript-operations": "^2.1.7",
-		"@graphql-codegen/typescript-react-apollo": "^3.1.5",
+		"@graphql-codegen/typescript": "^2.2.4",
+		"@graphql-codegen/typescript-operations": "^2.1.8",
+		"@graphql-codegen/typescript-react-apollo": "^3.1.6",
 		"@tailwindcss/line-clamp": "^0.2.2",
 		"@types/react": "17.0.19",
 		"autoprefixer": "^10.3.7",
