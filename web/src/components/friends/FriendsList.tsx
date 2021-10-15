@@ -1,7 +1,8 @@
 import { gql, useQuery } from '@apollo/client';
+import toast from 'react-hot-toast';
 import { BarLoader } from 'react-spinners';
 import { Friendship, FriendsListQuery } from 'src/apollo/__generated__/types';
-import { FriendListCard } from 'src/components/friends/FriendListCard';
+import { FriendListUserCard } from 'src/components/friends/FriendListUserCard';
 
 export const GET_FRIENDS_LIST = gql`
 	query FriendsList {
@@ -28,17 +29,21 @@ export const GET_FRIENDS_LIST = gql`
 `;
 
 export function FriendsList() {
-	const { data, loading } = useQuery<FriendsListQuery>(GET_FRIENDS_LIST);
+	const { data, loading } = useQuery<FriendsListQuery>(GET_FRIENDS_LIST, {
+		onError: (error) => {
+			toast.error(error.message);
+		},
+	});
 
 	return loading ? (
-		<div className='flex justify-center h-full pt-16'>
+		<div className='flex justify-center flex-1 pt-16'>
 			<BarLoader color='silver' speedMultiplier={1.5} />
 		</div>
 	) : (
-		<div className='space-y-2'>
+		<div className='pr-1 space-y-1 overflow-y-auto scrollbar-thin'>
 			{data && data?.friendsList.length > 0 ? (
 				data?.friendsList.map((friendship) => (
-					<FriendListCard friendship={friendship as Friendship} key={friendship.id} />
+					<FriendListUserCard friendship={friendship as Friendship} key={friendship.id} />
 				))
 			) : (
 				<div className='mt-6 text-center text-secondary'>No Friends Found</div>

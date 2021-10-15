@@ -1,42 +1,47 @@
+import { ObjectRef } from '@giraphql/core';
 import { Session, User } from '@prisma/client';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { builder } from 'src/graphql/builder';
 import { UserObject } from 'src/graphql/resolvers/UserResolver';
 
-export const SessionObject = builder.objectRef<Session>('Session');
-
-SessionObject.implement({
-	fields: (t) => ({
-		id: t.exposeID('id'),
-		pk: t.exposeInt('pk'),
-		createdAt: t.expose('createdAt', { type: 'Date' }),
-		updatedAt: t.expose('updatedAt', { type: 'Date' }),
-		userId: t.exposeID('userId'),
-		user: t.loadable({
-			type: UserObject,
-			load: (ids: string[], context) => context.loader.loadUserByIDs(ids),
-			resolve: (session) => session.userId,
+export const SessionObject: ObjectRef<Session, Session> = builder
+	.objectRef<Session>('Session')
+	.implement({
+		name: 'Session',
+		description: 'Information about user session',
+		fields: (t) => ({
+			id: t.exposeID('id'),
+			pk: t.exposeInt('pk'),
+			createdAt: t.expose('createdAt', { type: 'Date' }),
+			updatedAt: t.expose('updatedAt', { type: 'Date' }),
+			userId: t.exposeID('userId'),
+			user: t.loadable({
+				type: UserObject,
+				load: (ids: string[], context) => context.loader.loadUserByIDs(ids),
+				resolve: (session) => session.userId,
+			}),
 		}),
-	}),
-});
+	});
 
 interface AuthResult {
 	success: boolean;
 	user: User;
 }
 
-const AuthResultObject = builder.objectRef<AuthResult>('AuthResult');
-
-AuthResultObject.implement({
-	fields: (t) => ({
-		success: t.exposeBoolean('success'),
-		user: t.field({
-			type: UserObject,
-			resolve: (result) => result.user,
+const AuthResultObject: ObjectRef<AuthResult, AuthResult> = builder
+	.objectRef<AuthResult>('AuthResult')
+	.implement({
+		name: 'AuthResult',
+		description: 'Response object for authentication queries',
+		fields: (t) => ({
+			success: t.exposeBoolean('success'),
+			user: t.field({
+				type: UserObject,
+				resolve: (result) => result.user,
+			}),
 		}),
-	}),
-});
+	});
 
 const SignupInput = builder.inputType('SignupInput', {
 	fields: (t) => ({
@@ -142,7 +147,7 @@ builder.mutationField('signup', (t) =>
 			res.cookie('session', token, {
 				httpOnly: true,
 				secure: true,
-				sameSite: true,
+				sameSite: 'strict',
 			});
 
 			return { success: true, user: newUser };
@@ -202,7 +207,7 @@ builder.mutationField('signin', (t) =>
 			res.cookie('session', token, {
 				httpOnly: true,
 				secure: true,
-				sameSite: true,
+				sameSite: 'strict',
 			});
 
 			return { success: true, user: user };
@@ -231,13 +236,15 @@ interface SuccessResult {
 	success: boolean;
 }
 
-const SuccessResultObject = builder.objectRef<SuccessResult>('SuccessResult');
-
-SuccessResultObject.implement({
-	fields: (t) => ({
-		success: t.exposeBoolean('success'),
-	}),
-});
+const SuccessResultObject: ObjectRef<SuccessResult, SuccessResult> = builder
+	.objectRef<SuccessResult>('SuccessResult')
+	.implement({
+		name: 'SuccessResult',
+		description: 'Response object for succesful queries',
+		fields: (t) => ({
+			success: t.exposeBoolean('success'),
+		}),
+	});
 
 builder.mutationField('signout', (t) =>
 	t.field({

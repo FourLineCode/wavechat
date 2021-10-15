@@ -1,23 +1,20 @@
-import { DirectMessages } from 'src/components/friends/DirectMessages';
+import { TiMessages } from 'react-icons/ti';
 import { FriendsInfo } from 'src/components/friends/FriendsInfo';
 import { Layout } from 'src/components/layouts/Layout';
+import { DirectMessages } from 'src/components/messages/sidebar/DirectMessages';
 import { NavigationSidebar } from 'src/components/navigations/NavigationSidebar';
 import { SidebarWithProfile } from 'src/components/profile/SidebarWithProfile';
-import { Button } from 'src/components/ui/Button';
-import { useAuth } from 'src/store/useAuth';
 import { authRedirect } from 'src/utils/redirects/auth';
 
-export default function Friends() {
-	const auth = useAuth();
-
+export default function Messages() {
 	return (
-		<Layout title='Friends' desc='WaveChat | Friends'>
+		<Layout title='Messages' desc='WaveChat | Messages'>
 			<div className='flex w-screen h-screen'>
 				<NavigationSidebar />
 				<SidebarWithProfile component={DirectMessages} />
-				<div className='flex flex-col items-center justify-center flex-1 bg-dark-700'>
-					<div className='text-4xl font-bold text-primary'>/Friends</div>
-					<Button onClick={auth.signout}>Sign out</Button>
+				<div className='flex flex-col items-center justify-center flex-1 text-muted bg-dark-700'>
+					<TiMessages size='256px' />
+					<div className='text-2xl font-semibold'>Click on a user to start chatting</div>
 				</div>
 				<FriendsInfo />
 			</div>

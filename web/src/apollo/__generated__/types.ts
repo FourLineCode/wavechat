@@ -14,12 +14,14 @@ export type Scalars = {
   Date: any;
 };
 
+/** Response object for authentication queries */
 export type AuthResult = {
   __typename?: 'AuthResult';
   success: Scalars['Boolean'];
   user: User;
 };
 
+/** FriendRequest object type */
 export type FriendRequest = {
   __typename?: 'FriendRequest';
   createdAt: Scalars['Date'];
@@ -32,6 +34,7 @@ export type FriendRequest = {
   updatedAt: Scalars['Date'];
 };
 
+/** Friendship object type */
 export type Friendship = {
   __typename?: 'Friendship';
   createdAt: Scalars['Date'];
@@ -44,10 +47,37 @@ export type Friendship = {
   updatedAt: Scalars['Date'];
 };
 
+/** Message object type */
+export type Message = {
+  __typename?: 'Message';
+  author: User;
+  authorId: Scalars['ID'];
+  body: Scalars['String'];
+  createdAt: Scalars['Date'];
+  id: Scalars['ID'];
+  pk: Scalars['Int'];
+  thread: MessageThread;
+  threadId: Scalars['ID'];
+  updatedAt: Scalars['Date'];
+};
+
+/** MessageThread object type */
+export type MessageThread = {
+  __typename?: 'MessageThread';
+  createdAt: Scalars['Date'];
+  id: Scalars['ID'];
+  messages: Array<Message>;
+  participants: Array<User>;
+  pk: Scalars['Int'];
+  updatedAt: Scalars['Date'];
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   /** Accept a pending friend request */
   acceptRequest: Friendship;
+  /** Returns an existing or newly created MessageThread */
+  createMessageThread: MessageThread;
   /** Decline all pending friend requests */
   declineAllRequests: Scalars['Boolean'];
   /** Decline a pending friend request */
@@ -69,6 +99,11 @@ export type Mutation = {
 
 export type MutationAcceptRequestArgs = {
   requestId: Scalars['String'];
+};
+
+
+export type MutationCreateMessageThreadArgs = {
+  userId: Scalars['String'];
 };
 
 
@@ -103,6 +138,8 @@ export type MutationUnsendRequestArgs = {
 
 export type Query = {
   __typename?: 'Query';
+  /** Returns currently active MessageThreads for user */
+  activeMessageThreads: Array<MessageThread>;
   /** returns all users */
   allUsers: Array<User>;
   /** Authorize user session */
@@ -114,8 +151,12 @@ export type Query = {
   hello: Scalars['String'];
   /** Check if user is a friend */
   isFriend: Scalars['Boolean'];
+  /** Returns a MessageThread by id */
+  messageThread: MessageThread;
   /** Get pending requests of current user */
   pendingRequests: Array<FriendRequest>;
+  /** Returns list of friends matching search term */
+  searchFriends: Array<User>;
   /** Get sent requests of current user */
   sentRequests: Array<FriendRequest>;
   /** returns info for a user */
@@ -140,10 +181,21 @@ export type QueryIsFriendArgs = {
 };
 
 
+export type QueryMessageThreadArgs = {
+  threadId: Scalars['String'];
+};
+
+
+export type QuerySearchFriendsArgs = {
+  searchTerm: Scalars['String'];
+};
+
+
 export type QueryUserArgs = {
   userId: Scalars['String'];
 };
 
+/** Information about user session */
 export type Session = {
   __typename?: 'Session';
   createdAt: Scalars['Date'];
@@ -169,11 +221,13 @@ export type SignupInput = {
   username: Scalars['String'];
 };
 
+/** Response object for succesful queries */
 export type SuccessResult = {
   __typename?: 'SuccessResult';
   success: Scalars['Boolean'];
 };
 
+/** User object type */
 export type User = {
   __typename?: 'User';
   avatarUrl?: Maybe<Scalars['String']>;
@@ -184,6 +238,8 @@ export type User = {
   email: Scalars['String'];
   friends: Array<Friendship>;
   id: Scalars['ID'];
+  messageThreads: Array<MessageThread>;
+  messages: Array<Message>;
   pendingRequests: Array<FriendRequest>;
   pk: Scalars['Int'];
   role: Scalars['String'];
@@ -233,12 +289,45 @@ export type DeclineAllRequestMutationVariables = Exact<{ [key: string]: never; }
 
 export type DeclineAllRequestMutation = { __typename?: 'Mutation', declineAllRequests: boolean };
 
+export type ActiveMessageThreadsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ActiveMessageThreadsQuery = { __typename?: 'Query', activeMessageThreads: Array<{ __typename?: 'MessageThread', id: string, updatedAt: any, participants: Array<{ __typename?: 'User', id: string, username: string, displayName: string, avatarUrl?: string | null | undefined }> }> };
+
 export type GetUserDataQueryVariables = Exact<{
   userId: Scalars['String'];
 }>;
 
 
 export type GetUserDataQuery = { __typename?: 'Query', user: { __typename?: 'User', id: string, email: string, username: string, displayName: string, avatarUrl?: string | null | undefined, role: string, bio?: string | null | undefined, createdAt: any, updatedAt: any, university?: string | null | undefined, department?: string | null | undefined, semester?: number | null | undefined, pendingRequests: Array<{ __typename?: 'FriendRequest', id: string, fromUserId: string }>, friends: Array<{ __typename?: 'Friendship', firstUserId: string, secondUserId: string }> } };
+
+export type SearchFriendsQueryVariables = Exact<{
+  searchTerm: Scalars['String'];
+}>;
+
+
+export type SearchFriendsQuery = { __typename?: 'Query', searchFriends: Array<{ __typename?: 'User', id: string, username: string, displayName: string, university?: string | null | undefined, avatarUrl?: string | null | undefined }> };
+
+export type IsFriendQueryVariables = Exact<{
+  userId: Scalars['String'];
+}>;
+
+
+export type IsFriendQuery = { __typename?: 'Query', isFriend: boolean };
+
+export type CreateMessageThreadMutationVariables = Exact<{
+  userId: Scalars['String'];
+}>;
+
+
+export type CreateMessageThreadMutation = { __typename?: 'Mutation', createMessageThread: { __typename?: 'MessageThread', id: string, participants: Array<{ __typename?: 'User', id: string, username: string, displayName: string, avatarUrl?: string | null | undefined }> } };
+
+export type GetMessageThreadQueryVariables = Exact<{
+  threadId: Scalars['String'];
+}>;
+
+
+export type GetMessageThreadQuery = { __typename?: 'Query', messageThread: { __typename?: 'MessageThread', id: string, participants: Array<{ __typename?: 'User', id: string, username: string, displayName: string, avatarUrl?: string | null | undefined }>, messages: Array<{ __typename?: 'Message', id: string, body: string, createdAt: any, author: { __typename?: 'User', id: string, username: string, displayName: string, avatarUrl?: string | null | undefined } }> } };
 
 export type SignupMutationVariables = Exact<{
   input: SignupInput;
@@ -374,6 +463,20 @@ export const DeclineAllRequestDocument = gql`
 }
     `;
 export type DeclineAllRequestMutationOptions = Apollo.BaseMutationOptions<DeclineAllRequestMutation, DeclineAllRequestMutationVariables>;
+export const ActiveMessageThreadsDocument = gql`
+    query ActiveMessageThreads {
+  activeMessageThreads {
+    id
+    updatedAt
+    participants {
+      id
+      username
+      displayName
+      avatarUrl
+    }
+  }
+}
+    `;
 export const GetUserDataDocument = gql`
     query GetUserData($userId: String!) {
   user(userId: $userId) {
@@ -396,6 +499,60 @@ export const GetUserDataDocument = gql`
     friends {
       firstUserId
       secondUserId
+    }
+  }
+}
+    `;
+export const SearchFriendsDocument = gql`
+    query SearchFriends($searchTerm: String!) {
+  searchFriends(searchTerm: $searchTerm) {
+    id
+    username
+    displayName
+    university
+    avatarUrl
+  }
+}
+    `;
+export const IsFriendDocument = gql`
+    query IsFriend($userId: String!) {
+  isFriend(userId: $userId)
+}
+    `;
+export const CreateMessageThreadDocument = gql`
+    mutation CreateMessageThread($userId: String!) {
+  createMessageThread(userId: $userId) {
+    id
+    participants {
+      id
+      username
+      displayName
+      avatarUrl
+    }
+  }
+}
+    `;
+export type CreateMessageThreadMutationOptions = Apollo.BaseMutationOptions<CreateMessageThreadMutation, CreateMessageThreadMutationVariables>;
+export const GetMessageThreadDocument = gql`
+    query GetMessageThread($threadId: String!) {
+  messageThread(threadId: $threadId) {
+    id
+    participants {
+      id
+      username
+      displayName
+      avatarUrl
+    }
+    messages {
+      id
+      body
+      createdAt
+      author {
+        id
+        username
+        displayName
+        avatarUrl
+      }
     }
   }
 }

@@ -2,16 +2,21 @@ import { gql, useQuery } from '@apollo/client';
 import { format } from 'date-fns';
 import ordinal from 'ordinal';
 import React from 'react';
-import { FaBuilding, FaGraduationCap, FaUniversity } from 'react-icons/fa';
+import toast from 'react-hot-toast';
+import { FaBuilding, FaCommentAlt, FaGraduationCap, FaUniversity } from 'react-icons/fa';
 import { RiFileUserFill } from 'react-icons/ri';
 import { HashLoader } from 'react-spinners';
 import { GetUserDataQuery, GetUserDataQueryVariables, User } from 'src/apollo/__generated__/types';
 import { UserAvatar } from 'src/components/profile/UserAvatar';
 import { RequestButton } from 'src/components/requests/RequestButton';
+import { Button } from 'src/components/ui/Button';
+import { useIsUserFriend } from 'src/hooks/useIsUserFriend';
+import { useMessageUserMutation } from 'src/hooks/useMessageUserMutation';
+import { ModalProps } from 'src/hooks/useModal';
 import { ApiMutationCallback } from 'src/hooks/useSignal';
 import { useAuth } from 'src/store/useAuth';
 
-interface Props {
+interface Props extends Partial<ModalProps> {
 	userId: string;
 	mutationCallback?: ApiMutationCallback;
 }
@@ -43,12 +48,17 @@ export const GET_USER_DATA = gql`
 	}
 `;
 
-export function ProfileDetails({ userId, mutationCallback }: Props) {
+export function ProfileDetails({ userId, mutationCallback, onClose }: Props) {
 	const currUserId = useAuth().user?.id;
+	const getOrCreateMessageThread = useMessageUserMutation();
+	const isFriend = useIsUserFriend(userId);
 
 	const { data, loading } = useQuery<GetUserDataQuery, GetUserDataQueryVariables>(GET_USER_DATA, {
 		variables: {
 			userId: userId,
+		},
+		onError: (error) => {
+			toast.error(error.message);
 		},
 	});
 
@@ -66,9 +76,29 @@ export function ProfileDetails({ userId, mutationCallback }: Props) {
 						</div>
 					</div>
 				</div>
-				{data.user.id !== currUserId && (
-					<RequestButton user={data.user as User} mutationCallback={mutationCallback} />
-				)}
+				<div className='flex space-x-1'>
+					{data.user.id !== currUserId && (
+						<>
+							{isFriend && (
+								<Button
+									variant='outlined'
+									onClick={() => {
+										getOrCreateMessageThread({
+											variables: { userId: data.user.id },
+										});
+										if (onClose) onClose();
+									}}
+								>
+									<FaCommentAlt size='18px' />
+								</Button>
+							)}
+							<RequestButton
+								user={data.user as User}
+								mutationCallback={mutationCallback}
+							/>
+						</>
+					)}
+				</div>
 			</div>
 			<div className='px-4 mt-4 space-y-2'>
 				{data.user.bio && (

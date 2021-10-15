@@ -22,6 +22,7 @@ interface Response {
 export interface AuthState extends State {
 	authorized: boolean | null;
 	user: User | null;
+	signoutInFlight: boolean;
 	signup: (arg: SignupInput) => Promise<Response>;
 	signin: (arg: SigninInput) => Promise<Response>;
 	signout: () => Promise<Response>;
@@ -31,6 +32,7 @@ export interface AuthState extends State {
 export const useAuth = create<AuthState>((set, get) => ({
 	authorized: null,
 	user: null,
+	signoutInFlight: false,
 	signup: async ({ email, password, username, bio, department, semester, university }) => {
 		try {
 			const { data } = await client.mutate<SignupMutation, SignupMutationVariables>({
@@ -111,6 +113,7 @@ export const useAuth = create<AuthState>((set, get) => ({
 	},
 	signout: async () => {
 		try {
+			set((prev) => ({ ...prev, signoutInFlight: true }));
 			const { data } = await client.mutate<SignoutMutation>({
 				mutation: gql`
 					mutation Signout {
@@ -133,6 +136,8 @@ export const useAuth = create<AuthState>((set, get) => ({
 					window.location.replace('/signin');
 					toast.success('Successfully signed out');
 				}
+
+				set((prev) => ({ ...prev, signoutInFlight: false }));
 				return { success: true, message: 'Successfully signed out' };
 			}
 		} catch (error) {

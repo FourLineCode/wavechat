@@ -1,25 +1,25 @@
-import { FaCog } from 'react-icons/fa';
 import { User } from 'src/apollo/__generated__/types';
 import { ProfileModal } from 'src/components/profile/ProfileModal';
+import { ProfileSettings } from 'src/components/profile/ProfileSettings';
 import { UserAvatar } from 'src/components/profile/UserAvatar';
 import { useModal } from 'src/hooks/useModal';
 import { useAuth } from 'src/store/useAuth';
 
 export function ProfileInfo() {
 	const user = useAuth().user;
-	const { show, onOpen, onClose } = useModal();
+	const profileModal = useModal();
 
 	return (
 		<div className='flex items-center justify-between w-full h-16 p-2 bg-dark-900'>
 			<div className='flex items-center space-x-2'>
 				<UserAvatar
 					user={user as User}
-					onClick={onOpen}
+					onClick={profileModal.onOpen}
 					className='w-12 h-full rounded-full cursor-pointer hover:ring-2 ring-brand-500'
 				/>
 				<div>
 					<div
-						onClick={onOpen}
+						onClick={profileModal.onOpen}
 						className='font-semibold cursor-pointer text-primary hover:underline line-clamp-1'
 					>
 						{user?.displayName}
@@ -30,10 +30,8 @@ export function ProfileInfo() {
 					</div>
 				</div>
 			</div>
-			<div className='p-2 transition transform rounded-full cursor-pointer hover:scale-110 text-dark-500 hover:text-dark-300 hover:bg-dark-700'>
-				<FaCog size='20' />
-			</div>
-			{user && <ProfileModal userId={user.id} show={show} onClose={onClose} />}
+			<ProfileSettings />
+			{user && <ProfileModal userId={user.id} {...profileModal} />}
 		</div>
 	);
 }

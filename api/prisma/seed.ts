@@ -10,7 +10,7 @@ async function seed() {
 	// If a user exists, database doesnt need seeding
 	if (user) return;
 
-	// Create Admin user account for testing purposes
+	// Create Admin user account
 	const admin = await db.user.create({
 		data: {
 			email: 'akmal@wave.com',
@@ -26,7 +26,7 @@ async function seed() {
 		},
 	});
 
-	// Create some fake accounts for testing purposes
+	// Create some fake accounts
 	for (let i = 0; i < 50; i++) {
 		const name = faker.name.findName();
 		const user = await db.user.create({
@@ -44,6 +44,7 @@ async function seed() {
 		});
 
 		if (i < 20 && i % 2 === 0) {
+			// Create friendships
 			await db.friendship.create({
 				data: {
 					firstUserId: admin.id,
@@ -51,6 +52,7 @@ async function seed() {
 				},
 			});
 		} else if (i < 20 && i % 2 !== 0) {
+			// Send some requests
 			await db.friendRequest.create({
 				data: {
 					fromUserId: user.id,
@@ -60,7 +62,7 @@ async function seed() {
 		}
 	}
 
-	// Create some bot accounts for testing purposes
+	// Create some bot accounts
 	for (let i = 0; i < 20; i++) {
 		await db.user.create({
 			data: {

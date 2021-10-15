@@ -15,7 +15,7 @@
     -   [x] socket client
     -   [x] yarn migration
     -   [x] readme
-    -   [ ] path alias
+    -   [x] path alias
 
 -   [ ] general
 
@@ -41,6 +41,8 @@
     -   [x] full color revamp
     -   [x] docker prod env
     -   [ ] use prisma giraphql plugin
+    -   [ ] implement front page urls (about/contact)
+    -   [ ] beta warnings
 
 -   [ ] auth
 
@@ -68,12 +70,13 @@
     -   [x] when auth redirect happens, client store doesnt get auth info
     -   [ ] sign out of all devices
     -   [x] add faker.js for test user generation
+    -   [ ] signin with username or email
 
 -   [ ] users
 
-    -   [ ] friends
+    -   [x] friends
 
-        -   [ ] server side
+        -   [x] server side
 
             -   [x] send req
             -   [x] accept req
@@ -116,6 +119,8 @@
             -   [x] update cache on request accepted
                 -   [x] friends tab + requests tab
             -   [x] decline all button
+            -   [ ] request button state update on pending request already
+                -   [ ] on click opens modal and confirms accept or decline (maybe)
 
     -   [ ] profile modal
 
@@ -127,14 +132,30 @@
         -   [x] integrate in discovered users
         -   [ ] integrate in messages
 
-        -   [ ] add profile edit
-        -   [ ] add profile picture + banner maybe
+-   [ ] settings page
+
+    -   [ ] add profile edit
+    -   [ ] add profile picture + banner maybe
 
 -   [ ] direct messages
 
-    -   [ ] search friends with suggestions (eligible)
-    -   [ ] click "+" opens modal with list of eligible people
-    -   [ ] clicking on user creates thread
+    -   [x] message threads
+        -   [x] search friends with suggestions (eligible)
+            -   [x] server side searching with debounce
+        -   [x] clicking on user in search creates thread
+            -   [x] threads are always there
+            -   [x] add active message threads on user
+        -   [x] query active threads in direct messages component
+            -   [x] redirect to thread page on click
+        -   [x] make thread page by id
+            -   [x] invalid thread id ui handling (probably redirect to index)
+            -   [x] make a default page for initial render
+        -   [x] usercards in friends tab context menu message option
+        -   [x] default index page for /messages and /thread
+        -   [x] profile modal message button
+            -   [x] created thread on click
+        -   [ ] click "+" opens modal with list of eligible people (not sure about this button, might be removed)
+            -   [ ] implement searching with debounce in modal
 
 -   [ ] messages
 

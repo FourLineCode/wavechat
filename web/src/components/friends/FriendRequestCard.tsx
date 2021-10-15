@@ -10,6 +10,7 @@ import {
 } from 'src/apollo/__generated__/types';
 import { GET_FRIENDS_LIST } from 'src/components/friends/FriendsList';
 import { GET_PENDING_REQUESTS } from 'src/components/friends/RequestsList';
+import { GET_USER_DATA } from 'src/components/profile/ProfileDetails';
 import { ProfileModal } from 'src/components/profile/ProfileModal';
 import { UserAvatar } from 'src/components/profile/UserAvatar';
 import { Button } from 'src/components/ui/Button';
@@ -37,7 +38,7 @@ const DECLINE_REQUEST = gql`
 `;
 
 export function FriendRequestCard({ request }: Props) {
-	const { show, onOpen, onClose } = useModal();
+	const friendRequestProfile = useModal();
 
 	const [acceptRequest, { loading: acceptRequestLoading }] = useMutation<
 		AcceptRequestMutation,
@@ -52,7 +53,11 @@ export function FriendRequestCard({ request }: Props) {
 		onError: (error) => {
 			toast.error(error.message);
 		},
-		refetchQueries: [{ query: GET_PENDING_REQUESTS }, { query: GET_FRIENDS_LIST }],
+		refetchQueries: [
+			{ query: GET_PENDING_REQUESTS },
+			{ query: GET_FRIENDS_LIST },
+			{ query: GET_USER_DATA, variables: { userId: request.fromUserId } },
+		],
 	});
 
 	const [declineRequest, { loading: declineRequestLoading }] = useMutation<
@@ -68,7 +73,11 @@ export function FriendRequestCard({ request }: Props) {
 		onError: (error) => {
 			toast.error(error.message);
 		},
-		refetchQueries: [{ query: GET_PENDING_REQUESTS }, { query: GET_FRIENDS_LIST }],
+		refetchQueries: [
+			{ query: GET_PENDING_REQUESTS },
+			{ query: GET_FRIENDS_LIST },
+			{ query: GET_USER_DATA, variables: { userId: request.fromUserId } },
+		],
 	});
 
 	return (
@@ -76,12 +85,12 @@ export function FriendRequestCard({ request }: Props) {
 			<div className='flex items-center space-x-2'>
 				<UserAvatar
 					user={request.fromUser}
-					onClick={onOpen}
+					onClick={friendRequestProfile.onOpen}
 					className='w-10 h-10 rounded-lg cursor-pointer hover:ring-2 ring-brand-500'
 				/>
 				<div>
 					<div
-						onClick={onOpen}
+						onClick={friendRequestProfile.onOpen}
 						className='font-semibold cursor-pointer line-clamp-1 hover:underline'
 					>
 						{request.fromUser.displayName}
@@ -110,7 +119,7 @@ export function FriendRequestCard({ request }: Props) {
 					<span className='line-clamp-1'>Decline</span>
 				</Button>
 			</div>
-			<ProfileModal userId={request.fromUserId} show={show} onClose={onClose} />
+			<ProfileModal userId={request.fromUserId} {...friendRequestProfile} />
 		</Card>
 	);
 }
