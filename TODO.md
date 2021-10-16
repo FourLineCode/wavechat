@@ -50,7 +50,6 @@
         -   [ ] services hold db transaction
         -   [ ] keep auth checks in gql resolver level
         -   [ ] move data loaders to services
-    -   [ ] rename password to passwordHash
     -   [ ] remove db and loaders from gql request context
         -   [x] loader
         -   [ ] db
