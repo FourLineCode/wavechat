@@ -2,8 +2,8 @@ import { PrismaClient, Session, User, UserRole } from '@prisma/client';
 import { ExpressContext } from 'apollo-server-express';
 import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
+import prismaConnection from 'prisma/connection';
 import { Loader } from 'src/graphql/loader';
-import db from 'src/graphql/prisma';
 import { JWTPayload } from 'src/graphql/resolvers/AuthResolver';
 
 export interface Context {
@@ -24,7 +24,7 @@ export async function createContext({ req, res }: ExpressContext): Promise<Conte
 	let ctx: Context = {
 		req: req,
 		res: res,
-		db: db,
+		db: prismaConnection,
 		public: false,
 		authorized: false,
 		loader: new Loader(),
@@ -40,7 +40,7 @@ export async function createContext({ req, res }: ExpressContext): Promise<Conte
 		if (verified) {
 			const { sessionId, userId } = jwt.decode(token) as JWTPayload;
 
-			const session = await db.session.findFirst({
+			const session = await prismaConnection.session.findFirst({
 				where: {
 					id: sessionId,
 					userId: userId,

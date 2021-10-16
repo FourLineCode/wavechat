@@ -44,6 +44,25 @@
     -   [ ] implement front page urls (about/contact)
     -   [ ] beta warnings
 
+-   [ ] services
+
+    -   [ ] add independent services
+        -   [ ] services hold db transaction
+        -   [ ] keep auth checks in gql resolver level
+        -   [ ] move data loaders to services
+    -   [ ] rename password to passwordHash
+    -   [ ] remove db and loaders from gql request context
+    -   [ ] add repository level (not sure yet, since prisma adds abstraction anyway)
+
+    -   [ ] individual services
+        -   [x] auth
+        -   [ ] user
+        -   [ ] discover
+        -   [ ] friendship
+        -   [ ] search
+        -   [ ] messagethread
+        -   [ ] message
+
 -   [ ] auth
 
     -   [x] user model

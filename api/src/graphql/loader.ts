@@ -1,9 +1,9 @@
-import db from 'src/graphql/prisma';
+import prismaConnection from 'prisma/connection';
 
 // DataLoaders for different field resolvers
 export class Loader {
 	public async loadUserByIDs(ids: string[]) {
-		return await db.user.findMany({
+		return await prismaConnection.user.findMany({
 			where: {
 				id: {
 					in: ids,
@@ -13,7 +13,7 @@ export class Loader {
 	}
 
 	public async loadMessageByIDs(ids: string[]) {
-		return await db.message.findMany({
+		return await prismaConnection.message.findMany({
 			where: {
 				id: {
 					in: ids,
@@ -23,7 +23,7 @@ export class Loader {
 	}
 
 	public async loadMessageThreadByIDs(ids: string[]) {
-		return await db.messageThread.findMany({
+		return await prismaConnection.messageThread.findMany({
 			where: {
 				id: {
 					in: ids,

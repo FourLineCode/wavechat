@@ -1,9 +1,9 @@
 import { ObjectRef } from '@giraphql/core';
 import { Session, User } from '@prisma/client';
-import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { builder } from 'src/graphql/builder';
 import { UserObject } from 'src/graphql/resolvers/UserResolver';
+import { services } from 'src/services';
 
 export const SessionObject: ObjectRef<Session, Session> = builder
 	.objectRef<Session>('Session')
@@ -107,35 +107,8 @@ builder.mutationField('signup', (t) =>
 		type: AuthResultObject,
 		description: 'Sign up new user',
 		args: { input: t.arg({ type: SignupInput, required: true }) },
-		resolve: async (_parent, { input }, { db, res }) => {
-			const existentUser = await db.user.findFirst({
-				where: {
-					OR: [{ email: input.email }, { username: input.username.toLowerCase() }],
-				},
-			});
-
-			if (existentUser) {
-				throw new Error('User already exists with given username or email');
-			}
-
-			const newUser = await db.user.create({
-				data: {
-					email: input.email,
-					username: input.username.toLowerCase(),
-					displayName: input.username,
-					password: bcrypt.hashSync(input.password, 10),
-					bio: input.bio,
-					university: input.university,
-					department: input.department,
-					semester: input.semester,
-				},
-			});
-
-			const session = await db.session.create({
-				data: {
-					userId: newUser.id,
-				},
-			});
+		resolve: async (_parent, { input }, { res }) => {
+			const { newUser, session } = await services.authService.signUp(input as User);
 
 			const payload: JWTPayload = {
 				sessionId: session.id,
@@ -178,23 +151,10 @@ builder.mutationField('signin', (t) =>
 		type: AuthResultObject,
 		description: 'Sign in user',
 		args: { input: t.arg({ type: SigninInput, required: true }) },
-		resolve: async (_parent, { input }, { db, res }) => {
-			const user = await db.user.findFirst({
-				where: {
-					email: input.email,
-				},
-				rejectOnNotFound: true,
-			});
-
-			const validated = bcrypt.compareSync(input.password, user.password);
-			if (!validated) {
-				throw new Error('Invalid Credentials');
-			}
-
-			const session = await db.session.create({
-				data: {
-					userId: user.id,
-				},
+		resolve: async (_parent, { input }, { res }) => {
+			const { user, session } = await services.authService.signIn({
+				email: input.email,
+				password: input.password,
 			});
 
 			const payload: JWTPayload = {
@@ -253,12 +213,12 @@ builder.mutationField('signout', (t) =>
 		authScopes: {
 			user: true,
 		},
-		resolve: async (_parent, _args, { db, authorized, session, res }) => {
-			if (!authorized) {
+		resolve: async (_parent, _args, { authorized, session, res }) => {
+			if (!authorized || !session) {
 				throw new Error('You are not signed in');
 			}
 
-			await db.session.delete({ where: { id: session?.id } });
+			await services.authService.signOut(session.id);
 
 			res.clearCookie('session');
 

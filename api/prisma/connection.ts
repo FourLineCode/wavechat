@@ -10,8 +10,8 @@ interface CustomNodeJsGlobal extends NodeJsGlobal {
 
 declare const global: CustomNodeJsGlobal;
 
-const db = global.prisma || new PrismaClient({ log: [] });
+const prismaConnection = global.prisma || new PrismaClient({ log: [] });
 
-if (process.env.NODE_ENV === 'development') global.prisma = db;
+if (process.env.NODE_ENV === 'development') global.prisma = prismaConnection;
 
-export default db;
+export default prismaConnection;
