@@ -3,7 +3,6 @@ import { ExpressContext } from 'apollo-server-express';
 import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import prismaConnection from 'prisma/connection';
-import { Loader } from 'src/graphql/loader';
 import { JWTPayload } from 'src/graphql/resolvers/AuthResolver';
 
 export interface Context {
@@ -16,7 +15,6 @@ export interface Context {
 	session?: Session;
 	role?: UserRole;
 	admin?: boolean;
-	loader: Loader;
 }
 
 // Returns the context and authorized status for each request to the api
@@ -27,7 +25,6 @@ export async function createContext({ req, res }: ExpressContext): Promise<Conte
 		db: prismaConnection,
 		public: false,
 		authorized: false,
-		loader: new Loader(),
 	};
 
 	// Read http only session cookie from request headers

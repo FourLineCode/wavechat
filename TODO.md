@@ -52,6 +52,8 @@
         -   [ ] move data loaders to services
     -   [ ] rename password to passwordHash
     -   [ ] remove db and loaders from gql request context
+        -   [x] loader
+        -   [ ] db
     -   [ ] add repository level (not sure yet, since prisma adds abstraction anyway)
 
     -   [ ] individual services

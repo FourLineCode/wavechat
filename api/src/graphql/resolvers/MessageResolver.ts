@@ -3,6 +3,7 @@ import { Message } from '@prisma/client';
 import { builder } from 'src/graphql/builder';
 import { MessageThreadObject } from 'src/graphql/resolvers/MessageThreadResolver';
 import { UserObject } from 'src/graphql/resolvers/UserResolver';
+import { services } from 'src/services';
 
 export const MessageObject: ObjectRef<Message, Message> = builder
 	.objectRef<Message>('Message')
@@ -18,13 +19,13 @@ export const MessageObject: ObjectRef<Message, Message> = builder
 			authorId: t.exposeID('authorId'),
 			author: t.loadable({
 				type: UserObject,
-				load: (ids: string[], context) => context.loader.loadUserByIDs(ids),
+				load: (ids: string[]) => services.dataLoaderService.loadUserByIDs(ids),
 				resolve: (message) => message.authorId,
 			}),
 			threadId: t.exposeID('threadId'),
 			thread: t.loadable({
 				type: MessageThreadObject,
-				load: (ids: string[], context) => context.loader.loadMessageThreadByIDs(ids),
+				load: (ids: string[]) => services.dataLoaderService.loadMessageThreadByIDs(ids),
 				resolve: (message) => message.threadId,
 			}),
 		}),
