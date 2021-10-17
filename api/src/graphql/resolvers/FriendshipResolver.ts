@@ -17,14 +17,14 @@ export const FriendshipObject: ObjectRef<Friendship, Friendship> = builder
 			firstUserId: t.exposeID('firstUserId'),
 			firstUser: t.field({
 				type: UserObject,
-				resolve: async (parent, _args) => {
+				resolve: async (parent) => {
 					return await services.userService.getUserById(parent.firstUserId);
 				},
 			}),
 			secondUserId: t.exposeID('secondUserId'),
 			secondUser: t.field({
 				type: UserObject,
-				resolve: async (parent, _args) => {
+				resolve: async (parent) => {
 					return await services.userService.getUserById(parent.secondUserId);
 				},
 			}),
@@ -44,14 +44,14 @@ export const FriendRequestObject: ObjectRef<FriendRequest, FriendRequest> = buil
 			fromUserId: t.exposeID('fromUserId'),
 			fromUser: t.field({
 				type: UserObject,
-				resolve: async (parent, _args) => {
+				resolve: async (parent) => {
 					return await services.userService.getUserById(parent.fromUserId);
 				},
 			}),
 			toUserId: t.exposeID('toUserId'),
 			toUser: t.field({
 				type: UserObject,
-				resolve: async (parent, _args) => {
+				resolve: async (parent) => {
 					return await services.userService.getUserById(parent.toUserId);
 				},
 			}),

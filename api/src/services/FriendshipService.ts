@@ -32,7 +32,7 @@ export class FriendshipService {
 		return !!existedRequest;
 	}
 
-	public async doesFriendsshipExist({
+	public async doesFriendshipExist({
 		firstUserId,
 		secondUserId,
 	}: {
@@ -61,7 +61,7 @@ export class FriendshipService {
 			throw new Error('You already sent a request to this user');
 		}
 
-		const friendshipExists = await this.doesFriendsshipExist({
+		const friendshipExists = await this.doesFriendshipExist({
 			firstUserId: fromUserId,
 			secondUserId: toUserId,
 		});
