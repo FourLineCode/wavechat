@@ -5,6 +5,7 @@ import { SessionObject } from 'src/graphql/resolvers/AuthResolver';
 import { FriendRequestObject, FriendshipObject } from 'src/graphql/resolvers/FriendshipResolver';
 import { MessageObject } from 'src/graphql/resolvers/MessageResolver';
 import { MessageThreadObject } from 'src/graphql/resolvers/MessageThreadResolver';
+import { services } from 'src/services';
 
 export const UserObject: ObjectRef<User, User> = builder.objectRef<User>('User').implement({
 	name: 'User',
@@ -25,54 +26,38 @@ export const UserObject: ObjectRef<User, User> = builder.objectRef<User>('User')
 		semester: t.exposeInt('semester', { nullable: true }),
 		sessions: t.field({
 			type: [SessionObject],
-			resolve: async (user, _args, { db }) => {
-				return await db.session.findMany({
-					where: {
-						userId: user.id,
-					},
-				});
+			resolve: async (user) => {
+				return await services.authService.getSessionsForUser(user.id);
 			},
 		}),
 		friends: t.field({
 			type: [FriendshipObject],
-			resolve: async (user, _args, { db }) => {
-				return await db.friendship.findMany({
-					where: {
-						OR: [{ firstUserId: user.id }, { secondUserId: user.id }],
-					},
-				});
+			resolve: async (user) => {
+				return await services.friendshipService.getFriendList(user.id);
 			},
 		}),
 		pendingRequests: t.field({
 			type: [FriendRequestObject],
-			resolve: async (user, _args, { db }) => {
-				return await db.friendRequest.findMany({ where: { toUserId: user.id } });
+			resolve: async (user) => {
+				return await services.friendshipService.getPendingRequests(user.id);
 			},
 		}),
 		sentRequests: t.field({
 			type: [FriendRequestObject],
-			resolve: async (user, _args, { db }) => {
-				return await db.friendRequest.findMany({ where: { fromUserId: user.id } });
+			resolve: async (user) => {
+				return await services.friendshipService.getSentRequests(user.id);
 			},
 		}),
 		messages: t.field({
 			type: [MessageObject],
-			resolve: async (user, _args, { db }) => {
-				return await db.message.findMany({ where: { authorId: user.id } });
+			resolve: async (user) => {
+				return await services.messageService.getMessagesByAuthorId(user.id);
 			},
 		}),
 		messageThreads: t.field({
 			type: [MessageThreadObject],
-			resolve: async (user, _args, { db }) => {
-				return await db.messageThread.findMany({
-					where: {
-						participants: {
-							some: {
-								id: user.id,
-							},
-						},
-					},
-				});
+			resolve: async (user) => {
+				return await services.messageThreadService.getThreadsByUserId(user.id);
 			},
 		}),
 	}),
@@ -82,11 +67,9 @@ builder.queryField('allUsers', (t) =>
 	t.field({
 		type: [UserObject],
 		description: 'returns all users',
-		authScopes: {
-			admin: true,
-		},
-		resolve: async (_parent, _args, { db }) => {
-			return await db.user.findMany();
+		authScopes: { admin: true },
+		resolve: async () => {
+			return await services.userService.getAllUsers();
 		},
 	})
 );
@@ -95,12 +78,10 @@ builder.queryField('user', (t) =>
 	t.field({
 		type: UserObject,
 		description: 'returns info for a user',
-		authScopes: {
-			user: true,
-		},
+		authScopes: { user: true },
 		args: { userId: t.arg({ type: 'String', required: true }) },
-		resolve: async (_parent, { userId }, { db }) => {
-			return await db.user.findUnique({ where: { id: userId }, rejectOnNotFound: true });
+		resolve: async (_parent, { userId }) => {
+			return await services.userService.getUserById(userId);
 		},
 	})
 );
