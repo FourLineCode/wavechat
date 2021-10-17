@@ -18,7 +18,6 @@ builder.queryField('discoverUsers', (t) =>
 			if (!user) throw new Error('Unauthorized');
 
 			query = query.trim();
-			if (query === '') return [];
 
 			return await services.discoverService.getDiscoverUsers({
 				query,

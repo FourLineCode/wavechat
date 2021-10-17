@@ -29,6 +29,8 @@ export class DiscoverService {
 		limit: number;
 		userId: string;
 	}) {
+		if (!query) return [];
+
 		return await this.db.user.findMany({
 			where: {
 				AND: [

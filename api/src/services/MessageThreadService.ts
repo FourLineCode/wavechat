@@ -34,6 +34,18 @@ export class MessageThreadService {
 		});
 	}
 
+	public async getThreadsByUserId(userId: string) {
+		return await this.db.messageThread.findMany({
+			where: {
+				participants: {
+					some: {
+						id: userId,
+					},
+				},
+			},
+		});
+	}
+
 	public async getThreadParticipants(threadId: string) {
 		const thread = await this.db.messageThread.findFirst({
 			where: { id: threadId },

@@ -1,4 +1,4 @@
-import { PrismaClient, Session, User, UserRole } from '@prisma/client';
+import { Session, User, UserRole } from '@prisma/client';
 import { ExpressContext } from 'apollo-server-express';
 import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
@@ -8,7 +8,6 @@ import { JWTPayload } from 'src/graphql/resolvers/AuthResolver';
 export interface Context {
 	req: Request;
 	res: Response;
-	db: PrismaClient;
 	public: boolean;
 	authorized: boolean;
 	user?: User;
@@ -22,7 +21,6 @@ export async function createContext({ req, res }: ExpressContext): Promise<Conte
 	let ctx: Context = {
 		req: req,
 		res: res,
-		db: prismaConnection,
 		public: false,
 		authorized: false,
 	};

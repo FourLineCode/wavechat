@@ -70,4 +70,10 @@ export class AuthService {
 	public async signOut(sessionId: string) {
 		await this.db.session.delete({ where: { id: sessionId } });
 	}
+
+	public async getSessionsForUser(userId: string) {
+		return await this.db.session.findMany({
+			where: { userId },
+		});
+	}
 }

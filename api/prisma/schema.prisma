@@ -63,6 +63,8 @@ model Friendship {
 
     secondUser   User   @relation("friends_inverse", fields: [secondUserId], references: [id])
     secondUserId String
+
+    @@unique([firstUserId, secondUserId])
 }
 
 model FriendRequest {
@@ -76,6 +78,8 @@ model FriendRequest {
 
     toUser   User   @relation("pendingRequests", fields: [toUserId], references: [id])
     toUserId String
+
+    @@unique([fromUserId, toUserId])
 }
 
 model Message {

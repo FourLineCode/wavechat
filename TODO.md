@@ -44,21 +44,21 @@
     -   [ ] implement front page urls (about/contact)
     -   [ ] beta warnings
 
--   [ ] services
+-   [x] services
 
-    -   [ ] add independent services
+    -   [x] add independent services
         -   [x] services hold db transaction
         -   [x] keep auth checks in gql resolver level
         -   [x] move data loaders to services
-    -   [ ] remove db usage from objectrefs fields
-    -   [ ] remove db and loaders from gql request context
+    -   [x] remove db usage from objectrefs fields
+    -   [x] remove db and loaders from gql request context
         -   [x] loader
-        -   [ ] db
-    -   [ ] add repository level (not sure yet, since prisma adds abstraction anyway)
+        -   [x] db
+    -   [x] add repository level (not sure yet, since prisma adds abstraction anyway)
 
-    -   [ ] individual services
+    -   [x] individual services
         -   [x] auth
-        -   [ ] user
+        -   [x] user
         -   [x] discover
         -   [x] friendship
         -   [x] search

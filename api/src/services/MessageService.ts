@@ -23,4 +23,10 @@ export class MessageService {
 			where: { threadId },
 		});
 	}
+
+	public async getMessagesByAuthorId(authorId: string) {
+		return await this.db.message.findMany({
+			where: { authorId },
+		});
+	}
 }

@@ -52,6 +52,10 @@ export function SearchedUserList({ users, clearSearchInput, onEscape }: Props) {
 		};
 	}, []);
 
+	useEffect(() => {
+		setActive(-1);
+	}, [users]);
+
 	return (
 		<div
 			ref={ref}

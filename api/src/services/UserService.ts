@@ -19,6 +19,10 @@ export class UserService {
 		return instance;
 	}
 
+	public async getAllUsers() {
+		return await this.db.user.findMany();
+	}
+
 	public async getUserById(userId: string) {
 		return await this.db.user.findFirst({
 			where: { id: userId },
