@@ -50,9 +50,7 @@ builder.mutationField('createMessageThread', (t) =>
 		},
 		args: { userId: t.arg({ type: 'String', required: true }) },
 		resolve: async (_parent, { userId }, { db, user }) => {
-			if (!user) {
-				throw new Error('You are not authorized to create new Message Thread');
-			}
+			if (!user) throw new Error('Unauthorized');
 
 			if (user.id === userId) {
 				throw new Error('You cannot Message yourself');
@@ -112,9 +110,7 @@ builder.queryField('activeMessageThreads', (t) =>
 			user: true,
 		},
 		resolve: async (_parent, _args, { db, user }) => {
-			if (!user) {
-				throw new Error('You are not authorized to query Message Threads');
-			}
+			if (!user) throw new Error('Unauthorized');
 
 			const currentUser = await db.user.findFirst({
 				where: { id: user.id },
@@ -161,9 +157,7 @@ builder.queryField('messageThread', (t) =>
 		},
 		args: { threadId: t.arg({ type: 'String', required: true }) },
 		resolve: async (_parent, { threadId }, { db, user }) => {
-			if (!user) {
-				throw new Error('You are not authorized to get a Message Thread');
-			}
+			if (!user) throw new Error('Unauthorized');
 
 			const thread = await db.messageThread.findFirst({
 				where: { id: threadId },

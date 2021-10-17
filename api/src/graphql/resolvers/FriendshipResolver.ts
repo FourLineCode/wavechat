@@ -2,6 +2,7 @@ import { ObjectRef } from '@giraphql/core';
 import { FriendRequest, Friendship } from '@prisma/client';
 import { builder } from 'src/graphql/builder';
 import { UserObject } from 'src/graphql/resolvers/UserResolver';
+import { services } from 'src/services';
 
 export const FriendshipObject: ObjectRef<Friendship, Friendship> = builder
 	.objectRef<Friendship>('Friendship')
@@ -16,21 +17,15 @@ export const FriendshipObject: ObjectRef<Friendship, Friendship> = builder
 			firstUserId: t.exposeID('firstUserId'),
 			firstUser: t.field({
 				type: UserObject,
-				resolve: async (parent, _args, { db }) => {
-					return await db.user.findFirst({
-						where: { id: parent.firstUserId },
-						rejectOnNotFound: true,
-					});
+				resolve: async (parent, _args) => {
+					return await services.userService.getUserById(parent.firstUserId);
 				},
 			}),
 			secondUserId: t.exposeID('secondUserId'),
 			secondUser: t.field({
 				type: UserObject,
-				resolve: async (parent, _args, { db }) => {
-					return await db.user.findFirst({
-						where: { id: parent.secondUserId },
-						rejectOnNotFound: true,
-					});
+				resolve: async (parent, _args) => {
+					return await services.userService.getUserById(parent.secondUserId);
 				},
 			}),
 		}),
@@ -49,21 +44,15 @@ export const FriendRequestObject: ObjectRef<FriendRequest, FriendRequest> = buil
 			fromUserId: t.exposeID('fromUserId'),
 			fromUser: t.field({
 				type: UserObject,
-				resolve: async (parent, _args, { db }) => {
-					return await db.user.findFirst({
-						where: { id: parent.fromUserId },
-						rejectOnNotFound: true,
-					});
+				resolve: async (parent, _args) => {
+					return await services.userService.getUserById(parent.fromUserId);
 				},
 			}),
 			toUserId: t.exposeID('toUserId'),
 			toUser: t.field({
 				type: UserObject,
-				resolve: async (parent, _args, { db }) => {
-					return await db.user.findFirst({
-						where: { id: parent.toUserId },
-						rejectOnNotFound: true,
-					});
+				resolve: async (parent, _args) => {
+					return await services.userService.getUserById(parent.toUserId);
 				},
 			}),
 		}),
@@ -75,42 +64,12 @@ builder.mutationField('sendRequest', (t) =>
 		description: 'Send a friend request to a user',
 		authScopes: { user: true },
 		args: { userId: t.arg({ type: 'String', required: true }) },
-		resolve: async (_parent, { userId }, { db, user }) => {
-			if (!user) {
-				throw new Error('You are not signed in to make a request');
-			}
+		resolve: async (_parent, { userId }, { user }) => {
+			if (!user) throw new Error('Unauthorized');
 
-			if (userId === user.id) {
-				throw new Error('You cannot send yourself friend request');
-			}
-
-			const existedRequest = await db.friendRequest.findFirst({
-				where: {
-					fromUserId: user.id,
-					toUserId: userId,
-				},
-			});
-			if (existedRequest) {
-				throw new Error('You already sent a request to this user');
-			}
-
-			const existedFriendship = await db.friendship.findFirst({
-				where: {
-					OR: [
-						{ firstUserId: user.id, secondUserId: userId },
-						{ firstUserId: userId, secondUserId: user.id },
-					],
-				},
-			});
-			if (existedFriendship) {
-				throw new Error('You are already friends with this user');
-			}
-
-			return await db.friendRequest.create({
-				data: {
-					fromUserId: user.id,
-					toUserId: userId,
-				},
+			return await services.friendshipService.sendReuqest({
+				fromUserId: user.id,
+				toUserId: userId,
 			});
 		},
 	})
@@ -122,19 +81,10 @@ builder.mutationField('unsendRequest', (t) =>
 		description: 'Unsend a sent friend request',
 		authScopes: { user: true },
 		args: { requestId: t.arg({ type: 'String', required: true }) },
-		resolve: async (_parent, { requestId }, { db, user }) => {
-			if (!user) {
-				throw new Error('You are not signed in to unsend a request');
-			}
+		resolve: async (_parent, { requestId }, { user }) => {
+			if (!user) throw new Error('Unauthorized');
 
-			const pendingRequest = await db.friendRequest.findFirst({
-				where: { id: requestId, fromUserId: user.id },
-				rejectOnNotFound: true,
-			});
-
-			await db.friendRequest.delete({ where: { id: pendingRequest.id } });
-
-			return true;
+			return await services.friendshipService.unsendRequest({ requestId, ownerId: user.id });
 		},
 	})
 );
@@ -145,26 +95,10 @@ builder.mutationField('acceptRequest', (t) =>
 		description: 'Accept a pending friend request',
 		authScopes: { user: true },
 		args: { requestId: t.arg({ type: 'String', required: true }) },
-		resolve: async (_parent, { requestId }, { db, user }) => {
-			if (!user) {
-				throw new Error('You are not signed in to accept a request');
-			}
+		resolve: async (_parent, { requestId }, { user }) => {
+			if (!user) throw new Error('Unauthorized');
 
-			const pendingRequest = await db.friendRequest.findFirst({
-				where: { id: requestId, toUserId: user.id },
-				rejectOnNotFound: true,
-			});
-
-			const newFriendship = await db.friendship.create({
-				data: {
-					firstUserId: pendingRequest.fromUserId,
-					secondUserId: pendingRequest.toUserId,
-				},
-			});
-
-			await db.friendRequest.delete({ where: { id: pendingRequest.id } });
-
-			return newFriendship;
+			return await services.friendshipService.acceptRequest({ requestId, userId: user.id });
 		},
 	})
 );
@@ -175,22 +109,10 @@ builder.mutationField('declineRequest', (t) =>
 		description: 'Decline a pending friend request',
 		authScopes: { user: true },
 		args: { requestId: t.arg({ type: 'String', required: true }) },
-		resolve: async (_parent, { requestId }, { db, user }) => {
-			if (!user) {
-				throw new Error('You are not signed in to decline a request');
-			}
+		resolve: async (_parent, { requestId }, { user }) => {
+			if (!user) throw new Error('Unauthorized');
 
-			const request = await db.friendRequest.findFirst({
-				where: { id: requestId, toUserId: user.id },
-				rejectOnNotFound: true,
-			});
-			if (request.toUserId !== user.id) {
-				throw new Error('You cannot decline this request');
-			}
-
-			const declinedRequest = await db.friendRequest.delete({ where: { id: requestId } });
-
-			return declinedRequest;
+			return await services.friendshipService.declineRequest({ requestId, userId: user.id });
 		},
 	})
 );
@@ -200,16 +122,10 @@ builder.mutationField('declineAllRequests', (t) =>
 		type: 'Boolean',
 		description: 'Decline all pending friend requests',
 		authScopes: { user: true },
-		resolve: async (_parent, _args, { db, user }) => {
-			if (!user) {
-				throw new Error('You are not signed in to decline all requests');
-			}
+		resolve: async (_parent, _args, { user }) => {
+			if (!user) throw new Error('Unauthorized');
 
-			await db.friendRequest.deleteMany({
-				where: { toUserId: user.id },
-			});
-
-			return true;
+			return await services.friendshipService.declineAllRequests(user.id);
 		},
 	})
 );
@@ -220,28 +136,10 @@ builder.mutationField('unfriend', (t) =>
 		description: 'Unfriend a user',
 		authScopes: { user: true },
 		args: { userId: t.arg({ type: 'String', required: true }) },
-		resolve: async (_parent, { userId }, { db, user }) => {
-			if (!user) {
-				throw new Error('You are not signed in to unfriend a user');
-			}
+		resolve: async (_parent, { userId }, { user }) => {
+			if (!user) throw new Error('Unauthorized');
 
-			if (userId === user.id) {
-				throw new Error('You cannot unfriend yourself');
-			}
-
-			const unfriend = await db.friendship.findFirst({
-				where: {
-					OR: [
-						{ firstUserId: user.id, secondUserId: userId },
-						{ firstUserId: userId, secondUserId: user.id },
-					],
-				},
-				rejectOnNotFound: true,
-			});
-
-			await db.friendship.delete({ where: { id: unfriend.id } });
-
-			return unfriend;
+			return await services.friendshipService.unfriend({ userId, currentUserId: user.id });
 		},
 	})
 );
@@ -251,19 +149,10 @@ builder.queryField('friendsList', (t) =>
 		type: [FriendshipObject],
 		description: 'Get friends list of current user',
 		authScopes: { user: true },
-		resolve: async (_parent, _args, { db, user }) => {
-			if (!user) {
-				throw new Error('You are not signed in');
-			}
+		resolve: async (_parent, _args, { user }) => {
+			if (!user) throw new Error('Unauthorized');
 
-			return await db.friendship.findMany({
-				where: {
-					OR: [{ firstUserId: user.id }, { secondUserId: user.id }],
-				},
-				orderBy: {
-					updatedAt: 'asc',
-				},
-			});
+			return await services.friendshipService.getFriendList(user.id);
 		},
 	})
 );
@@ -274,25 +163,13 @@ builder.queryField('isFriend', (t) =>
 		description: 'Check if user is a friend',
 		authScopes: { user: true },
 		args: { userId: t.arg({ type: 'String', required: true }) },
-		resolve: async (_parent, { userId }, { db, user }) => {
-			if (!user) {
-				throw new Error('You are not signed in to unfriend a user');
-			}
+		resolve: async (_parent, { userId }, { user }) => {
+			if (!user) throw new Error('Unauthorized');
 
-			if (userId === user.id) {
-				throw new Error('You cannot be friends with yourself');
-			}
-
-			const friendship = await db.friendship.findFirst({
-				where: {
-					OR: [
-						{ firstUserId: user.id, secondUserId: userId },
-						{ firstUserId: userId, secondUserId: user.id },
-					],
-				},
+			return await services.friendshipService.isUserFriend({
+				userId,
+				currentUserId: user.id,
 			});
-
-			return !!friendship;
 		},
 	})
 );
@@ -302,12 +179,10 @@ builder.queryField('pendingRequests', (t) =>
 		type: [FriendRequestObject],
 		description: 'Get pending requests of current user',
 		authScopes: { user: true },
-		resolve: async (_parent, _args, { db, user }) => {
-			if (!user) {
-				throw new Error('You are not signed in');
-			}
+		resolve: async (_parent, _args, { user }) => {
+			if (!user) throw new Error('Unauthorized');
 
-			return await db.friendRequest.findMany({ where: { toUserId: user.id } });
+			return await services.friendshipService.getPendingRequests(user.id);
 		},
 	})
 );
@@ -317,12 +192,10 @@ builder.queryField('sentRequests', (t) =>
 		type: [FriendRequestObject],
 		description: 'Get sent requests of current user',
 		authScopes: { user: true },
-		resolve: async (_parent, _args, { db, user }) => {
-			if (!user) {
-				throw new Error('You are not signed in');
-			}
+		resolve: async (_parent, _args, { user }) => {
+			if (!user) throw new Error('Unauthorized');
 
-			return await db.friendRequest.findMany({ where: { fromUserId: user.id } });
+			return await services.friendshipService.getSentRequests(user.id);
 		},
 	})
 );

@@ -50,6 +50,7 @@
         -   [ ] services hold db transaction
         -   [ ] keep auth checks in gql resolver level
         -   [ ] move data loaders to services
+    -   [ ] remove db usage from objectrefs fields
     -   [ ] remove db and loaders from gql request context
         -   [x] loader
         -   [ ] db
@@ -58,8 +59,8 @@
     -   [ ] individual services
         -   [x] auth
         -   [ ] user
-        -   [ ] discover
-        -   [ ] friendship
+        -   [x] discover
+        -   [x] friendship
         -   [ ] search
         -   [ ] messagethread
         -   [ ] message

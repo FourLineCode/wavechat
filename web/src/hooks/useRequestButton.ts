@@ -11,6 +11,7 @@ import {
 	User,
 } from 'src/apollo/__generated__/types';
 import { GET_FRIENDS_LIST } from 'src/components/friends/FriendsList';
+import { ACTIVE_MESSAGE_THREADS } from 'src/components/messages/sidebar/DirectMessages';
 import { GET_USER_DATA } from 'src/components/profile/ProfileDetails';
 import { ApiMutationCallback } from 'src/hooks/useSignal';
 import { useAuth } from 'src/store/useAuth';
@@ -90,6 +91,7 @@ export function useRequestButton(user: User, callback?: ApiMutationCallback) {
 		refetchQueries: [
 			{ query: GET_FRIENDS_LIST },
 			{ query: GET_USER_DATA, variables: { userId: user.id } },
+			{ query: ACTIVE_MESSAGE_THREADS },
 		],
 	});
 

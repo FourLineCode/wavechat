@@ -14,10 +14,8 @@ builder.queryField('discoverUsers', (t) =>
 			limit: t.arg({ type: 'Int', defaultValue: 12, required: true }),
 			cursor: t.arg({ type: 'Int' }),
 		},
-		resolve: async (_parent, { query, limit, cursor }, { db, user }) => {
-			if (!user) {
-				throw new Error('You are not authorized');
-			}
+		resolve: async (_parent, { query, limit, cursor }, { user }) => {
+			if (!user) throw new Error('Unauthorized');
 
 			query = query.trim();
 			if (query === '') return [];
