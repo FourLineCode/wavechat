@@ -1,5 +1,6 @@
 import { builder } from 'src/graphql/builder';
 import { UserObject } from 'src/graphql/resolvers/UserResolver';
+import { services } from 'src/services';
 
 builder.queryField('discoverUsers', (t) =>
 	t.field({
@@ -14,49 +15,19 @@ builder.queryField('discoverUsers', (t) =>
 			cursor: t.arg({ type: 'Int' }),
 		},
 		resolve: async (_parent, { query, limit, cursor }, { db, user }) => {
+			if (!user) {
+				throw new Error('You are not authorized');
+			}
+
 			query = query.trim();
 			if (query === '') return [];
 
-			const searchedUsers = await db.user.findMany({
-				where: {
-					AND: [
-						{
-							OR: [
-								{
-									username: {
-										contains: query,
-										mode: 'insensitive',
-									},
-								},
-								{
-									displayName: {
-										contains: query,
-										mode: 'insensitive',
-									},
-								},
-							],
-						},
-						{
-							id: {
-								not: user?.id,
-							},
-						},
-					],
-				},
-				take: limit,
-				skip: cursor !== null && cursor !== undefined ? 1 : undefined,
-				cursor:
-					cursor !== null && cursor !== undefined
-						? {
-								pk: cursor,
-						  }
-						: undefined,
-				orderBy: {
-					pk: 'asc',
-				},
+			return await services.discoverService.getDiscoverUsers({
+				query,
+				cursor,
+				limit,
+				userId: user.id,
 			});
-
-			return searchedUsers;
 		},
 	})
 );
