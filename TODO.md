@@ -61,7 +61,7 @@
         -   [ ] user
         -   [x] discover
         -   [x] friendship
-        -   [ ] search
+        -   [x] search
         -   [ ] messagethread
         -   [ ] message
 
