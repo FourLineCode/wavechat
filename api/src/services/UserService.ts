@@ -42,7 +42,7 @@ export class UserService {
 				OR: [{ email }, { username }],
 			},
 		});
-		console.log(existentUser);
+
 		return !!existentUser;
 	}
 

@@ -40,6 +40,10 @@
     -   [x] add prettierrc
     -   [x] full color revamp
     -   [x] docker prod env
+    -   [x] load balancing + reverse proxy
+    -   [ ] fix ws connection error in production build
+    -   [ ] with scaling, all replicas run migration and seed
+    -   [ ] do db seeding using createMany (pre generate objects with faker)
     -   [ ] use prisma giraphql plugin
     -   [ ] implement front page urls (about/contact)
     -   [ ] beta warnings

@@ -1,10 +1,10 @@
 version: '3.8'
 
 services:
-    # Traefik reverse proxy for localised domains
+    # Traefik reverse proxy for local domains + load balancing
     traefik:
+        container_name: wc-traefik
         image: traefik:v2.5
-        container_name: traefik
         command:
             - --api.insecure=true
             - --providers.docker=true
@@ -18,7 +18,7 @@ services:
 
     # PostgreSQL database container
     postgres:
-        container_name: postgres
+        container_name: wc-postgres
         image: postgres:13-alpine
         ports:
             - 5432:5432
@@ -34,16 +34,16 @@ services:
 
     # WaveChat Api container (Backend)
     api:
-        container_name: api
+        container_name: wc-api
         build:
             context: ./api
             target: development
         working_dir: /api
         volumes:
             - ./api:/api:rw
-        ports:
-            - 5000:5000
-            - 5001:5001
+        # ports:
+        #     - 5000:5000
+        #     - 5001:5001
         depends_on:
             - traefik
             - postgres
@@ -55,15 +55,15 @@ services:
 
     # WaveChat Web app container (Frontend)
     web:
-        container_name: web
+        container_name: wc-web
         build:
             context: ./web
             target: development
         working_dir: /web
         volumes:
             - ./web:/web:rw
-        ports:
-            - 3000:3000
+        # ports:
+        #     - 3000:3000
         depends_on:
             - traefik
             - postgres
@@ -76,13 +76,13 @@ services:
 
     # Codegen - GraphQL code generator for ApolloClient (Frontend)
     codegen:
-        container_name: codegen
+        container_name: wc-codegen
         build:
             context: ./web
             target: development
         working_dir: /web
         command: pnpm codegen
-        network_mode: host
+        # network_mode: host
         volumes:
             - ./web:/web:rw
         depends_on:
