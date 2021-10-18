@@ -8,7 +8,7 @@ WORKDIR /api
 RUN apk --no-cache add curl
 
 # Install pnpm in the container
-RUN curl -f https://get.pnpm.io/v6.14.js | node - add --global pnpm
+RUN curl -f https://get.pnpm.io/v6.16.js | node - add --global pnpm
 RUN pnpm add -g pnpm
 
 # Sets all the environment variables for development server
@@ -28,7 +28,7 @@ RUN pnpm install
 # Copy all the local files to the container (includes node_modules for development mode)
 COPY . .
 
-# Migrates the database and generated PrismaClient on build
+# Generated PrismaClient on build
 RUN pnpm prisma generate
 
 # Expose the local ports on the host machine

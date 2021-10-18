@@ -29,8 +29,8 @@ services:
             POSTGRES_DB: wavechat
             # Database password
             POSTGRES_PASSWORD: pgadmin
-        depends_on:
-            - traefik
+        # depends_on:
+        #     - traefik
 
     # WaveChat Api container (Backend)
     api:
