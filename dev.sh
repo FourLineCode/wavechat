@@ -1,7 +1,11 @@
 #!/usr/bin/env bash
 
+pnpm --dir api install
+pnpm --dir web install
+
 docker-compose down --volumes
-if [ "$1" == "build" ]; then
+
+if [ "$1" == "--build" ]; then
 	docker-compose up --build --no-start --remove-orphans
 else
 	docker-compose up --no-start --remove-orphans

@@ -44,8 +44,7 @@
     -   [x] with scaling, all replicas run migration and seed
     -   [x] update pnpm version
     -   [x] figure out a way to remove dockerignore files
-    -   [ ] do db seeding using createMany (pre generate objects with faker)
-    -   [ ] update docs
+    -   [x] update docs
     -   [ ] fix ws connection error in production build
     -   [ ] use prisma giraphql plugin
     -   [ ] implement front page urls (about/contact)
