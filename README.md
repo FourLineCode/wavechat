@@ -49,13 +49,11 @@ git clone https://github.com/FourLineCode/wavechat.git
 
 ## Run in production mode
 
-#### Command
+**Command**
 
 ```console
-docker-comopse -f docker-compose.prod.yml up
+./deploy.sh
 ```
-
-> Pass the `--build` flag to rebuild the containers.
 
 ## Visit the site at your local custom domain
 
@@ -65,37 +63,15 @@ docker-comopse -f docker-compose.prod.yml up
 
 ## Run in development mode
 
-### Install Dependencies
+**Command**
 
 ```console
-pnpm --dir api install
-```
-
-```console
-pnpm --dir web install
-```
-
-> You can run these commands from the root directory as specified or change your directory if you want.
-
-### Run development server
-
-```console
-docker-compose up
+./dev.sh
 ```
 
 > Pass the `--build` flag to rebuild the containers.
-
-### Migrate database
-
-```console
-pnpm --dir api migrate
-```
-
-> **This step is very important for the app to work**
 
 ## Open the development server on custom domain
 
 -   **Frontend - [http://wavechat.localhost](http://wavechat.localhost)**
 -   **GraphQL Playground - [http://wavechat.localhost/graphql](http://wavechat.localhost/graphql)**
-
-> Alternatively on port 3000 (frontend) or 5000/5001 (backend)

@@ -29,8 +29,6 @@ services:
             POSTGRES_DB: wavechat
             # Database password
             POSTGRES_PASSWORD: pgadmin
-        depends_on:
-            - traefik-prod
 
     # WaveChat Api container (Backend)
     api-prod:
@@ -41,12 +39,6 @@ services:
             target: production
         working_dir: /api
         restart: on-failure
-        deploy:
-            mode: replicated
-            replicas: 3
-        # ports:
-        #     - 5000:5000
-        #     - 5001:5001
         depends_on:
             - traefik-prod
             - postgres-prod
@@ -65,8 +57,6 @@ services:
             target: production
         working_dir: /web
         restart: on-failure
-        # ports:
-        #     - 3000:3000
         depends_on:
             - traefik-prod
             - postgres-prod
