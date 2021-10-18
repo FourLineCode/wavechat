@@ -24,6 +24,7 @@ export function useRequestButton(user: User, callback?: ApiMutationCallback) {
 	const [loading, setLoading] = useState(false);
 	const [sentRequest, setSentRequest] = useState(false);
 	const [alreadyFriend, setAlreadyFriend] = useState(false);
+	const [hasPendingRequest, setHasPendingRequest] = useState(false);
 
 	const didSendRequest = (u: User) => {
 		const length = u.pendingRequests.length;
@@ -53,19 +54,39 @@ export function useRequestButton(user: User, callback?: ApiMutationCallback) {
 		return false;
 	};
 
+	const doesHavePendingRequest = (u: User) => {
+		const length = u.sentRequests.length;
+
+		for (let i = 0; i < length; i++) {
+			if (u.sentRequests[i].toUserId === currentUserId) {
+				return true;
+			}
+		}
+
+		return false;
+	};
+
 	const updateButtonState = {
 		setIsAlreadyFriend: () => {
 			setAlreadyFriend(true);
 			setSentRequest(false);
+			setHasPendingRequest(false);
 		},
 		setAlreadySentRequest: (reqId: string) => {
 			setAlreadyFriend(false);
+			setHasPendingRequest(false);
 			setSentRequest(true);
 			setSentRequestId(reqId);
+		},
+		setAlreadyPendingRequest: () => {
+			setAlreadyFriend(false);
+			setSentRequest(false);
+			setHasPendingRequest(true);
 		},
 		setNotFriend: () => {
 			setAlreadyFriend(false);
 			setSentRequest(false);
+			setHasPendingRequest(false);
 		},
 	};
 
@@ -73,6 +94,7 @@ export function useRequestButton(user: User, callback?: ApiMutationCallback) {
 	useEffect(() => {
 		setSentRequest(didSendRequest(user));
 		setAlreadyFriend(isAlreadyFriend(user));
+		setHasPendingRequest(doesHavePendingRequest(user));
 	}, []);
 
 	const [unfriend, { loading: unfriendLoading }] = useMutation<
@@ -136,15 +158,17 @@ export function useRequestButton(user: User, callback?: ApiMutationCallback) {
 		event.preventDefault();
 
 		if (alreadyFriend) unfriend();
+		else if (hasPendingRequest) toast('Respond from friend requests tab');
 		else if (sentRequest) unsendRequest();
 		else return sendRequest();
 	};
 
 	const primaryButtonText = useMemo(() => {
 		if (alreadyFriend) return 'Unfriend';
+		else if (hasPendingRequest) return 'Respond';
 		else if (sentRequest) return 'Unsend Request';
 		else return 'Add Friend';
-	}, [sentRequest, alreadyFriend]);
+	}, [sentRequest, alreadyFriend, hasPendingRequest]);
 
 	useEffect(() => {
 		const isLoading = sendLoading || unsendLoading || unfriendLoading;

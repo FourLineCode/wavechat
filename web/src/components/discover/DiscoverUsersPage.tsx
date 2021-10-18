@@ -24,6 +24,10 @@ export const GET_DISCOVER_USERS = gql`
 				id
 				fromUserId
 			}
+			sentRequests {
+				id
+				toUserId
+			}
 		}
 	}
 `;

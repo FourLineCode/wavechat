@@ -40,6 +40,10 @@ export const GET_USER_DATA = gql`
 				id
 				fromUserId
 			}
+			sentRequests {
+				id
+				toUserId
+			}
 			friends {
 				firstUserId
 				secondUserId
