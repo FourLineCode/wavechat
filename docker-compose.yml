@@ -29,8 +29,6 @@ services:
             POSTGRES_DB: wavechat
             # Database password
             POSTGRES_PASSWORD: pgadmin
-        # depends_on:
-        #     - traefik
 
     # WaveChat Api container (Backend)
     api:
@@ -41,9 +39,6 @@ services:
         working_dir: /api
         volumes:
             - ./api:/api:rw
-        # ports:
-        #     - 5000:5000
-        #     - 5001:5001
         depends_on:
             - traefik
             - postgres
@@ -62,8 +57,6 @@ services:
         working_dir: /web
         volumes:
             - ./web:/web:rw
-        # ports:
-        #     - 3000:3000
         depends_on:
             - traefik
             - postgres
@@ -82,7 +75,6 @@ services:
             target: development
         working_dir: /web
         command: pnpm codegen
-        # network_mode: host
         volumes:
             - ./web:/web:rw
         depends_on:

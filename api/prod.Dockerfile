@@ -9,7 +9,6 @@ RUN apk --no-cache add curl
 
 # Install pnpm in the container
 RUN curl -f https://get.pnpm.io/v6.16.js | node - add --global pnpm
-RUN pnpm add -g pnpm
 
 # Sets all the environment variables for development server
 ENV NODE_ENV=production
@@ -19,14 +18,17 @@ ENV ADMIN_PASS=admin00
 ENV BOT_PASS=adminpp
 ENV JWT_SECRET=verysecretkey
 
-# Copy the dependency files
-COPY package.json pnpm-lock.yaml ./
-
-# Install and cache the dependencies
-RUN pnpm install
-
 # Copy all the local files to the container (includes node_modules for development mode)
 COPY . .
+
+# Delete ignored files/folders
+RUN rm -rf node_modules
+RUN rm -rf dist
+RUN rm -rf Dockerfile
+RUN rm -rf prod.Dockerfile
+
+# Install and cache the dependencies
+RUN pnpm install --prod=false
 
 # Generated PrismaClient on build
 RUN pnpm prisma generate

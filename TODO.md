@@ -43,7 +43,7 @@
     -   [x] load balancing + reverse proxy
     -   [x] with scaling, all replicas run migration and seed
     -   [x] update pnpm version
-    -   [ ] figure out a way to remove dockerignore files
+    -   [x] figure out a way to remove dockerignore files
     -   [ ] do db seeding using createMany (pre generate objects with faker)
     -   [ ] update docs
     -   [ ] fix ws connection error in production build
