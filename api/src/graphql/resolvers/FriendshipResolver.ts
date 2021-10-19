@@ -17,12 +17,14 @@ export const FriendshipObject: ObjectRef<Friendship, Friendship> = builder
 			firstUserId: t.exposeID('firstUserId'),
 			firstUser: t.loadable({
 				type: UserObject,
+				sort: (user) => user.id,
 				load: (ids: string[]) => services.dataLoaderService.loadUserByIDs(ids),
 				resolve: (parent) => parent.firstUserId,
 			}),
 			secondUserId: t.exposeID('secondUserId'),
 			secondUser: t.loadable({
 				type: UserObject,
+				sort: (user) => user.id,
 				load: (ids: string[]) => services.dataLoaderService.loadUserByIDs(ids),
 				resolve: (parent) => parent.secondUserId,
 			}),
@@ -42,12 +44,14 @@ export const FriendRequestObject: ObjectRef<FriendRequest, FriendRequest> = buil
 			fromUserId: t.exposeID('fromUserId'),
 			fromUser: t.loadable({
 				type: UserObject,
+				sort: (user) => user.id,
 				load: (ids: string[]) => services.dataLoaderService.loadUserByIDs(ids),
 				resolve: (parent) => parent.fromUserId,
 			}),
 			toUserId: t.exposeID('toUserId'),
 			toUser: t.loadable({
 				type: UserObject,
+				sort: (user) => user.id,
 				load: (ids: string[]) => services.dataLoaderService.loadUserByIDs(ids),
 				resolve: (parent) => parent.toUserId,
 			}),

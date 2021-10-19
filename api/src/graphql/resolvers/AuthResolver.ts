@@ -18,6 +18,7 @@ export const SessionObject: ObjectRef<Session, Session> = builder
 			userId: t.exposeID('userId'),
 			user: t.loadable({
 				type: UserObject,
+				sort: (user) => user.id,
 				load: (ids: string[]) => services.dataLoaderService.loadUserByIDs(ids),
 				resolve: (session) => session.userId,
 			}),

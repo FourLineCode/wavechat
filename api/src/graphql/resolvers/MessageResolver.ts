@@ -19,12 +19,14 @@ export const MessageObject: ObjectRef<Message, Message> = builder
 			authorId: t.exposeID('authorId'),
 			author: t.loadable({
 				type: UserObject,
+				sort: (user) => user.id,
 				load: (ids: string[]) => services.dataLoaderService.loadUserByIDs(ids),
 				resolve: (message) => message.authorId,
 			}),
 			threadId: t.exposeID('threadId'),
 			thread: t.loadable({
 				type: MessageThreadObject,
+				sort: (thread) => thread.id,
 				load: (ids: string[]) => services.dataLoaderService.loadMessageThreadByIDs(ids),
 				resolve: (message) => message.threadId,
 			}),
