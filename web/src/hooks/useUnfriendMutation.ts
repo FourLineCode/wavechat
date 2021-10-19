@@ -1,9 +1,16 @@
-import { useMutation } from '@apollo/client';
+import { gql, useMutation } from '@apollo/client';
 import toast from 'react-hot-toast';
 import { UnfriendMutation, UnfriendMutationVariables } from 'src/apollo/__generated__/types';
 import { GET_FRIENDS_LIST } from 'src/components/friends/FriendsList';
 import { ACTIVE_MESSAGE_THREADS } from 'src/components/messages/sidebar/DirectMessages';
-import { UNFRIEND_USER } from 'src/utils/requestMutations';
+
+export const UNFRIEND_USER = gql`
+	mutation Unfriend($userId: String!) {
+		unfriend(userId: $userId) {
+			id
+		}
+	}
+`;
 
 export function useUnfriendMutation(userId: string) {
 	const [unfriend] = useMutation<UnfriendMutation, UnfriendMutationVariables>(UNFRIEND_USER, {
