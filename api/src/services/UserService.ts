@@ -30,6 +30,13 @@ export class UserService {
 		});
 	}
 
+	public async getUserByUsername(username: string) {
+		return await this.db.user.findFirst({
+			where: { username: username },
+			rejectOnNotFound: true,
+		});
+	}
+
 	public async userExistWithUsernameOrEmail({
 		email,
 		username,

@@ -15,18 +15,16 @@ export const FriendshipObject: ObjectRef<Friendship, Friendship> = builder
 			createdAt: t.expose('createdAt', { type: 'Date' }),
 			updatedAt: t.expose('updatedAt', { type: 'Date' }),
 			firstUserId: t.exposeID('firstUserId'),
-			firstUser: t.field({
+			firstUser: t.loadable({
 				type: UserObject,
-				resolve: async (parent) => {
-					return await services.userService.getUserById(parent.firstUserId);
-				},
+				load: (ids: string[]) => services.dataLoaderService.loadUserByIDs(ids),
+				resolve: (parent) => parent.firstUserId,
 			}),
 			secondUserId: t.exposeID('secondUserId'),
-			secondUser: t.field({
+			secondUser: t.loadable({
 				type: UserObject,
-				resolve: async (parent) => {
-					return await services.userService.getUserById(parent.secondUserId);
-				},
+				load: (ids: string[]) => services.dataLoaderService.loadUserByIDs(ids),
+				resolve: (parent) => parent.secondUserId,
 			}),
 		}),
 	});
@@ -42,18 +40,16 @@ export const FriendRequestObject: ObjectRef<FriendRequest, FriendRequest> = buil
 			createdAt: t.expose('createdAt', { type: 'Date' }),
 			updatedAt: t.expose('updatedAt', { type: 'Date' }),
 			fromUserId: t.exposeID('fromUserId'),
-			fromUser: t.field({
+			fromUser: t.loadable({
 				type: UserObject,
-				resolve: async (parent) => {
-					return await services.userService.getUserById(parent.fromUserId);
-				},
+				load: (ids: string[]) => services.dataLoaderService.loadUserByIDs(ids),
+				resolve: (parent) => parent.fromUserId,
 			}),
 			toUserId: t.exposeID('toUserId'),
-			toUser: t.field({
+			toUser: t.loadable({
 				type: UserObject,
-				resolve: async (parent) => {
-					return await services.userService.getUserById(parent.toUserId);
-				},
+				load: (ids: string[]) => services.dataLoaderService.loadUserByIDs(ids),
+				resolve: (parent) => parent.toUserId,
 			}),
 		}),
 	});
