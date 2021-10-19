@@ -45,10 +45,9 @@
     -   [x] update pnpm version
     -   [x] figure out a way to remove dockerignore files
     -   [x] update docs
+    -   [x] implement front page urls (about/contact)
     -   [ ] fix ws connection error in production build
     -   [ ] use prisma giraphql plugin
-    -   [ ] implement front page urls (about/contact)
-    -   [ ] beta warnings
 
 -   [x] services
 
