@@ -1,83 +1,27 @@
-import { gql, useMutation } from '@apollo/client';
 import React from 'react';
-import toast from 'react-hot-toast';
-import {
-	AcceptRequestMutation,
-	AcceptRequestMutationVariables,
-	DeclineRequestMutation,
-	DeclineRequestMutationVariables,
-	FriendRequest,
-} from 'src/apollo/__generated__/types';
-import { GET_FRIENDS_LIST } from 'src/components/friends/FriendsList';
-import { GET_PENDING_REQUESTS } from 'src/components/friends/RequestsList';
-import { GET_USER_DATA } from 'src/components/profile/ProfileDetails';
+import { FriendRequest } from 'src/apollo/__generated__/types';
 import { ProfileModal } from 'src/components/profile/ProfileModal';
 import { UserAvatar } from 'src/components/profile/UserAvatar';
 import { Button } from 'src/components/ui/Button';
 import { Card } from 'src/components/ui/Card';
+import { useAcceptRequestMutation } from 'src/hooks/useAcceptRequestMutation';
+import { useDeclineRequestMutation } from 'src/hooks/useDeclineRequestMutation';
 import { useModal } from 'src/hooks/useModal';
 
 interface Props {
 	request: FriendRequest;
 }
 
-const ACCEPT_REQUEST = gql`
-	mutation AcceptRequest($requestId: String!) {
-		acceptRequest(requestId: $requestId) {
-			id
-		}
-	}
-`;
-
-const DECLINE_REQUEST = gql`
-	mutation DeclineRequest($requestId: String!) {
-		declineRequest(requestId: $requestId) {
-			id
-		}
-	}
-`;
-
 export function FriendRequestCard({ request }: Props) {
 	const friendRequestProfile = useModal();
 
-	const [acceptRequest, { loading: acceptRequestLoading }] = useMutation<
-		AcceptRequestMutation,
-		AcceptRequestMutationVariables
-	>(ACCEPT_REQUEST, {
-		variables: {
-			requestId: request.id,
-		},
-		onCompleted: () => {
-			toast.success('Request Accepted');
-		},
-		onError: (error) => {
-			toast.error(error.message);
-		},
-		refetchQueries: [
-			{ query: GET_PENDING_REQUESTS },
-			{ query: GET_FRIENDS_LIST },
-			{ query: GET_USER_DATA, variables: { userId: request.fromUserId } },
-		],
+	const { acceptRequest, loading: acceptRequestLoading } = useAcceptRequestMutation({
+		reqId: request.id,
+		userId: request.fromUserId,
 	});
-
-	const [declineRequest, { loading: declineRequestLoading }] = useMutation<
-		DeclineRequestMutation,
-		DeclineRequestMutationVariables
-	>(DECLINE_REQUEST, {
-		variables: {
-			requestId: request.id,
-		},
-		onCompleted: () => {
-			toast.success('Request Declined');
-		},
-		onError: (error) => {
-			toast.error(error.message);
-		},
-		refetchQueries: [
-			{ query: GET_PENDING_REQUESTS },
-			{ query: GET_FRIENDS_LIST },
-			{ query: GET_USER_DATA, variables: { userId: request.fromUserId } },
-		],
+	const { declineRequest, loading: declineRequestLoading } = useDeclineRequestMutation({
+		reqId: request.id,
+		userId: request.fromUserId,
 	});
 
 	return (
