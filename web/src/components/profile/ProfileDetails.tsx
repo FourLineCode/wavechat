@@ -1,7 +1,6 @@
 import { gql, useQuery } from '@apollo/client';
 import { format } from 'date-fns';
 import ordinal from 'ordinal';
-import React from 'react';
 import toast from 'react-hot-toast';
 import { FaBuilding, FaCommentAlt, FaGraduationCap, FaUniversity } from 'react-icons/fa';
 import { RiFileUserFill } from 'react-icons/ri';

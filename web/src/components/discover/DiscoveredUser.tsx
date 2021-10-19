@@ -1,4 +1,3 @@
-import React from 'react';
 import toast from 'react-hot-toast';
 import { AiOutlineUsergroupAdd } from 'react-icons/ai';
 import { User } from 'src/apollo/__generated__/types';

@@ -1,5 +1,4 @@
 import { gql, useMutation } from '@apollo/client';
-import React from 'react';
 import toast from 'react-hot-toast';
 import { FaUserPlus } from 'react-icons/fa';
 import { SendRequestMutation, SendRequestMutationVariables } from 'src/apollo/__generated__/types';

@@ -1,5 +1,4 @@
 import { useMutation } from '@apollo/client';
-import React from 'react';
 import toast from 'react-hot-toast';
 import { FaUserMinus } from 'react-icons/fa';
 import { UnfriendMutation, UnfriendMutationVariables } from 'src/apollo/__generated__/types';

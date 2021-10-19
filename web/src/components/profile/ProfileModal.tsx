@@ -1,4 +1,3 @@
-import React from 'react';
 import { ProfileDetails } from 'src/components/profile/ProfileDetails';
 import { Modal } from 'src/components/ui/Modal';
 import { ModalProps } from 'src/hooks/useModal';

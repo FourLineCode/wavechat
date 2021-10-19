@@ -1,4 +1,3 @@
-import React from 'react';
 import { FaCog } from 'react-icons/fa';
 import { Button } from 'src/components/ui/Button';
 import { Modal } from 'src/components/ui/Modal';

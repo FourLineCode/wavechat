@@ -1,6 +1,6 @@
 import { gql, useQuery } from '@apollo/client';
 import { Form, Formik } from 'formik';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { BarLoader } from 'react-spinners';
 import { DiscoverUsersQuery, DiscoverUsersQueryVariables } from 'src/apollo/__generated__/types';

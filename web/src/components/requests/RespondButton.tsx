@@ -1,4 +1,3 @@
-import React from 'react';
 import { FaCheck, FaTimes } from 'react-icons/fa';
 import { IoArrowRedo } from 'react-icons/io5';
 import { RequestButtonProps } from 'src/components/requests/RequestButton';

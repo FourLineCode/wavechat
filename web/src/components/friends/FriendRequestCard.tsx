@@ -1,4 +1,3 @@
-import React from 'react';
 import { FriendRequest } from 'src/apollo/__generated__/types';
 import { ProfileModal } from 'src/components/profile/ProfileModal';
 import { UserAvatar } from 'src/components/profile/UserAvatar';
