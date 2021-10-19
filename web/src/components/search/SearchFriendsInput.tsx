@@ -1,5 +1,5 @@
 import { gql, useApolloClient, useLazyQuery } from '@apollo/client';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import {
 	SearchFriendsQuery,

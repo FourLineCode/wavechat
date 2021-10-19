@@ -45,10 +45,9 @@
     -   [x] update pnpm version
     -   [x] figure out a way to remove dockerignore files
     -   [x] update docs
+    -   [x] implement front page urls (about/contact)
     -   [ ] fix ws connection error in production build
     -   [ ] use prisma giraphql plugin
-    -   [ ] implement front page urls (about/contact)
-    -   [ ] beta warnings
 
 -   [x] services
 
@@ -95,8 +94,8 @@
     -   [x] protected routes
         -   [x] server sided auth redirects
     -   [x] when auth redirect happens, client store doesnt get auth info
-    -   [ ] sign out of all devices
     -   [x] add faker.js for test user generation
+    -   [ ] sign out of all devices
     -   [ ] signin with username or email
 
 -   [ ] users

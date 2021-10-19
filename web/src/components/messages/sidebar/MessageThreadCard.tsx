@@ -1,7 +1,6 @@
 import clsx from 'clsx';
 import { formatDistanceToNow } from 'date-fns';
 import { useRouter } from 'next/router';
-import React from 'react';
 import { ContextMenuTrigger } from 'react-contextmenu';
 import { FaChevronRight } from 'react-icons/fa';
 import { MessageThread } from 'src/apollo/__generated__/types';

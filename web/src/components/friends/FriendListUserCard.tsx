@@ -1,4 +1,3 @@
-import React from 'react';
 import { ContextMenuTrigger } from 'react-contextmenu';
 import { Friendship } from 'src/apollo/__generated__/types';
 import { ProfileModal } from 'src/components/profile/ProfileModal';

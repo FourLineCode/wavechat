@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import React, { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { User } from 'src/apollo/__generated__/types';
 import { UserAvatar } from 'src/components/profile/UserAvatar';
 import { useMessageUserMutation } from 'src/hooks/useMessageUserMutation';

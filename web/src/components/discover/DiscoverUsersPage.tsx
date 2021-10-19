@@ -1,11 +1,12 @@
 import { gql, useQuery } from '@apollo/client';
+import { Form, Formik } from 'formik';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { BarLoader } from 'react-spinners';
 import { DiscoverUsersQuery, DiscoverUsersQueryVariables } from 'src/apollo/__generated__/types';
 import { DiscoveredUser } from 'src/components/discover/DiscoveredUser';
-import { DiscoverPageLayout } from 'src/components/discover/DiscoverPageLayout';
 import { Button } from 'src/components/ui/Button';
+import { Input } from 'src/components/ui/Input';
 
 export const GET_DISCOVER_USERS = gql`
 	query DiscoverUsers($query: String!, $limit: Int, $cursor: Int) {
@@ -65,23 +66,40 @@ export function DiscoverUsersPage() {
 	}, [users]);
 
 	return (
-		<DiscoverPageLayout
-			title='Search for people you may know'
-			placeholder='Username...'
-			callback={async ({ searchTerm }) => {
-				if (prevQueryTerm !== searchTerm) {
-					setPrevQueryTerm(queryTerm);
-				}
-				setQueryTerm(searchTerm);
+		<div className='flex flex-col flex-1 p-2 space-y-2 bg-dark-700'>
+			<div className='flex-shrink-0 p-3 h-52 rounded-2xl bg-gradient-to-bl from-brand-700 to-dark-900'>
+				<Formik
+					initialValues={{ searchTerm: '' }}
+					onSubmit={async ({ searchTerm }) => {
+						if (prevQueryTerm !== searchTerm) {
+							setPrevQueryTerm(queryTerm);
+						}
+						setQueryTerm(searchTerm);
 
-				if (searchTerm === '') {
-					setUsers([]);
-					return;
-				}
+						if (searchTerm === '') {
+							setUsers([]);
+							return;
+						}
 
-				await refetch({ query: searchTerm });
-			}}
-		>
+						await refetch({ query: searchTerm });
+					}}
+				>
+					{(props) => (
+						<Form className='flex flex-col items-center justify-center w-full h-full space-y-4'>
+							<div className='text-3xl font-bold line-clamp-1'>
+								Search for people you may know
+							</div>
+							<Input
+								name='searchTerm'
+								placeholder='Username...'
+								disabled={props.isSubmitting}
+								initialFocus
+								className='w-4/5 lg:w-2/5'
+							/>
+						</Form>
+					)}
+				</Formik>
+			</div>
 			{users.length > 0 && !loading ? (
 				<>
 					<div className='grid grid-cols-2 gap-2 overflow-y-auto 2xl:grid-cols-4'>
@@ -116,6 +134,6 @@ export function DiscoverUsersPage() {
 					)}
 				</div>
 			)}
-		</DiscoverPageLayout>
+		</div>
 	);
 }

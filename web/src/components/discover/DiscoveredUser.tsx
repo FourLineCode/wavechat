@@ -1,4 +1,3 @@
-import React from 'react';
 import toast from 'react-hot-toast';
 import { AiOutlineUsergroupAdd } from 'react-icons/ai';
 import { User } from 'src/apollo/__generated__/types';
@@ -8,7 +7,6 @@ import { RequestButton } from 'src/components/requests/RequestButton';
 import { Button } from 'src/components/ui/Button';
 import { Card } from 'src/components/ui/Card';
 import { useModal } from 'src/hooks/useModal';
-import { useSignal } from 'src/hooks/useSignal';
 
 interface Props {
 	user: User;
@@ -16,7 +14,6 @@ interface Props {
 
 export function DiscoveredUser({ user }: Props) {
 	const discoverUserProfile = useModal();
-	const [signal, sendSignal] = useSignal();
 
 	// TODO: implement this feature after servers are done
 	const inviteToServer = () => {
@@ -43,7 +40,7 @@ export function DiscoveredUser({ user }: Props) {
 					</div>
 				</div>
 			</div>
-			<RequestButton user={user} className='w-full text-sm 2xl:text-base' signal={signal} />
+			<RequestButton user={user} className='w-full text-sm 2xl:text-base' />
 			<Button
 				variant='outlined'
 				className='w-full text-sm 2xl:text-base'
@@ -54,7 +51,7 @@ export function DiscoveredUser({ user }: Props) {
 					<span className='line-clamp-1'>Invite to server</span>
 				</div>
 			</Button>
-			<ProfileModal userId={user.id} mutationCallback={sendSignal} {...discoverUserProfile} />
+			<ProfileModal userId={user.id} {...discoverUserProfile} />
 		</Card>
 	);
 }

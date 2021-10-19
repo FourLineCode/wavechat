@@ -1,5 +1,4 @@
 import { useRouter } from 'next/router';
-import React from 'react';
 import { BiMessage } from 'react-icons/bi';
 import { HiDotsVertical } from 'react-icons/hi';
 import { MessageThread } from 'src/apollo/__generated__/types';

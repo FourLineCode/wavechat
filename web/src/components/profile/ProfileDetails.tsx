@@ -1,7 +1,6 @@
 import { gql, useQuery } from '@apollo/client';
 import { format } from 'date-fns';
 import ordinal from 'ordinal';
-import React from 'react';
 import toast from 'react-hot-toast';
 import { FaBuilding, FaCommentAlt, FaGraduationCap, FaUniversity } from 'react-icons/fa';
 import { RiFileUserFill } from 'react-icons/ri';
@@ -13,12 +12,10 @@ import { Button } from 'src/components/ui/Button';
 import { useIsUserFriend } from 'src/hooks/useIsUserFriend';
 import { useMessageUserMutation } from 'src/hooks/useMessageUserMutation';
 import { ModalProps } from 'src/hooks/useModal';
-import { ApiMutationCallback } from 'src/hooks/useSignal';
 import { useAuth } from 'src/store/useAuth';
 
 interface Props extends Partial<ModalProps> {
 	userId: string;
-	mutationCallback?: ApiMutationCallback;
 }
 
 export const GET_USER_DATA = gql`
@@ -52,7 +49,7 @@ export const GET_USER_DATA = gql`
 	}
 `;
 
-export function ProfileDetails({ userId, mutationCallback, onClose }: Props) {
+export function ProfileDetails({ userId, onClose }: Props) {
 	const currUserId = useAuth().user?.id;
 	const getOrCreateMessageThread = useMessageUserMutation();
 	const isFriend = useIsUserFriend(userId);
@@ -96,10 +93,7 @@ export function ProfileDetails({ userId, mutationCallback, onClose }: Props) {
 									<FaCommentAlt size='18px' />
 								</Button>
 							)}
-							<RequestButton
-								user={data.user as User}
-								mutationCallback={mutationCallback}
-							/>
+							<RequestButton user={data.user as User} />
 						</>
 					)}
 				</div>

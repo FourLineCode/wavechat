@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { User } from 'src/apollo/__generated__/types';
 import { SearchUserCard } from 'src/components/search/SearchUserCard';
 

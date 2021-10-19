@@ -1,5 +1,4 @@
 import { gql, useMutation, useQuery } from '@apollo/client';
-import React from 'react';
 import toast from 'react-hot-toast';
 import { BarLoader } from 'react-spinners';
 import { FriendRequest, PendingRequestsQuery } from 'src/apollo/__generated__/types';

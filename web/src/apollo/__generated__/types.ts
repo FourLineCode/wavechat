@@ -260,20 +260,6 @@ export type DiscoverUsersQueryVariables = Exact<{
 
 export type DiscoverUsersQuery = { __typename?: 'Query', discoverUsers: Array<{ __typename?: 'User', id: string, pk: number, displayName: string, avatarUrl?: string | null | undefined, university?: string | null | undefined, friends: Array<{ __typename?: 'Friendship', id: string, firstUserId: string, secondUserId: string }>, pendingRequests: Array<{ __typename?: 'FriendRequest', id: string, fromUserId: string }>, sentRequests: Array<{ __typename?: 'FriendRequest', id: string, toUserId: string }> }> };
 
-export type AcceptRequestMutationVariables = Exact<{
-  requestId: Scalars['String'];
-}>;
-
-
-export type AcceptRequestMutation = { __typename?: 'Mutation', acceptRequest: { __typename?: 'Friendship', id: string } };
-
-export type DeclineRequestMutationVariables = Exact<{
-  requestId: Scalars['String'];
-}>;
-
-
-export type DeclineRequestMutation = { __typename?: 'Mutation', declineRequest: { __typename?: 'FriendRequest', id: string } };
-
 export type FriendsListQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -301,12 +287,40 @@ export type GetUserDataQueryVariables = Exact<{
 
 export type GetUserDataQuery = { __typename?: 'Query', user: { __typename?: 'User', id: string, email: string, username: string, displayName: string, avatarUrl?: string | null | undefined, role: string, bio?: string | null | undefined, createdAt: any, updatedAt: any, university?: string | null | undefined, department?: string | null | undefined, semester?: number | null | undefined, pendingRequests: Array<{ __typename?: 'FriendRequest', id: string, fromUserId: string }>, sentRequests: Array<{ __typename?: 'FriendRequest', id: string, toUserId: string }>, friends: Array<{ __typename?: 'Friendship', firstUserId: string, secondUserId: string }> } };
 
+export type SendRequestMutationVariables = Exact<{
+  userId: Scalars['String'];
+}>;
+
+
+export type SendRequestMutation = { __typename?: 'Mutation', sendRequest: { __typename?: 'FriendRequest', id: string } };
+
+export type UnsendRequestMutationVariables = Exact<{
+  requestId: Scalars['String'];
+}>;
+
+
+export type UnsendRequestMutation = { __typename?: 'Mutation', unsendRequest: boolean };
+
 export type SearchFriendsQueryVariables = Exact<{
   searchTerm: Scalars['String'];
 }>;
 
 
 export type SearchFriendsQuery = { __typename?: 'Query', searchFriends: Array<{ __typename?: 'User', id: string, username: string, displayName: string, university?: string | null | undefined, avatarUrl?: string | null | undefined }> };
+
+export type AcceptRequestMutationVariables = Exact<{
+  requestId: Scalars['String'];
+}>;
+
+
+export type AcceptRequestMutation = { __typename?: 'Mutation', acceptRequest: { __typename?: 'Friendship', id: string } };
+
+export type DeclineRequestMutationVariables = Exact<{
+  requestId: Scalars['String'];
+}>;
+
+
+export type DeclineRequestMutation = { __typename?: 'Mutation', declineRequest: { __typename?: 'FriendRequest', id: string } };
 
 export type IsFriendQueryVariables = Exact<{
   userId: Scalars['String'];
@@ -321,6 +335,13 @@ export type CreateMessageThreadMutationVariables = Exact<{
 
 
 export type CreateMessageThreadMutation = { __typename?: 'Mutation', createMessageThread: { __typename?: 'MessageThread', id: string, participants: Array<{ __typename?: 'User', id: string, username: string, displayName: string, avatarUrl?: string | null | undefined }> } };
+
+export type UnfriendMutationVariables = Exact<{
+  userId: Scalars['String'];
+}>;
+
+
+export type UnfriendMutation = { __typename?: 'Mutation', unfriend: { __typename?: 'Friendship', id: string } };
 
 export type GetMessageThreadQueryVariables = Exact<{
   threadId: Scalars['String'];
@@ -353,27 +374,6 @@ export type AuthorizeQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type AuthorizeQuery = { __typename?: 'Query', authorize: { __typename?: 'AuthResult', success: boolean, user: { __typename?: 'User', id: string, email: string, username: string, displayName: string, avatarUrl?: string | null | undefined, role: string, createdAt: any, updatedAt: any, university?: string | null | undefined, department?: string | null | undefined, semester?: number | null | undefined } } };
 
-export type SendRequestMutationVariables = Exact<{
-  userId: Scalars['String'];
-}>;
-
-
-export type SendRequestMutation = { __typename?: 'Mutation', sendRequest: { __typename?: 'FriendRequest', id: string } };
-
-export type UnfriendMutationVariables = Exact<{
-  userId: Scalars['String'];
-}>;
-
-
-export type UnfriendMutation = { __typename?: 'Mutation', unfriend: { __typename?: 'Friendship', id: string } };
-
-export type UnsendRequestMutationVariables = Exact<{
-  requestId: Scalars['String'];
-}>;
-
-
-export type UnsendRequestMutation = { __typename?: 'Mutation', unsendRequest: boolean };
-
 
 export const DiscoverUsersDocument = gql`
     query DiscoverUsers($query: String!, $limit: Int, $cursor: Int) {
@@ -399,22 +399,6 @@ export const DiscoverUsersDocument = gql`
   }
 }
     `;
-export const AcceptRequestDocument = gql`
-    mutation AcceptRequest($requestId: String!) {
-  acceptRequest(requestId: $requestId) {
-    id
-  }
-}
-    `;
-export type AcceptRequestMutationOptions = Apollo.BaseMutationOptions<AcceptRequestMutation, AcceptRequestMutationVariables>;
-export const DeclineRequestDocument = gql`
-    mutation DeclineRequest($requestId: String!) {
-  declineRequest(requestId: $requestId) {
-    id
-  }
-}
-    `;
-export type DeclineRequestMutationOptions = Apollo.BaseMutationOptions<DeclineRequestMutation, DeclineRequestMutationVariables>;
 export const FriendsListDocument = gql`
     query FriendsList {
   friendsList {
@@ -511,6 +495,20 @@ export const GetUserDataDocument = gql`
   }
 }
     `;
+export const SendRequestDocument = gql`
+    mutation SendRequest($userId: String!) {
+  sendRequest(userId: $userId) {
+    id
+  }
+}
+    `;
+export type SendRequestMutationOptions = Apollo.BaseMutationOptions<SendRequestMutation, SendRequestMutationVariables>;
+export const UnsendRequestDocument = gql`
+    mutation UnsendRequest($requestId: String!) {
+  unsendRequest(requestId: $requestId)
+}
+    `;
+export type UnsendRequestMutationOptions = Apollo.BaseMutationOptions<UnsendRequestMutation, UnsendRequestMutationVariables>;
 export const SearchFriendsDocument = gql`
     query SearchFriends($searchTerm: String!) {
   searchFriends(searchTerm: $searchTerm) {
@@ -522,6 +520,22 @@ export const SearchFriendsDocument = gql`
   }
 }
     `;
+export const AcceptRequestDocument = gql`
+    mutation AcceptRequest($requestId: String!) {
+  acceptRequest(requestId: $requestId) {
+    id
+  }
+}
+    `;
+export type AcceptRequestMutationOptions = Apollo.BaseMutationOptions<AcceptRequestMutation, AcceptRequestMutationVariables>;
+export const DeclineRequestDocument = gql`
+    mutation DeclineRequest($requestId: String!) {
+  declineRequest(requestId: $requestId) {
+    id
+  }
+}
+    `;
+export type DeclineRequestMutationOptions = Apollo.BaseMutationOptions<DeclineRequestMutation, DeclineRequestMutationVariables>;
 export const IsFriendDocument = gql`
     query IsFriend($userId: String!) {
   isFriend(userId: $userId)
@@ -541,6 +555,14 @@ export const CreateMessageThreadDocument = gql`
 }
     `;
 export type CreateMessageThreadMutationOptions = Apollo.BaseMutationOptions<CreateMessageThreadMutation, CreateMessageThreadMutationVariables>;
+export const UnfriendDocument = gql`
+    mutation Unfriend($userId: String!) {
+  unfriend(userId: $userId) {
+    id
+  }
+}
+    `;
+export type UnfriendMutationOptions = Apollo.BaseMutationOptions<UnfriendMutation, UnfriendMutationVariables>;
 export const GetMessageThreadDocument = gql`
     query GetMessageThread($threadId: String!) {
   messageThread(threadId: $threadId) {
@@ -622,25 +644,3 @@ export const AuthorizeDocument = gql`
   }
 }
     `;
-export const SendRequestDocument = gql`
-    mutation SendRequest($userId: String!) {
-  sendRequest(userId: $userId) {
-    id
-  }
-}
-    `;
-export type SendRequestMutationOptions = Apollo.BaseMutationOptions<SendRequestMutation, SendRequestMutationVariables>;
-export const UnfriendDocument = gql`
-    mutation Unfriend($userId: String!) {
-  unfriend(userId: $userId) {
-    id
-  }
-}
-    `;
-export type UnfriendMutationOptions = Apollo.BaseMutationOptions<UnfriendMutation, UnfriendMutationVariables>;
-export const UnsendRequestDocument = gql`
-    mutation UnsendRequest($requestId: String!) {
-  unsendRequest(requestId: $requestId)
-}
-    `;
-export type UnsendRequestMutationOptions = Apollo.BaseMutationOptions<UnsendRequestMutation, UnsendRequestMutationVariables>;
