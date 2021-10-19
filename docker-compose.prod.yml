@@ -9,7 +9,7 @@ services:
             - --api.insecure=true
             - --providers.docker=true
             - --providers.docker.exposedbydefault=false
-            - --entrypoints.web.address=:80
+            - --entrypoints.wave.address=:80
         ports:
             - 80:80
             - 8080:8080
@@ -44,7 +44,7 @@ services:
             - postgres-prod
         labels:
             - traefik.enable=true
-            - traefik.http.routers.api.entrypoints=web
+            - traefik.http.routers.api.entrypoints=wave
             # Web route prefixed with specific routes gets forwarded to api
             - traefik.http.routers.api.rule=Host(`wavechat.localhost`) && PathPrefix(`/graphql`) || PathPrefix(`/ws`)
 
@@ -63,7 +63,7 @@ services:
             - api-prod
         labels:
             - traefik.enable=true
-            - traefik.http.routers.web.entrypoints=web
+            - traefik.http.routers.web.entrypoints=wave
             # Web route other than api routes gets forwarded to api
             - traefik.http.routers.web.rule=Host(`wavechat.localhost`)
 
