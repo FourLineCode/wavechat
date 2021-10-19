@@ -119,6 +119,9 @@ type Query {
 
   """returns info for a user"""
   user(userId: String!): User!
+
+  """returns info for a user by username"""
+  userByUsername(username: String!): User!
 }
 
 """Information about user session"""

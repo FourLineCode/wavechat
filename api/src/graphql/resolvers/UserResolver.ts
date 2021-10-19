@@ -85,3 +85,15 @@ builder.queryField('user', (t) =>
 		},
 	})
 );
+
+builder.queryField('userByUsername', (t) =>
+	t.field({
+		type: UserObject,
+		description: 'returns info for a user by username',
+		authScopes: { user: true },
+		args: { username: t.arg({ type: 'String', required: true }) },
+		resolve: async (_parent, { username }) => {
+			return await services.userService.getUserByUsername(username.toLowerCase());
+		},
+	})
+);
