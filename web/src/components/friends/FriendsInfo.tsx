@@ -26,7 +26,7 @@ export function FriendsInfo() {
 									clsx(
 										'flex-1 p-1.5 flex justify-center items-center bg-dark-700 transition focus:outline-none font-semibold text-lg',
 										selected
-											? 'bg-brand-500'
+											? '!bg-brand-500'
 											: 'hover:bg-brand-300 hover:bg-opacity-30'
 									)
 								}

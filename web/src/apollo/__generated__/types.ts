@@ -161,6 +161,8 @@ export type Query = {
   sentRequests: Array<FriendRequest>;
   /** returns info for a user */
   user: User;
+  /** returns info for a user by username */
+  userByUsername: User;
 };
 
 
@@ -193,6 +195,11 @@ export type QuerySearchFriendsArgs = {
 
 export type QueryUserArgs = {
   userId: Scalars['String'];
+};
+
+
+export type QueryUserByUsernameArgs = {
+  username: Scalars['String'];
 };
 
 /** Information about user session */

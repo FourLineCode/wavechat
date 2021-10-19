@@ -1,6 +1,6 @@
 import { FaCheck, FaTimes } from 'react-icons/fa';
 import { IoArrowRedo } from 'react-icons/io5';
-import { RequestButtonProps } from 'src/components/requests/RequestButton';
+import { RequestButtonProps, RequestButtonState } from 'src/components/requests/RequestButton';
 import { Button } from 'src/components/ui/Button';
 import { Modal } from 'src/components/ui/Modal';
 import { useAcceptRequestMutation } from 'src/hooks/useAcceptRequestMutation';
@@ -35,6 +35,8 @@ export function RespondButton({ user, className, reqId, setState, setReqId }: Re
 						variant='outlined'
 						onClick={() => {
 							declineRequest();
+							setState(RequestButtonState.NotFriend);
+							setReqId(null);
 							respondRequestModal.onClose();
 						}}
 						isSubmitting={declineRequestLoading}
@@ -48,6 +50,8 @@ export function RespondButton({ user, className, reqId, setState, setReqId }: Re
 						type='submit'
 						onClick={() => {
 							acceptRequest();
+							setState(RequestButtonState.AlreadyFriend);
+							setReqId(null);
 							respondRequestModal.onClose();
 						}}
 						isSubmitting={acceptRequestLoading}
