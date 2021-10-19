@@ -95,8 +95,8 @@
     -   [x] protected routes
         -   [x] server sided auth redirects
     -   [x] when auth redirect happens, client store doesnt get auth info
-    -   [ ] sign out of all devices
     -   [x] add faker.js for test user generation
+    -   [ ] sign out of all devices
     -   [ ] signin with username or email
 
 -   [ ] users

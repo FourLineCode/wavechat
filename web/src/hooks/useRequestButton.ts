@@ -13,11 +13,10 @@ import {
 import { GET_FRIENDS_LIST } from 'src/components/friends/FriendsList';
 import { ACTIVE_MESSAGE_THREADS } from 'src/components/messages/sidebar/DirectMessages';
 import { GET_USER_DATA } from 'src/components/profile/ProfileDetails';
-import { ApiMutationCallback } from 'src/hooks/useSignal';
 import { useAuth } from 'src/store/useAuth';
 import { SEND_REQUEST, UNFRIEND_USER, UNSEND_REQUEST } from 'src/utils/requestMutations';
 
-export function useRequestButton(user: User, callback?: ApiMutationCallback) {
+export function useRequestButton(user: User) {
 	const auth = useAuth();
 	const currentUserId = auth.user?.id;
 	const [sentRequestId, setSentRequestId] = useState<string>('');
@@ -104,7 +103,6 @@ export function useRequestButton(user: User, callback?: ApiMutationCallback) {
 		variables: { userId: user.id },
 		onCompleted: () => {
 			setAlreadyFriend(false);
-			if (callback) callback({ message: 'unfriend' });
 			toast.success('Unfriended successfully');
 		},
 		onError: (error) => {
@@ -126,7 +124,6 @@ export function useRequestButton(user: User, callback?: ApiMutationCallback) {
 		},
 		onCompleted: () => {
 			setSentRequest(false);
-			if (callback) callback({ message: 'unsend' });
 			toast.success('Unsent request successfully');
 		},
 		onError: (error) => {
@@ -145,7 +142,6 @@ export function useRequestButton(user: User, callback?: ApiMutationCallback) {
 		onCompleted: (data) => {
 			setSentRequest(true);
 			setSentRequestId(data.sendRequest.id);
-			if (callback) callback({ message: 'send', reqId: data.sendRequest.id });
 			toast.success('Sent request successfully');
 		},
 		onError: (error) => {
