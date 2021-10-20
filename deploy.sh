@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-replica_count=3
+replica_count=2
 
 docker-compose -f docker-compose.prod.yml down --volumes
 docker-compose -f docker-compose.prod.yml build

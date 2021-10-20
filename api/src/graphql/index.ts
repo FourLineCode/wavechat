@@ -36,6 +36,6 @@ export async function startServer() {
 
 	// Start the server
 	server.listen({ port: config.port }, () => {
-		console.log(`\nServer is now running on http://localhost:${config.port}\n`);
+		console.log(`\nApi Server is now running on http://localhost:${config.port}\n`);
 	});
 }

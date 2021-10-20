@@ -1,3 +1,4 @@
+import { something } from '@shared/types/data';
 import fastify from 'fastify';
 import fastifyCookie from 'fastify-cookie';
 import fastifyCors from 'fastify-cors';
@@ -15,13 +16,6 @@ async function main() {
 	server.register(fastifyIO, {
 		path: '/ws',
 		logLevel: config.isDev ? 'debug' : 'fatal',
-		cookie: {
-			name: 'session',
-			httpOnly: true,
-			sameSite: 'strict',
-			secure: true,
-			path: '/',
-		},
 		cors: {
 			origin: config.origins,
 			credentials: true,
@@ -44,8 +38,10 @@ async function main() {
 	await server.ready();
 
 	server.listen(config.port, '0.0.0.0', () => {
-		console.log(`\nRTC is now running on http://localhost:${config.port}\n`);
+		console.log(`\nRTC Server is now running on http://localhost:${config.port}\n`);
 	});
 }
 
 main().catch(console.error);
+
+console.log(something);

@@ -31,10 +31,8 @@
 		"noEmit": true,
 		"pretty": true,
 		"baseUrl": ".",
-		"paths": {
-			"@shared/*": ["../shared/*"]
-		}
+		"paths": {}
 	},
-	"include": ["**/*.ts", "**/*.tsx", "../shared/**/*.ts", "../shared/**/*.tsx"],
+	"include": ["**/*.ts", "**/*.tsx"],
 	"exclude": ["node_modules", ".next"]
 }
