@@ -15,6 +15,8 @@ services:
             - 8080:8080
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock:ro
+        networks:
+            - wave
 
     # PostgreSQL database container
     postgres:
@@ -24,6 +26,8 @@ services:
             - 5432:5432
         volumes:
             - pgdata:/var/lib/postgresql/data
+        networks:
+            - wave
         environment:
             # Database name
             POSTGRES_DB: wavechat
@@ -34,6 +38,8 @@ services:
     redis:
         container_name: wc-redis
         image: redis:alpine
+        networks:
+            - wave
 
     # WaveChat Api container (Backend)
     api:
@@ -44,6 +50,8 @@ services:
         working_dir: /api
         volumes:
             - ./api:/api:rw
+        networks:
+            - wave
         depends_on:
             - traefik
             - postgres
@@ -54,6 +62,7 @@ services:
             # Web route prefixed with specific routes gets forwarded to api
             - traefik.http.routers.api.rule=Host(`wavechat.localhost`) && PathPrefix(`/graphql`)
 
+    # WaveChat Chat service container
     rtc:
         container_name: wc-rtc
         build:
@@ -62,6 +71,8 @@ services:
         working_dir: /rtc
         volumes:
             - ./rtc:/rtc:rw
+        networks:
+            - wave
         depends_on:
             - traefik
             - postgres
@@ -70,7 +81,7 @@ services:
         labels:
             - traefik.enable=true
             - traefik.http.routers.rtc.entrypoints=wave
-            # Web route prefixed with specific routes gets forwarded to api
+            # Web route prefixed with specific routes gets forwarded to rtc
             - traefik.http.routers.rtc.rule=Host(`wavechat.localhost`) && PathPrefix(`/ws`)
 
     # WaveChat Web app container (Frontend)
@@ -82,6 +93,8 @@ services:
         working_dir: /web
         volumes:
             - ./web:/web:rw
+        networks:
+            - wave
         depends_on:
             - traefik
             - postgres
@@ -104,6 +117,8 @@ services:
         command: pnpm codegen
         volumes:
             - ./web:/web:rw
+        networks:
+            - wave
         depends_on:
             - traefik
             - postgres
@@ -115,3 +130,8 @@ services:
 # Volume for PostgreSQL database to persist data between development sessions
 volumes:
     pgdata: {}
+
+# Defalut networks
+networks:
+    wave:
+        external: true

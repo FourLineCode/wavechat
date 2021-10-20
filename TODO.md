@@ -191,14 +191,15 @@
         -   [x] add container names on prod
         -   [x] remove /ws route from traefik
         -   [x] add redis
+        -   [ ] fix shared folder in docker container
         -   [ ] add new chat service
         -   [ ] add production config for chat service
         -   [ ] figure out docker swarm deploy
 
     -   [ ] socket
 
-        -   [ ] remove socket from api/web
-        -   [ ] use zustand for client socket stuff
+        -   [x] remove socket from api/web
+        -   [x] use zustand for client socket stuff
         -   [ ] add ioredis
         -   [ ] figure out auth
 

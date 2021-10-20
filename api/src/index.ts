@@ -5,7 +5,4 @@ async function main() {
 	await startServer();
 }
 
-main().catch((error) => {
-	console.log(error);
-	process.exit(1);
-});
+main().catch(console.error);

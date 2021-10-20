@@ -1,15 +1,51 @@
-import { User } from '@shared/types/User';
-import http from 'http';
+import fastify from 'fastify';
+import fastifyCookie from 'fastify-cookie';
+import fastifyCors from 'fastify-cors';
+import fastifyHelmet from 'fastify-helmet';
+import fastifyIO from 'fastify-socket.io';
 import os from 'os';
 import { config } from 'src/internal/config';
 
-http.createServer((_req, res) => {
-	res.write('Hello World!\n');
-	res.write(`From Server: ${os.hostname()}\n`);
+async function main() {
+	const server = fastify();
 
-	const user: User = { id: 1, name: 'Akmal', age: 21 };
-	res.write(`${JSON.stringify(user, null, 2)}\n`);
+	server.register(fastifyCors, { credentials: true, origin: config.origins });
+	server.register(fastifyHelmet, { contentSecurityPolicy: false });
+	server.register(fastifyCookie);
+	server.register(fastifyIO, {
+		path: '/ws',
+		logLevel: config.isDev ? 'debug' : 'fatal',
+		cookie: {
+			name: 'session',
+			httpOnly: true,
+			sameSite: 'strict',
+			secure: true,
+			path: '/',
+		},
+		cors: {
+			origin: config.origins,
+			credentials: true,
+		},
+	});
 
-	res.end();
-}).listen(config.port);
-console.log(`\nServer is now running on http://localhost:${config.port}\n`);
+	const hostname = os.hostname();
+	let i = 0;
+
+	server.get('/ws', (_req, _reply) => {
+		server.io.on('connect', (socket) => {
+			console.log('Socket client has connected:', socket.id);
+
+			setInterval(() => {
+				socket.emit('message', `Message #${i++} from server - ${hostname}`);
+			}, 1000);
+		});
+	});
+
+	await server.ready();
+
+	server.listen(config.port, '0.0.0.0', () => {
+		console.log(`\nRTC is now running on http://localhost:${config.port}\n`);
+	});
+}
+
+main().catch(console.error);
