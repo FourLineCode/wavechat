@@ -14,20 +14,22 @@ communicate with each other about their activities and help each other.
 
 <table align="center" width="500">
   <tr>
-    <td align="center" ><a href="https://www.typescriptlang.org"><img src=".github/images/typescript.png" width="70px;" height="75px;" alt="TypeScript" /><br /><b><font color="#777"> TypeScript</font></b></a></td>
-    <td align="center"><a href="https://nextjs.org/"><img src=".github/images/nextjs.png" width="70px;" height="75px;" alt="Next JS"/><br /><b><font color="#777"> NextJs</font></b></a></td>
-    <td align="center"><a href="https://reactjs.org"><img src=".github/images/react.png" width="80px;" height="75px;" alt="React JS"/><br /><b><font color="#777"> ReactJs</font></b></a></td>
-    <td align="center"><a href="https://www.apollographql.com/"><img src=".github/images/apollo.png" width="75px;" height="75px;" alt="Apollo"/><br /><b><font color="#777"> Apollo</font></b></a></td>
-    <td align="center"><a href="https://tailwindcss.com/"><img src=".github/images/tailwind.png" width="75px;" height="75px;" alt="Tailwind"/><br /><b><font color="#777"> Tailwind CSS</font></b></a></td>
-    <td align="center"><a href="https://graphql.org/"><img src=".github/images/graphql.png" width="80px;" height="75px;" alt="GraphQL"/><br /><b><font color="#777"> GraphQL</font></b></a></td>
+    <td align="center" ><a href="https://www.typescriptlang.org"><img src=".github/images/typescript.png" width="70px;" height="75px;" alt="TypeScript" /><br /><b><font color="#777">TypeScript</font></b></a></td>
+    <td align="center"><a href="https://nextjs.org/"><img src=".github/images/nextjs.png" width="70px;" height="75px;" alt="Next JS"/><br /><b><font color="#777">NextJs</font></b></a></td>
+    <td align="center"><a href="https://reactjs.org"><img src=".github/images/react.png" width="80px;" height="75px;" alt="React JS"/><br /><b><font color="#777">ReactJs</font></b></a></td>
+    <td align="center"><a href="https://www.apollographql.com/"><img src=".github/images/apollo.png" width="75px;" height="75px;" alt="Apollo"/><br /><b><font color="#777">Apollo</font></b></a></td>
+    <td align="center"><a href="https://tailwindcss.com/"><img src=".github/images/tailwind.png" width="75px;" height="75px;" alt="Tailwind"/><br /><b><font color="#777">Tailwind CSS</font></b></a></td>
+    <td align="center"><a href="https://graphql.org/"><img src=".github/images/graphql.png" width="80px;" height="75px;" alt="GraphQL"/><br /><b><font color="#777">GraphQL</font></b></a></td>
+    <td align="center"><a href="https://giraphql.com/"><img src=".github/images/giraphql.png" width="80px;" height="75px;" alt="GiraphQL"/><br /><b><font color="#777">GiraphQL</font></b></a></td>
   </tr>
   <tr>
-    <td align="center"><a href="https://socket.io"><img src=".github/images/socket.png" width="75px;" height="75px;" alt="Socket"/><br /><b><font color="#777"> Socket</font></b></a></td>
-    <td align="center"><a href="https://nodejs.org/en/"><img src=".github/images/nodejs.png" width="70px;" height="75px;" alt="NodeJs"/><br /><b><font color="#777"> NodeJs</font></b></a></td>
-    <td align="center"><a href="https://www.prisma.io/"><img src=".github/images/prisma.png" width="110px;" height="75px;" alt="Prisma"/><br /><b><font color="#777"> Prisma</font></b></a></td>
-    <td align="center"><a href="https://www.postgresql.org/"><img src=".github/images/postgres.png" width="75px;" height="75px;" alt="PostgreSQL"/><br /><b><font color="#777"> PostgreSQL</font></b></a></td>
-    <td align="center"><a href="https://www.docker.com/"><img src=".github/images/docker.png" width="75px;" height="75px;" alt="Docker"/><br /><b><font color="#777"> Docker</font></b></a></td>
-    <td align="center"><a href="https://giraphql.com/"><img src=".github/images/giraphql.png" width="80px;" height="75px;" alt="GiraphQL"/><br /><b><font color="#777"> GiraphQL</font></b></a></td>
+    <td align="center"><a href="https://socket.io"><img src=".github/images/socket.png" width="75px;" height="75px;" alt="Socket"/><br /><b><font color="#777">Socket</font></b></a></td>
+    <td align="center"><a href="https://nodejs.org/en/"><img src=".github/images/nodejs.png" width="70px;" height="75px;" alt="NodeJs"/><br /><b><font color="#777">NodeJs</font></b></a></td>
+    <td align="center"><a href="https://www.prisma.io/"><img src=".github/images/prisma.png" width="110px;" height="75px;" alt="Prisma"/><br /><b><font color="#777">Prisma</font></b></a></td>
+    <td align="center"><a href="https://www.postgresql.org/"><img src=".github/images/postgres.png" width="75px;" height="75px;" alt="PostgreSQL"/><br /><b><font color="#777">PostgreSQL</font></b></a></td>
+	<td align="center"><a href="https://redis.io/"><img src=".github/images/redis.png" width="75px;" height="75px;" alt="Redis"/><br /><b><font color="#777">Redis</font></b></a></td>
+    <td align="center"><a href="https://www.docker.com/"><img src=".github/images/docker.png" width="75px;" height="75px;" alt="Docker"/><br /><b><font color="#777">Docker</font></b></a></td>
+	<td align="center"><a href="https://traefik.io/"><img src=".github/images/traefik.png" width="75px;" height="75px;" alt="Traefik"/><br /><b><font color="#777">Traefik</font></b></a></td>
   </tr>
 </table>
 
