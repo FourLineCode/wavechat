@@ -31,8 +31,10 @@
 		"noEmit": true,
 		"pretty": true,
 		"baseUrl": ".",
-		"paths": {}
+		"paths": {
+			"@shared/*": ["../shared/*"]
+		}
 	},
-	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-	"exclude": ["node_modules"]
+	"include": ["**/*.ts", "**/*.tsx", "../shared/**/*.ts", "../shared/**/*.tsx"],
+	"exclude": ["node_modules", ".next"]
 }

@@ -32,8 +32,10 @@
 		"pretty": true,
 		"outDir": "dist",
 		"baseUrl": ".",
-		"paths": {}
+		"paths": {
+			"@shared/*": ["../shared/*"]
+		}
 	},
-	"include": ["**/*.ts"],
+	"include": ["**/*.ts", "../shared/**/*.ts"],
 	"exclude": ["node_modules", "dist", "build"]
 }

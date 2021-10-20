@@ -2,14 +2,14 @@
 	"name": "wave-rtc",
 	"version": "1.0.0",
 	"description": "Backend server for wavechat",
-	"main": "dist/src/index.js",
+	"main": "dist/rtc/src/index.js",
 	"author": "FourLineCode",
 	"license": "MIT",
 	"homepage": "https://github.com/FourLineCode/wavechat#readme",
 	"scripts": {
 		"dev": "ts-node-dev --respawn --transpile-only -r tsconfig-paths/register src/index.ts",
 		"build": "tsc",
-		"start": "NODE_PATH=dist node dist/src/index.js",
+		"start": "NODE_PATH=dist/rtc node dist/rtc/src/index.js",
 		"typecheck": "pnpx tsc --noEmit",
 		"prod": "pnpm build && pnpm start"
 	},
