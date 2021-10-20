@@ -21,21 +21,23 @@ async function main() {
 			credentials: true,
 		},
 	});
+	await server.ready();
 
 	const hostname = os.hostname();
 	let i = 0;
 
-	server.get('/ws', (_req, _reply) => {
-		server.io.on('connect', (socket) => {
-			console.log('Socket client has connected:', socket.id);
+	server.io.on('connection', (socket) => {
+		console.log('Socket client has connected:', socket.id);
+		console.log(socket.request.url);
 
-			setInterval(() => {
-				socket.emit('message', `Message #${i++} from server - ${hostname}`);
-			}, 1000);
+		const interval = setInterval(() => {
+			socket.emit('message', `Message #${i++} from server - ${hostname}`);
+		}, 1000);
+
+		socket.on('disconnect', () => {
+			clearInterval(interval);
 		});
 	});
-
-	await server.ready();
 
 	server.listen(config.port, '0.0.0.0', () => {
 		console.log(`\nRTC Server is now running on http://localhost:${config.port}\n`);
