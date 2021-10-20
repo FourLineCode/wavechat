@@ -7,7 +7,7 @@ import { config } from 'src/internal/config';
 let hostname = 'wavechat.localhost';
 
 if (!process.browser) {
-	hostname = config.isDev ? 'api:5000' : 'api-prod:5000';
+	hostname = config.isDev ? 'api:5000' : 'wcp-api:5000';
 }
 
 export const client = new ApolloClient({

@@ -9,9 +9,12 @@ RUN apk --no-cache add curl
 
 # Install pnpm in the container
 RUN curl -f https://get.pnpm.io/v6.16.js | node - add --global pnpm
-RUN pnpm add -g pnpm
 
-# Copy all the local files to the container (includes node_modules for development mode)
+# Install dependencies
+COPY package.json pnpm-lock.yaml ./
+RUN pnpm install --prod=false
+
+# Copy all the local files to the container
 COPY . .
 
 # Expose the local ports on the host machine

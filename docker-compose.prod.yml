@@ -2,8 +2,8 @@ version: '3.8'
 
 services:
     # Traefik reverse proxy for local domains + load balancing
-    traefik-prod:
-        # container_name: wave-traefik-prod
+    wcp-traefik:
+        container_name: wcp-traefik
         image: traefik:v2.5
         command:
             - --api.insecure=true
@@ -17,13 +17,13 @@ services:
             - /var/run/docker.sock:/var/run/docker.sock:ro
 
     # PostgreSQL database container
-    postgres-prod:
-        # container_name: wave-postgres-prod
+    wcp-postgres:
+        container_name: wcp-postgres
         image: postgres:13-alpine
         ports:
             - 5432:5432
         volumes:
-            - pgdata-prod:/var/lib/postgresql/data
+            - wcp-pgdata:/var/lib/postgresql/data
         environment:
             # Database name
             POSTGRES_DB: wavechat
@@ -31,17 +31,17 @@ services:
             POSTGRES_PASSWORD: pgadmin
 
     # WaveChat Api container (Backend)
-    api-prod:
-        # container_name: wave-api-prod
+    wcp-api:
+        # container_name: wcp-api
         build:
             context: ./api
-            dockerfile: ./prod.Dockerfile
+            dockerfile: ./Prod.Dockerfile
             target: production
         working_dir: /api
         restart: on-failure
         depends_on:
-            - traefik-prod
-            - postgres-prod
+            - wcp-traefik
+            - wcp-postgres
         labels:
             - traefik.enable=true
             - traefik.http.routers.api.entrypoints=wave
@@ -49,18 +49,18 @@ services:
             - traefik.http.routers.api.rule=Host(`wavechat.localhost`) && PathPrefix(`/graphql`) || PathPrefix(`/ws`)
 
     # WaveChat Web app container (Frontend)
-    web-prod:
-        # container_name: wave-web-prod
+    wcp-web:
+        container_name: wcp-web
         build:
             context: ./web
-            dockerfile: ./prod.Dockerfile
+            dockerfile: ./Prod.Dockerfile
             target: production
         working_dir: /web
         restart: on-failure
         depends_on:
-            - traefik-prod
-            - postgres-prod
-            - api-prod
+            - wcp-traefik
+            - wcp-postgres
+            - wcp-api
         labels:
             - traefik.enable=true
             - traefik.http.routers.web.entrypoints=wave
@@ -69,4 +69,4 @@ services:
 
 # Volume for PostgreSQL database to persist data between development sessions
 volumes:
-    pgdata-prod: {}
+    wcp-pgdata: {}

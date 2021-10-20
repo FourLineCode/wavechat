@@ -183,6 +183,42 @@
         -   [ ] click "+" opens modal with list of eligible people (not sure about this button, might be removed)
             -   [ ] implement searching with debounce in modal
 
+-   [ ] chat service
+
+    -   [ ] general
+
+        -   [x] add dockerignore config for prod+dev
+        -   [x] add container names on prod
+        -   [ ] remove /ws route from traefik
+        -   [ ] add redis
+        -   [ ] add new chat service
+        -   [ ] add production config for chat service
+        -   [ ] figure out docker swarm deploy
+
+    -   [ ] socket
+
+        -   [ ] remove socket from api/web
+        -   [ ] use zustand for client socket stuff
+        -   [ ] add ioredis
+        -   [ ] figure out auth
+
+            -   [ ] authenticate on ws connection handshake
+                -   [ ] store auth info in redis (socket id as key)
+                -   [ ] remove cache on disconnect
+            -   [ ] graphql route for ws auth
+            -   [ ] use lightweight gql client for auth
+
+        -   [ ] make event names
+            -   [ ] scalability with servers
+            -   [ ] dynamic names to be able to migrate later
+
+    -   [ ] shared types
+        -   [ ] add path alias on all service
+        -   [ ] server events
+        -   [ ] pubsub events
+        -   [ ] messages types
+        -   [ ] auth user types
+
 -   [ ] messages
 
     -   [ ] mentions

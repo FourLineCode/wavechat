@@ -18,8 +18,8 @@
 		"studio": "docker-compose run -p 5555:5555 api pnpm prisma studio --browser none",
 		"db:reset": "pnpm migrate && pnpm seed",
 		"prod": "pnpm build && pnpm start",
-		"prod:db:migrate": "docker-compose -f ../docker-compose.prod.yml run api-prod pnpm prisma migrate deploy",
-		"prod:db:seed": "docker-compose -f ../docker-compose.prod.yml run api-prod pnpm prisma db seed --preview-feature",
+		"prod:db:migrate": "docker-compose -f ../docker-compose.prod.yml run wcp-api pnpm prisma migrate deploy",
+		"prod:db:seed": "docker-compose -f ../docker-compose.prod.yml run wcp-api pnpm prisma db seed --preview-feature",
 		"prod:db:reset": "pnpm prod:db:migrate && pnpm prod:db:seed"
 	},
 	"dependencies": {
