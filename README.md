@@ -55,7 +55,7 @@ git clone https://github.com/FourLineCode/wavechat.git
 ./deploy.sh
 ```
 
-> Deploy script currently deploys 3 replicas of api image. Edit deploy script to change scaling factor
+> Deploy script currently deploys 3 replicas of backend images. Edit deploy script to change scaling factor
 
 ## Visit the site at your local custom domain
 

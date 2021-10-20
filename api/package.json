@@ -9,7 +9,7 @@
 	"scripts": {
 		"dev": "ts-node-dev --respawn --transpile-only -r tsconfig-paths/register src/index.ts",
 		"build": "tsc",
-		"start": "NODE_PATH=dist/ node dist/src/index.js",
+		"start": "NODE_PATH=dist node dist/src/index.js",
 		"typecheck": "pnpx tsc --noEmit",
 		"prisma:docker": "docker-compose run api pnpm prisma",
 		"migrate": "docker-compose run api pnpm prisma migrate dev",
@@ -40,7 +40,6 @@
 		"helmet": "^4.6.0",
 		"jsonwebtoken": "^8.5.1",
 		"morgan": "^1.10.0",
-		"socket.io": "^4.3.1",
 		"zod": "^3.9.8"
 	},
 	"devDependencies": {

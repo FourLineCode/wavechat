@@ -189,8 +189,8 @@
 
         -   [x] add dockerignore config for prod+dev
         -   [x] add container names on prod
-        -   [ ] remove /ws route from traefik
-        -   [ ] add redis
+        -   [x] remove /ws route from traefik
+        -   [x] add redis
         -   [ ] add new chat service
         -   [ ] add production config for chat service
         -   [ ] figure out docker swarm deploy
