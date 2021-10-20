@@ -9,19 +9,13 @@ import '../styles/tailwind.css';
 
 export default function MyApp({ Component, pageProps }: AppProps) {
 	const auth = useAuth();
-	const socket = useSocket();
+	useSocket();
 
 	useEffect(() => {
 		if (pageProps.authorized) {
 			auth.setAuthInfo({ authorized: pageProps.authorized, user: pageProps.authorizedUser });
 		}
 	}, [pageProps]);
-
-	useEffect(() => {
-		socket.connection.on('message', (args) => {
-			console.log(args);
-		});
-	});
 
 	return (
 		<ApolloProvider client={client}>

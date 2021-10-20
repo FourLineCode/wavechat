@@ -59,11 +59,6 @@ services:
         labels:
             - traefik.enable=true
             - traefik.http.routers.api.entrypoints=wave
-            # Adds sticky session cookie to persist connection through reverse proxy
-            - traefik.http.services.rtc.loadbalancer.sticky=true
-            - traefik.http.services.rtc.loadbalancer.sticky.cookie.name=sticky-session
-            - traefik.http.services.rtc.loadbalancer.sticky.cookie.httpOnly=true
-            - traefik.http.services.rtc.loadbalancer.sticky.cookie.secure=true
             # Web route prefixed with specific routes gets forwarded to api
             - traefik.http.routers.api.rule=Host(`wavechat.localhost`) && PathPrefix(`/graphql`)
 
@@ -86,6 +81,11 @@ services:
         labels:
             - traefik.enable=true
             - traefik.http.routers.rtc.entrypoints=wave
+            # Adds sticky session cookie to persist connection through reverse proxy
+            - traefik.http.services.rtc.loadbalancer.sticky=true
+            - traefik.http.services.rtc.loadbalancer.sticky.cookie.name=sticky-session
+            - traefik.http.services.rtc.loadbalancer.sticky.cookie.httpOnly=true
+            - traefik.http.services.rtc.loadbalancer.sticky.cookie.secure=true
             # Web route prefixed with specific routes gets forwarded to rtc
             - traefik.http.routers.rtc.rule=Host(`wavechat.localhost`) && PathPrefix(`/ws`)
 

@@ -21,21 +21,25 @@ async function main() {
 			credentials: true,
 		},
 	});
+
+	server.get('/ws', async () => {
+		server.io.emit('init');
+	});
+
 	await server.ready();
 
 	const hostname = os.hostname();
-	let i = 0;
-
-	server.io.on('connection', (socket) => {
+	server.io.on('connection', async (socket) => {
 		console.log('Socket client has connected:', socket.id);
-		console.log(socket.request.url);
+		socket.emit('msg', `Hello from server - ${hostname}`);
 
-		const interval = setInterval(() => {
-			socket.emit('message', `Message #${i++} from server - ${hostname}`);
-		}, 1000);
-
-		socket.on('disconnect', () => {
-			clearInterval(interval);
+		socket.on('tick', () => {
+			server.io.sockets
+				.allSockets()
+				.then((s) => s.size)
+				.then((val) => {
+					socket.emit('msg', `Number of clients ${val}`);
+				});
 		});
 	});
 
