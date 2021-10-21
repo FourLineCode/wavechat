@@ -14,7 +14,7 @@ RUN curl -f https://get.pnpm.io/v6.16.js | node - add --global pnpm
 ENV NODE_ENV=production
 ENV PORT=8000
 ENV REDIS_PORT=6379
-ENV REDIS_HOST=redis
+ENV REDIS_HOST=wcp-redis
 
 # Install dependencies
 COPY package.json pnpm-lock.yaml ./

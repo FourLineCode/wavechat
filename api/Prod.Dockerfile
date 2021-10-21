@@ -18,7 +18,7 @@ ENV ADMIN_PASS=admin00
 ENV BOT_PASS=adminpp
 ENV JWT_SECRET=verysecretkey
 ENV REDIS_PORT=6379
-ENV REDIS_HOST=redis
+ENV REDIS_HOST=wcp-redis
 
 # Install dependencies
 COPY package.json pnpm-lock.yaml ./
