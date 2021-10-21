@@ -1,42 +1,37 @@
-import { UserPubsubChannels } from '@shared/pubsub/channels';
-import { UserSocketEvents } from '@shared/socket/events';
-import { MessageDTO } from '@shared/types/message';
-import os from 'os';
 import { Server, Socket } from 'socket.io';
-import { pubsub } from 'src/pubsub/clients';
+import { UserEventHandler } from 'src/handler/UserEventHandler';
 
 export class SocketHandler {
 	private io: Server;
+	private userHandler: UserEventHandler;
 
 	public constructor(io: Server) {
 		this.io = io;
+		this.userHandler = new UserEventHandler(this.io);
 	}
 
 	public async initialize() {
-		this.io.on('connection', async (socket) => {
+		this.initializeHandlers();
+		this.initializeEventListeners();
+	}
+
+	private initializeHandlers() {
+		this.userHandler.initialize();
+	}
+
+	private initializeEventListeners() {
+		this.io.on('connect', async (socket) => {
 			console.log('+ Socket client has connected:', socket.id);
 
-			this.handleUserEvents(socket);
+			this.assignSocketHandlers(socket);
 
 			socket.on('disconnect', () => {
 				console.log('- Socket client has disconnected:', socket.id);
 			});
 		});
-
-		pubsub.user.subscribe(UserPubsubChannels.Message);
-		pubsub.user.subscriber.on('message', (_channel, message) => {
-			// console.log(message);
-			this.io.emit(UserSocketEvents.RecieveMessage, message);
-		});
 	}
 
-	private async handleUserEvents(socket: Socket) {
-		socket.on(UserSocketEvents.Tick, async () => {
-			socket.emit(UserSocketEvents.RecieveMessage, `You are on server - ${os.hostname()}`);
-		});
-
-		socket.on(UserSocketEvents.SendMessage, (message: MessageDTO) => {
-			pubsub.user.publishMessage(message);
-		});
+	private assignSocketHandlers(socket: Socket) {
+		this.userHandler.handleSocketEvents(socket);
 	}
 }

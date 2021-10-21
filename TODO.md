@@ -213,6 +213,22 @@
             -   [ ] scalability with servers
             -   [ ] dynamic names to be able to migrate later
 
+    -   [ ] Api
+
+        -   [ ] make auth + room eligibility validator queries
+        -   [ ] make pubsub listeners
+        -   [ ] create messages + update thread in a transaction
+            -   [ ] prevent multiple instance of api from inserting same message
+        -   [ ] authenticate internal requests
+            -   [ ] use internal key to sign jwt
+
+    -   [ ] Web
+
+        -   [ ] make chat ui
+        -   [ ] socket client connect/disconnect event
+        -   [ ] initial query to fetch messages
+        -   [ ] send messageDTO
+
     -   [ ] shared types
         -   [ ] add path alias on all service
         -   [ ] server events
