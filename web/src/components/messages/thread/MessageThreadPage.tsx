@@ -1,17 +1,8 @@
-import { useRouter } from 'next/router';
+import { useState } from 'react';
 import { BiMessage } from 'react-icons/bi';
-import { HiDotsVertical } from 'react-icons/hi';
-import { MessageThread } from 'src/apollo/__generated__/types';
-import { ProfileModal } from 'src/components/profile/ProfileModal';
-import { UserAvatar } from 'src/components/profile/UserAvatar';
-import {
-	DropdownMenu,
-	DropdownMenuButton,
-	DropdownMenuItem,
-	DropdownMenuItems,
-} from 'src/components/ui/Menu';
-import { useModal } from 'src/hooks/useModal';
-import { useUnfriendMutation } from 'src/hooks/useUnfriendMutation';
+import { Message, MessageThread, User } from 'src/apollo/__generated__/types';
+import { MessageListView } from 'src/components/messages/thread/MessageListView';
+import { MessageThreadTopBar } from 'src/components/messages/thread/MessageThreadTopBar';
 import { useAuth } from 'src/store/useAuth';
 
 interface Props {
@@ -19,47 +10,62 @@ interface Props {
 }
 
 export function MessageThreadPage({ thread }: Props) {
-	const router = useRouter();
-	const profileModal = useModal();
 	const currentUserId = useAuth().user?.id;
+	const [messages, setMessages] = useState<Message[]>(
+		Array.from({ length: 10 }).map((_, i) => ({
+			pk: i,
+			id: String(i),
+			body: `hello threre ${i}`,
+			threadId: '0',
+			thread: {} as MessageThread,
+			authorId: '1212',
+			author: {} as User,
+			updatedAt: new Date().toLocaleString(),
+			createdAt: new Date().toLocaleString(),
+		}))
+	);
 	const [user] = thread.participants.filter((u) => u.id !== currentUserId);
-	const unfriend = useUnfriendMutation(user.id);
 
 	return (
 		<div className='flex flex-col w-full h-full'>
-			<div className='flex items-center justify-between w-full h-12 px-6 py-1 bg-opacity-50 bg-dark-800'>
-				<div className='flex items-center space-x-2'>
-					<UserAvatar user={user} className='w-8 h-8 rounded-md ring ring-dark-700' />
-					<span className='text-lg font-semibold'>{user.displayName}</span>
+			<MessageThreadTopBar user={user} />
+			<div className='flex flex-col flex-1 w-full min-h-0 pb-4'>
+				{messages.length > 0 ? (
+					<MessageListView messages={messages} />
+				) : (
+					<div className='flex items-center justify-center flex-1 text-muted'>
+						<BiMessage size='156px' />
+						<div className='text-xl font-semibold'>Send a message</div>
+					</div>
+				)}
+				<div className='px-4'>
+					<form
+						onSubmit={(e) => {
+							e.preventDefault();
+
+							setMessages((prev) => [
+								...prev,
+								{
+									id: String(messages.length),
+									body: `hello threre ${String(messages.length)}`,
+									pk: messages.length,
+									threadId: '0',
+									thread: {} as MessageThread,
+									authorId: '1212',
+									author: {} as User,
+									updatedAt: new Date().toLocaleString(),
+									createdAt: new Date().toLocaleString(),
+								},
+							]);
+						}}
+					>
+						<input
+							type='text'
+							placeholder='Send a Message'
+							className='w-full px-4 py-3 rounded-lg focus:ring-2 focus:outline-none ring-brand-500 bg-dark-600 bg-opacity-30 hover:bg-opacity-20'
+						/>
+					</form>
 				</div>
-				<div>
-					<DropdownMenu>
-						<DropdownMenuButton className='p-1.5 rounded-full cursor-pointer hover:bg-dark-700 group'>
-							<HiDotsVertical
-								size='20px'
-								className='p-0.5 text-black rounded-full bg-dark-600 group-hover:bg-dark-500'
-							/>
-						</DropdownMenuButton>
-						<DropdownMenuItems>
-							<DropdownMenuItem onClick={profileModal.onOpen}>
-								<span>View Profile</span>
-							</DropdownMenuItem>
-							<DropdownMenuItem
-								onClick={() => {
-									unfriend();
-									router.push('/messages');
-								}}
-							>
-								Unfriend
-							</DropdownMenuItem>
-						</DropdownMenuItems>
-						<ProfileModal userId={user.id} {...profileModal} />
-					</DropdownMenu>
-				</div>
-			</div>
-			<div className='flex flex-col items-center justify-center flex-1 w-full text-muted'>
-				<BiMessage size='156px' />
-				<div className='text-xl font-semibold'>Send a message</div>
 			</div>
 		</div>
 	);
