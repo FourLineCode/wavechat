@@ -9,7 +9,14 @@ import '../styles/tailwind.css';
 
 export default function MyApp({ Component, pageProps }: AppProps) {
 	const auth = useAuth();
-	useSocket();
+	const socket = useSocket();
+
+	useEffect(() => {
+		socket.connect();
+		socket.init();
+
+		return socket.disconnect;
+	}, []);
 
 	useEffect(() => {
 		if (pageProps.authorized) {

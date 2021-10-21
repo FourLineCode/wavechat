@@ -1,47 +1,12 @@
-import { something } from '@shared/types/data';
-import fastify from 'fastify';
-import fastifyCookie from 'fastify-cookie';
-import fastifyCors from 'fastify-cors';
-import fastifyHelmet from 'fastify-helmet';
-import fastifyIO from 'fastify-socket.io';
-import os from 'os';
+import { SocketHandler } from 'src/handler/SocketHandler';
 import { config } from 'src/internal/config';
+import { FastifyServer } from 'src/server';
 
 async function main() {
-	const server = fastify();
+	const server = await FastifyServer.getInstance();
 
-	server.register(fastifyCors, { credentials: true, origin: config.origins });
-	server.register(fastifyHelmet, { contentSecurityPolicy: false });
-	server.register(fastifyCookie);
-	server.register(fastifyIO, {
-		path: '/ws',
-		logLevel: config.isDev ? 'debug' : 'fatal',
-		cors: {
-			origin: config.origins,
-			credentials: true,
-		},
-	});
-
-	server.get('/ws', async () => {
-		server.io.emit('init');
-	});
-
-	await server.ready();
-
-	const hostname = os.hostname();
-	server.io.on('connection', async (socket) => {
-		console.log('Socket client has connected:', socket.id);
-		socket.emit('msg', `Hello from server - ${hostname}`);
-
-		socket.on('tick', () => {
-			server.io.sockets
-				.allSockets()
-				.then((s) => s.size)
-				.then((val) => {
-					socket.emit('msg', `Number of clients ${val}`);
-				});
-		});
-	});
+	const socketHandler = new SocketHandler(server.io);
+	socketHandler.initialize();
 
 	server.listen(config.port, '0.0.0.0', () => {
 		console.log(`\nRTC Server is now running on http://localhost:${config.port}\n`);
@@ -49,5 +14,3 @@ async function main() {
 }
 
 main().catch(console.error);
-
-console.log(something);

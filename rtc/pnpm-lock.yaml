@@ -1,7 +1,10 @@
 lockfileVersion: 5.3
 
 specifiers:
+  '@types/cookie': ^0.4.1
+  '@types/ioredis': ^4.27.8
   '@types/node': ^16.11.1
+  cookie: ^0.4.1
   dotenv: ^10.0.0
   fastify: ^3.22.1
   fastify-cookie: ^5.3.1
@@ -16,6 +19,7 @@ specifiers:
   typescript: ^4.4.4
 
 dependencies:
+  cookie: 0.4.1
   dotenv: 10.0.0
   fastify: 3.22.1
   fastify-cookie: 5.3.1
@@ -26,6 +30,8 @@ dependencies:
   socket.io: 4.3.1
 
 devDependencies:
+  '@types/cookie': 0.4.1
+  '@types/ioredis': 4.27.8
   '@types/node': 16.11.1
   ts-node: 10.3.0_4837b44df871fd426bb731ce8876dc42
   ts-node-dev: 1.1.8_typescript@4.4.4
@@ -74,11 +80,16 @@ packages:
 
   /@types/cookie/0.4.1:
     resolution: {integrity: sha512-XW/Aa8APYr6jSVVA1y/DEIZX0/GMKLEVekNG727R8cs56ahETkRAy/3DR7+fJyh7oUgGwNQaRfXCun0+KbWY7Q==}
-    dev: false
 
   /@types/cors/2.8.12:
     resolution: {integrity: sha512-vt+kDhq/M2ayberEtJcIN/hxXy1Pk+59g2FV/ZQceeaTyCtCucjL2Q7FXlFjtWn4n15KCr1NE2lNNFhp0lEThw==}
     dev: false
+
+  /@types/ioredis/4.27.8:
+    resolution: {integrity: sha512-THsyghYuFI6h/UzwEaeSeagRxiDG1P/NIiL5uTjN7bcbQHwDP6nMWJfEmY0iuu3pOzl1j0FgRpAYz7WWX2eW0Q==}
+    dependencies:
+      '@types/node': 16.11.1
+    dev: true
 
   /@types/json5/0.0.29:
     resolution: {integrity: sha1-7ihweulOEdK4J7y+UnC86n8+ce4=}
