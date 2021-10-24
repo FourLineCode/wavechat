@@ -16,7 +16,7 @@ const tabs = [
 
 export function FriendsInfo() {
 	return (
-		<div className='flex flex-col w-64 h-full xl:w-80 bg-dark-800'>
+		<div className='flex flex-col flex-shrink-0 w-64 h-full xl:w-80 bg-dark-800'>
 			<Tab.Group as={Fragment}>
 				<div className='p-2 pb-3 bg-dark-800'>
 					<Tab.List className='flex w-full overflow-hidden rounded-lg'>

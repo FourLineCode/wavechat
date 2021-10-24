@@ -14,7 +14,7 @@ specifiers:
   '@types/faker': ^5.5.9
   '@types/jsonwebtoken': ^8.5.5
   '@types/morgan': ^1.9.3
-  '@types/node': ^16.11.1
+  '@types/node': ^16.11.4
   apollo-server-core: ^3.4.0
   apollo-server-express: ^3.4.0
   bcrypt: ^5.0.1
@@ -29,17 +29,17 @@ specifiers:
   jsonwebtoken: ^8.5.1
   morgan: ^1.10.0
   prisma: ^2.30.0
-  ts-node: ^10.3.0
+  ts-node: ^10.4.0
   ts-node-dev: ^1.1.8
   tsconfig-paths: ^3.11.0
   typescript: ^4.4.4
-  zod: ^3.9.8
+  zod: ^3.11.2
 
 dependencies:
   '@giraphql/core': 2.16.0_graphql@15.6.1
   '@giraphql/plugin-dataloader': 2.17.0_dataloader@2.0.0+graphql@15.6.1
   '@giraphql/plugin-scope-auth': 2.11.0_graphql@15.6.1
-  '@giraphql/plugin-validation': 2.12.0_graphql@15.6.1+zod@3.9.8
+  '@giraphql/plugin-validation': 2.12.0_graphql@15.6.1+zod@3.11.2
   '@paljs/plugins': 3.8.3_graphql@15.6.1
   '@prisma/client': 2.30.3_prisma@2.30.3
   apollo-server-express: 3.4.0_express@4.17.1+graphql@15.6.1
@@ -53,7 +53,7 @@ dependencies:
   helmet: 4.6.0
   jsonwebtoken: 8.5.1
   morgan: 1.10.0
-  zod: 3.9.8
+  zod: 3.11.2
 
 devDependencies:
   '@types/bcrypt': 5.0.0
@@ -63,11 +63,11 @@ devDependencies:
   '@types/faker': 5.5.9
   '@types/jsonwebtoken': 8.5.5
   '@types/morgan': 1.9.3
-  '@types/node': 16.11.1
+  '@types/node': 16.11.4
   apollo-server-core: 3.4.0_graphql@15.6.1
   faker: 5.5.3
   prisma: 2.30.3
-  ts-node: 10.3.0_4837b44df871fd426bb731ce8876dc42
+  ts-node: 10.4.0_bada05a3e1cd24c0fc5f82f6eaa2ca15
   ts-node-dev: 1.1.8_typescript@4.4.4
   tsconfig-paths: 3.11.0
   typescript: 4.4.4
@@ -140,14 +140,14 @@ packages:
       graphql: 15.6.1
     dev: false
 
-  /@giraphql/plugin-validation/2.12.0_graphql@15.6.1+zod@3.9.8:
+  /@giraphql/plugin-validation/2.12.0_graphql@15.6.1+zod@3.11.2:
     resolution: {integrity: sha512-6Oh97wxYV4ndfhjNGJFVrsGIv+F2vcgfWK+j0apEqPmcLq8vY0/UzYpjXZNfObFY5UiKzo/E9w7jAhf4S7tnSA==}
     peerDependencies:
       graphql: '>=15.1.0'
       zod: '*'
     dependencies:
       graphql: 15.6.1
-      zod: 3.9.8
+      zod: 3.11.2
     dev: false
 
   /@graphql-tools/merge/8.1.2_graphql@15.6.1:
@@ -298,25 +298,25 @@ packages:
   /@types/accepts/1.3.5:
     resolution: {integrity: sha512-jOdnI/3qTpHABjM5cx1Hc0sKsPoYCp+DP/GJRGtDlPd7fiV9oXGGIcjW/ZOxLIvjGz8MA+uMZI9metHlgqbgwQ==}
     dependencies:
-      '@types/node': 16.11.1
+      '@types/node': 16.11.4
     dev: false
 
   /@types/bcrypt/5.0.0:
     resolution: {integrity: sha512-agtcFKaruL8TmcvqbndlqHPSJgsolhf/qPWchFlgnW1gECTN/nKbFcoFnvKAQRFfKbh+BO6A3SWdJu9t+xF3Lw==}
     dependencies:
-      '@types/node': 16.11.1
+      '@types/node': 16.11.4
     dev: true
 
   /@types/body-parser/1.19.1:
     resolution: {integrity: sha512-a6bTJ21vFOGIkwM0kzh9Yr89ziVxq4vYH2fQ6N8AeipEzai/cFK6aGMArIkUeIdRIgpwQa+2bXiLuUJCpSf2Cg==}
     dependencies:
       '@types/connect': 3.4.35
-      '@types/node': 16.11.1
+      '@types/node': 16.11.4
 
   /@types/connect/3.4.35:
     resolution: {integrity: sha512-cdeYyv4KWoEgpBISTxWvqYsVy444DOqehiF3fM3ne10AmJ62RSyNkUnxMJXHQWRQQX2eR94m5y1IZyDwBjV9FQ==}
     dependencies:
-      '@types/node': 16.11.1
+      '@types/node': 16.11.4
 
   /@types/cookie-parser/1.4.2:
     resolution: {integrity: sha512-uwcY8m6SDQqciHsqcKDGbo10GdasYsPCYkH3hVegj9qAah6pX5HivOnOuI3WYmyQMnOATV39zv/Ybs0bC/6iVg==}
@@ -330,7 +330,7 @@ packages:
   /@types/express-serve-static-core/4.17.24:
     resolution: {integrity: sha512-3UJuW+Qxhzwjq3xhwXm2onQcFHn76frIYVbTu+kn24LFxI+dEhdfISDFovPB8VpEgW8oQCTpRuCe+0zJxB7NEA==}
     dependencies:
-      '@types/node': 16.11.1
+      '@types/node': 16.11.4
       '@types/qs': 6.9.7
       '@types/range-parser': 1.2.4
 
@@ -353,7 +353,7 @@ packages:
   /@types/jsonwebtoken/8.5.5:
     resolution: {integrity: sha512-OGqtHQ7N5/Ap/TUwO6IgHDuLiAoTmHhGpNvgkCm/F4N6pKzx/RBSfr2OXZSwC6vkfnsEdb6+7DNZVtiXiwdwFw==}
     dependencies:
-      '@types/node': 16.11.1
+      '@types/node': 16.11.4
     dev: true
 
   /@types/long/4.0.1:
@@ -365,14 +365,14 @@ packages:
   /@types/morgan/1.9.3:
     resolution: {integrity: sha512-BiLcfVqGBZCyNCnCH3F4o2GmDLrpy0HeBVnNlyZG4fo88ZiE9SoiBe3C+2ezuwbjlEyT+PDZ17//TAlRxAn75Q==}
     dependencies:
-      '@types/node': 16.11.1
+      '@types/node': 16.11.4
     dev: true
 
   /@types/node/10.17.60:
     resolution: {integrity: sha512-F0KIgDJfy2nA3zMLmWGKxcH2ZVEtCZXHHdOQs2gSaQ27+lNeEfGxzkIw90aXswATX7AZ33tahPbzy6KAfUreVw==}
 
-  /@types/node/16.11.1:
-    resolution: {integrity: sha512-PYGcJHL9mwl1Ek3PLiYgyEKtwTMmkMw4vbiyz/ps3pfdRYLVv+SN7qHVAImrjdAXxgluDEw6Ph4lyv+m9UpRmA==}
+  /@types/node/16.11.4:
+    resolution: {integrity: sha512-TMgXmy0v2xWyuCSCJM6NCna2snndD8yvQF67J29ipdzMcsPa9u+o0tjF5+EQNdhcuZplYuouYqpc4zcd5I6amQ==}
 
   /@types/qs/6.9.7:
     resolution: {integrity: sha512-FGa1F62FT09qcrueBA6qYTrJPVDzah9a+493+o2PCXsesWHIn27G98TsSMs3WPNbZIEj4+VJf6saSFpvD+3Zsw==}
@@ -384,7 +384,7 @@ packages:
     resolution: {integrity: sha512-nCkHGI4w7ZgAdNkrEu0bv+4xNV/XDqW+DydknebMOQwkpDGx8G+HTlj7R7ABI8i8nKxVw0wtKPi1D+lPOkh4YQ==}
     dependencies:
       '@types/mime': 1.3.2
-      '@types/node': 16.11.1
+      '@types/node': 16.11.4
 
   /@types/strip-bom/3.0.0:
     resolution: {integrity: sha1-FKjsOVbC6B7bdSB5CuzyHCkK69I=}
@@ -1609,8 +1609,8 @@ packages:
       typescript: 4.4.4
     dev: true
 
-  /ts-node/10.3.0_4837b44df871fd426bb731ce8876dc42:
-    resolution: {integrity: sha512-RYIy3i8IgpFH45AX4fQHExrT8BxDeKTdC83QFJkNzkvt8uFB6QJ8XMyhynYiKMLxt9a7yuXaDBZNOYS3XjDcYw==}
+  /ts-node/10.4.0_bada05a3e1cd24c0fc5f82f6eaa2ca15:
+    resolution: {integrity: sha512-g0FlPvvCXSIO1JDF6S232P5jPYqBkRL9qly81ZgAOSU7rwI0stphCgd2kLiCrU9DjQCrJMWEqcNSjQL02s6d8A==}
     hasBin: true
     peerDependencies:
       '@swc/core': '>=1.2.50'
@@ -1628,7 +1628,7 @@ packages:
       '@tsconfig/node12': 1.0.9
       '@tsconfig/node14': 1.0.1
       '@tsconfig/node16': 1.0.2
-      '@types/node': 16.11.1
+      '@types/node': 16.11.4
       acorn: 8.5.0
       acorn-walk: 8.2.0
       arg: 4.1.3
@@ -1756,6 +1756,6 @@ packages:
     engines: {node: '>=6'}
     dev: true
 
-  /zod/3.9.8:
-    resolution: {integrity: sha512-pTNhdJd45PPOBpdxO8x00Tv+HhknYGx3WdgFQndazp+G1Gd2Cxf81L5yMfCIIcd/SA3VqrcTv/G4bFcr+DsZhA==}
+  /zod/3.11.2:
+    resolution: {integrity: sha512-mMoCWuXKGvPyShq2B1XnsZ3h0Ft1ekXLSkMfPEboaeSxrOVg7xnLhPrTiVT16rQz4A8Nq69XuHZHbQ8Bpx74lg==}
     dev: false

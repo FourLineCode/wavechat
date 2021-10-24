@@ -3,5 +3,5 @@
 @tailwind utilities;
 
 body {
-	@apply overflow-hidden antialiased bg-dark-900 text-primary;
+	@apply overflow-hidden antialiased font-roboto bg-dark-900 text-primary;
 }

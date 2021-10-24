@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { BiMessage } from 'react-icons/bi';
 import { Message, MessageThread, User } from 'src/apollo/__generated__/types';
 import { MessageListView } from 'src/components/messages/thread/MessageListView';
@@ -11,20 +11,15 @@ interface Props {
 
 export function MessageThreadPage({ thread }: Props) {
 	const currentUserId = useAuth().user?.id;
-	const [messages, setMessages] = useState<Message[]>(
-		Array.from({ length: 10 }).map((_, i) => ({
-			pk: i,
-			id: String(i),
-			body: `hello threre ${i}`,
-			threadId: '0',
-			thread: {} as MessageThread,
-			authorId: '1212',
-			author: {} as User,
-			updatedAt: new Date().toLocaleString(),
-			createdAt: new Date().toLocaleString(),
-		}))
-	);
+	const inputRef = useRef<HTMLInputElement>(null);
+	const [messages, setMessages] = useState<Message[]>([]);
 	const [user] = thread.participants.filter((u) => u.id !== currentUserId);
+
+	useEffect(() => {
+		if (inputRef.current) {
+			inputRef.current.focus();
+		}
+	}, []);
 
 	return (
 		<div className='flex flex-col w-full h-full'>
@@ -40,27 +35,38 @@ export function MessageThreadPage({ thread }: Props) {
 				)}
 				<div className='px-4'>
 					<form
-						onSubmit={(e) => {
+						onSubmit={(e: React.ChangeEvent<HTMLFormElement>) => {
 							e.preventDefault();
 
+							const formData = new FormData(e.target);
+							const msg = formData.get('msg')?.toString() || '';
+							e.target.reset();
+
+							if (!msg.trim()) return;
 							setMessages((prev) => [
 								...prev,
 								{
 									id: String(messages.length),
-									body: `hello threre ${String(messages.length)}`,
+									body: msg,
 									pk: messages.length,
 									threadId: '0',
 									thread: {} as MessageThread,
-									authorId: '1212',
-									author: {} as User,
 									updatedAt: new Date().toLocaleString(),
 									createdAt: new Date().toLocaleString(),
+									authorId: '1212',
+									author: {
+										id: String(messages.length),
+										displayName: 'John snow',
+										avatarUrl: user.avatarUrl,
+									} as User,
 								},
 							]);
 						}}
 					>
 						<input
+							ref={inputRef}
 							type='text'
+							name='msg'
 							placeholder='Send a Message'
 							className='w-full px-4 py-3 rounded-lg focus:ring-2 focus:outline-none ring-brand-500 bg-dark-600 bg-opacity-30 hover:bg-opacity-20'
 						/>

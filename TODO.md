@@ -225,6 +225,14 @@
     -   [ ] Web
 
         -   [ ] make chat ui
+            -   [ ] formik
+            -   [ ] group messages by same author
+            -   [ ] up/down arrow key event
+            -   [ ] add profile modal
+            -   [ ] pre formatted text
+            -   [ ] thread page query no cache
+            -   [ ] stop auto scroll on hover
+            -   [ ] emoji picker
         -   [ ] socket client connect/disconnect event
         -   [ ] initial query to fetch messages
         -   [ ] send messageDTO

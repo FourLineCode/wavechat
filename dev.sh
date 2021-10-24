@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 pnpm --dir api install
+pnpm --dir rtc install
 pnpm --dir web install
 
 docker-compose down --volumes
