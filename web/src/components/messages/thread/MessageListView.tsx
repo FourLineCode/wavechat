@@ -24,7 +24,7 @@ export function MessageListView({ messages }: Props) {
 			className='flex flex-col flex-1 w-full pl-4 pr-2 space-y-4 overflow-x-hidden overflow-y-auto text-xl scrollbar-thin'
 		>
 			{messages.map((message, index) => (
-				<MessageCard message={message} topMessage={index === 0} />
+				<MessageCard message={message} topMessage={index === 0} key={message.id} />
 			))}
 			<div ref={ref} />
 		</div>

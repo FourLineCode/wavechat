@@ -3,20 +3,11 @@ import type { AppProps } from 'next/app';
 import { useEffect } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { client } from 'src/apollo/client';
-import { useSocket } from 'src/socket/useSocket';
 import { useAuth } from 'src/store/useAuth';
 import '../styles/tailwind.css';
 
 export default function MyApp({ Component, pageProps }: AppProps) {
 	const auth = useAuth();
-	const socket = useSocket();
-
-	useEffect(() => {
-		socket.connect();
-		socket.init();
-
-		return socket.disconnect;
-	}, []);
 
 	useEffect(() => {
 		if (pageProps.authorized) {
