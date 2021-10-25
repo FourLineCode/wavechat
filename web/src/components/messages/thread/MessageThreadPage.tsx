@@ -30,11 +30,16 @@ export function MessageThreadPage({ thread }: Props) {
 	useEffect(() => {
 		socket.connect();
 
+		socket.conn.emit(UserSocketEvents.JoinRoom, { roomId: thread.id });
+
 		socket.conn.on(UserSocketEvents.RecieveMessage, (message: Message) => {
 			setMessages((prev) => [...prev, message]);
 		});
 
-		return socket.disconnect;
+		return () => {
+			socket.conn.emit(UserSocketEvents.LeaveRoom, { roomId: thread.id });
+			socket.disconnect();
+		};
 	}, []);
 
 	return (

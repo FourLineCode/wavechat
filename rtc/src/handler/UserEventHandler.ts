@@ -1,6 +1,6 @@
 import { UserPubsubChannels } from '@shared/pubsub/channels';
 import { UserSocketEvents } from '@shared/socket/events';
-import { MessageDTO } from '@shared/types/message';
+import { MessageDTO, RoomEventDTO } from '@shared/types/message';
 import { Server, Socket } from 'socket.io';
 import { SocketEventHandler } from 'src/handler/SocketEventHandler';
 import { PubsubClient } from 'src/pubsub/PubsubClient';
@@ -26,6 +26,15 @@ export class UserEventHandler extends SocketEventHandler {
 		socket.on(UserSocketEvents.SendMessage, (message: MessageDTO) => {
 			this.pubsub.publisher.publish(UserPubsubChannels.Message, JSON.stringify(message));
 		});
+
+		socket.on(UserSocketEvents.JoinRoom, ({ roomId }: RoomEventDTO) => {
+			// TODO: authorize user and check participation of thread
+			socket.join(roomId);
+		});
+
+		socket.on(UserSocketEvents.LeaveRoom, ({ roomId }: RoomEventDTO) => {
+			socket.leave(roomId);
+		});
 	}
 
 	protected subscribeChannels() {
@@ -38,7 +47,7 @@ export class UserEventHandler extends SocketEventHandler {
 			messageDTO.id = uuid();
 			messageDTO.createdAt = new Date().toISOString();
 
-			this.io.emit(UserSocketEvents.RecieveMessage, messageDTO);
+			this.io.to(messageDTO.threadId).emit(UserSocketEvents.RecieveMessage, messageDTO);
 
 			// TODO: persist message in db through api
 		});

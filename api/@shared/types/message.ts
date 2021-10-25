@@ -15,3 +15,7 @@ export interface MessageDTO {
 	createdAt?: string;
 	updatedAt?: string;
 }
+
+export interface RoomEventDTO {
+	roomId: string;
+}
