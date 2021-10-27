@@ -8,6 +8,7 @@
 		"sourceMap": true,
 		"skipLibCheck": true,
 		"strict": true,
+		"incremental": true,
 		"alwaysStrict": true,
 		"strictFunctionTypes": true,
 		"strictNullChecks": true,

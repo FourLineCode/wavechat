@@ -74,6 +74,7 @@ git clone https://github.com/FourLineCode/wavechat.git
 ```
 
 > Pass the `--build` flag to rebuild the containers.
+> Pass the `--no-reset` flag to stop migration and seed process from re-running.
 
 ## Open the development server on custom domain
 

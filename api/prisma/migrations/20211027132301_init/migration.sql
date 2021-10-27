@@ -18,7 +18,7 @@ CREATE TABLE "User" (
     "department" TEXT,
     "semester" INTEGER,
 
-    PRIMARY KEY ("id")
+    CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -29,7 +29,7 @@ CREATE TABLE "Session" (
     "updatedAt" TIMESTAMP(3) NOT NULL,
     "userId" TEXT NOT NULL,
 
-    PRIMARY KEY ("id")
+    CONSTRAINT "Session_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -41,7 +41,7 @@ CREATE TABLE "Friendship" (
     "firstUserId" TEXT NOT NULL,
     "secondUserId" TEXT NOT NULL,
 
-    PRIMARY KEY ("id")
+    CONSTRAINT "Friendship_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -53,7 +53,7 @@ CREATE TABLE "FriendRequest" (
     "fromUserId" TEXT NOT NULL,
     "toUserId" TEXT NOT NULL,
 
-    PRIMARY KEY ("id")
+    CONSTRAINT "FriendRequest_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -66,7 +66,7 @@ CREATE TABLE "Message" (
     "authorId" TEXT NOT NULL,
     "threadId" TEXT NOT NULL,
 
-    PRIMARY KEY ("id")
+    CONSTRAINT "Message_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -76,7 +76,7 @@ CREATE TABLE "MessageThread" (
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
-    PRIMARY KEY ("id")
+    CONSTRAINT "MessageThread_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -87,7 +87,7 @@ CREATE TABLE "MessageThreadOnUser" (
     "userId" TEXT NOT NULL,
     "messageThreadId" TEXT NOT NULL,
 
-    PRIMARY KEY ("userId","messageThreadId")
+    CONSTRAINT "MessageThreadOnUser_pkey" PRIMARY KEY ("userId","messageThreadId")
 );
 
 -- CreateTable
@@ -97,16 +97,22 @@ CREATE TABLE "_user_threads" (
 );
 
 -- CreateIndex
-CREATE UNIQUE INDEX "User.pk_unique" ON "User"("pk");
+CREATE UNIQUE INDEX "User_pk_key" ON "User"("pk");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "User.email_unique" ON "User"("email");
+CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "User.username_unique" ON "User"("username");
+CREATE UNIQUE INDEX "User_username_key" ON "User"("username");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "User.displayName_unique" ON "User"("displayName");
+CREATE UNIQUE INDEX "User_displayName_key" ON "User"("displayName");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Friendship_firstUserId_secondUserId_key" ON "Friendship"("firstUserId", "secondUserId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "FriendRequest_fromUserId_toUserId_key" ON "FriendRequest"("fromUserId", "toUserId");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "_user_threads_AB_unique" ON "_user_threads"("A", "B");
@@ -115,31 +121,31 @@ CREATE UNIQUE INDEX "_user_threads_AB_unique" ON "_user_threads"("A", "B");
 CREATE INDEX "_user_threads_B_index" ON "_user_threads"("B");
 
 -- AddForeignKey
-ALTER TABLE "Session" ADD FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "Session" ADD CONSTRAINT "Session_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Friendship" ADD FOREIGN KEY ("firstUserId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "Friendship" ADD CONSTRAINT "Friendship_firstUserId_fkey" FOREIGN KEY ("firstUserId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Friendship" ADD FOREIGN KEY ("secondUserId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "Friendship" ADD CONSTRAINT "Friendship_secondUserId_fkey" FOREIGN KEY ("secondUserId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "FriendRequest" ADD FOREIGN KEY ("fromUserId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "FriendRequest" ADD CONSTRAINT "FriendRequest_fromUserId_fkey" FOREIGN KEY ("fromUserId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "FriendRequest" ADD FOREIGN KEY ("toUserId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "FriendRequest" ADD CONSTRAINT "FriendRequest_toUserId_fkey" FOREIGN KEY ("toUserId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Message" ADD FOREIGN KEY ("authorId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "Message" ADD CONSTRAINT "Message_authorId_fkey" FOREIGN KEY ("authorId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Message" ADD FOREIGN KEY ("threadId") REFERENCES "MessageThread"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "Message" ADD CONSTRAINT "Message_threadId_fkey" FOREIGN KEY ("threadId") REFERENCES "MessageThread"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "MessageThreadOnUser" ADD FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "MessageThreadOnUser" ADD CONSTRAINT "MessageThreadOnUser_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "MessageThreadOnUser" ADD FOREIGN KEY ("messageThreadId") REFERENCES "MessageThread"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "MessageThreadOnUser" ADD CONSTRAINT "MessageThreadOnUser_messageThreadId_fkey" FOREIGN KEY ("messageThreadId") REFERENCES "MessageThread"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "_user_threads" ADD FOREIGN KEY ("A") REFERENCES "MessageThread"("id") ON DELETE CASCADE ON UPDATE CASCADE;
