@@ -1,3 +1,8 @@
+export enum SocketEvents {
+	Connect = 'connect',
+	Disconnect = 'disconnect',
+}
+
 export enum UserSocketEvents {
 	Tick = 'user:tick',
 	SendMessage = 'user:message:send',

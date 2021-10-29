@@ -1,47 +1,44 @@
 import { UserPubsubChannels } from '@shared/pubsub/channels';
-import { UserSocketEvents } from '@shared/socket/events';
+import { SocketEvents, UserSocketEvents } from '@shared/socket/events';
 import { MessageDTO, RoomEventDTO } from '@shared/types/message';
 import { Server, Socket } from 'socket.io';
-import { SocketEventHandler } from 'src/handler/SocketEventHandler';
 import { PubsubClient } from 'src/pubsub/PubsubClient';
 import { v4 as uuid } from 'uuid';
 
-export class UserEventHandler extends SocketEventHandler {
+export class UserEventHandler {
 	private io: Server;
 	private pubsub: PubsubClient;
 
 	public constructor(io: Server) {
-		super();
-
 		this.io = io;
 		this.pubsub = new PubsubClient();
 	}
 
 	public async initialize() {
-		this.subscribeChannels();
-		this.startListener();
+		this.startPubsubListener();
+
+		this.io.on(SocketEvents.Connect, async (socket: Socket) => {
+			socket.on(UserSocketEvents.JoinRoom, ({ roomId }: RoomEventDTO) => {
+				this.joinRoom({ socket, roomId });
+			});
+
+			socket.on(UserSocketEvents.SendMessage, (message: MessageDTO) =>
+				this.publishMessage(message)
+			);
+
+			socket.on(UserSocketEvents.LeaveRoom, ({ roomId }: RoomEventDTO) => {
+				this.leaveRoom({ socket, roomId });
+			});
+
+			socket.on(SocketEvents.Disconnect, () => {
+				socket.removeAllListeners();
+			});
+		});
 	}
 
-	public async handleSocketEvents(socket: Socket) {
-		socket.on(UserSocketEvents.SendMessage, (message: MessageDTO) => {
-			this.pubsub.publisher.publish(UserPubsubChannels.Message, JSON.stringify(message));
-		});
-
-		socket.on(UserSocketEvents.JoinRoom, ({ roomId }: RoomEventDTO) => {
-			// TODO: authorize user and check participation of thread
-			socket.join(roomId);
-		});
-
-		socket.on(UserSocketEvents.LeaveRoom, ({ roomId }: RoomEventDTO) => {
-			socket.leave(roomId);
-		});
-	}
-
-	protected subscribeChannels() {
+	private startPubsubListener() {
 		this.pubsub.subscriber.subscribe(UserPubsubChannels.Message);
-	}
 
-	protected startListener() {
 		this.pubsub.subscriber.on('message', (_channel: string, message: string) => {
 			const messageDTO: MessageDTO = JSON.parse(message);
 			messageDTO.id = uuid();
@@ -51,5 +48,19 @@ export class UserEventHandler extends SocketEventHandler {
 
 			// TODO: persist message in db through api
 		});
+	}
+
+	private publishMessage(message: MessageDTO) {
+		this.pubsub.publisher.publish(UserPubsubChannels.Message, JSON.stringify(message));
+	}
+
+	private joinRoom({ socket, roomId }: { socket: Socket; roomId: string }) {
+		// TODO: authorize user and check participation of thread
+		socket.join(roomId);
+	}
+
+	private leaveRoom({ socket, roomId }: { socket: Socket; roomId: string }) {
+		// TODO: remove all auth info of socket
+		socket.leave(roomId);
 	}
 }

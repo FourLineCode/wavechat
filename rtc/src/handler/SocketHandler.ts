@@ -1,5 +1,7 @@
+import { SocketEvents } from '@shared/socket/events';
 import { Server, Socket } from 'socket.io';
 import { UserEventHandler } from 'src/handler/UserEventHandler';
+import { config } from 'src/internal/config';
 
 export class SocketHandler {
 	private io: Server;
@@ -11,27 +13,22 @@ export class SocketHandler {
 	}
 
 	public async initialize() {
-		this.initializeHandlers();
-		this.initializeEventListeners();
-	}
+		this.io.on(SocketEvents.Connect, (socket: Socket) => this.onConnect(socket));
 
-	private initializeHandlers() {
 		this.userHandler.initialize();
 	}
 
-	private initializeEventListeners() {
-		this.io.on('connect', async (socket) => {
+	private async onConnect(socket: Socket) {
+		if (config.isDev) {
 			console.log('+ Socket client has connected:', socket.id);
+		}
 
-			this.assignSocketHandlers(socket);
-
-			socket.on('disconnect', () => {
-				console.log('- Socket client has disconnected:', socket.id);
-			});
-		});
+		socket.on(SocketEvents.Disconnect, () => this.onDisconnect(socket));
 	}
 
-	private assignSocketHandlers(socket: Socket) {
-		this.userHandler.handleSocketEvents(socket);
+	private async onDisconnect(socket: Socket) {
+		if (config.isDev) {
+			console.log('- Socket client has disconnected:', socket.id);
+		}
 	}
 }
