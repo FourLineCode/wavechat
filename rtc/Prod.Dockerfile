@@ -15,6 +15,7 @@ ENV NODE_ENV=production
 ENV PORT=8000
 ENV REDIS_PORT=6379
 ENV REDIS_HOST=wcp-redis
+ENV INTERNAL_SECRET=internalsecretkey
 
 # Install dependencies
 COPY package.json pnpm-lock.yaml ./

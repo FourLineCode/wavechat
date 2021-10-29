@@ -17,6 +17,7 @@ ENV DATABASE_URL=postgresql://postgres:pgadmin@wcp-postgres:5432/wavechat?schema
 ENV ADMIN_PASS=admin00
 ENV BOT_PASS=adminpp
 ENV JWT_SECRET=verysecretkey
+ENV INTERNAL_SECRET=internalsecretkey
 ENV REDIS_PORT=6379
 ENV REDIS_HOST=wcp-redis
 

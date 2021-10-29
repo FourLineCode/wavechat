@@ -13,7 +13,8 @@ export interface Context {
 	user?: User;
 	session?: Session;
 	role?: UserRole;
-	admin?: boolean;
+	admin: boolean;
+	internal: boolean;
 }
 
 // Returns the context and authorized status for each request to the api
@@ -23,10 +24,12 @@ export async function createContext({ req, res }: ExpressContext): Promise<Conte
 		res: res,
 		public: false,
 		authorized: false,
+		admin: false,
+		internal: false,
 	};
 
 	// Read http only session cookie from request headers
-	const token = req.cookies['session'];
+	const token = req.cookies['session'] as string;
 
 	if (token) {
 		const verified = jwt.verify(token, process.env.JWT_SECRET!);
@@ -52,6 +55,18 @@ export async function createContext({ req, res }: ExpressContext): Promise<Conte
 				ctx.role = session.user.role;
 				ctx.admin = session.user.role === 'ADMIN';
 			}
+		}
+	}
+
+	// Read internal authorization jwt token from request headers
+	const internalToken = req.headers['internal-token'] as string;
+
+	if (internalToken) {
+		const verified = jwt.verify(internalToken, process.env.INTERNAL_SECRET!);
+
+		// Request is sent from internal servers
+		if (verified) {
+			ctx.internal = true;
 		}
 	}
 

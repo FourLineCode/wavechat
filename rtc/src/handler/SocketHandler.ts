@@ -1,5 +1,7 @@
 import { SocketEvents } from '@shared/socket/events';
 import { Server, Socket } from 'socket.io';
+import { graphQLClient } from 'src/graphql/client';
+import { AUTHORIZE_SOCKET } from 'src/graphql/queries';
 import { UserEventHandler } from 'src/handler/UserEventHandler';
 import { config } from 'src/internal/config';
 
@@ -19,6 +21,12 @@ export class SocketHandler {
 	}
 
 	private async onConnect(socket: Socket) {
+		const authorized = await this.authorizeConnection(socket);
+
+		if (!authorized) {
+			socket.disconnect();
+		}
+
 		if (config.isDev) {
 			console.log('+ Socket client has connected:', socket.id);
 		}
@@ -30,5 +38,11 @@ export class SocketHandler {
 		if (config.isDev) {
 			console.log('- Socket client has disconnected:', socket.id);
 		}
+	}
+
+	private async authorizeConnection(socket: Socket): Promise<boolean> {
+		const data = await graphQLClient.request(AUTHORIZE_SOCKET);
+		console.log(data);
+		return false;
 	}
 }

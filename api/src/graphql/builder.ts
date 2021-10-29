@@ -17,6 +17,7 @@ export const builder = new SchemaBuilder<{
 		public: boolean;
 		user: boolean;
 		admin: boolean;
+		internal: boolean;
 	};
 }>({
 	plugins: [ScopeAuthPlugin, DataloaderPlugin, ValidationPlugin],
@@ -24,7 +25,8 @@ export const builder = new SchemaBuilder<{
 		// TODO: make public based on csrf token validity
 		public: context.public,
 		user: context.authorized,
-		admin: !!context.admin,
+		admin: context.admin,
+		internal: context.internal,
 	}),
 });
 

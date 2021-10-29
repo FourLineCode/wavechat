@@ -15,6 +15,7 @@ ENV NODE_ENV=development
 ENV PORT=8000
 ENV REDIS_PORT=6379
 ENV REDIS_HOST=redis
+ENV INTERNAL_SECRET=internalsecretkey
 
 # Install dependencies
 COPY package.json pnpm-lock.yaml ./

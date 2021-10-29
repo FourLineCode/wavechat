@@ -49,7 +49,7 @@ export function MessageThreadPage({ thread }: Props) {
 				{messages.length > 0 ? (
 					<MessageListView messages={messages} />
 				) : (
-					<div className='flex items-center justify-center flex-1 text-muted'>
+					<div className='flex flex-col items-center justify-center flex-1 text-muted'>
 						<BiMessage size='156px' />
 						<div className='text-xl font-semibold'>Send a message</div>
 					</div>
