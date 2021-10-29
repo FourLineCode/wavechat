@@ -1,9 +1,5 @@
 #!/usr/bin/env bash
 
-pnpm --dir api install
-pnpm --dir rtc install
-pnpm --dir web install
-
 replica_count=2
 
 docker-compose -f docker-compose.prod.yml down --volumes
