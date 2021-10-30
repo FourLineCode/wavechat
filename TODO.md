@@ -232,6 +232,7 @@
             -   [ ] thread page query no cache
             -   [ ] stop auto scroll on hover
             -   [ ] emoji picker
+            -   [ ] disable chatting unless connection established
         -   [ ] socket client connect/disconnect event
         -   [ ] initial query to fetch messages
         -   [ ] send messageDTO

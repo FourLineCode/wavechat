@@ -1,7 +1,7 @@
 import { builder } from 'src/graphql/builder';
 import { services } from 'src/services';
 
-builder.queryField('authorizeRtcConn', (t) =>
+builder.queryField('isSocketAuthorized', (t) =>
 	t.field({
 		type: 'Boolean',
 		description: 'Authorizes any rtc connection',
@@ -13,7 +13,7 @@ builder.queryField('authorizeRtcConn', (t) =>
 	})
 );
 
-builder.queryField('joinRtcRoom', (t) =>
+builder.queryField('isUserInThread', (t) =>
 	t.field({
 		type: 'Boolean',
 		description: 'Authorize a user to join a rtc socket room',

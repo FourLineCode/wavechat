@@ -1,7 +1,12 @@
 import { SocketEvents } from '@shared/socket/events';
+import cookie from 'cookie';
 import { Server, Socket } from 'socket.io';
 import { graphQLClient } from 'src/graphql/client';
-import { AUTHORIZE_SOCKET } from 'src/graphql/queries';
+import {
+	AUTHORIZE_SOCKET,
+	IsSocketAuthorizedQuery,
+	IsSocketAuthorizedVariables,
+} from 'src/graphql/queries';
 import { UserEventHandler } from 'src/handler/UserEventHandler';
 import { config } from 'src/internal/config';
 
@@ -25,6 +30,8 @@ export class SocketHandler {
 
 		if (!authorized) {
 			socket.disconnect();
+			console.log('disconnecting - not authorized');
+			return;
 		}
 
 		if (config.isDev) {
@@ -41,8 +48,21 @@ export class SocketHandler {
 	}
 
 	private async authorizeConnection(socket: Socket): Promise<boolean> {
-		const data = await graphQLClient.request(AUTHORIZE_SOCKET);
-		console.log(data);
-		return false;
+		try {
+			const cookies = cookie.parse(socket.request.headers.cookie || '');
+			const data = await graphQLClient.request<
+				IsSocketAuthorizedQuery,
+				IsSocketAuthorizedVariables
+			>(AUTHORIZE_SOCKET, {
+				sessionId: cookies.session,
+			});
+
+			return data.isSocketAuthorized;
+		} catch (error) {
+			if (config.isDev) {
+				console.log(error);
+			}
+			return false;
+		}
 	}
 }

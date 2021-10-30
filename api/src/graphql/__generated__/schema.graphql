@@ -105,6 +105,12 @@ type Query {
   """Check if user is a friend"""
   isFriend(userId: String!): Boolean!
 
+  """Authorizes any rtc connection"""
+  isSocketAuthorized(sessionId: String!): Boolean!
+
+  """Authorize a user to join a rtc socket room"""
+  isUserInThread(threadId: String!, userId: String!): Boolean!
+
   """Returns a MessageThread by id"""
   messageThread(threadId: String!): MessageThread!
 

@@ -1,13 +1,30 @@
 import { gql } from 'graphql-request';
 
 export const AUTHORIZE_SOCKET = gql`
-	query AuthorizeSocket($sessionId: String!) {
-		authorizeRtcConn(sessionId: $sessionId)
+	query IsSocketAuthorized($sessionId: String!) {
+		isSocketAuthorized(sessionId: $sessionId)
 	}
 `;
 
+export interface IsSocketAuthorizedQuery {
+	isSocketAuthorized: boolean;
+}
+
+export interface IsSocketAuthorizedVariables {
+	sessionId: string;
+}
+
 export const AUTHORIZE_JOIN_ROOM = gql`
-	query AuthorizeJoinRoom($threadId: String!, $userId: String!) {
-		authorizeRtcConn(threadId: $threadId, userId: $userId)
+	query IsUserInThread($threadId: String!, $userId: String!) {
+		isUserInThread(threadId: $threadId, userId: $userId)
 	}
 `;
+
+export interface IsUserInThreadQuery {
+	isUserInThread: boolean;
+}
+
+export interface IsUserInThreadVariables {
+	threadId: string;
+	userId: string;
+}

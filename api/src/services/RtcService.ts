@@ -22,7 +22,7 @@ export class RtcService {
 	}
 
 	public async authorize(sessionToken: string): Promise<boolean> {
-		const verified = jwt.verify(sessionToken, process.env.INTERNAL_SECRET!);
+		const verified = jwt.verify(sessionToken, process.env.JWT_SECRET!);
 
 		if (!verified) return false;
 
