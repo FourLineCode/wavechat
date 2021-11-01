@@ -1,13 +1,25 @@
+import { UserDTO } from '@shared/types/message';
 import { gql } from 'graphql-request';
 
 export const AUTHORIZE_SOCKET = gql`
 	query IsSocketAuthorized($sessionId: String!) {
-		isSocketAuthorized(sessionId: $sessionId)
+		isSocketAuthorized(sessionId: $sessionId) {
+			authorized
+			user {
+				id
+				username
+				displayName
+				avatarUrl
+			}
+		}
 	}
 `;
 
 export interface IsSocketAuthorizedQuery {
-	isSocketAuthorized: boolean;
+	isSocketAuthorized: {
+		authorized: boolean;
+		user: UserDTO | null;
+	};
 }
 
 export interface IsSocketAuthorizedVariables {

@@ -1,8 +1,16 @@
 import { UserPubsubChannels } from '@shared/pubsub/channels';
-import { SocketEvents, UserSocketEvents } from '@shared/socket/events';
-import { MessageDTO, RoomEventDTO } from '@shared/types/message';
+import { ErrorSocketEvents, SocketEvents, UserSocketEvents } from '@shared/socket/events';
+import { MessageDTO, RoomEventDTO, UserDTO } from '@shared/types/message';
 import { Server, Socket } from 'socket.io';
-import { PubsubClient } from 'src/pubsub/PubsubClient';
+import { graphQLClient } from 'src/graphql/client';
+import {
+	AUTHORIZE_JOIN_ROOM,
+	IsUserInThreadQuery,
+	IsUserInThreadVariables,
+} from 'src/graphql/queries';
+import { config } from 'src/internal/config';
+import { PubsubClient } from 'src/redis/PubsubClient';
+import { store } from 'src/redis/store';
 import { v4 as uuid } from 'uuid';
 
 export class UserEventHandler {
@@ -36,8 +44,8 @@ export class UserEventHandler {
 		});
 	}
 
-	private startPubsubListener() {
-		this.pubsub.subscriber.subscribe(UserPubsubChannels.Message);
+	private async startPubsubListener() {
+		await this.pubsub.subscriber.subscribe(UserPubsubChannels.Message);
 
 		this.pubsub.subscriber.on('message', (_channel: string, message: string) => {
 			const messageDTO: MessageDTO = JSON.parse(message);
@@ -50,17 +58,53 @@ export class UserEventHandler {
 		});
 	}
 
-	private publishMessage(message: MessageDTO) {
-		this.pubsub.publisher.publish(UserPubsubChannels.Message, JSON.stringify(message));
+	private async publishMessage(message: MessageDTO) {
+		await this.pubsub.publisher.publish(UserPubsubChannels.Message, JSON.stringify(message));
 	}
 
-	private joinRoom({ socket, roomId }: { socket: Socket; roomId: string }) {
-		// TODO: authorize user and check participation of thread
+	private async joinRoom({ socket, roomId }: { socket: Socket; roomId: string }) {
+		const authorized = await this.authorizeJoinRoom({ socket, roomId });
+		if (!authorized) {
+			console.log('errroorororoor');
+			socket.emit(ErrorSocketEvents.JoinRoomError, 'You are not part of this conversation');
+			return;
+		}
+
 		socket.join(roomId);
 	}
 
-	private leaveRoom({ socket, roomId }: { socket: Socket; roomId: string }) {
-		// TODO: remove all auth info of socket
-		socket.leave(roomId);
+	private async leaveRoom({ socket, roomId }: { socket: Socket; roomId: string }) {
+		await socket.leave(roomId);
+	}
+
+	private async authorizeJoinRoom({
+		socket,
+		roomId,
+	}: {
+		socket: Socket;
+		roomId: string;
+	}): Promise<boolean> {
+		try {
+			const userObjectString = await store.get(socket.id);
+			if (!userObjectString) {
+				return false;
+			}
+
+			const user: UserDTO = JSON.parse(userObjectString);
+			const data = await graphQLClient.request<IsUserInThreadQuery, IsUserInThreadVariables>(
+				AUTHORIZE_JOIN_ROOM,
+				{
+					threadId: roomId,
+					userId: user.id,
+				}
+			);
+
+			return data.isUserInThread;
+		} catch (error) {
+			if (config.isDev) {
+				console.log(error);
+			}
+			return false;
+		}
 	}
 }

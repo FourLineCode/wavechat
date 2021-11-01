@@ -10,3 +10,8 @@ export enum UserSocketEvents {
 	JoinRoom = 'user:room:join',
 	LeaveRoom = 'user:room:leave',
 }
+
+export enum ErrorSocketEvents {
+	AuthorizationError = 'error:unauthorized',
+	JoinRoomError = 'error:join-room',
+}

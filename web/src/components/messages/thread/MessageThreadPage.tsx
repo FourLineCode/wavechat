@@ -1,8 +1,9 @@
-import { UserSocketEvents } from '@shared/socket/events';
+import { ErrorSocketEvents, UserSocketEvents } from '@shared/socket/events';
 import { MessageDTO } from '@shared/types/message';
 import { Field, Form, Formik } from 'formik';
 import React, { useEffect, useRef, useState } from 'react';
-import { BiMessage } from 'react-icons/bi';
+import toast from 'react-hot-toast';
+import { BiMessage, BiMessageError } from 'react-icons/bi';
 import { Message, MessageThread } from 'src/apollo/__generated__/types';
 import { MessageListView } from 'src/components/messages/thread/MessageListView';
 import { MessageThreadTopBar } from 'src/components/messages/thread/MessageThreadTopBar';
@@ -19,6 +20,7 @@ export function MessageThreadPage({ thread }: Props) {
 	const currentUserId = currentUser?.id;
 	const inputRef = useRef<HTMLInputElement>(null);
 	const [messages, setMessages] = useState<Message[]>([]);
+	const [error, setError] = useState(false);
 	const [user] = thread.participants.filter((u) => u.id !== currentUserId);
 
 	useEffect(() => {
@@ -36,6 +38,16 @@ export function MessageThreadPage({ thread }: Props) {
 			setMessages((prev) => [...prev, message]);
 		});
 
+		socket.conn.on(ErrorSocketEvents.AuthorizationError, (message: string) => {
+			setError(true);
+			toast.error(message);
+		});
+
+		socket.conn.on(ErrorSocketEvents.JoinRoomError, (message: string) => {
+			setError(true);
+			toast.error(message);
+		});
+
 		return () => {
 			socket.conn.emit(UserSocketEvents.LeaveRoom, { roomId: thread.id });
 			socket.disconnect();
@@ -46,12 +58,17 @@ export function MessageThreadPage({ thread }: Props) {
 		<div className='flex flex-col w-full h-full'>
 			<MessageThreadTopBar user={user} />
 			<div className='flex flex-col flex-1 w-full min-h-0 pb-4'>
-				{messages.length > 0 ? (
+				{messages.length > 0 && !error ? (
 					<MessageListView messages={messages} />
-				) : (
+				) : !error ? (
 					<div className='flex flex-col items-center justify-center flex-1 text-muted'>
 						<BiMessage size='156px' />
 						<div className='text-xl font-semibold'>Send a message</div>
+					</div>
+				) : (
+					<div className='flex flex-col items-center justify-center flex-1 text-muted'>
+						<BiMessageError size='156px' />
+						<div className='text-xl font-semibold'>Something went wrong!</div>
 					</div>
 				)}
 				<div className='px-4'>
@@ -84,6 +101,7 @@ export function MessageThreadPage({ thread }: Props) {
 								name='messageBody'
 								innerRef={inputRef}
 								autoComplete='off'
+								disabled={error}
 								placeholder='Send a message'
 								className='w-full px-4 py-3 rounded-lg focus:ring-2 focus:outline-none ring-brand-500 bg-dark-600 bg-opacity-30 hover:bg-opacity-20'
 							/>

@@ -200,31 +200,38 @@
         -   [x] remove socket from api/web
         -   [x] use zustand for client socket stuff
         -   [x] add ioredis
-        -   [ ] figure out auth
+        -   [x] figure out auth
 
-            -   [ ] authenticate on ws connection handshake
-                -   [ ] store auth info in redis (socket id as key)
-                -   [ ] remove cache on disconnect
-            -   [ ] graphql route for ws auth
-            -   [ ] use lightweight gql client for auth
+            -   [x] authenticate on ws connection handshake
+                -   [x] store auth info in redis (socket id as key)
+                -   [x] remove cache on disconnect
+            -   [x] graphql route for ws auth
+            -   [x] use lightweight gql client for auth
+            -   [ ] use error events for emitting error
+                -   [ ] listen for errors in client
 
-        -   [ ] make event names
-            -   [ ] scalability with servers
-            -   [ ] dynamic names to be able to migrate later
+        -   [x] make event names
+            -   [x] scalability with servers
+            -   [x] dynamic names to be able to migrate later
 
     -   [ ] Api
 
-        -   [ ] make auth + room eligibility validator queries
+        -   [x] make auth + room eligibility validator queries
         -   [ ] make pubsub listeners
         -   [ ] create messages + update thread in a transaction
             -   [ ] prevent multiple instance of api from inserting same message
-        -   [ ] authenticate internal requests
-            -   [ ] use internal key to sign jwt
+        -   [x] authenticate internal requests
+            -   [x] use internal key to sign jwt
+        -   [ ] test all rtc and socket auth events
+            -   [x] socket session auth
+            -   [x] join room auth
+            -   [x] auth info cache deletion in redis store
+            -   [x] error events listener
 
     -   [ ] Web
 
         -   [ ] make chat ui
-            -   [ ] formik
+            -   [x] formik
             -   [ ] group messages by same author
             -   [ ] up/down arrow key event
             -   [ ] add profile modal
@@ -233,16 +240,17 @@
             -   [ ] stop auto scroll on hover
             -   [ ] emoji picker
             -   [ ] disable chatting unless connection established
-        -   [ ] socket client connect/disconnect event
+        -   [x] socket client connect/disconnect event
         -   [ ] initial query to fetch messages
-        -   [ ] send messageDTO
+        -   [x] send messageDTO
+        -   [ ] add error events listeners
 
     -   [ ] shared types
-        -   [ ] add path alias on all service
-        -   [ ] server events
-        -   [ ] pubsub events
-        -   [ ] messages types
-        -   [ ] auth user types
+        -   [x] add path alias on all service
+        -   [x] server events
+        -   [x] pubsub events
+        -   [x] messages types
+        -   [x] auth user types
 
 -   [ ] messages
 

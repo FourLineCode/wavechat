@@ -1,9 +1,29 @@
+import { ObjectRef } from '@giraphql/core';
+import { User } from '@prisma/client';
 import { builder } from 'src/graphql/builder';
+import { UserObject } from 'src/graphql/resolvers/UserResolver';
 import { services } from 'src/services';
+
+interface SocketAuthorizedResponse {
+	authorized: boolean;
+	user: User | null;
+}
+
+const SocketAuthorizedResponseObject: ObjectRef<
+	SocketAuthorizedResponse,
+	SocketAuthorizedResponse
+> = builder.objectRef<SocketAuthorizedResponse>('SocketAuthorizedResponse').implement({
+	name: 'SocketAuthorizedResponse',
+	description: 'Response object for authorized socket connections',
+	fields: (t) => ({
+		authorized: t.exposeBoolean('authorized'),
+		user: t.expose('user', { type: UserObject, nullable: true }),
+	}),
+});
 
 builder.queryField('isSocketAuthorized', (t) =>
 	t.field({
-		type: 'Boolean',
+		type: SocketAuthorizedResponseObject,
 		description: 'Authorizes any rtc connection',
 		authScopes: { internal: true },
 		args: { sessionId: t.arg({ type: 'String', required: true }) },

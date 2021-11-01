@@ -1,4 +1,5 @@
-import { SocketEvents } from '@shared/socket/events';
+import { ErrorSocketEvents, SocketEvents } from '@shared/socket/events';
+import { AuthorizeSocketDTO } from '@shared/types/auth';
 import cookie from 'cookie';
 import { Server, Socket } from 'socket.io';
 import { graphQLClient } from 'src/graphql/client';
@@ -9,6 +10,7 @@ import {
 } from 'src/graphql/queries';
 import { UserEventHandler } from 'src/handler/UserEventHandler';
 import { config } from 'src/internal/config';
+import { store } from 'src/redis/store';
 
 export class SocketHandler {
 	private io: Server;
@@ -26,11 +28,13 @@ export class SocketHandler {
 	}
 
 	private async onConnect(socket: Socket) {
-		const authorized = await this.authorizeConnection(socket);
-
+		const { authorized, user } = await this.authorizeConnection(socket);
 		if (!authorized) {
+			socket.emit(
+				ErrorSocketEvents.AuthorizationError,
+				'You are not signed in, or your session has expired'
+			);
 			socket.disconnect();
-			console.log('disconnecting - not authorized');
 			return;
 		}
 
@@ -38,16 +42,22 @@ export class SocketHandler {
 			console.log('+ Socket client has connected:', socket.id);
 		}
 
+		// Store user info in redis store
+		await store.set(socket.id, JSON.stringify(user));
+
 		socket.on(SocketEvents.Disconnect, () => this.onDisconnect(socket));
 	}
 
 	private async onDisconnect(socket: Socket) {
+		// Remove auth info from redis store
+		store.del(socket.id);
+
 		if (config.isDev) {
 			console.log('- Socket client has disconnected:', socket.id);
 		}
 	}
 
-	private async authorizeConnection(socket: Socket): Promise<boolean> {
+	private async authorizeConnection(socket: Socket): Promise<AuthorizeSocketDTO> {
 		try {
 			const cookies = cookie.parse(socket.request.headers.cookie || '');
 			const data = await graphQLClient.request<
@@ -57,12 +67,15 @@ export class SocketHandler {
 				sessionId: cookies.session,
 			});
 
-			return data.isSocketAuthorized;
+			return {
+				authorized: data.isSocketAuthorized.authorized,
+				user: data.isSocketAuthorized.user,
+			};
 		} catch (error) {
 			if (config.isDev) {
 				console.log(error);
 			}
-			return false;
+			return { authorized: false, user: null };
 		}
 	}
 }

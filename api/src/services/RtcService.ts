@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient, User } from '@prisma/client';
 import jwt from 'jsonwebtoken';
 import prismaConnection from 'prisma/connection';
 import { JWTPayload } from 'src/graphql/resolvers/AuthResolver';
@@ -21,10 +21,12 @@ export class RtcService {
 		return instance;
 	}
 
-	public async authorize(sessionToken: string): Promise<boolean> {
+	public async authorize(
+		sessionToken: string
+	): Promise<{ authorized: boolean; user: User | null }> {
 		const verified = jwt.verify(sessionToken, process.env.JWT_SECRET!);
 
-		if (!verified) return false;
+		if (!verified) return { authorized: false, user: null };
 
 		const { sessionId, userId } = jwt.decode(sessionToken) as JWTPayload;
 
@@ -33,13 +35,16 @@ export class RtcService {
 				id: sessionId,
 				userId: userId,
 			},
+			include: {
+				user: true,
+			},
 		});
 
 		if (!session) {
-			return false;
+			return { authorized: false, user: null };
 		}
 
-		return true;
+		return { authorized: true, user: session.user };
 	}
 
 	public async authorizeJoinRoom({

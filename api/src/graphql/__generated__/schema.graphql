@@ -106,7 +106,7 @@ type Query {
   isFriend(userId: String!): Boolean!
 
   """Authorizes any rtc connection"""
-  isSocketAuthorized(sessionId: String!): Boolean!
+  isSocketAuthorized(sessionId: String!): SocketAuthorizedResponse!
 
   """Authorize a user to join a rtc socket room"""
   isUserInThread(threadId: String!, userId: String!): Boolean!
@@ -153,6 +153,12 @@ input SignupInput {
   semester: Int
   university: String
   username: String!
+}
+
+"""Response object for authorized socket connections"""
+type SocketAuthorizedResponse {
+  authorized: Boolean!
+  user: User
 }
 
 """Response object for succesful queries"""

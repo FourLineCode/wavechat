@@ -151,6 +151,10 @@ export type Query = {
   hello: Scalars['String'];
   /** Check if user is a friend */
   isFriend: Scalars['Boolean'];
+  /** Authorizes any rtc connection */
+  isSocketAuthorized: SocketAuthorizedResponse;
+  /** Authorize a user to join a rtc socket room */
+  isUserInThread: Scalars['Boolean'];
   /** Returns a MessageThread by id */
   messageThread: MessageThread;
   /** Get pending requests of current user */
@@ -179,6 +183,17 @@ export type QueryHelloArgs = {
 
 
 export type QueryIsFriendArgs = {
+  userId: Scalars['String'];
+};
+
+
+export type QueryIsSocketAuthorizedArgs = {
+  sessionId: Scalars['String'];
+};
+
+
+export type QueryIsUserInThreadArgs = {
+  threadId: Scalars['String'];
   userId: Scalars['String'];
 };
 
@@ -226,6 +241,13 @@ export type SignupInput = {
   semester?: Maybe<Scalars['Int']>;
   university?: Maybe<Scalars['String']>;
   username: Scalars['String'];
+};
+
+/** Response object for authorized socket connections */
+export type SocketAuthorizedResponse = {
+  __typename?: 'SocketAuthorizedResponse';
+  authorized: Scalars['Boolean'];
+  user?: Maybe<User>;
 };
 
 /** Response object for succesful queries */
