@@ -1,5 +1,7 @@
 import { PrismaClient } from '@prisma/client';
+import { MessageDTO } from '@shared/types/message';
 import prismaConnection from 'prisma/connection';
+import { services } from 'src/services';
 
 let instance: MessageService;
 
@@ -28,5 +30,37 @@ export class MessageService {
 		return await this.db.message.findMany({
 			where: { authorId },
 		});
+	}
+
+	public async createMessage(messageDTO: MessageDTO) {
+		await this.db.user.findFirst({
+			where: { id: messageDTO.authorId },
+			rejectOnNotFound: true,
+		});
+
+		await services.messageThreadService.getThreadById({
+			threadId: messageDTO.threadId,
+			userId: messageDTO.authorId,
+		});
+
+		const [message, _thread] = await this.db.$transaction([
+			this.db.message.create({
+				data: {
+					body: messageDTO.body,
+					threadId: messageDTO.threadId,
+					authorId: messageDTO.authorId,
+					createdAt: messageDTO.createdAt,
+					updatedAt: messageDTO.updatedAt,
+				},
+			}),
+			this.db.messageThread.update({
+				where: { id: messageDTO.threadId },
+				data: {
+					updatedAt: new Date().toISOString(),
+				},
+			}),
+		]);
+
+		return message;
 	}
 }

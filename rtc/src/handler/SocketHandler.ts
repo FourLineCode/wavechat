@@ -1,4 +1,4 @@
-import { ErrorSocketEvents, SocketEvents } from '@shared/socket/events';
+import { ErrorSocketEvents, SocketEvents, UserSocketEvents } from '@shared/socket/events';
 import { AuthorizeSocketDTO } from '@shared/types/auth';
 import cookie from 'cookie';
 import { Server, Socket } from 'socket.io';
@@ -42,8 +42,9 @@ export class SocketHandler {
 			console.log('+ Socket client has connected:', socket.id);
 		}
 
-		// Store user info in redis store
+		// Store user info in redis store and send user:connected signal
 		await store.set(socket.id, JSON.stringify(user));
+		socket.emit(UserSocketEvents.Connected);
 
 		socket.on(SocketEvents.Disconnect, () => this.onDisconnect(socket));
 	}

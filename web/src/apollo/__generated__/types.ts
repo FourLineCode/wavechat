@@ -21,6 +21,17 @@ export type AuthResult = {
   user: User;
 };
 
+export type CreateMessageInput = {
+  author: UserDtoInput;
+  authorId: Scalars['String'];
+  body: Scalars['String'];
+  createdAt: Scalars['String'];
+  id?: Maybe<Scalars['String']>;
+  pk?: Maybe<Scalars['Int']>;
+  threadId: Scalars['String'];
+  updatedAt: Scalars['String'];
+};
+
 /** FriendRequest object type */
 export type FriendRequest = {
   __typename?: 'FriendRequest';
@@ -76,6 +87,8 @@ export type Mutation = {
   __typename?: 'Mutation';
   /** Accept a pending friend request */
   acceptRequest: Friendship;
+  /** Saves a message to the database */
+  createMessage: Message;
   /** Returns an existing or newly created MessageThread */
   createMessageThread: MessageThread;
   /** Decline all pending friend requests */
@@ -99,6 +112,11 @@ export type Mutation = {
 
 export type MutationAcceptRequestArgs = {
   requestId: Scalars['String'];
+};
+
+
+export type MutationCreateMessageArgs = {
+  messageDTO: CreateMessageInput;
 };
 
 
@@ -277,6 +295,13 @@ export type User = {
   sessions: Array<Session>;
   university?: Maybe<Scalars['String']>;
   updatedAt: Scalars['Date'];
+  username: Scalars['String'];
+};
+
+export type UserDtoInput = {
+  avatarUrl?: Maybe<Scalars['String']>;
+  displayName: Scalars['String'];
+  id: Scalars['String'];
   username: Scalars['String'];
 };
 

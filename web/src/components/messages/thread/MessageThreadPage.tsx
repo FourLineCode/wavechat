@@ -32,7 +32,9 @@ export function MessageThreadPage({ thread }: Props) {
 	useEffect(() => {
 		socket.connect();
 
-		socket.conn.emit(UserSocketEvents.JoinRoom, { roomId: thread.id });
+		socket.conn.on(UserSocketEvents.Connected, () => {
+			socket.conn.emit(UserSocketEvents.JoinRoom, { roomId: thread.id });
+		});
 
 		socket.conn.on(UserSocketEvents.RecieveMessage, (message: Message) => {
 			setMessages((prev) => [...prev, message]);

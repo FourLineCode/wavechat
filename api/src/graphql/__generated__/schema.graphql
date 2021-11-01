@@ -4,6 +4,17 @@ type AuthResult {
   user: User!
 }
 
+input CreateMessageInput {
+  author: UserDTOInput!
+  authorId: String!
+  body: String!
+  createdAt: String!
+  id: String
+  pk: Int
+  threadId: String!
+  updatedAt: String!
+}
+
 scalar Date
 
 """FriendRequest object type"""
@@ -56,6 +67,9 @@ type MessageThread {
 type Mutation {
   """Accept a pending friend request"""
   acceptRequest(requestId: String!): Friendship!
+
+  """Saves a message to the database"""
+  createMessage(messageDTO: CreateMessageInput!): Message!
 
   """Returns an existing or newly created MessageThread"""
   createMessageThread(userId: String!): MessageThread!
@@ -186,5 +200,12 @@ type User {
   sessions: [Session!]!
   university: String
   updatedAt: Date!
+  username: String!
+}
+
+input UserDTOInput {
+  avatarUrl: String
+  displayName: String!
+  id: String!
   username: String!
 }

@@ -192,8 +192,8 @@
         -   [x] remove /ws route from traefik
         -   [x] add redis
         -   [x] fix shared folder in docker container
-        -   [ ] add new chat service
-        -   [ ] add production config for chat service
+        -   [x] add new chat service
+        -   [x] add production config for chat service
 
     -   [ ] socket
 
@@ -207,8 +207,8 @@
                 -   [x] remove cache on disconnect
             -   [x] graphql route for ws auth
             -   [x] use lightweight gql client for auth
-            -   [ ] use error events for emitting error
-                -   [ ] listen for errors in client
+            -   [x] use error events for emitting error
+                -   [x] listen for errors in client
 
         -   [x] make event names
             -   [x] scalability with servers
@@ -217,16 +217,21 @@
     -   [ ] Api
 
         -   [x] make auth + room eligibility validator queries
-        -   [ ] make pubsub listeners
-        -   [ ] create messages + update thread in a transaction
-            -   [ ] prevent multiple instance of api from inserting same message
+        -   [x] save messages gql queries
+        -   [x] create messages + update thread in a transaction
+            -   [x] queries should be fire and forget queries
+            -   [x] prevent multiple instance of api from inserting same message (load balanced query anyway)
         -   [x] authenticate internal requests
             -   [x] use internal key to sign jwt
-        -   [ ] test all rtc and socket auth events
+        -   [x] test all rtc and socket auth events
             -   [x] socket session auth
             -   [x] join room auth
             -   [x] auth info cache deletion in redis store
             -   [x] error events listener
+        -   [ ] frontend gql queries
+            -   [ ] get initial messages
+            -   [ ] edit messages (maybe)
+            -   [ ] reactions (maybe)
 
     -   [ ] Web
 
@@ -241,8 +246,9 @@
             -   [ ] emoji picker
             -   [ ] disable chatting unless connection established
         -   [x] socket client connect/disconnect event
-        -   [ ] initial query to fetch messages
         -   [x] send messageDTO
+        -   [x] join:room event happens before connected (bug fix)
+        -   [ ] initial query to fetch messages
         -   [ ] add error events listeners
 
     -   [ ] shared types

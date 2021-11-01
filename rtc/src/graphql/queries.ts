@@ -1,4 +1,5 @@
 import { UserDTO } from '@shared/types/auth';
+import { MessageDTO } from '@shared/types/message';
 import { gql } from 'graphql-request';
 
 export const AUTHORIZE_SOCKET = gql`
@@ -39,4 +40,26 @@ export interface IsUserInThreadQuery {
 export interface IsUserInThreadVariables {
 	threadId: string;
 	userId: string;
+}
+
+export const PERSIST_MESSAGE = gql`
+	mutation PersistMessage($messageDTO: CreateMessageInput!) {
+		createMessage(messageDTO: $messageDTO) {
+			id
+			body
+			threadId
+			authorId
+		}
+	}
+`;
+
+export interface PersistMessageQuery {
+	id: string;
+	body: string;
+	threadId: string;
+	authorId: string;
+}
+
+export interface PersistMessageVariables {
+	messageDTO: MessageDTO;
 }

@@ -4,7 +4,7 @@ export enum SocketEvents {
 }
 
 export enum UserSocketEvents {
-	Tick = 'user:tick',
+	Connected = 'user:connected',
 	SendMessage = 'user:message:send',
 	RecieveMessage = 'user:message:recieve',
 	JoinRoom = 'user:room:join',

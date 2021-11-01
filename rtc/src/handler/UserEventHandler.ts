@@ -8,6 +8,9 @@ import {
 	AUTHORIZE_JOIN_ROOM,
 	IsUserInThreadQuery,
 	IsUserInThreadVariables,
+	PersistMessageQuery,
+	PersistMessageVariables,
+	PERSIST_MESSAGE,
 } from 'src/graphql/queries';
 import { config } from 'src/internal/config';
 import { PubsubClient } from 'src/redis/PubsubClient';
@@ -51,11 +54,18 @@ export class UserEventHandler {
 		this.pubsub.subscriber.on('message', (_channel: string, message: string) => {
 			const messageDTO: MessageDTO = JSON.parse(message);
 			messageDTO.id = uuid();
-			messageDTO.createdAt = new Date().toISOString();
+			const currentTime = new Date().toISOString();
+			messageDTO.createdAt = currentTime;
+			messageDTO.updatedAt = currentTime;
 
 			this.io.to(messageDTO.threadId).emit(UserSocketEvents.RecieveMessage, messageDTO);
 
-			// TODO: persist message in db through api
+			// Persist message in api service database
+			// NOTE: this grqphql request is not awaited intentionally
+			// fire and forget request
+			graphQLClient.request<PersistMessageQuery, PersistMessageVariables>(PERSIST_MESSAGE, {
+				messageDTO: messageDTO,
+			});
 		});
 	}
 
@@ -104,6 +114,7 @@ export class UserEventHandler {
 			if (config.isDev) {
 				console.log(error);
 			}
+
 			return false;
 		}
 	}
