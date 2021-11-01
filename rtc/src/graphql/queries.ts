@@ -1,4 +1,4 @@
-import { UserDTO } from '@shared/types/message';
+import { UserDTO } from '@shared/types/auth';
 import { gql } from 'graphql-request';
 
 export const AUTHORIZE_SOCKET = gql`

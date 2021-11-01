@@ -50,7 +50,7 @@ export class SocketHandler {
 
 	private async onDisconnect(socket: Socket) {
 		// Remove auth info from redis store
-		store.del(socket.id);
+		await store.del(socket.id);
 
 		if (config.isDev) {
 			console.log('- Socket client has disconnected:', socket.id);

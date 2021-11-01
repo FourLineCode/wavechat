@@ -1,9 +1,4 @@
-export interface UserDTO {
-	id: string;
-	username: string;
-	displayName: string;
-	avatarUrl?: string | null;
-}
+import { UserDTO } from './auth';
 
 export interface MessageDTO {
 	id?: string;

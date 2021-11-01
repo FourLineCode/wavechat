@@ -1,6 +1,7 @@
 import { UserPubsubChannels } from '@shared/pubsub/channels';
 import { ErrorSocketEvents, SocketEvents, UserSocketEvents } from '@shared/socket/events';
-import { MessageDTO, RoomEventDTO, UserDTO } from '@shared/types/message';
+import { UserDTO } from '@shared/types/auth';
+import { MessageDTO, RoomEventDTO } from '@shared/types/message';
 import { Server, Socket } from 'socket.io';
 import { graphQLClient } from 'src/graphql/client';
 import {
@@ -65,7 +66,6 @@ export class UserEventHandler {
 	private async joinRoom({ socket, roomId }: { socket: Socket; roomId: string }) {
 		const authorized = await this.authorizeJoinRoom({ socket, roomId });
 		if (!authorized) {
-			console.log('errroorororoor');
 			socket.emit(ErrorSocketEvents.JoinRoomError, 'You are not part of this conversation');
 			return;
 		}
