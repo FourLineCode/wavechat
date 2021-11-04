@@ -3,6 +3,7 @@ import './DiscoverResolver';
 import './FriendshipResolver';
 import './MessageResolver';
 import './MessageThreadResolver';
+import './RtcResolver';
 import './Scalars';
 import './SearchResolver';
 import './UserResolver';

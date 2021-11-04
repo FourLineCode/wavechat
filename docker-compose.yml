@@ -15,6 +15,8 @@ services:
             - 8080:8080
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock:ro
+        networks:
+            - wave
 
     # PostgreSQL database container
     postgres:
@@ -24,11 +26,20 @@ services:
             - 5432:5432
         volumes:
             - pgdata:/var/lib/postgresql/data
+        networks:
+            - wave
         environment:
             # Database name
             POSTGRES_DB: wavechat
             # Database password
             POSTGRES_PASSWORD: pgadmin
+
+    # Redis server for pub-sub
+    redis:
+        container_name: wc-redis
+        image: redis:alpine
+        networks:
+            - wave
 
     # WaveChat Api container (Backend)
     api:
@@ -39,14 +50,44 @@ services:
         working_dir: /api
         volumes:
             - ./api:/api:rw
+        networks:
+            - wave
         depends_on:
             - traefik
             - postgres
+            - redis
         labels:
             - traefik.enable=true
             - traefik.http.routers.api.entrypoints=wave
             # Web route prefixed with specific routes gets forwarded to api
-            - traefik.http.routers.api.rule=Host(`wavechat.localhost`) && PathPrefix(`/graphql`) || PathPrefix(`/ws`)
+            - traefik.http.routers.api.rule=Host(`wavechat.localhost`) && PathPrefix(`/graphql`)
+
+    # WaveChat Chat service container
+    rtc:
+        container_name: wc-rtc
+        build:
+            context: ./rtc
+            target: development
+        working_dir: /rtc
+        volumes:
+            - ./rtc:/rtc:rw
+        networks:
+            - wave
+        depends_on:
+            - traefik
+            - postgres
+            - redis
+            - api
+        labels:
+            - traefik.enable=true
+            - traefik.http.routers.rtc.entrypoints=wave
+            # Adds sticky session cookie to persist connection through reverse proxy
+            - traefik.http.services.rtc.loadbalancer.sticky=true
+            - traefik.http.services.rtc.loadbalancer.sticky.cookie.name=sticky-session
+            - traefik.http.services.rtc.loadbalancer.sticky.cookie.httpOnly=true
+            - traefik.http.services.rtc.loadbalancer.sticky.cookie.secure=true
+            # Web route prefixed with specific routes gets forwarded to rtc
+            - traefik.http.routers.rtc.rule=Host(`wavechat.localhost`) && PathPrefix(`/ws`)
 
     # WaveChat Web app container (Frontend)
     web:
@@ -57,10 +98,14 @@ services:
         working_dir: /web
         volumes:
             - ./web:/web:rw
+        networks:
+            - wave
         depends_on:
             - traefik
             - postgres
+            - redis
             - api
+            - rtc
         labels:
             - traefik.enable=true
             - traefik.http.routers.web.entrypoints=wave
@@ -77,12 +122,21 @@ services:
         command: pnpm codegen
         volumes:
             - ./web:/web:rw
+        networks:
+            - wave
         depends_on:
             - traefik
             - postgres
+            - redis
             - api
+            - rtc
             - web
 
 # Volume for PostgreSQL database to persist data between development sessions
 volumes:
     pgdata: {}
+
+# Defalut networks
+networks:
+    wave:
+        external: true

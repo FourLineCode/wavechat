@@ -4,6 +4,7 @@ import { DiscoverService } from 'src/services/DiscoverService';
 import { FriendshipService } from 'src/services/FriendshipService';
 import { MessageService } from 'src/services/MessageService';
 import { MessageThreadService } from 'src/services/MessageThreadService';
+import { RtcService } from 'src/services/RtcService';
 import { SearchService } from 'src/services/SearchService';
 import { UserService } from 'src/services/UserService';
 
@@ -16,4 +17,5 @@ export const services = {
 	searchService: SearchService.getInstance(),
 	messageThreadService: MessageThreadService.getInstance(),
 	messageService: MessageService.getInstance(),
+	rtcService: RtcService.getInstance(),
 };

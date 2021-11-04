@@ -46,8 +46,8 @@ export const GET_MESSAGE_THREAD = gql`
 export default function Thread() {
 	const router = useRouter();
 	const currentUserId = useAuth().user?.id;
-	const [user, setUser] = useState<User | null>(null);
 	const threadId = router.query.threadId as string;
+	const [user, setUser] = useState<User | null>(null);
 
 	const { data, loading } = useQuery<GetMessageThreadQuery, GetMessageThreadQueryVariables>(
 		GET_MESSAGE_THREAD,
@@ -75,9 +75,12 @@ export default function Thread() {
 			<div className='flex w-screen h-screen'>
 				<NavigationSidebar />
 				<SidebarWithProfile component={DirectMessages} />
-				<div className='flex-1 bg-dark-700'>
+				<div className='flex-1 min-w-0 min-h-0 bg-dark-700'>
 					{data && !loading ? (
-						<MessageThreadPage thread={data.messageThread as MessageThread} />
+						<MessageThreadPage
+							thread={data.messageThread as MessageThread}
+							key={threadId}
+						/>
 					) : (
 						<div className='flex flex-col items-center justify-center w-full h-full'>
 							<BarLoader color='white' />

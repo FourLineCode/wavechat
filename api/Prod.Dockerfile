@@ -13,22 +13,20 @@ RUN curl -f https://get.pnpm.io/v6.16.js | node - add --global pnpm
 # Sets all the environment variables for development server
 ENV NODE_ENV=production
 ENV PORT=5000
-ENV DATABASE_URL=postgresql://postgres:pgadmin@postgres-prod:5432/wavechat?schema=public
+ENV DATABASE_URL=postgresql://postgres:pgadmin@wcp-postgres:5432/wavechat?schema=public
 ENV ADMIN_PASS=admin00
 ENV BOT_PASS=adminpp
 ENV JWT_SECRET=verysecretkey
+ENV INTERNAL_SECRET=internalsecretkey
+ENV REDIS_PORT=6379
+ENV REDIS_HOST=wcp-redis
 
-# Copy all the local files to the container (includes node_modules for development mode)
-COPY . .
-
-# Delete ignored files/folders
-RUN rm -rf node_modules
-RUN rm -rf dist
-RUN rm -rf Dockerfile
-RUN rm -rf prod.Dockerfile
-
-# Install and cache the dependencies
+# Install dependencies
+COPY package.json pnpm-lock.yaml ./
 RUN pnpm install --prod=false
+
+# Copy all the local files to the container
+COPY . .
 
 # Generated PrismaClient on build
 RUN pnpm prisma generate

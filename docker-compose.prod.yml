@@ -2,8 +2,8 @@ version: '3.8'
 
 services:
     # Traefik reverse proxy for local domains + load balancing
-    traefik-prod:
-        # container_name: wave-traefik-prod
+    wcp-traefik:
+        container_name: wcp-traefik
         image: traefik:v2.5
         command:
             - --api.insecure=true
@@ -15,52 +15,97 @@ services:
             - 8080:8080
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock:ro
+        networks:
+            - wave
 
     # PostgreSQL database container
-    postgres-prod:
-        # container_name: wave-postgres-prod
+    wcp-postgres:
+        container_name: wcp-postgres
         image: postgres:13-alpine
         ports:
             - 5432:5432
         volumes:
-            - pgdata-prod:/var/lib/postgresql/data
+            - wcp-pgdata:/var/lib/postgresql/data
+        networks:
+            - wave
         environment:
             # Database name
             POSTGRES_DB: wavechat
             # Database password
             POSTGRES_PASSWORD: pgadmin
 
+    # Redis server for pub-sub
+    wcp-redis:
+        container_name: wcp-redis
+        image: redis:alpine
+        networks:
+            - wave
+
     # WaveChat Api container (Backend)
-    api-prod:
-        # container_name: wave-api-prod
+    wcp-api:
+        # container_name: wcp-api
         build:
             context: ./api
-            dockerfile: ./prod.Dockerfile
+            dockerfile: ./Prod.Dockerfile
             target: production
         working_dir: /api
         restart: on-failure
+        networks:
+            - wave
         depends_on:
-            - traefik-prod
-            - postgres-prod
+            - wcp-traefik
+            - wcp-postgres
+            - wcp-redis
         labels:
             - traefik.enable=true
             - traefik.http.routers.api.entrypoints=wave
             # Web route prefixed with specific routes gets forwarded to api
-            - traefik.http.routers.api.rule=Host(`wavechat.localhost`) && PathPrefix(`/graphql`) || PathPrefix(`/ws`)
+            - traefik.http.routers.api.rule=Host(`wavechat.localhost`) && PathPrefix(`/graphql`)
+
+    # WaveChat Chat service container
+    wcp-rtc:
+        # container_name: wcp-rtc
+        build:
+            context: ./rtc
+            dockerfile: ./Prod.Dockerfile
+            target: production
+        working_dir: /rtc
+        restart: on-failure
+        networks:
+            - wave
+        depends_on:
+            - wcp-traefik
+            - wcp-postgres
+            - wcp-redis
+            - wcp-api
+        labels:
+            - traefik.enable=true
+            - traefik.http.routers.rtc.entrypoints=wave
+            # Adds sticky session cookie to persist connection through reverse proxy
+            - traefik.http.services.rtc.loadbalancer.sticky=true
+            - traefik.http.services.rtc.loadbalancer.sticky.cookie.name=sticky-session
+            - traefik.http.services.rtc.loadbalancer.sticky.cookie.httpOnly=true
+            - traefik.http.services.rtc.loadbalancer.sticky.cookie.secure=true
+            # Web route prefixed with specific routes gets forwarded to rtc
+            - traefik.http.routers.rtc.rule=Host(`wavechat.localhost`) && PathPrefix(`/ws`)
 
     # WaveChat Web app container (Frontend)
-    web-prod:
-        # container_name: wave-web-prod
+    wcp-web:
+        container_name: wcp-web
         build:
             context: ./web
-            dockerfile: ./prod.Dockerfile
+            dockerfile: ./Prod.Dockerfile
             target: production
         working_dir: /web
         restart: on-failure
+        networks:
+            - wave
         depends_on:
-            - traefik-prod
-            - postgres-prod
-            - api-prod
+            - wcp-traefik
+            - wcp-postgres
+            - wcp-redis
+            - wcp-api
+            - wcp-rtc
         labels:
             - traefik.enable=true
             - traefik.http.routers.web.entrypoints=wave
@@ -69,4 +114,9 @@ services:
 
 # Volume for PostgreSQL database to persist data between development sessions
 volumes:
-    pgdata-prod: {}
+    wcp-pgdata: {}
+
+# Defalut networks
+networks:
+    wave:
+        external: true

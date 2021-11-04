@@ -8,6 +8,7 @@
 		"sourceMap": true,
 		"skipLibCheck": true,
 		"strict": true,
+		"incremental": true,
 		"alwaysStrict": true,
 		"strictFunctionTypes": true,
 		"strictNullChecks": true,
@@ -33,6 +34,6 @@
 		"baseUrl": ".",
 		"paths": {}
 	},
-	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-	"exclude": ["node_modules"]
+	"include": ["**/*.ts", "**/*.tsx"],
+	"exclude": ["node_modules", ".next"]
 }

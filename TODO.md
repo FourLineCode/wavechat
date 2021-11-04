@@ -183,6 +183,82 @@
         -   [ ] click "+" opens modal with list of eligible people (not sure about this button, might be removed)
             -   [ ] implement searching with debounce in modal
 
+-   [ ] chat service
+
+    -   [x] general
+
+        -   [x] add dockerignore config for prod+dev
+        -   [x] add container names on prod
+        -   [x] remove /ws route from traefik
+        -   [x] add redis
+        -   [x] fix shared folder in docker container
+        -   [x] add new chat service
+        -   [x] add production config for chat service
+
+    -   [x] socket
+
+        -   [x] remove socket from api/web
+        -   [x] use zustand for client socket stuff
+        -   [x] add ioredis
+        -   [x] figure out auth
+
+            -   [x] authenticate on ws connection handshake
+                -   [x] store auth info in redis (socket id as key)
+                -   [x] remove cache on disconnect
+            -   [x] graphql route for ws auth
+            -   [x] use lightweight gql client for auth
+            -   [x] use error events for emitting error
+                -   [x] listen for errors in client
+
+        -   [x] make event names
+            -   [x] scalability with servers
+            -   [x] dynamic names to be able to migrate later
+
+    -   [ ] Api
+
+        -   [x] make auth + room eligibility validator queries
+        -   [x] save messages gql queries
+        -   [x] create messages + update thread in a transaction
+            -   [x] queries should be fire and forget queries
+            -   [x] prevent multiple instance of api from inserting same message (load balanced query anyway)
+        -   [x] authenticate internal requests
+            -   [x] use internal key to sign jwt
+        -   [x] test all rtc and socket auth events
+            -   [x] socket session auth
+            -   [x] join room auth
+            -   [x] auth info cache deletion in redis store
+            -   [x] error events listener
+        -   [ ] frontend gql queries
+            -   [x] get initial messages
+            -   [ ] edit messages (maybe)
+            -   [ ] reactions (maybe)
+        -   [x] api persisted messages duplicate on replicas (major bug fix)
+
+    -   [ ] Web
+
+        -   [ ] make chat ui
+            -   [x] formik
+            -   [x] add profile modal
+            -   [x] thread page query no cache
+            -   [ ] group messages by same author
+            -   [ ] up/down arrow key event
+            -   [ ] hold shift + enter shouldnt submit form
+            -   [ ] pre formatted text
+            -   [ ] stop auto scroll on hover
+            -   [ ] emoji picker
+        -   [x] socket client connect/disconnect event
+        -   [x] send messageDTO
+        -   [x] join:room event happens before connected (bug fix)
+        -   [x] initial query to fetch messages
+        -   [x] add error events listeners
+
+    -   [x] shared types
+        -   [x] add path alias on all service
+        -   [x] server events
+        -   [x] pubsub events
+        -   [x] messages types
+        -   [x] auth user types
+
 -   [ ] messages
 
     -   [ ] mentions

@@ -3,7 +3,6 @@ import type { AppProps } from 'next/app';
 import { useEffect } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { client } from 'src/apollo/client';
-import { SocketProvider } from 'src/socket/SocketContextProvider';
 import { useAuth } from 'src/store/useAuth';
 import '../styles/tailwind.css';
 
@@ -18,16 +17,14 @@ export default function MyApp({ Component, pageProps }: AppProps) {
 
 	return (
 		<ApolloProvider client={client}>
-			<SocketProvider>
-				<Component {...pageProps} />
-				<Toaster
-					position='bottom-center'
-					gutter={12}
-					toastOptions={{
-						duration: 2500,
-					}}
-				/>
-			</SocketProvider>
+			<Component {...pageProps} />
+			<Toaster
+				position='bottom-center'
+				gutter={12}
+				toastOptions={{
+					duration: 2500,
+				}}
+			/>
 		</ApolloProvider>
 	);
 }

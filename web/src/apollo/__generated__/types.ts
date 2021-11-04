@@ -21,6 +21,17 @@ export type AuthResult = {
   user: User;
 };
 
+export type CreateMessageInput = {
+  author: UserDtoInput;
+  authorId: Scalars['String'];
+  body: Scalars['String'];
+  createdAt: Scalars['String'];
+  id?: Maybe<Scalars['String']>;
+  pk?: Maybe<Scalars['Int']>;
+  threadId: Scalars['String'];
+  updatedAt: Scalars['String'];
+};
+
 /** FriendRequest object type */
 export type FriendRequest = {
   __typename?: 'FriendRequest';
@@ -76,6 +87,8 @@ export type Mutation = {
   __typename?: 'Mutation';
   /** Accept a pending friend request */
   acceptRequest: Friendship;
+  /** Saves a message to the database */
+  createMessage: Message;
   /** Returns an existing or newly created MessageThread */
   createMessageThread: MessageThread;
   /** Decline all pending friend requests */
@@ -99,6 +112,11 @@ export type Mutation = {
 
 export type MutationAcceptRequestArgs = {
   requestId: Scalars['String'];
+};
+
+
+export type MutationCreateMessageArgs = {
+  messageDTO: CreateMessageInput;
 };
 
 
@@ -151,6 +169,10 @@ export type Query = {
   hello: Scalars['String'];
   /** Check if user is a friend */
   isFriend: Scalars['Boolean'];
+  /** Authorizes any rtc connection */
+  isSocketAuthorized: SocketAuthorizedResponse;
+  /** Authorize a user to join a rtc socket room */
+  isUserInThread: Scalars['Boolean'];
   /** Returns a MessageThread by id */
   messageThread: MessageThread;
   /** Get pending requests of current user */
@@ -159,6 +181,8 @@ export type Query = {
   searchFriends: Array<User>;
   /** Get sent requests of current user */
   sentRequests: Array<FriendRequest>;
+  /** Returns all messages owned by a thread */
+  threadMessages: Array<Message>;
   /** returns info for a user */
   user: User;
   /** returns info for a user by username */
@@ -183,6 +207,17 @@ export type QueryIsFriendArgs = {
 };
 
 
+export type QueryIsSocketAuthorizedArgs = {
+  sessionId: Scalars['String'];
+};
+
+
+export type QueryIsUserInThreadArgs = {
+  threadId: Scalars['String'];
+  userId: Scalars['String'];
+};
+
+
 export type QueryMessageThreadArgs = {
   threadId: Scalars['String'];
 };
@@ -190,6 +225,11 @@ export type QueryMessageThreadArgs = {
 
 export type QuerySearchFriendsArgs = {
   searchTerm: Scalars['String'];
+};
+
+
+export type QueryThreadMessagesArgs = {
+  threadId: Scalars['String'];
 };
 
 
@@ -228,6 +268,13 @@ export type SignupInput = {
   username: Scalars['String'];
 };
 
+/** Response object for authorized socket connections */
+export type SocketAuthorizedResponse = {
+  __typename?: 'SocketAuthorizedResponse';
+  authorized: Scalars['Boolean'];
+  user?: Maybe<User>;
+};
+
 /** Response object for succesful queries */
 export type SuccessResult = {
   __typename?: 'SuccessResult';
@@ -255,6 +302,13 @@ export type User = {
   sessions: Array<Session>;
   university?: Maybe<Scalars['String']>;
   updatedAt: Scalars['Date'];
+  username: Scalars['String'];
+};
+
+export type UserDtoInput = {
+  avatarUrl?: Maybe<Scalars['String']>;
+  displayName: Scalars['String'];
+  id: Scalars['String'];
   username: Scalars['String'];
 };
 
@@ -286,6 +340,13 @@ export type ActiveMessageThreadsQueryVariables = Exact<{ [key: string]: never; }
 
 
 export type ActiveMessageThreadsQuery = { __typename?: 'Query', activeMessageThreads: Array<{ __typename?: 'MessageThread', id: string, updatedAt: any, participants: Array<{ __typename?: 'User', id: string, username: string, displayName: string, avatarUrl?: string | null | undefined }> }> };
+
+export type ThreadMessagesQueryVariables = Exact<{
+  threadId: Scalars['String'];
+}>;
+
+
+export type ThreadMessagesQuery = { __typename?: 'Query', threadMessages: Array<{ __typename?: 'Message', id: string, pk: number, body: string, createdAt: any, updatedAt: any, threadId: string, authorId: string, author: { __typename?: 'User', id: string, username: string, displayName: string, avatarUrl?: string | null | undefined } }> };
 
 export type GetUserDataQueryVariables = Exact<{
   userId: Scalars['String'];
@@ -464,6 +525,25 @@ export const ActiveMessageThreadsDocument = gql`
     id
     updatedAt
     participants {
+      id
+      username
+      displayName
+      avatarUrl
+    }
+  }
+}
+    `;
+export const ThreadMessagesDocument = gql`
+    query ThreadMessages($threadId: String!) {
+  threadMessages(threadId: $threadId) {
+    id
+    pk
+    body
+    createdAt
+    updatedAt
+    threadId
+    authorId
+    author {
       id
       username
       displayName
