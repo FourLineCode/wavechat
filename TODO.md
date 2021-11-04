@@ -232,6 +232,7 @@
             -   [x] get initial messages
             -   [ ] edit messages (maybe)
             -   [ ] reactions (maybe)
+        -   [x] api persisted messages duplicate on replicas (major bug fix)
 
     -   [ ] Web
 

@@ -53,24 +53,25 @@ export class UserEventHandler {
 
 		this.pubsub.subscriber.on('message', (_channel: string, message: string) => {
 			const messageDTO: MessageDTO = JSON.parse(message);
-			messageDTO.id = uuid();
-			const currentTime = new Date().toISOString();
-			messageDTO.createdAt = currentTime;
-			messageDTO.updatedAt = currentTime;
 
 			this.io.to(messageDTO.threadId).emit(UserSocketEvents.RecieveMessage, messageDTO);
-
-			// Persist message in api service database
-			// NOTE: this grqphql request is not awaited intentionally
-			// fire and forget request
-			graphQLClient.request<PersistMessageQuery, PersistMessageVariables>(PERSIST_MESSAGE, {
-				messageDTO: messageDTO,
-			});
 		});
 	}
 
 	private async publishMessage(message: MessageDTO) {
+		message.id = uuid();
+		const currentTime = new Date().toISOString();
+		message.createdAt = currentTime;
+		message.updatedAt = currentTime;
+
 		await this.pubsub.publisher.publish(UserPubsubChannels.Message, JSON.stringify(message));
+
+		// Persist message in api service database
+		// NOTE: this grqphql request is not awaited intentionally
+		// fire and forget request
+		graphQLClient.request<PersistMessageQuery, PersistMessageVariables>(PERSIST_MESSAGE, {
+			messageDTO: message,
+		});
 	}
 
 	private async joinRoom({ socket, roomId }: { socket: Socket; roomId: string }) {
