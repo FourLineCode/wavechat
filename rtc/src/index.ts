@@ -1,12 +1,12 @@
-import { SocketHandler } from 'src/handler/SocketHandler';
-import { config } from 'src/internal/config';
-import { FastifyServer } from 'src/server';
+import { initializeHandlers } from 'src/handler';
+import { getConfig } from 'src/internal/config';
+import { initializeServer } from 'src/server';
 
 async function main() {
-	const server = await FastifyServer.getInstance();
+	const config = getConfig();
+	const server = await initializeServer(config);
 
-	const socketHandler = new SocketHandler(server.io);
-	socketHandler.initialize();
+	await initializeHandlers(server.io, config);
 
 	server.listen(config.port, '0.0.0.0', () => {
 		console.log(`\nRTC Server is now running on http://localhost:${config.port}\n`);

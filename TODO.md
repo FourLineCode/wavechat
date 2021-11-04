@@ -259,6 +259,19 @@
         -   [x] messages types
         -   [x] auth user types
 
+-   [ ] functional programming
+
+    -   [ ] services
+
+        -   [x] rtc
+        -   [x] web
+        -   [ ] api
+
+    -   [ ] remove classes
+    -   [ ] change file naming
+    -   [x] change shared naming
+    -   [ ] change services naming
+
 -   [ ] messages
 
     -   [ ] mentions
