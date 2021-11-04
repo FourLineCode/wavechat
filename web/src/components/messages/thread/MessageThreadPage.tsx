@@ -1,5 +1,5 @@
 import { gql, useQuery } from '@apollo/client';
-import { ErrorSocketEvents, UserSocketEvents } from '@shared/socket/events';
+import { ErrorSocketEvents, MessageSocketEvents } from '@shared/socket/events';
 import { MessageDTO } from '@shared/types/message';
 import { Field, Form, Formik } from 'formik';
 import { useEffect, useRef, useState } from 'react';
@@ -76,11 +76,11 @@ export function MessageThreadPage({ thread }: Props) {
 	useEffect(() => {
 		socket.connect();
 
-		socket.conn.on(UserSocketEvents.Connected, () => {
-			socket.conn.emit(UserSocketEvents.JoinRoom, { roomId: thread.id });
+		socket.conn.on(MessageSocketEvents.Connected, () => {
+			socket.conn.emit(MessageSocketEvents.JoinRoom, { roomId: thread.id });
 		});
 
-		socket.conn.on(UserSocketEvents.RecieveMessage, (message: Message) => {
+		socket.conn.on(MessageSocketEvents.RecieveMessage, (message: Message) => {
 			setMessages((prev) => [...prev, message]);
 		});
 
@@ -95,7 +95,7 @@ export function MessageThreadPage({ thread }: Props) {
 		});
 
 		return () => {
-			socket.conn.emit(UserSocketEvents.LeaveRoom, { roomId: thread.id });
+			socket.conn.emit(MessageSocketEvents.LeaveRoom, { roomId: thread.id });
 			socket.disconnect();
 		};
 	}, []);
@@ -141,7 +141,7 @@ export function MessageThreadPage({ thread }: Props) {
 									avatarUrl: currentUser.avatarUrl,
 								},
 							};
-							socket.conn.emit(UserSocketEvents.SendMessage, messageDTO);
+							socket.conn.emit(MessageSocketEvents.SendMessage, messageDTO);
 
 							form.resetForm();
 						}}

@@ -1,10 +1,10 @@
 import { ObjectRef } from '@giraphql/core';
 import { User } from '@prisma/client';
 import { builder } from 'src/graphql/builder';
-import { SessionObject } from 'src/graphql/resolvers/AuthResolver';
-import { FriendRequestObject, FriendshipObject } from 'src/graphql/resolvers/FriendshipResolver';
-import { MessageObject } from 'src/graphql/resolvers/MessageResolver';
-import { MessageThreadObject } from 'src/graphql/resolvers/MessageThreadResolver';
+import { SessionObject } from 'src/graphql/resolvers/auth.resolver';
+import { FriendRequestObject, FriendshipObject } from 'src/graphql/resolvers/friendship.resolver';
+import { MessageObject } from 'src/graphql/resolvers/message.resolver';
+import { MessageThreadObject } from 'src/graphql/resolvers/messageThread.resolver';
 import { services } from 'src/services';
 
 export const UserObject: ObjectRef<User, User> = builder.objectRef<User>('User').implement({
@@ -27,37 +27,37 @@ export const UserObject: ObjectRef<User, User> = builder.objectRef<User>('User')
 		sessions: t.field({
 			type: [SessionObject],
 			resolve: async (user) => {
-				return await services.authService.getSessionsForUser(user.id);
+				return await services.auth.getSessionsForUser(user.id);
 			},
 		}),
 		friends: t.field({
 			type: [FriendshipObject],
 			resolve: async (user) => {
-				return await services.friendshipService.getFriendList(user.id);
+				return await services.friendship.getFriendList(user.id);
 			},
 		}),
 		pendingRequests: t.field({
 			type: [FriendRequestObject],
 			resolve: async (user) => {
-				return await services.friendshipService.getPendingRequests(user.id);
+				return await services.friendship.getPendingRequests(user.id);
 			},
 		}),
 		sentRequests: t.field({
 			type: [FriendRequestObject],
 			resolve: async (user) => {
-				return await services.friendshipService.getSentRequests(user.id);
+				return await services.friendship.getSentRequests(user.id);
 			},
 		}),
 		messages: t.field({
 			type: [MessageObject],
 			resolve: async (user) => {
-				return await services.messageService.getMessagesByAuthorId(user.id);
+				return await services.message.getMessagesByAuthorId(user.id);
 			},
 		}),
 		messageThreads: t.field({
 			type: [MessageThreadObject],
 			resolve: async (user) => {
-				return await services.messageThreadService.getThreadsByUserId(user.id);
+				return await services.messageThread.getThreadsByUserId(user.id);
 			},
 		}),
 	}),
@@ -69,7 +69,7 @@ builder.queryField('allUsers', (t) =>
 		description: 'returns all users',
 		authScopes: { admin: true },
 		resolve: async () => {
-			return await services.userService.getAllUsers();
+			return await services.user.getAllUsers();
 		},
 	})
 );
@@ -81,7 +81,7 @@ builder.queryField('user', (t) =>
 		authScopes: { user: true },
 		args: { userId: t.arg({ type: 'String', required: true }) },
 		resolve: async (_parent, { userId }) => {
-			return await services.userService.getUserById(userId);
+			return await services.user.getUserById(userId);
 		},
 	})
 );
@@ -93,7 +93,7 @@ builder.queryField('userByUsername', (t) =>
 		authScopes: { user: true },
 		args: { username: t.arg({ type: 'String', required: true }) },
 		resolve: async (_parent, { username }) => {
-			return await services.userService.getUserByUsername(username.toLowerCase());
+			return await services.user.getUserByUsername(username.toLowerCase());
 		},
 	})
 );

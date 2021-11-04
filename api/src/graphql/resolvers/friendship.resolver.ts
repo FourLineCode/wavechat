@@ -1,7 +1,7 @@
 import { ObjectRef } from '@giraphql/core';
 import { FriendRequest, Friendship } from '@prisma/client';
 import { builder } from 'src/graphql/builder';
-import { UserObject } from 'src/graphql/resolvers/UserResolver';
+import { UserObject } from 'src/graphql/resolvers/user.resolver';
 import { services } from 'src/services';
 
 export const FriendshipObject: ObjectRef<Friendship, Friendship> = builder
@@ -18,14 +18,14 @@ export const FriendshipObject: ObjectRef<Friendship, Friendship> = builder
 			firstUser: t.loadable({
 				type: UserObject,
 				sort: (user) => user.id,
-				load: (ids: string[]) => services.dataLoaderService.loadUserByIDs(ids),
+				load: (ids: string[]) => services.dataloader.loadUserByIDs(ids),
 				resolve: (parent) => parent.firstUserId,
 			}),
 			secondUserId: t.exposeID('secondUserId'),
 			secondUser: t.loadable({
 				type: UserObject,
 				sort: (user) => user.id,
-				load: (ids: string[]) => services.dataLoaderService.loadUserByIDs(ids),
+				load: (ids: string[]) => services.dataloader.loadUserByIDs(ids),
 				resolve: (parent) => parent.secondUserId,
 			}),
 		}),
@@ -45,14 +45,14 @@ export const FriendRequestObject: ObjectRef<FriendRequest, FriendRequest> = buil
 			fromUser: t.loadable({
 				type: UserObject,
 				sort: (user) => user.id,
-				load: (ids: string[]) => services.dataLoaderService.loadUserByIDs(ids),
+				load: (ids: string[]) => services.dataloader.loadUserByIDs(ids),
 				resolve: (parent) => parent.fromUserId,
 			}),
 			toUserId: t.exposeID('toUserId'),
 			toUser: t.loadable({
 				type: UserObject,
 				sort: (user) => user.id,
-				load: (ids: string[]) => services.dataLoaderService.loadUserByIDs(ids),
+				load: (ids: string[]) => services.dataloader.loadUserByIDs(ids),
 				resolve: (parent) => parent.toUserId,
 			}),
 		}),
@@ -67,7 +67,7 @@ builder.mutationField('sendRequest', (t) =>
 		resolve: async (_parent, { userId }, { user }) => {
 			if (!user) throw new Error('Unauthorized');
 
-			return await services.friendshipService.sendReuqest({
+			return await services.friendship.sendReuqest({
 				fromUserId: user.id,
 				toUserId: userId,
 			});
@@ -84,7 +84,7 @@ builder.mutationField('unsendRequest', (t) =>
 		resolve: async (_parent, { requestId }, { user }) => {
 			if (!user) throw new Error('Unauthorized');
 
-			return await services.friendshipService.unsendRequest({ requestId, ownerId: user.id });
+			return await services.friendship.unsendRequest({ requestId, userId: user.id });
 		},
 	})
 );
@@ -98,7 +98,7 @@ builder.mutationField('acceptRequest', (t) =>
 		resolve: async (_parent, { requestId }, { user }) => {
 			if (!user) throw new Error('Unauthorized');
 
-			return await services.friendshipService.acceptRequest({ requestId, userId: user.id });
+			return await services.friendship.acceptRequest({ requestId, userId: user.id });
 		},
 	})
 );
@@ -112,7 +112,7 @@ builder.mutationField('declineRequest', (t) =>
 		resolve: async (_parent, { requestId }, { user }) => {
 			if (!user) throw new Error('Unauthorized');
 
-			return await services.friendshipService.declineRequest({ requestId, userId: user.id });
+			return await services.friendship.declineRequest({ requestId, userId: user.id });
 		},
 	})
 );
@@ -125,7 +125,7 @@ builder.mutationField('declineAllRequests', (t) =>
 		resolve: async (_parent, _args, { user }) => {
 			if (!user) throw new Error('Unauthorized');
 
-			return await services.friendshipService.declineAllRequests(user.id);
+			return await services.friendship.declineAllRequests(user.id);
 		},
 	})
 );
@@ -139,7 +139,7 @@ builder.mutationField('unfriend', (t) =>
 		resolve: async (_parent, { userId }, { user }) => {
 			if (!user) throw new Error('Unauthorized');
 
-			return await services.friendshipService.unfriend({ userId, currentUserId: user.id });
+			return await services.friendship.unfriend({ userId, currentUserId: user.id });
 		},
 	})
 );
@@ -152,7 +152,7 @@ builder.queryField('friendsList', (t) =>
 		resolve: async (_parent, _args, { user }) => {
 			if (!user) throw new Error('Unauthorized');
 
-			return await services.friendshipService.getFriendList(user.id);
+			return await services.friendship.getFriendList(user.id);
 		},
 	})
 );
@@ -166,7 +166,7 @@ builder.queryField('isFriend', (t) =>
 		resolve: async (_parent, { userId }, { user }) => {
 			if (!user) throw new Error('Unauthorized');
 
-			return await services.friendshipService.isUserFriend({
+			return await services.friendship.isUserFriend({
 				userId,
 				currentUserId: user.id,
 			});
@@ -182,7 +182,7 @@ builder.queryField('pendingRequests', (t) =>
 		resolve: async (_parent, _args, { user }) => {
 			if (!user) throw new Error('Unauthorized');
 
-			return await services.friendshipService.getPendingRequests(user.id);
+			return await services.friendship.getPendingRequests(user.id);
 		},
 	})
 );
@@ -195,7 +195,7 @@ builder.queryField('sentRequests', (t) =>
 		resolve: async (_parent, _args, { user }) => {
 			if (!user) throw new Error('Unauthorized');
 
-			return await services.friendshipService.getSentRequests(user.id);
+			return await services.friendship.getSentRequests(user.id);
 		},
 	})
 );

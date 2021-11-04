@@ -3,8 +3,9 @@ import cors from 'cors';
 import express from 'express';
 import helmet from 'helmet';
 import morgan from 'morgan';
-import { config } from 'src/internal/config';
+import { getConfig } from 'src/internal/config';
 
+const config = getConfig();
 export const app = express();
 
 /* === Adding Global Middlewares === */

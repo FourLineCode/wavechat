@@ -2,7 +2,7 @@ import { ObjectRef } from '@giraphql/core';
 import { Session, User } from '@prisma/client';
 import jwt from 'jsonwebtoken';
 import { builder } from 'src/graphql/builder';
-import { UserObject } from 'src/graphql/resolvers/UserResolver';
+import { UserObject } from 'src/graphql/resolvers/user.resolver';
 import { services } from 'src/services';
 
 export const SessionObject: ObjectRef<Session, Session> = builder
@@ -19,7 +19,7 @@ export const SessionObject: ObjectRef<Session, Session> = builder
 			user: t.loadable({
 				type: UserObject,
 				sort: (user) => user.id,
-				load: (ids: string[]) => services.dataLoaderService.loadUserByIDs(ids),
+				load: (ids: string[]) => services.dataloader.loadUserByIDs(ids),
 				resolve: (session) => session.userId,
 			}),
 		}),
@@ -109,7 +109,7 @@ builder.mutationField('signup', (t) =>
 		description: 'Sign up new user',
 		args: { input: t.arg({ type: SignupInput, required: true }) },
 		resolve: async (_parent, { input }, { res }) => {
-			const { newUser, session } = await services.authService.signUp(input as User);
+			const { newUser, session } = await services.auth.signUp(input as User);
 
 			const payload: JWTPayload = {
 				sessionId: session.id,
@@ -153,7 +153,7 @@ builder.mutationField('signin', (t) =>
 		description: 'Sign in user',
 		args: { input: t.arg({ type: SigninInput, required: true }) },
 		resolve: async (_parent, { input }, { res }) => {
-			const { user, session } = await services.authService.signIn({
+			const { user, session } = await services.auth.signIn({
 				email: input.email,
 				password: input.password,
 			});
@@ -219,7 +219,7 @@ builder.mutationField('signout', (t) =>
 				throw new Error('You are not signed in');
 			}
 
-			await services.authService.signOut(session.id);
+			await services.auth.signOut(session.id);
 
 			res.clearCookie('session');
 

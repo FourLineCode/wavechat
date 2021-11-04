@@ -1,5 +1,5 @@
 import { builder } from 'src/graphql/builder';
-import { UserObject } from 'src/graphql/resolvers/UserResolver';
+import { UserObject } from 'src/graphql/resolvers/user.resolver';
 import { services } from 'src/services';
 
 builder.queryField('discoverUsers', (t) =>
@@ -19,7 +19,7 @@ builder.queryField('discoverUsers', (t) =>
 
 			query = query.trim();
 
-			return await services.discoverService.getDiscoverUsers({
+			return await services.discover.getDiscoverUsers({
 				query,
 				cursor,
 				limit,

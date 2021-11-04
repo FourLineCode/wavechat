@@ -19,8 +19,7 @@ fi
 if [[ "$1" != "--no-reset" ]]
 then
 	docker-compose start postgres
-	sleep 10
-	pnpm --dir api db:reset
+	sleep 5 && pnpm --dir api db:reset
 	docker-compose stop postgres
 fi
 

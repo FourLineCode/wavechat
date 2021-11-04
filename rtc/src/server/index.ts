@@ -3,40 +3,35 @@ import fastifyCookie from 'fastify-cookie';
 import fastifyCors from 'fastify-cors';
 import fastifyHelmet from 'fastify-helmet';
 import fastifyIO from 'fastify-socket.io';
-import { config } from 'src/internal/config';
+import { Config } from 'src/internal/config';
 
-export class FastifyServer {
-	private instance: FastifyInstance;
+export async function initializeServer(config: Config): Promise<FastifyInstance> {
+	const server = fastify();
 
-	public constructor() {
-		this.instance = fastify();
-		this.registerMiddleware();
-		this.registerRoutes();
-	}
+	registerMiddleware(server, config);
+	registerRoutes(server);
 
-	public static async getInstance() {
-		const server = new FastifyServer();
-		await server.instance.ready();
-		return server.instance;
-	}
+	await server.ready();
 
-	private registerMiddleware() {
-		this.instance.register(fastifyCors, { credentials: true, origin: config.origins });
-		this.instance.register(fastifyHelmet, { contentSecurityPolicy: false });
-		this.instance.register(fastifyCookie);
-		this.instance.register(fastifyIO, {
-			path: '/ws',
-			logLevel: config.isDev ? 'debug' : 'fatal',
-			cors: {
-				origin: config.origins,
-				credentials: true,
-			},
-		});
-	}
+	return server;
+}
 
-	private registerRoutes() {
-		this.instance.get('/ws', async () => {
-			this.instance.io.emit('init');
-		});
-	}
+function registerMiddleware(server: FastifyInstance, config: Config) {
+	server.register(fastifyCors, { credentials: true, origin: config.origins });
+	server.register(fastifyHelmet, { contentSecurityPolicy: false });
+	server.register(fastifyCookie);
+	server.register(fastifyIO, {
+		path: '/ws',
+		logLevel: config.isDev ? 'debug' : 'fatal',
+		cors: {
+			origin: config.origins,
+			credentials: true,
+		},
+	});
+}
+
+function registerRoutes(server: FastifyInstance) {
+	server.get('/ws', async () => {
+		server.io.emit('init');
+	});
 }

@@ -3,7 +3,7 @@ export enum SocketEvents {
 	Disconnect = 'disconnect',
 }
 
-export enum UserSocketEvents {
+export enum MessageSocketEvents {
 	Connected = 'user:connected',
 	SendMessage = 'user:message:send',
 	RecieveMessage = 'user:message:recieve',

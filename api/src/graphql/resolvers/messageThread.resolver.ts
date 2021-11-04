@@ -1,8 +1,8 @@
 import { ObjectRef } from '@giraphql/core';
 import { MessageThread } from '@prisma/client';
 import { builder } from 'src/graphql/builder';
-import { MessageObject } from 'src/graphql/resolvers/MessageResolver';
-import { UserObject } from 'src/graphql/resolvers/UserResolver';
+import { MessageObject } from 'src/graphql/resolvers/message.resolver';
+import { UserObject } from 'src/graphql/resolvers/user.resolver';
 import { services } from 'src/services';
 
 export const MessageThreadObject: ObjectRef<MessageThread, MessageThread> = builder
@@ -18,15 +18,13 @@ export const MessageThreadObject: ObjectRef<MessageThread, MessageThread> = buil
 			messages: t.field({
 				type: [MessageObject],
 				resolve: async (messageThread) => {
-					return await services.messageService.getMessagesByThreadId(messageThread.id);
+					return await services.message.getMessagesByThreadId(messageThread.id);
 				},
 			}),
 			participants: t.field({
 				type: [UserObject],
 				resolve: async (messageThread) => {
-					return await services.messageThreadService.getThreadParticipants(
-						messageThread.id
-					);
+					return await services.messageThread.getThreadParticipants(messageThread.id);
 				},
 			}),
 		}),
@@ -43,7 +41,7 @@ builder.mutationField('createMessageThread', (t) =>
 		resolve: async (_parent, { userId }, { user }) => {
 			if (!user) throw new Error('Unauthorized');
 
-			return await services.messageThreadService.getOrCreateThread({
+			return await services.messageThread.getOrCreateThread({
 				userId,
 				currentUserId: user.id,
 			});
@@ -61,7 +59,7 @@ builder.queryField('activeMessageThreads', (t) =>
 		resolve: async (_parent, _args, { user }) => {
 			if (!user) throw new Error('Unauthorized');
 
-			return await services.messageThreadService.getActiveThreads(user.id);
+			return await services.messageThread.getActiveThreads(user.id);
 		},
 	})
 );
@@ -77,7 +75,7 @@ builder.queryField('messageThread', (t) =>
 		resolve: async (_parent, { threadId }, { user }) => {
 			if (!user) throw new Error('Unauthorized');
 
-			return await services.messageThreadService.getThreadById({ threadId, userId: user.id });
+			return await services.messageThread.getThreadById({ threadId, userId: user.id });
 		},
 	})
 );
