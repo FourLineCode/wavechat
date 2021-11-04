@@ -2,7 +2,7 @@ lockfileVersion: 5.3
 
 specifiers:
   '@types/cookie': ^0.4.1
-  '@types/ioredis': ^4.27.8
+  '@types/ioredis': ^4.28.1
   '@types/jsonwebtoken': ^8.5.5
   '@types/node': ^16.11.6
   '@types/uuid': ^8.3.1
@@ -13,7 +13,7 @@ specifiers:
   fastify-cors: ^6.0.2
   fastify-helmet: ^5.3.2
   fastify-socket.io: ^2.0.1
-  graphql: ^16.0.0
+  graphql: ^16.0.1
   graphql-request: ^3.6.1
   ioredis: ^4.28.0
   jsonwebtoken: ^8.5.1
@@ -32,8 +32,8 @@ dependencies:
   fastify-cors: 6.0.2
   fastify-helmet: 5.3.2
   fastify-socket.io: 2.0.1
-  graphql: 16.0.0
-  graphql-request: 3.6.1_graphql@16.0.0
+  graphql: 16.0.1
+  graphql-request: 3.6.1_graphql@16.0.1
   ioredis: 4.28.0
   jsonwebtoken: 8.5.1
   socket.io: 4.3.1
@@ -41,7 +41,7 @@ dependencies:
 
 devDependencies:
   '@types/cookie': 0.4.1
-  '@types/ioredis': 4.27.8
+  '@types/ioredis': 4.28.1
   '@types/jsonwebtoken': 8.5.5
   '@types/node': 16.11.6
   '@types/uuid': 8.3.1
@@ -97,8 +97,8 @@ packages:
     resolution: {integrity: sha512-vt+kDhq/M2ayberEtJcIN/hxXy1Pk+59g2FV/ZQceeaTyCtCucjL2Q7FXlFjtWn4n15KCr1NE2lNNFhp0lEThw==}
     dev: false
 
-  /@types/ioredis/4.27.8:
-    resolution: {integrity: sha512-THsyghYuFI6h/UzwEaeSeagRxiDG1P/NIiL5uTjN7bcbQHwDP6nMWJfEmY0iuu3pOzl1j0FgRpAYz7WWX2eW0Q==}
+  /@types/ioredis/4.28.1:
+    resolution: {integrity: sha512-raYHPqRWrfnEoym94BY28mG1+tcZqh3dsp2q7x5IyMAAEvIdu+H0X8diASMpncIm+oHyH9dalOeOnGOL/YnuOA==}
     dependencies:
       '@types/node': 16.11.6
     dev: true
@@ -563,7 +563,7 @@ packages:
       path-is-absolute: 1.0.1
     dev: true
 
-  /graphql-request/3.6.1_graphql@16.0.0:
+  /graphql-request/3.6.1_graphql@16.0.1:
     resolution: {integrity: sha512-Nm1EasrAQVZllyNTlHDLnLZjlhC6eRWnWP6KH//ytnAL08pjlLkdI2K+s6OV92p45hn5b/kUlLbDwACmRoLwrQ==}
     peerDependencies:
       graphql: 14.x || 15.x
@@ -571,11 +571,11 @@ packages:
       cross-fetch: 3.1.4
       extract-files: 9.0.0
       form-data: 3.0.1
-      graphql: 16.0.0
+      graphql: 16.0.1
     dev: false
 
-  /graphql/16.0.0:
-    resolution: {integrity: sha512-n9NxoRfwnpYBZB/WJ7L166gyrShuZ8qYgVaX8oxVyELcJfAwkvwPt6WlYIl90WRlzqDjaNWvLmNOSnKs5llZWQ==}
+  /graphql/16.0.1:
+    resolution: {integrity: sha512-oPvCuu6dlLdiz8gZupJ47o1clgb72r1u8NDBcQYjcV6G/iEdmE11B1bBlkhXRvV0LisP/SXRFP7tT6AgaTjpzg==}
     engines: {node: ^12.22.0 || ^14.16.0 || >=16.0.0}
     dev: false
 

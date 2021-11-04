@@ -76,3 +76,20 @@ builder.mutationField('createMessage', (t) =>
 		},
 	})
 );
+
+builder.queryField('threadMessages', (t) =>
+	t.field({
+		type: [MessageObject],
+		description: 'Returns all messages owned by a thread',
+		authScopes: { user: true },
+		args: { threadId: t.arg({ type: 'String', required: true }) },
+		resolve: async (_parent, { threadId }, { user }) => {
+			if (!user) throw new Error('Unauthorized');
+
+			return await services.messageService.getUserThreadMessages({
+				threadId,
+				userId: user.id,
+			});
+		},
+	})
+);

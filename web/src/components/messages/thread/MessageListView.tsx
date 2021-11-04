@@ -13,7 +13,7 @@ export function MessageListView({ messages }: Props) {
 	useEffect(() => {
 		if (ref.current) {
 			ref.current.scrollIntoView({
-				behavior: 'smooth',
+				behavior: 'auto',
 			});
 		}
 	}, [messages]);

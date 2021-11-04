@@ -185,7 +185,7 @@
 
 -   [ ] chat service
 
-    -   [ ] general
+    -   [x] general
 
         -   [x] add dockerignore config for prod+dev
         -   [x] add container names on prod
@@ -195,7 +195,7 @@
         -   [x] add new chat service
         -   [x] add production config for chat service
 
-    -   [ ] socket
+    -   [x] socket
 
         -   [x] remove socket from api/web
         -   [x] use zustand for client socket stuff
@@ -229,7 +229,7 @@
             -   [x] auth info cache deletion in redis store
             -   [x] error events listener
         -   [ ] frontend gql queries
-            -   [ ] get initial messages
+            -   [x] get initial messages
             -   [ ] edit messages (maybe)
             -   [ ] reactions (maybe)
 
@@ -237,21 +237,21 @@
 
         -   [ ] make chat ui
             -   [x] formik
+            -   [x] add profile modal
+            -   [x] thread page query no cache
             -   [ ] group messages by same author
             -   [ ] up/down arrow key event
-            -   [ ] add profile modal
+            -   [ ] hold shift + enter shouldnt submit form
             -   [ ] pre formatted text
-            -   [ ] thread page query no cache
             -   [ ] stop auto scroll on hover
             -   [ ] emoji picker
-            -   [ ] disable chatting unless connection established
         -   [x] socket client connect/disconnect event
         -   [x] send messageDTO
         -   [x] join:room event happens before connected (bug fix)
-        -   [ ] initial query to fetch messages
-        -   [ ] add error events listeners
+        -   [x] initial query to fetch messages
+        -   [x] add error events listeners
 
-    -   [ ] shared types
+    -   [x] shared types
         -   [x] add path alias on all service
         -   [x] server events
         -   [x] pubsub events

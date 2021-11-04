@@ -1,5 +1,5 @@
 import { gql, useQuery } from '@apollo/client';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { IsFriendQuery, IsFriendQueryVariables } from 'src/apollo/__generated__/types';
 
 export const IS_FRIEND = gql`
@@ -11,15 +11,12 @@ export const IS_FRIEND = gql`
 export function useIsUserFriend(userId: string): boolean {
 	const [friend, setFriend] = useState(false);
 
-	const { data } = useQuery<IsFriendQuery, IsFriendQueryVariables>(IS_FRIEND, {
+	useQuery<IsFriendQuery, IsFriendQueryVariables>(IS_FRIEND, {
 		variables: { userId: userId },
-	});
-
-	useEffect(() => {
-		if (data) {
+		onCompleted: (data) => {
 			setFriend(data.isFriend);
-		}
-	}, [data]);
+		},
+	});
 
 	return friend;
 }

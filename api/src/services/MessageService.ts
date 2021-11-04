@@ -26,6 +26,25 @@ export class MessageService {
 		});
 	}
 
+	public async getUserThreadMessages({ threadId, userId }: { threadId: string; userId: string }) {
+		const thread = await this.db.messageThread.findFirst({
+			where: {
+				id: threadId,
+				participants: {
+					some: {
+						id: userId,
+					},
+				},
+			},
+			include: {
+				messages: true,
+			},
+			rejectOnNotFound: true,
+		});
+
+		return thread.messages;
+	}
+
 	public async getMessagesByAuthorId(authorId: string) {
 		return await this.db.message.findMany({
 			where: { authorId },

@@ -181,6 +181,8 @@ export type Query = {
   searchFriends: Array<User>;
   /** Get sent requests of current user */
   sentRequests: Array<FriendRequest>;
+  /** Returns all messages owned by a thread */
+  threadMessages: Array<Message>;
   /** returns info for a user */
   user: User;
   /** returns info for a user by username */
@@ -223,6 +225,11 @@ export type QueryMessageThreadArgs = {
 
 export type QuerySearchFriendsArgs = {
   searchTerm: Scalars['String'];
+};
+
+
+export type QueryThreadMessagesArgs = {
+  threadId: Scalars['String'];
 };
 
 
@@ -333,6 +340,13 @@ export type ActiveMessageThreadsQueryVariables = Exact<{ [key: string]: never; }
 
 
 export type ActiveMessageThreadsQuery = { __typename?: 'Query', activeMessageThreads: Array<{ __typename?: 'MessageThread', id: string, updatedAt: any, participants: Array<{ __typename?: 'User', id: string, username: string, displayName: string, avatarUrl?: string | null | undefined }> }> };
+
+export type ThreadMessagesQueryVariables = Exact<{
+  threadId: Scalars['String'];
+}>;
+
+
+export type ThreadMessagesQuery = { __typename?: 'Query', threadMessages: Array<{ __typename?: 'Message', id: string, pk: number, body: string, createdAt: any, updatedAt: any, threadId: string, authorId: string, author: { __typename?: 'User', id: string, username: string, displayName: string, avatarUrl?: string | null | undefined } }> };
 
 export type GetUserDataQueryVariables = Exact<{
   userId: Scalars['String'];
@@ -511,6 +525,25 @@ export const ActiveMessageThreadsDocument = gql`
     id
     updatedAt
     participants {
+      id
+      username
+      displayName
+      avatarUrl
+    }
+  }
+}
+    `;
+export const ThreadMessagesDocument = gql`
+    query ThreadMessages($threadId: String!) {
+  threadMessages(threadId: $threadId) {
+    id
+    pk
+    body
+    createdAt
+    updatedAt
+    threadId
+    authorId
+    author {
       id
       username
       displayName

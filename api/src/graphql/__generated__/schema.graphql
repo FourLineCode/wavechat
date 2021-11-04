@@ -137,6 +137,9 @@ type Query {
   """Get sent requests of current user"""
   sentRequests: [FriendRequest!]!
 
+  """Returns all messages owned by a thread"""
+  threadMessages(threadId: String!): [Message!]!
+
   """returns info for a user"""
   user(userId: String!): User!
 

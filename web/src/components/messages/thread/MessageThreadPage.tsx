@@ -1,14 +1,41 @@
+import { gql, useQuery } from '@apollo/client';
 import { ErrorSocketEvents, UserSocketEvents } from '@shared/socket/events';
 import { MessageDTO } from '@shared/types/message';
 import { Field, Form, Formik } from 'formik';
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 import { BiMessage, BiMessageError } from 'react-icons/bi';
-import { Message, MessageThread } from 'src/apollo/__generated__/types';
+import { BarLoader } from 'react-spinners';
+import {
+	Message,
+	MessageThread,
+	ThreadMessagesQuery,
+	ThreadMessagesQueryVariables,
+} from 'src/apollo/__generated__/types';
 import { MessageListView } from 'src/components/messages/thread/MessageListView';
 import { MessageThreadTopBar } from 'src/components/messages/thread/MessageThreadTopBar';
 import { useSocket } from 'src/socket/useSocket';
 import { useAuth } from 'src/store/useAuth';
+
+const THREAD_MESSAGES = gql`
+	query ThreadMessages($threadId: String!) {
+		threadMessages(threadId: $threadId) {
+			id
+			pk
+			body
+			createdAt
+			updatedAt
+			threadId
+			authorId
+			author {
+				id
+				username
+				displayName
+				avatarUrl
+			}
+		}
+	}
+`;
 
 interface Props {
 	thread: MessageThread;
@@ -21,7 +48,24 @@ export function MessageThreadPage({ thread }: Props) {
 	const inputRef = useRef<HTMLInputElement>(null);
 	const [messages, setMessages] = useState<Message[]>([]);
 	const [error, setError] = useState(false);
+	const [messagesLoading, setMessagesLoading] = useState(true);
 	const [user] = thread.participants.filter((u) => u.id !== currentUserId);
+
+	useQuery<ThreadMessagesQuery, ThreadMessagesQueryVariables>(THREAD_MESSAGES, {
+		variables: {
+			threadId: thread.id,
+		},
+		onCompleted: (data) => {
+			setMessagesLoading(false);
+			setMessages(data.threadMessages as Message[]);
+		},
+		onError: (error) => {
+			setError(true);
+			setMessagesLoading(false);
+			toast.error(error.message);
+		},
+		fetchPolicy: 'no-cache',
+	});
 
 	useEffect(() => {
 		if (inputRef.current) {
@@ -60,18 +104,24 @@ export function MessageThreadPage({ thread }: Props) {
 		<div className='flex flex-col w-full h-full'>
 			<MessageThreadTopBar user={user} />
 			<div className='flex flex-col flex-1 w-full min-h-0 pb-4'>
-				{messages.length > 0 && !error ? (
+				{messages.length > 0 && !error && !messagesLoading ? (
 					<MessageListView messages={messages} />
-				) : !error ? (
+				) : !error && !messagesLoading ? (
 					<div className='flex flex-col items-center justify-center flex-1 text-muted'>
 						<BiMessage size='156px' />
 						<div className='text-xl font-semibold'>Send a message</div>
 					</div>
-				) : (
+				) : error && !messagesLoading ? (
 					<div className='flex flex-col items-center justify-center flex-1 text-muted'>
 						<BiMessageError size='156px' />
 						<div className='text-xl font-semibold'>Something went wrong!</div>
 					</div>
+				) : (
+					messagesLoading && (
+						<div className='flex items-center justify-center flex-1'>
+							<BarLoader color='white' />
+						</div>
+					)
 				)}
 				<div className='px-4'>
 					<Formik
