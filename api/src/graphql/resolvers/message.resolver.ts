@@ -3,8 +3,8 @@ import { Message } from '@prisma/client';
 import { UserDTO } from '@shared/types/auth';
 import { MessageDTO } from '@shared/types/message';
 import { builder } from 'src/graphql/builder';
-import { MessageThreadObject } from 'src/graphql/resolvers/MessageThreadResolver';
-import { UserObject } from 'src/graphql/resolvers/UserResolver';
+import { MessageThreadObject } from 'src/graphql/resolvers/messageThread.resolver';
+import { UserObject } from 'src/graphql/resolvers/user.resolver';
 import { services } from 'src/services';
 
 export const MessageObject: ObjectRef<Message, Message> = builder
@@ -22,14 +22,14 @@ export const MessageObject: ObjectRef<Message, Message> = builder
 			author: t.loadable({
 				type: UserObject,
 				sort: (user) => user.id,
-				load: (ids: string[]) => services.dataLoaderService.loadUserByIDs(ids),
+				load: (ids: string[]) => services.dataloader.loadUserByIDs(ids),
 				resolve: (message) => message.authorId,
 			}),
 			threadId: t.exposeID('threadId'),
 			thread: t.loadable({
 				type: MessageThreadObject,
 				sort: (thread) => thread.id,
-				load: (ids: string[]) => services.dataLoaderService.loadMessageThreadByIDs(ids),
+				load: (ids: string[]) => services.dataloader.loadMessageThreadByIDs(ids),
 				resolve: (message) => message.threadId,
 			}),
 		}),
@@ -72,7 +72,7 @@ builder.mutationField('createMessage', (t) =>
 		authScopes: { internal: true },
 		args: { messageDTO: t.arg({ type: CreateMessageInput, required: true }) },
 		resolve: async (_parent, { messageDTO }) => {
-			return await services.messageService.createMessage(messageDTO);
+			return await services.message.createMessage(messageDTO);
 		},
 	})
 );
@@ -86,7 +86,7 @@ builder.queryField('threadMessages', (t) =>
 		resolve: async (_parent, { threadId }, { user }) => {
 			if (!user) throw new Error('Unauthorized');
 
-			return await services.messageService.getUserThreadMessages({
+			return await services.message.getUserThreadMessages({
 				threadId,
 				userId: user.id,
 			});

@@ -12,7 +12,7 @@ export interface Config {
 }
 
 // Global app configuration
-const config = {
+const config: Config = {
 	isDev: process.env.NODE_ENV !== 'production',
 	port: parseInt(process.env.PORT || '8001'),
 	redisPort: parseInt(process.env.REDIS_PORT || '6379'),

@@ -1,5 +1,5 @@
 import { builder } from 'src/graphql/builder';
-import { UserObject } from 'src/graphql/resolvers/UserResolver';
+import { UserObject } from 'src/graphql/resolvers/user.resolver';
 import { services } from 'src/services';
 
 builder.queryField('searchFriends', (t) =>
@@ -13,7 +13,7 @@ builder.queryField('searchFriends', (t) =>
 
 			const queryTerm = searchTerm.trim().toLowerCase();
 
-			return await services.searchService.getSearchedUsers({ queryTerm, userId: user.id });
+			return await services.search.getSearchedUsers({ queryTerm, userId: user.id });
 		},
 	})
 );

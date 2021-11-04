@@ -7,9 +7,9 @@ import { createServer } from 'http';
 import { app } from 'src/app';
 import { createContext } from 'src/graphql/context';
 import { schema } from 'src/graphql/schema';
-import { config } from 'src/internal/config';
+import { Config } from 'src/internal/config';
 
-export async function startServer() {
+export async function startServer(config: Config) {
 	//Create ApolloServer instance with caching and authorized context
 	const apolloServer = new ApolloServer({
 		schema,

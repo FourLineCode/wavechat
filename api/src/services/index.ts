@@ -1,21 +1,21 @@
-import { AuthService } from 'src/services/AuthService';
-import { DataLoaderService } from 'src/services/DataLoaderService';
-import { DiscoverService } from 'src/services/DiscoverService';
-import { FriendshipService } from 'src/services/FriendshipService';
-import { MessageService } from 'src/services/MessageService';
-import { MessageThreadService } from 'src/services/MessageThreadService';
-import { RtcService } from 'src/services/RtcService';
-import { SearchService } from 'src/services/SearchService';
-import { UserService } from 'src/services/UserService';
+import * as authService from 'src/services/auth.service';
+import * as dataloaderService from 'src/services/dataloader.service';
+import * as discoverService from 'src/services/discover.service';
+import * as friendshipService from 'src/services/friendship.service';
+import * as messageService from 'src/services/message.service';
+import * as messageThreadService from 'src/services/messageThread.service';
+import * as rtcService from 'src/services/rtc.service';
+import * as searchService from 'src/services/search.service';
+import * as userService from 'src/services/user.service';
 
 export const services = {
-	dataLoaderService: DataLoaderService.getInstance(),
-	userService: UserService.getInstance(),
-	authService: AuthService.getInstance(),
-	discoverService: DiscoverService.getInstance(),
-	friendshipService: FriendshipService.getInstance(),
-	searchService: SearchService.getInstance(),
-	messageThreadService: MessageThreadService.getInstance(),
-	messageService: MessageService.getInstance(),
-	rtcService: RtcService.getInstance(),
+	dataloader: dataloaderService,
+	user: userService,
+	auth: authService,
+	discover: discoverService,
+	friendship: friendshipService,
+	search: searchService,
+	messageThread: messageThreadService,
+	message: messageService,
+	rtc: rtcService,
 };

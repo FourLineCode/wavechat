@@ -1,7 +1,7 @@
 import { ObjectRef } from '@giraphql/core';
 import { User } from '@prisma/client';
 import { builder } from 'src/graphql/builder';
-import { UserObject } from 'src/graphql/resolvers/UserResolver';
+import { UserObject } from 'src/graphql/resolvers/user.resolver';
 import { services } from 'src/services';
 
 interface SocketAuthorizedResponse {
@@ -28,7 +28,7 @@ builder.queryField('isSocketAuthorized', (t) =>
 		authScopes: { internal: true },
 		args: { sessionId: t.arg({ type: 'String', required: true }) },
 		resolve: async (_parent, { sessionId }) => {
-			return await services.rtcService.authorize(sessionId);
+			return await services.rtc.authorize(sessionId);
 		},
 	})
 );
@@ -43,7 +43,7 @@ builder.queryField('isUserInThread', (t) =>
 			userId: t.arg({ type: 'String', required: true }),
 		},
 		resolve: async (_parent, { threadId, userId }) => {
-			return services.rtcService.authorizeJoinRoom({ threadId, userId });
+			return services.rtc.authorizeJoinRoom({ threadId, userId });
 		},
 	})
 );
