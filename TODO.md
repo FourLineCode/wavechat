@@ -241,7 +241,7 @@
             -   [x] add profile modal
             -   [x] thread page query no cache
             -   [x] group messages by same author
-            -   [ ] hold shift + enter shouldnt submit form
+            -   [x] hold shift + enter shouldnt submit form
             -   [ ] stop auto scroll on hover
             -   [ ] emoji picker
             -   [ ] up/down arrow key event

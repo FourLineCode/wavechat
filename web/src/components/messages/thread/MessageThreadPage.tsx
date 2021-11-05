@@ -1,7 +1,7 @@
 import { gql, useQuery } from '@apollo/client';
 import { ErrorSocketEvents, MessageSocketEvents } from '@shared/socket/events';
 import { MessageDTO } from '@shared/types/message';
-import { Field, Form, Formik } from 'formik';
+import { Field, Form, Formik, FormikProps } from 'formik';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 import { BiMessage, BiMessageError } from 'react-icons/bi';
@@ -54,7 +54,8 @@ export function MessageThreadPage({ thread }: Props) {
 	const socket = useSocket();
 	const currentUser = useAuth().user;
 	const currentUserId = currentUser?.id;
-	const inputRef = useRef<HTMLInputElement>(null);
+	const inputRef = useRef<HTMLTextAreaElement>(null);
+	const formRef = useRef<FormikProps<{ messageBody: string }>>(null);
 	const [messages, setMessages] = useState<Message[]>([]);
 	const [error, setError] = useState(false);
 	const [messagesLoading, setMessagesLoading] = useState(true);
@@ -131,6 +132,13 @@ export function MessageThreadPage({ thread }: Props) {
 		};
 	}, []);
 
+	const onKeyDownHandler = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+		if (e.key == 'Enter' && !e.shiftKey) {
+			e.preventDefault();
+			formRef.current?.submitForm();
+		}
+	};
+
 	return (
 		<div className='flex flex-col w-full h-full'>
 			<MessageThreadTopBar user={user} />
@@ -157,6 +165,7 @@ export function MessageThreadPage({ thread }: Props) {
 				<div className='px-4'>
 					<Formik
 						initialValues={{ messageBody: '' }}
+						innerRef={formRef}
 						onSubmit={async ({ messageBody }, form) => {
 							if (!messageBody.trim()) return;
 							if (!currentUser) return;
@@ -179,14 +188,16 @@ export function MessageThreadPage({ thread }: Props) {
 					>
 						<Form>
 							<Field
-								as='input'
+								as='textarea'
+								rows='1'
 								type='text'
 								name='messageBody'
 								innerRef={inputRef}
 								autoComplete='off'
 								disabled={error}
 								placeholder='Send a message'
-								className='w-full px-4 py-3 rounded-lg focus:ring-2 focus:outline-none ring-brand-500 bg-dark-600 bg-opacity-30 hover:bg-opacity-20'
+								onKeyDown={onKeyDownHandler}
+								className='w-full px-4 pt-3 align-middle rounded-lg resize-none focus:ring-2 focus:outline-none ring-brand-500 bg-dark-600 bg-opacity-30 hover:bg-opacity-20'
 							/>
 						</Form>
 					</Formik>
