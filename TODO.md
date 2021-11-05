@@ -240,12 +240,13 @@
             -   [x] formik
             -   [x] add profile modal
             -   [x] thread page query no cache
-            -   [ ] group messages by same author
-            -   [ ] up/down arrow key event
+            -   [x] group messages by same author
             -   [ ] hold shift + enter shouldnt submit form
-            -   [ ] pre formatted text
             -   [ ] stop auto scroll on hover
             -   [ ] emoji picker
+            -   [ ] up/down arrow key event
+            -   [ ] pre formatted text
+            -   [ ] paginated messages
         -   [x] socket client connect/disconnect event
         -   [x] send messageDTO
         -   [x] join:room event happens before connected (bug fix)

@@ -2,7 +2,7 @@ import { gql, useQuery } from '@apollo/client';
 import { ErrorSocketEvents, MessageSocketEvents } from '@shared/socket/events';
 import { MessageDTO } from '@shared/types/message';
 import { Field, Form, Formik } from 'formik';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 import { BiMessage, BiMessageError } from 'react-icons/bi';
 import { BarLoader } from 'react-spinners';
@@ -11,6 +11,7 @@ import {
 	MessageThread,
 	ThreadMessagesQuery,
 	ThreadMessagesQueryVariables,
+	User,
 } from 'src/apollo/__generated__/types';
 import { MessageListView } from 'src/components/messages/thread/MessageListView';
 import { MessageThreadTopBar } from 'src/components/messages/thread/MessageThreadTopBar';
@@ -39,6 +40,14 @@ const THREAD_MESSAGES = gql`
 
 interface Props {
 	thread: MessageThread;
+}
+
+export interface MessageGroup {
+	id: string;
+	authorId: string;
+	author: User;
+	messages: Message[];
+	createdAt: string;
 }
 
 export function MessageThreadPage({ thread }: Props) {
@@ -73,6 +82,28 @@ export function MessageThreadPage({ thread }: Props) {
 		}
 	}, []);
 
+	const messageGroups: MessageGroup[] = useMemo(() => {
+		const groups: MessageGroup[] = [];
+		for (let i = 0; i < messages.length; ) {
+			const currentGroupMessages: Message[] = [];
+			const currentAuthor = messages[i].author;
+			while (i < messages.length && messages[i].authorId === currentAuthor.id) {
+				currentGroupMessages.push(messages[i]);
+				i++;
+			}
+			const newGroup: MessageGroup = {
+				id: currentGroupMessages[0].id,
+				authorId: currentAuthor.id,
+				author: currentAuthor,
+				messages: currentGroupMessages,
+				createdAt: currentGroupMessages[0].createdAt,
+			};
+			groups.push(newGroup);
+		}
+
+		return groups;
+	}, [messages]);
+
 	useEffect(() => {
 		socket.connect();
 
@@ -105,7 +136,7 @@ export function MessageThreadPage({ thread }: Props) {
 			<MessageThreadTopBar user={user} />
 			<div className='flex flex-col flex-1 w-full min-h-0 pb-4'>
 				{messages.length > 0 && !error && !messagesLoading ? (
-					<MessageListView messages={messages} />
+					<MessageListView messageGroups={messageGroups} />
 				) : !error && !messagesLoading ? (
 					<div className='flex flex-col items-center justify-center flex-1 text-muted'>
 						<BiMessage size='156px' />

@@ -1,12 +1,12 @@
 import { useEffect, useRef } from 'react';
-import { Message } from 'src/apollo/__generated__/types';
 import { MessageCard } from 'src/components/messages/thread/MessageCard';
+import { MessageGroup } from 'src/components/messages/thread/MessageThreadPage';
 
 interface Props {
-	messages: Message[];
+	messageGroups: MessageGroup[];
 }
 
-export function MessageListView({ messages }: Props) {
+export function MessageListView({ messageGroups }: Props) {
 	const ref = useRef<HTMLDivElement>(null);
 	const container = useRef<HTMLDivElement>(null);
 
@@ -16,15 +16,15 @@ export function MessageListView({ messages }: Props) {
 				behavior: 'auto',
 			});
 		}
-	}, [messages]);
+	}, [messageGroups]);
 
 	return (
 		<div
 			ref={container}
-			className='flex flex-col flex-1 w-full pl-4 pr-2 space-y-4 overflow-x-hidden overflow-y-auto text-xl scrollbar-thin'
+			className='flex flex-col flex-1 w-full space-y-2 overflow-x-hidden overflow-y-auto text-xl scrollbar-thin'
 		>
-			{messages.map((message, index) => (
-				<MessageCard message={message} topMessage={index === 0} key={message.id} />
+			{messageGroups.map((group, index) => (
+				<MessageCard messageGroup={group} topMessage={index === 0} key={group.id} />
 			))}
 			<div ref={ref} />
 		</div>

@@ -11,7 +11,7 @@ export interface Config {
 	origins: string[];
 }
 
-// Some global configuration
+// Global app configuration
 const config: Config = {
 	isDev: process.env.NODE_ENV !== 'production',
 	port: parseInt(process.env.PORT || '5001'),
