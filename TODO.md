@@ -243,7 +243,7 @@
             -   [x] group messages by same author
             -   [x] hold shift + enter shouldnt submit form
             -   [x] pre formatted text
-            -   [ ] up/down arrow key event
+            -   [x] up/down arrow key event
             -   [ ] emoji picker
             -   [ ] stop auto scroll on hover
             -   [ ] paginated messages
