@@ -2,7 +2,7 @@ import { gql, useQuery } from '@apollo/client';
 import { ErrorSocketEvents, MessageSocketEvents } from '@shared/socket/events';
 import { MessageDTO } from '@shared/types/message';
 import { Field, Form, Formik, FormikProps } from 'formik';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import React, { ChangeEvent, useEffect, useMemo, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 import { BiMessage, BiMessageError } from 'react-icons/bi';
 import { BarLoader } from 'react-spinners';
@@ -54,11 +54,14 @@ export function MessageThreadPage({ thread }: Props) {
 	const socket = useSocket();
 	const currentUser = useAuth().user;
 	const currentUserId = currentUser?.id;
-	const inputRef = useRef<HTMLTextAreaElement>(null);
-	const formRef = useRef<FormikProps<{ messageBody: string }>>(null);
 	const [messages, setMessages] = useState<Message[]>([]);
 	const [error, setError] = useState(false);
 	const [messagesLoading, setMessagesLoading] = useState(true);
+	const [inputValue, setInputValue] = useState('');
+	const [prevMessages, setPrevMessages] = useState<string[]>([]);
+	const [prevMessageIndex, setPrevMessageIndex] = useState<number>(-1);
+	const inputRef = useRef<HTMLTextAreaElement>(null);
+	const formRef = useRef<FormikProps<{ messageBody: string }>>(null);
 	const [user] = thread.participants.filter((u) => u.id !== currentUserId);
 
 	useQuery<ThreadMessagesQuery, ThreadMessagesQueryVariables>(THREAD_MESSAGES, {
@@ -133,9 +136,15 @@ export function MessageThreadPage({ thread }: Props) {
 	}, []);
 
 	const onKeyDownHandler = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+		if (['ArrowUp', 'ArrowDown'].includes(e.key)) e.preventDefault();
+
 		if (e.key == 'Enter' && !e.shiftKey) {
 			e.preventDefault();
 			formRef.current?.submitForm();
+		} else if (e.key == 'ArrowUp') {
+			setPrevMessageIndex((prev) => Math.min(prevMessages.length - 1, prev + 1));
+		} else if (e.key == 'ArrowDown') {
+			setPrevMessageIndex((prev) => Math.max(-1, prev - 1));
 		}
 	};
 
@@ -167,11 +176,16 @@ export function MessageThreadPage({ thread }: Props) {
 						initialValues={{ messageBody: '' }}
 						innerRef={formRef}
 						onSubmit={async ({ messageBody }, form) => {
-							if (!messageBody.trim()) return;
+							messageBody = messageBody.trim();
+							if (!messageBody && prevMessageIndex < 0) return;
 							if (!currentUser) return;
 
+							if (prevMessageIndex >= 0) {
+								messageBody = prevMessages[prevMessageIndex];
+							}
+
 							const messageDTO: MessageDTO = {
-								body: messageBody.trim(),
+								body: messageBody,
 								threadId: thread.id,
 								authorId: currentUser.id,
 								author: {
@@ -183,6 +197,9 @@ export function MessageThreadPage({ thread }: Props) {
 							};
 							socket.conn.emit(MessageSocketEvents.SendMessage, messageDTO);
 
+							setPrevMessages((prev) => [messageBody, ...prev]);
+							setPrevMessageIndex(-1);
+							setInputValue('');
 							form.resetForm();
 						}}
 					>
@@ -197,6 +214,14 @@ export function MessageThreadPage({ thread }: Props) {
 								disabled={error}
 								placeholder='Send a message'
 								onKeyDown={onKeyDownHandler}
+								value={
+									prevMessageIndex > -1
+										? prevMessages[prevMessageIndex]
+										: inputValue
+								}
+								onInput={(e: ChangeEvent<HTMLInputElement>) =>
+									setInputValue(e.target.value)
+								}
 								className='w-full px-4 pt-3 align-middle rounded-lg resize-none focus:ring-2 focus:outline-none ring-brand-500 bg-dark-600 bg-opacity-30 hover:bg-opacity-20'
 							/>
 						</Form>

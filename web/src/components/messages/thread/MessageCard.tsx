@@ -45,7 +45,9 @@ export function MessageCard({ messageGroup, topMessage = false }: Props) {
 				</div>
 				<div className='space-y-1.5'>
 					{messageGroup.messages.map((message) => (
-						<div className='text-base break-all font-roboto'>{message.body}</div>
+						<pre className='text-base break-all whitespace-pre-wrap font-roboto'>
+							{message.body}
+						</pre>
 					))}
 				</div>
 			</div>

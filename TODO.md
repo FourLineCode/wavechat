@@ -242,10 +242,10 @@
             -   [x] thread page query no cache
             -   [x] group messages by same author
             -   [x] hold shift + enter shouldnt submit form
-            -   [ ] stop auto scroll on hover
-            -   [ ] emoji picker
+            -   [x] pre formatted text
             -   [ ] up/down arrow key event
-            -   [ ] pre formatted text
+            -   [ ] emoji picker
+            -   [ ] stop auto scroll on hover
             -   [ ] paginated messages
         -   [x] socket client connect/disconnect event
         -   [x] send messageDTO
