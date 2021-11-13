@@ -13,7 +13,6 @@ specifiers:
   autoprefixer: ^10.4.0
   clsx: ^1.1.1
   date-fns: ^2.25.0
-  emoji-picker-react: ^3.4.8
   eslint: 8.2.0
   eslint-config-next: 12.0.3
   formik: ^2.2.9
@@ -26,7 +25,6 @@ specifiers:
   react-dom: 17.0.2
   react-hot-toast: ^2.1.1
   react-icons: ^4.3.1
-  react-input-emoji: ^4.0.9
   react-spinners: ^0.11.0
   regenerator-runtime: ^0.13.9
   socket.io-client: ^4.3.2
@@ -42,7 +40,6 @@ dependencies:
   '@tippyjs/react': 4.2.6_react-dom@17.0.2+react@17.0.2
   clsx: 1.1.1
   date-fns: 2.25.0
-  emoji-picker-react: 3.4.8
   formik: 2.2.9_react@17.0.2
   graphql: 16.0.1
   next: 12.0.3_react-dom@17.0.2+react@17.0.2
@@ -52,7 +49,6 @@ dependencies:
   react-dom: 17.0.2_react@17.0.2
   react-hot-toast: 2.1.1_react-dom@17.0.2+react@17.0.2
   react-icons: 4.3.1_react@17.0.2
-  react-input-emoji: 4.0.9_react-dom@17.0.2+react@17.0.2
   react-spinners: 0.11.0_c8c53a2a5a2c84791ce34d6dbdd05753
   socket.io-client: 4.3.2
   zustand: 3.6.5_react@17.0.2
@@ -2840,20 +2836,6 @@ packages:
       minimalistic-crypto-utils: 1.0.1
     dev: false
 
-  /emoji-mart/3.0.1_react@17.0.2:
-    resolution: {integrity: sha512-sxpmMKxqLvcscu6mFn9ITHeZNkGzIvD0BSNFE/LJESPbCA8s1jM6bCDPjWbV31xHq7JXaxgpHxLB54RCbBZSlg==}
-    peerDependencies:
-      react: ^0.14.0 || ^15.0.0-0 || ^16.0.0 || ^17.0.0
-    dependencies:
-      '@babel/runtime': 7.16.3
-      prop-types: 15.7.2
-      react: 17.0.2
-    dev: false
-
-  /emoji-picker-react/3.4.8:
-    resolution: {integrity: sha512-HsKsompl0zThl1jhLaRPHnn0MdPVs9AxJRa5KM7OVnteoCx/tNr9iMipC2rI2vAMkKstlkedirswUwKAu2AsDg==}
-    dev: false
-
   /emoji-regex/8.0.0:
     resolution: {integrity: sha512-MSjYzcWNOA0ewAHpz0MxpYFvwg6yjy1NG3xteoqz644VCo/RPgnr1/GGt+ic3iJTzQ8Eu3TdM14SawnVUmGE6A==}
     dev: true
@@ -5347,19 +5329,6 @@ packages:
       react: '*'
     dependencies:
       react: 17.0.2
-    dev: false
-
-  /react-input-emoji/4.0.9_react-dom@17.0.2+react@17.0.2:
-    resolution: {integrity: sha512-IkgiaOMNXMYrSJETivEfARHYjZrZ3kVAhjKtV6htYX/cQ3wz0sOiKiGQdHOAPuBRbNdfDHr1WaWoFWT4lCJvwg==}
-    engines: {node: '>=8', npm: '>=5'}
-    peerDependencies:
-      prop-types: '>=15.7.2'
-      react: '>=17.0.x'
-      react-dom: '>=17.0.x'
-    dependencies:
-      emoji-mart: 3.0.1_react@17.0.2
-      react: 17.0.2
-      react-dom: 17.0.2_react@17.0.2
     dev: false
 
   /react-is/16.13.1:
