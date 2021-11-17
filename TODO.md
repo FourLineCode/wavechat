@@ -260,7 +260,7 @@
         -   [x] messages types
         -   [x] auth user types
 
--   [x] functional programming
+-   [x] functional
 
     -   [x] services
 
@@ -273,12 +273,27 @@
     -   [x] change shared naming
     -   [x] change services naming
 
+-   [ ] media upload
+
+    -   [ ] setup localstack
+    -   [ ] setup aws sdk
+    -   [ ] api resolvers for gql file upload
+    -   [ ] web
+        -   [ ] file uploader
+        -   [ ] media viewer
+
+-   [ ] reactions/emojis
+
+    -   [ ] emoji picker
+    -   [ ] message reactions
+
 -   [ ] messages
 
     -   [ ] mentions
         -   [ ] shows user card on click
     -   [ ] images/videos
-        -   [ ] use mediafire maybe
+        -   [ ] use localstack
+        -   [ ] s3 bucket
     -   [ ] reply to messages
     -   [ ] reactions to messages
         -   [ ] only emojis

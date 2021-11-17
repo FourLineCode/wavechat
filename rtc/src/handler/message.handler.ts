@@ -16,6 +16,11 @@ import { pubsub } from 'src/redis/pubsub';
 import { store } from 'src/redis/store';
 import { v4 as uuid } from 'uuid';
 
+interface RoomHandlerParams {
+	socket: Socket;
+	roomId: string;
+}
+
 export async function initializeMessageHandler(io: IOServer) {
 	await pubsub.subscriber.subscribe(UserPubsubChannels.Message);
 	pubsub.subscriber.on('message', (_channel: string, message: string) => {
@@ -62,7 +67,7 @@ async function broadcastMessage(io: IOServer, message: MessageDTO) {
 	io.to(message.threadId).emit(MessageSocketEvents.RecieveMessage, message);
 }
 
-async function joinRoom({ socket, roomId }: { socket: Socket; roomId: string }) {
+async function joinRoom({ socket, roomId }: RoomHandlerParams) {
 	const authorized = await authorizeJoinRoom({ socket, roomId });
 	if (!authorized) {
 		socket.emit(ErrorSocketEvents.JoinRoomError, 'You are not part of this conversation');
@@ -72,17 +77,11 @@ async function joinRoom({ socket, roomId }: { socket: Socket; roomId: string }) 
 	socket.join(roomId);
 }
 
-async function leaveRoom({ socket, roomId }: { socket: Socket; roomId: string }) {
+async function leaveRoom({ socket, roomId }: RoomHandlerParams) {
 	await socket.leave(roomId);
 }
 
-async function authorizeJoinRoom({
-	socket,
-	roomId,
-}: {
-	socket: Socket;
-	roomId: string;
-}): Promise<boolean> {
+async function authorizeJoinRoom({ socket, roomId }: RoomHandlerParams): Promise<boolean> {
 	try {
 		const userObjectString = await store.get(socket.id);
 		if (!userObjectString) {
