@@ -37,9 +37,9 @@ export function FriendsInfo() {
 						))}
 					</Tab.List>
 				</div>
-				<Tab.Panels className='flex flex-col flex-grow min-h-0 px-2 pb-2'>
+				<Tab.Panels className='flex flex-col min-h-0 px-2 pb-2'>
 					{tabs.map((tab) => (
-						<Tab.Panel as={Fragment} key={tab.id}>
+						<Tab.Panel className='flex flex-col flex-grow min-h-0' key={tab.id}>
 							<tab.Component />
 						</Tab.Panel>
 					))}

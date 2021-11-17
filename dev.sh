@@ -4,22 +4,22 @@ pnpm --dir api install
 pnpm --dir rtc install
 pnpm --dir web install
 
-if [[ "$1" != "--no-reset" ]]
+if [[ "$1" == "--reset" || "$2" == "--reset" ]]
 then
 	docker-compose down --volumes
 fi
 
-if [[ "$1" == "--build" ]]
+if [[ "$1" == "--build" || "$2" == "--build" ]]
 then
 	docker-compose up --build --no-start --remove-orphans
 else
 	docker-compose up --no-start --remove-orphans
 fi
 
-if [[ "$1" != "--no-reset" ]]
+if [[ "$1" == "--reset" || "$2" == "--reset" ]]
 then
 	docker-compose start postgres
-	sleep 5 && pnpm --dir api db:reset
+	sleep 10 && pnpm --dir api db:reset
 	docker-compose stop postgres
 fi
 

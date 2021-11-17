@@ -4,12 +4,12 @@ specifiers:
   '@types/cookie': ^0.4.1
   '@types/ioredis': ^4.28.1
   '@types/jsonwebtoken': ^8.5.5
-  '@types/node': ^16.11.6
+  '@types/node': ^16.11.7
   '@types/uuid': ^8.3.1
   cookie: ^0.4.1
   dotenv: ^10.0.0
-  fastify: ^3.22.1
-  fastify-cookie: ^5.3.1
+  fastify: ^3.23.1
+  fastify-cookie: ^5.3.2
   fastify-cors: ^6.0.2
   fastify-helmet: ^5.3.2
   fastify-socket.io: ^2.0.1
@@ -17,7 +17,7 @@ specifiers:
   graphql-request: ^3.6.1
   ioredis: ^4.28.0
   jsonwebtoken: ^8.5.1
-  socket.io: ^4.3.1
+  socket.io: ^4.3.2
   ts-node: ^10.4.0
   ts-node-dev: ^1.1.8
   tsconfig-paths: ^3.11.0
@@ -27,8 +27,8 @@ specifiers:
 dependencies:
   cookie: 0.4.1
   dotenv: 10.0.0
-  fastify: 3.22.1
-  fastify-cookie: 5.3.1
+  fastify: 3.23.1
+  fastify-cookie: 5.3.2
   fastify-cors: 6.0.2
   fastify-helmet: 5.3.2
   fastify-socket.io: 2.0.1
@@ -36,16 +36,16 @@ dependencies:
   graphql-request: 3.6.1_graphql@16.0.1
   ioredis: 4.28.0
   jsonwebtoken: 8.5.1
-  socket.io: 4.3.1
+  socket.io: 4.3.2
   uuid: 8.3.2
 
 devDependencies:
   '@types/cookie': 0.4.1
   '@types/ioredis': 4.28.1
   '@types/jsonwebtoken': 8.5.5
-  '@types/node': 16.11.6
+  '@types/node': 16.11.7
   '@types/uuid': 8.3.1
-  ts-node: 10.4.0_0cb88d80cb04d25b21fa3ec194608c65
+  ts-node: 10.4.0_ee928ac548ac44c173bf0d4654ae2c29
   ts-node-dev: 1.1.8_typescript@4.4.4
   tsconfig-paths: 3.11.0
   typescript: 4.4.4
@@ -100,7 +100,7 @@ packages:
   /@types/ioredis/4.28.1:
     resolution: {integrity: sha512-raYHPqRWrfnEoym94BY28mG1+tcZqh3dsp2q7x5IyMAAEvIdu+H0X8diASMpncIm+oHyH9dalOeOnGOL/YnuOA==}
     dependencies:
-      '@types/node': 16.11.6
+      '@types/node': 16.11.7
     dev: true
 
   /@types/json5/0.0.29:
@@ -110,11 +110,11 @@ packages:
   /@types/jsonwebtoken/8.5.5:
     resolution: {integrity: sha512-OGqtHQ7N5/Ap/TUwO6IgHDuLiAoTmHhGpNvgkCm/F4N6pKzx/RBSfr2OXZSwC6vkfnsEdb6+7DNZVtiXiwdwFw==}
     dependencies:
-      '@types/node': 16.11.6
+      '@types/node': 16.11.7
     dev: true
 
-  /@types/node/16.11.6:
-    resolution: {integrity: sha512-ua7PgUoeQFjmWPcoo9khiPum3Pd60k4/2ZGXt18sm2Slk0W0xZTqt5Y0Ny1NyBiN1EVQ/+FaF9NcY4Qe6rwk5w==}
+  /@types/node/16.11.7:
+    resolution: {integrity: sha512-QB5D2sqfSjCmTuWcBWyJ+/44bcjO7VbjSbOE0ucoVbAsSNQc4Lt6QkgkVXkTDwkL4z/beecZNDvVX15D4P8Jbw==}
 
   /@types/strip-bom/3.0.0:
     resolution: {integrity: sha1-FKjsOVbC6B7bdSB5CuzyHCkK69I=}
@@ -136,7 +136,7 @@ packages:
     resolution: {integrity: sha512-Il80Qs2WjYlJIBNzNkK6KYqlVMTbZLXgHx2oT0pU/fjRHyEp+PEfEPY0R3WCwAGVOtauxh1hOxNgIf5bv7dQpA==}
     engines: {node: '>= 0.6'}
     dependencies:
-      mime-types: 2.1.33
+      mime-types: 2.1.34
       negotiator: 0.6.2
     dev: false
 
@@ -160,8 +160,8 @@ packages:
       uri-js: 4.4.1
     dev: false
 
-  /ajv/8.6.3:
-    resolution: {integrity: sha512-SMJOdDP6LqTkD0Uq8qLi+gMwSt0imXLSV080qFVwJCpH9U6Mb+SUGHAXM0KNbcBPguytWyvFxcHgMLe2D2XSpw==}
+  /ajv/8.7.1:
+    resolution: {integrity: sha512-gPpOObTO1QjbnN1sVMjJcp1TF9nggMfO4MBR5uQl6ZVTOaEPq5i4oq/6R9q2alMMPB3eg53wFv1RuJBLuxf3Hw==}
     dependencies:
       fast-deep-equal: 3.1.3
       json-schema-traverse: 1.0.0
@@ -365,13 +365,13 @@ packages:
       base64-arraybuffer: 1.0.1
     dev: false
 
-  /engine.io/6.0.0:
-    resolution: {integrity: sha512-Ui7yl3JajEIaACg8MOUwWvuuwU7jepZqX3BKs1ho7NQRuP4LhN4XIykXhp8bEy+x/DhA0LBZZXYSCkZDqrwMMg==}
+  /engine.io/6.0.1:
+    resolution: {integrity: sha512-Y53UaciUh2Rmx5MiogtMxOQcfh7pnemday+Bb4QDg0Wjmnvo/VTvuEyNGQgYmh8L7VOe8Je1QuiqjLNDelMqLA==}
     engines: {node: '>=10.0.0'}
     dependencies:
       '@types/cookie': 0.4.1
       '@types/cors': 2.8.12
-      '@types/node': 16.11.6
+      '@types/node': 16.11.7
       accepts: 1.3.7
       base64id: 2.0.0
       cookie: 0.4.1
@@ -402,8 +402,8 @@ packages:
     resolution: {integrity: sha512-lhd/wF+Lk98HZoTCtlVraHtfh5XYijIjalXck7saUtuanSDyLMxnHhSXEDJqHxD7msR8D0uCmqlkwjCV8xvwHw==}
     dev: false
 
-  /fast-json-stringify/2.7.11:
-    resolution: {integrity: sha512-J6rw31EvrT/PTZ4xi5Sf/NjYt5jF8tAPVzIi82qmfD4niAwBbHvUB99H6ipHWEaNQKXXpoyG7THBVsbVPo9prw==}
+  /fast-json-stringify/2.7.12:
+    resolution: {integrity: sha512-4hjwZDPmgj/ZUKXhEWovGPciE/5mWtAIQQxN+2VBDFun7DRTk2oOItbu9ZZp6kqj+eZ/u7z+dgBgM74cfGRnBQ==}
     engines: {node: '>= 10.0.0'}
     dependencies:
       ajv: 6.12.6
@@ -421,8 +421,8 @@ packages:
     resolution: {integrity: sha512-W+KJc2dmILlPplD/H4K9l9LcAHAfPtP6BY84uVLXQ6Evcz9Lcg33Y2z1IVblT6xdY54PXYVHEv+0Wpq8Io6zkA==}
     dev: false
 
-  /fastify-cookie/5.3.1:
-    resolution: {integrity: sha512-ubiC5ydvgqaXOydeg3G+SFEiTJtsyNPde6ForXi+UG66aDbsHlWNLJTQZg4BopXv+MJ0SzlShGVCWv26mgAwpw==}
+  /fastify-cookie/5.3.2:
+    resolution: {integrity: sha512-7ZrRDOxlzO8dxgQSYd3yOd1AWRghpXTP/GxiBel44GVyRyPiYgHeLfqjcoyPNJYPYAEUpxi+6NHkc96Zl8yh9w==}
     dependencies:
       cookie: 0.4.1
       cookie-signature: 1.1.0
@@ -455,7 +455,7 @@ packages:
     resolution: {integrity: sha512-Y2T+hTnHFzcFsmWa7uddng75O6SRR7fnHhio219lKYwhELr78NAca3wspt0nDGlYZIW0qlbO+W5foqWnn9zeYA==}
     dependencies:
       fastify-plugin: 3.0.0
-      socket.io: 4.3.1
+      socket.io: 4.3.2
     transitivePeerDependencies:
       - bufferutil
       - supports-color
@@ -466,13 +466,13 @@ packages:
     resolution: {integrity: sha512-s1EQguBw/9qtc1p/WTY4eq9WMRIACkj+HTcOIK1in4MV5aFaQC9ZCIt0dJ7pr5bIf4lPpHvAtP2ywpTNgs7hqw==}
     dev: false
 
-  /fastify/3.22.1:
-    resolution: {integrity: sha512-TeA4+TzI7VuJrjTNqoxtSXwPEYfCwpT8j9Z3j9WrL8nrt+1bE9G0rP9hLJyvbg4it56p68YsHVhKOee69xyfmA==}
+  /fastify/3.23.1:
+    resolution: {integrity: sha512-Y+HasdpVHpr96W+gLKJXuKBVA4ydXUoW4khGtCnsE9E6R1C4MXlg5x/m3shyeR3xTDZwPBwu39FlUIgjsyLhGw==}
     dependencies:
       '@fastify/ajv-compiler': 1.1.0
       abstract-logging: 2.0.1
       avvio: 7.2.2
-      fast-json-stringify: 2.7.11
+      fast-json-stringify: 2.7.12
       fastify-error: 0.3.1
       fastify-warning: 0.2.0
       find-my-way: 4.3.3
@@ -521,7 +521,7 @@ packages:
     dependencies:
       asynckit: 0.4.0
       combined-stream: 1.0.8
-      mime-types: 2.1.33
+      mime-types: 2.1.34
     dev: false
 
   /forwarded/0.2.0:
@@ -705,7 +705,7 @@ packages:
   /light-my-request/4.6.0:
     resolution: {integrity: sha512-wQWGwMr7l7fzYPzzzutRoEI1vuREpIpJpTi3t8cHlGdsnBrOF5iR559Bkh+nkDGgnUJtNuuutjnqbxP7zPWKkA==}
     dependencies:
-      ajv: 8.6.3
+      ajv: 8.7.1
       cookie: 0.4.1
       fastify-warning: 0.2.0
       set-cookie-parser: 2.4.8
@@ -762,16 +762,16 @@ packages:
     resolution: {integrity: sha512-s8UhlNe7vPKomQhC1qFelMokr/Sc3AgNbso3n74mVPA5LTZwkB9NlXf4XPamLxJE8h0gh73rM94xvwRT2CVInw==}
     dev: true
 
-  /mime-db/1.50.0:
-    resolution: {integrity: sha512-9tMZCDlYHqeERXEHO9f/hKfNXhre5dK2eE/krIvUjZbS2KPcqGDfNShIWS1uW9XOTKQKqK6qbeOci18rbfW77A==}
+  /mime-db/1.51.0:
+    resolution: {integrity: sha512-5y8A56jg7XVQx2mbv1lu49NR4dokRnhZYTtL+KGfaa27uq4pSTXkwQkFJl4pkRMyNFz/EtYDSkiiEHx3F7UN6g==}
     engines: {node: '>= 0.6'}
     dev: false
 
-  /mime-types/2.1.33:
-    resolution: {integrity: sha512-plLElXp7pRDd0bNZHw+nMd52vRYjLwQjygaNg7ddJ2uJtTlmnTCjWuPKxVu6//AdaRuME84SvLW91sIkBqGT0g==}
+  /mime-types/2.1.34:
+    resolution: {integrity: sha512-6cP692WwGIs9XXdOO4++N+7qjqv0rqxxVvJ3VHPh/Sc9mVZcQP+ZGhkKiTvWMQRr2tbHkJP/Yn7Y0npb3ZBs4A==}
     engines: {node: '>= 0.6'}
     dependencies:
-      mime-db: 1.50.0
+      mime-db: 1.51.0
     dev: false
 
   /minimatch/3.0.4:
@@ -983,14 +983,14 @@ packages:
       - supports-color
     dev: false
 
-  /socket.io/4.3.1:
-    resolution: {integrity: sha512-HC5w5Olv2XZ0XJ4gOLGzzHEuOCfj3G0SmoW3jLHYYh34EVsIr3EkW9h6kgfW+K3TFEcmYy8JcPWe//KUkBp5jA==}
+  /socket.io/4.3.2:
+    resolution: {integrity: sha512-6S5tV4jcY6dbZ/lLzD6EkvNWI3s81JO6ABP/EpvOlK1NPOcIj3AS4khi6xXw6JlZCASq82HQV4SapfmVMMl2dg==}
     engines: {node: '>=10.0.0'}
     dependencies:
       accepts: 1.3.7
       base64id: 2.0.0
       debug: 4.3.2
-      engine.io: 6.0.0
+      engine.io: 6.0.1
       socket.io-adapter: 2.3.2
       socket.io-parser: 4.0.4
     transitivePeerDependencies:
@@ -1077,7 +1077,7 @@ packages:
       typescript: 4.4.4
     dev: true
 
-  /ts-node/10.4.0_0cb88d80cb04d25b21fa3ec194608c65:
+  /ts-node/10.4.0_ee928ac548ac44c173bf0d4654ae2c29:
     resolution: {integrity: sha512-g0FlPvvCXSIO1JDF6S232P5jPYqBkRL9qly81ZgAOSU7rwI0stphCgd2kLiCrU9DjQCrJMWEqcNSjQL02s6d8A==}
     hasBin: true
     peerDependencies:
@@ -1096,7 +1096,7 @@ packages:
       '@tsconfig/node12': 1.0.9
       '@tsconfig/node14': 1.0.1
       '@tsconfig/node16': 1.0.2
-      '@types/node': 16.11.6
+      '@types/node': 16.11.7
       acorn: 8.5.0
       acorn-walk: 8.2.0
       arg: 4.1.3

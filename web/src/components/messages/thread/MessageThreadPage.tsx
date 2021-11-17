@@ -1,8 +1,8 @@
 import { gql, useQuery } from '@apollo/client';
 import { ErrorSocketEvents, MessageSocketEvents } from '@shared/socket/events';
 import { MessageDTO } from '@shared/types/message';
-import { Field, Form, Formik } from 'formik';
-import { useEffect, useRef, useState } from 'react';
+import { Field, Form, Formik, FormikProps } from 'formik';
+import React, { ChangeEvent, useEffect, useMemo, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 import { BiMessage, BiMessageError } from 'react-icons/bi';
 import { BarLoader } from 'react-spinners';
@@ -11,6 +11,7 @@ import {
 	MessageThread,
 	ThreadMessagesQuery,
 	ThreadMessagesQueryVariables,
+	User,
 } from 'src/apollo/__generated__/types';
 import { MessageListView } from 'src/components/messages/thread/MessageListView';
 import { MessageThreadTopBar } from 'src/components/messages/thread/MessageThreadTopBar';
@@ -41,14 +42,26 @@ interface Props {
 	thread: MessageThread;
 }
 
+export interface MessageGroup {
+	id: string;
+	authorId: string;
+	author: User;
+	messages: Message[];
+	createdAt: string;
+}
+
 export function MessageThreadPage({ thread }: Props) {
 	const socket = useSocket();
 	const currentUser = useAuth().user;
 	const currentUserId = currentUser?.id;
-	const inputRef = useRef<HTMLInputElement>(null);
 	const [messages, setMessages] = useState<Message[]>([]);
 	const [error, setError] = useState(false);
 	const [messagesLoading, setMessagesLoading] = useState(true);
+	const [inputValue, setInputValue] = useState('');
+	const [prevMessages, setPrevMessages] = useState<string[]>([]);
+	const [prevMessageIndex, setPrevMessageIndex] = useState<number>(-1);
+	const inputRef = useRef<HTMLTextAreaElement>(null);
+	const formRef = useRef<FormikProps<{ messageBody: string }>>(null);
 	const [user] = thread.participants.filter((u) => u.id !== currentUserId);
 
 	useQuery<ThreadMessagesQuery, ThreadMessagesQueryVariables>(THREAD_MESSAGES, {
@@ -72,6 +85,28 @@ export function MessageThreadPage({ thread }: Props) {
 			inputRef.current.focus();
 		}
 	}, []);
+
+	const messageGroups: MessageGroup[] = useMemo(() => {
+		const groups: MessageGroup[] = [];
+		for (let i = 0; i < messages.length; ) {
+			const currentGroupMessages: Message[] = [];
+			const currentAuthor = messages[i].author;
+			while (i < messages.length && messages[i].authorId === currentAuthor.id) {
+				currentGroupMessages.push(messages[i]);
+				i++;
+			}
+			const newGroup: MessageGroup = {
+				id: currentGroupMessages[0].id,
+				authorId: currentAuthor.id,
+				author: currentAuthor,
+				messages: currentGroupMessages,
+				createdAt: currentGroupMessages[0].createdAt,
+			};
+			groups.push(newGroup);
+		}
+
+		return groups;
+	}, [messages]);
 
 	useEffect(() => {
 		socket.connect();
@@ -100,12 +135,25 @@ export function MessageThreadPage({ thread }: Props) {
 		};
 	}, []);
 
+	const onKeyDownHandler = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+		if (['ArrowUp', 'ArrowDown'].includes(e.key)) e.preventDefault();
+
+		if (e.key == 'Enter' && !e.shiftKey) {
+			e.preventDefault();
+			formRef.current?.submitForm();
+		} else if (e.key == 'ArrowUp') {
+			setPrevMessageIndex((prev) => Math.min(prevMessages.length - 1, prev + 1));
+		} else if (e.key == 'ArrowDown') {
+			setPrevMessageIndex((prev) => Math.max(-1, prev - 1));
+		}
+	};
+
 	return (
 		<div className='flex flex-col w-full h-full'>
 			<MessageThreadTopBar user={user} />
 			<div className='flex flex-col flex-1 w-full min-h-0 pb-4'>
 				{messages.length > 0 && !error && !messagesLoading ? (
-					<MessageListView messages={messages} />
+					<MessageListView messageGroups={messageGroups} />
 				) : !error && !messagesLoading ? (
 					<div className='flex flex-col items-center justify-center flex-1 text-muted'>
 						<BiMessage size='156px' />
@@ -126,12 +174,18 @@ export function MessageThreadPage({ thread }: Props) {
 				<div className='px-4'>
 					<Formik
 						initialValues={{ messageBody: '' }}
+						innerRef={formRef}
 						onSubmit={async ({ messageBody }, form) => {
-							if (!messageBody.trim()) return;
+							messageBody = messageBody.trim();
+							if (!messageBody && prevMessageIndex < 0) return;
 							if (!currentUser) return;
 
+							if (prevMessageIndex >= 0) {
+								messageBody = prevMessages[prevMessageIndex];
+							}
+
 							const messageDTO: MessageDTO = {
-								body: messageBody.trim(),
+								body: messageBody,
 								threadId: thread.id,
 								authorId: currentUser.id,
 								author: {
@@ -143,19 +197,32 @@ export function MessageThreadPage({ thread }: Props) {
 							};
 							socket.conn.emit(MessageSocketEvents.SendMessage, messageDTO);
 
+							setPrevMessages((prev) => [messageBody, ...prev]);
+							setPrevMessageIndex(-1);
+							setInputValue('');
 							form.resetForm();
 						}}
 					>
 						<Form>
 							<Field
-								as='input'
+								as='textarea'
+								rows='1'
 								type='text'
 								name='messageBody'
 								innerRef={inputRef}
 								autoComplete='off'
 								disabled={error}
 								placeholder='Send a message'
-								className='w-full px-4 py-3 rounded-lg focus:ring-2 focus:outline-none ring-brand-500 bg-dark-600 bg-opacity-30 hover:bg-opacity-20'
+								onKeyDown={onKeyDownHandler}
+								value={
+									prevMessageIndex > -1
+										? prevMessages[prevMessageIndex]
+										: inputValue
+								}
+								onInput={(e: ChangeEvent<HTMLInputElement>) =>
+									setInputValue(e.target.value)
+								}
+								className='w-full px-4 pt-3 align-middle rounded-lg resize-none focus:ring-2 focus:outline-none ring-brand-500 bg-dark-600 bg-opacity-30 hover:bg-opacity-20'
 							/>
 						</Form>
 					</Formik>

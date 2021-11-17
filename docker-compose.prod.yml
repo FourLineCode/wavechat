@@ -46,7 +46,6 @@ services:
         # container_name: wcp-api
         build:
             context: ./api
-            dockerfile: ./Prod.Dockerfile
             target: production
         working_dir: /api
         restart: on-failure
@@ -67,7 +66,6 @@ services:
         # container_name: wcp-rtc
         build:
             context: ./rtc
-            dockerfile: ./Prod.Dockerfile
             target: production
         working_dir: /rtc
         restart: on-failure
@@ -94,7 +92,6 @@ services:
         container_name: wcp-web
         build:
             context: ./web
-            dockerfile: ./Prod.Dockerfile
             target: production
         working_dir: /web
         restart: on-failure

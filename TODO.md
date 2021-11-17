@@ -240,12 +240,13 @@
             -   [x] formik
             -   [x] add profile modal
             -   [x] thread page query no cache
-            -   [ ] group messages by same author
-            -   [ ] up/down arrow key event
-            -   [ ] hold shift + enter shouldnt submit form
-            -   [ ] pre formatted text
-            -   [ ] stop auto scroll on hover
+            -   [x] group messages by same author
+            -   [x] hold shift + enter shouldnt submit form
+            -   [x] pre formatted text
+            -   [x] up/down arrow key event
             -   [ ] emoji picker
+            -   [ ] stop auto scroll on hover
+            -   [ ] paginated messages
         -   [x] socket client connect/disconnect event
         -   [x] send messageDTO
         -   [x] join:room event happens before connected (bug fix)
@@ -259,7 +260,7 @@
         -   [x] messages types
         -   [x] auth user types
 
--   [x] functional programming
+-   [x] functional
 
     -   [x] services
 
@@ -272,12 +273,27 @@
     -   [x] change shared naming
     -   [x] change services naming
 
+-   [ ] media upload
+
+    -   [ ] setup localstack
+    -   [ ] setup aws sdk
+    -   [ ] api resolvers for gql file upload
+    -   [ ] web
+        -   [ ] file uploader
+        -   [ ] media viewer
+
+-   [ ] reactions/emojis
+
+    -   [ ] emoji picker
+    -   [ ] message reactions
+
 -   [ ] messages
 
     -   [ ] mentions
         -   [ ] shows user card on click
     -   [ ] images/videos
-        -   [ ] use mediafire maybe
+        -   [ ] use localstack
+        -   [ ] s3 bucket
     -   [ ] reply to messages
     -   [ ] reactions to messages
         -   [ ] only emojis
