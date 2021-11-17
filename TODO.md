@@ -281,6 +281,10 @@
     -   [ ] web
         -   [ ] file uploader
         -   [ ] media viewer
+    -   [ ] update production env
+    -   [ ] add aws config to docs
+        -   [ ] commands to create bucket
+        -   [ ] add acl permission to bucket
 
 -   [ ] reactions/emojis
 

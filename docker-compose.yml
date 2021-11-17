@@ -18,6 +18,22 @@ services:
         networks:
             - wave
 
+    # Local AWS simulation container
+    localstack:
+        container_name: wc-localstack
+        image: localstack/localstack:0.12.20
+        ports:
+            - 4566:4566
+        volumes:
+            - ./.localstack:/tmp/localstack
+            - /var/run/docker.sock:/var/run/docker.sock
+        networks:
+            - wave
+        environment:
+            - SERVICES=s3
+            - DEBUG=1
+            - DATA_DIR=/tmp/localstack/data
+
     # PostgreSQL database container
     postgres:
         container_name: wc-postgres

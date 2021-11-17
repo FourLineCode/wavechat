@@ -42,6 +42,7 @@ communicate with each other about their activities and help each other.
 -   [Docker](https://docs.docker.com/get-docker/)
 -   [Docker-Compose](https://docs.docker.com/compose/install/)
 -   [Git](https://git-scm.com/downloads)
+-   [AWS-CLI](https://github.com/localstack/awscli-local)
 
 ## Clone the Repository
 
