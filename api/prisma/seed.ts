@@ -27,7 +27,7 @@ async function seed() {
 	});
 
 	// Create some fake accounts
-	for (let i = 0; i < 50; i++) {
+	for (let i = 0; i < 100; i++) {
 		const name = faker.name.findName();
 		const user = await db.user.create({
 			data: {
@@ -43,7 +43,7 @@ async function seed() {
 			},
 		});
 
-		if (i < 20 && i % 2 === 0) {
+		if (i < 50 && i % 2 === 0) {
 			// Create friendships
 			await db.friendship.create({
 				data: {
@@ -51,7 +51,41 @@ async function seed() {
 					secondUserId: user.id,
 				},
 			});
-		} else if (i < 20 && i % 2 !== 0) {
+
+			// Create fake message threads and populate with messages
+			if (i % 5 === 0) {
+				const thread = await db.messageThread.create({
+					data: {
+						participants: {
+							connect: [{ id: admin.id }, { id: user.id }],
+						},
+					},
+				});
+
+				await db.$transaction([
+					db.message.createMany({
+						data: [
+							{
+								body: 'Example message #1',
+								threadId: thread.id,
+								authorId: user.id,
+							},
+							{
+								body: 'Example message #2',
+								threadId: thread.id,
+								authorId: user.id,
+							},
+						],
+					}),
+					db.messageThread.update({
+						where: { id: thread.id },
+						data: {
+							updatedAt: new Date().toISOString(),
+						},
+					}),
+				]);
+			}
+		} else if (i < 50 && i % 2 !== 0) {
 			// Send some requests
 			await db.friendRequest.create({
 				data: {

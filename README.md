@@ -46,7 +46,7 @@ communicate with each other about their activities and help each other.
 
 ## Clone the Repository
 
-```console
+```bash
 git clone https://github.com/FourLineCode/wavechat.git
 ```
 
@@ -54,11 +54,11 @@ git clone https://github.com/FourLineCode/wavechat.git
 
 **Command**
 
-```console
+```bash
 ./deploy.sh
 ```
 
-> Deploy script currently deploys 3 replicas of backend images. Edit deploy script to change scaling factor
+> Deploy script currently deploys 2 replicas of backend images. Edit deploy script to change scaling factor
 
 ## Visit the site at your local custom domain
 
@@ -70,12 +70,24 @@ git clone https://github.com/FourLineCode/wavechat.git
 
 **Command**
 
-```console
+```bash
 ./dev.sh
 ```
 
 > Pass the `--build` flag to rebuild the containers.
-> Pass the `--no-reset` flag to stop migration and seed process from re-running.
+> Pass the `--reset` flag to reset the volumes.
+> If the reset script fails to connect, just restart the dev script to fix it.
+> Make sure to export $UID and $GID as ENV variable if you are experiencing file permission issues.
+
+## Initialize AWS S3 bucket
+
+```bash
+awslocal --endpoint-url=http://localhost:4566 s3 mb s3://wc-media
+awslocal --endpoint-url=http://localhost:4566 s3api put-bucket-acl --bucket wc-media --acl public-read
+```
+
+> This is only applicable to local development
+> Use the actual AWS cli or web control panel to initialize AWS S3 bucket in production
 
 ## Open the development server on custom domain
 
