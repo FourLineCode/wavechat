@@ -32,6 +32,7 @@
 		"@giraphql/plugin-validation": "^2.13.0",
 		"@prisma/client": "^3.4.2",
 		"apollo-server-express": "^3.5.0",
+		"aws-sdk": "^2.1035.0",
 		"bcrypt": "^5.0.1",
 		"cookie-parser": "^1.4.5",
 		"cors": "^2.8.5",
