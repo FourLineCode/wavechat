@@ -1,4 +1,5 @@
 import io, { Socket } from 'socket.io-client';
+import { config } from 'src/internal/config';
 import create, { State } from 'zustand';
 
 export interface SocketState extends State {
@@ -8,7 +9,7 @@ export interface SocketState extends State {
 }
 
 export const useSocket = create<SocketState>((set, get) => ({
-	conn: io('http://wavechat.localhost', { path: '/ws', autoConnect: false }),
+	conn: io(config.wsEndpoint, { path: config.wsPath, autoConnect: false }),
 	connect: () => {
 		get().conn.connect();
 	},

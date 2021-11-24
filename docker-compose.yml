@@ -33,6 +33,11 @@ services:
             - SERVICES=s3
             - DEBUG=1
             - DATA_DIR=/tmp/localstack/data
+        labels:
+            - traefik.enable=true
+            - traefik.http.routers.localstack.entrypoints=wave
+            # Routes prefixed with specific routes gets forwarded to localstack
+            - traefik.http.routers.localstack.rule=Host(`cdn.wavechat.localhost`)
 
     # PostgreSQL database container
     postgres:
