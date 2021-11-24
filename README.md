@@ -30,7 +30,7 @@ communicate with each other about their activities and help each other.
 	<td align="center"><a href="https://redis.io/"><img src=".github/images/redis.png" width="75px;" height="75px;" alt="Redis"/><br /><b><font color="#777">Redis</font></b></a></td>
     <td align="center"><a href="https://www.docker.com/"><img src=".github/images/docker.png" width="75px;" height="75px;" alt="Docker"/><br /><b><font color="#777">Docker</font></b></a></td>
 	<td align="center"><a href="https://traefik.io/"><img src=".github/images/traefik.png" width="75px;" height="75px;" alt="Traefik"/><br /><b><font color="#777">Traefik</font></b></a></td>
-	<td align="center"><a href="https://aws.amazon.com/s3"><img src=".github/images/aws.png" width="75px;" height="75px;" alt="AWS"/><br /><b><font color="#777">AWS S3</font></b></a></td>
+	<td align="center"><a href="https://aws.amazon.com/s3"><img src=".github/images/aws.png" width="110px;" height="75px;" alt="AWS"/><br /><b><font color="#777">AWS S3</font></b></a></td>
   </tr>
 </table>
 
