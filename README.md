@@ -12,11 +12,11 @@ communicate with each other about their activities and help each other.
 
 ## Stack
 
-<table align="center" width="500">
+<table align="center" width="800">
   <tr>
-    <td align="center" ><a href="https://www.typescriptlang.org"><img src=".github/images/typescript.png" width="70px;" height="75px;" alt="TypeScript" /><br /><b><font color="#777">TypeScript</font></b></a></td>
+    <td align="center" ><a href="https://www.typescriptlang.org"><img style="border-radius: 8px;" src=".github/images/typescript.png" width="70px;" height="75px;" alt="TypeScript" /><br /><b><font color="#777">TypeScript</font></b></a></td>
     <td align="center"><a href="https://nextjs.org/"><img src=".github/images/nextjs.png" width="70px;" height="75px;" alt="Next JS"/><br /><b><font color="#777">NextJs</font></b></a></td>
-    <td align="center"><a href="https://reactjs.org"><img src=".github/images/react.png" width="80px;" height="75px;" alt="React JS"/><br /><b><font color="#777">ReactJs</font></b></a></td>
+    <td align="center"><a href="https://reactjs.org"><img src=".github/images/react.png" width="80px;" height="75px;" style="border-radius: 8px;" alt="React JS"/><br /><b><font color="#777">ReactJs</font></b></a></td>
     <td align="center"><a href="https://www.apollographql.com/"><img src=".github/images/apollo.png" width="75px;" height="75px;" alt="Apollo"/><br /><b><font color="#777">Apollo</font></b></a></td>
     <td align="center"><a href="https://tailwindcss.com/"><img src=".github/images/tailwind.png" width="75px;" height="75px;" alt="Tailwind"/><br /><b><font color="#777">Tailwind CSS</font></b></a></td>
   </tr>
@@ -30,7 +30,7 @@ communicate with each other about their activities and help each other.
 	<td align="center"><a href="https://redis.io/"><img src=".github/images/redis.png" width="75px;" height="75px;" alt="Redis"/><br /><b><font color="#777">Redis</font></b></a></td>
     <td align="center"><a href="https://www.docker.com/"><img src=".github/images/docker.png" width="75px;" height="75px;" alt="Docker"/><br /><b><font color="#777">Docker</font></b></a></td>
 	<td align="center"><a href="https://traefik.io/"><img src=".github/images/traefik.png" width="75px;" height="75px;" alt="Traefik"/><br /><b><font color="#777">Traefik</font></b></a></td>
-	<td align="center"><a href="https://aws.amazon.com/s3"><img src=".github/images/aws-s3.png" width="110px;" height="75px;" alt="AWS"/><br /><b><font color="#777">AWS S3</font></b></a></td>
+	<td align="center"><a href="https://aws.amazon.com/s3"><img style="border-radius: 8px;" src=".github/images/aws.png" width="110px;" height="75px;" alt="AWS"/><br /><b><font color="#777">AWS S3</font></b></a></td>
   </tr>
 </table>
 
@@ -75,10 +75,10 @@ git clone https://github.com/FourLineCode/wavechat.git
 ./dev.sh
 ```
 
-> -   Pass the `--build` flag to rebuild the containers.\
-> -   Pass the `--reset` flag to reset the volumes.\
-> -   If the reset script fails to connect, just restart the dev script to fix it.\
-> -   Make sure to export $UID and $GID as ENV variable if you are experiencing file permission issues.\
+> -   Pass the `--build` flag to rebuild the containers.
+> -   Pass the `--reset` flag to reset the volumes.
+> -   If the reset script fails to connect, just restart the dev script to fix it.
+> -   Make sure to export $UID and $GID as ENV variable if you are experiencing file permission issues.
 
 ## Initialize AWS S3 bucket
 
@@ -88,7 +88,7 @@ awslocal --endpoint-url=http://localhost:4566 s3api put-bucket-acl --bucket wc-m
 ```
 
 > This is only applicable to local development.\
-> Use the actual AWS cli or web control panel to initialize AWS S3 bucket in production.\
+> Use the actual AWS cli or web control panel to initialize AWS S3 bucket in production.
 
 ## Open the development server on custom domain
 
