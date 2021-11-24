@@ -26,7 +26,7 @@ module.exports = {
 				muted: customDark[600],
 			},
 			fontFamily: {
-				roboto: ['Roboto', 'sans-serif'],
+				'open-sans': ['Open Sans', 'sans-serif'],
 			},
 		},
 	},
