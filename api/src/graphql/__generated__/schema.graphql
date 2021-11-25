@@ -5,6 +5,7 @@ type AuthResult {
 }
 
 input CreateMessageInput {
+  attachments: [MediaDTOInput!]
   author: UserDTOInput!
   authorId: String!
   body: String!
@@ -16,13 +17,6 @@ input CreateMessageInput {
 }
 
 scalar Date
-
-"""File upload object"""
-type File {
-  encoding: String!
-  filename: String!
-  mimetype: String!
-}
 
 """FriendRequest object type"""
 type FriendRequest {
@@ -48,8 +42,38 @@ type Friendship {
   updatedAt: Date!
 }
 
+"""Media object"""
+type Media {
+  createdAt: Date!
+  encoding: String!
+  filename: String!
+  id: ID!
+  message: Message!
+  messageId: ID!
+  mimetype: String!
+  pk: Int!
+  updatedAt: Date!
+  url: String!
+}
+
+"""Response object for file upload"""
+type MediaDTO {
+  encoding: String!
+  filename: String!
+  mimetype: String!
+  url: String!
+}
+
+input MediaDTOInput {
+  encoding: String!
+  filename: String!
+  mimetype: String!
+  url: String!
+}
+
 """Message object type"""
 type Message {
+  attachments: [Media!]!
   author: User!
   authorId: ID!
   body: String!
@@ -106,10 +130,10 @@ type Mutation {
   unsendRequest(requestId: String!): Boolean!
 
   """Upload single file"""
-  uploadMultipleFiles(files: [Upload!]!): [UploadResponse!]!
+  uploadMultipleFiles(files: [Upload!]!): [MediaDTO!]!
 
   """Upload single file"""
-  uploadSingleFile(file: Upload!): UploadResponse!
+  uploadSingleFile(file: Upload!): MediaDTO!
 }
 
 type Query {
@@ -197,12 +221,6 @@ type SuccessResult {
 }
 
 scalar Upload
-
-"""Response object for file upload"""
-type UploadResponse {
-  file: File!
-  url: String!
-}
 
 """User object type"""
 type User {

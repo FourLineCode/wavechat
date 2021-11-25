@@ -13,6 +13,7 @@ export type Scalars = {
   Int: number;
   Float: number;
   Date: any;
+  Upload: any;
 };
 
 /** Response object for authentication queries */
@@ -31,6 +32,14 @@ export type CreateMessageInput = {
   pk?: InputMaybe<Scalars['Int']>;
   threadId: Scalars['String'];
   updatedAt: Scalars['String'];
+};
+
+/** File upload object */
+export type File = {
+  __typename?: 'File';
+  encoding: Scalars['String'];
+  filename: Scalars['String'];
+  mimetype: Scalars['String'];
 };
 
 /** FriendRequest object type */
@@ -108,6 +117,10 @@ export type Mutation = {
   unfriend: Friendship;
   /** Unsend a sent friend request */
   unsendRequest: Scalars['Boolean'];
+  /** Upload single file */
+  uploadMultipleFiles: Array<UploadResponse>;
+  /** Upload single file */
+  uploadSingleFile: UploadResponse;
 };
 
 
@@ -153,6 +166,16 @@ export type MutationUnfriendArgs = {
 
 export type MutationUnsendRequestArgs = {
   requestId: Scalars['String'];
+};
+
+
+export type MutationUploadMultipleFilesArgs = {
+  files: Array<Scalars['Upload']>;
+};
+
+
+export type MutationUploadSingleFileArgs = {
+  file: Scalars['Upload'];
 };
 
 export type Query = {
@@ -280,6 +303,13 @@ export type SocketAuthorizedResponse = {
 export type SuccessResult = {
   __typename?: 'SuccessResult';
   success: Scalars['Boolean'];
+};
+
+/** Response object for file upload */
+export type UploadResponse = {
+  __typename?: 'UploadResponse';
+  file: File;
+  url: Scalars['String'];
 };
 
 /** User object type */

@@ -277,8 +277,8 @@
 
     -   [x] setup localstack
     -   [x] setup aws sdk
-    -   [ ] services for aws media file upload
-    -   [ ] api resolvers for gql file upload
+    -   [x] services for aws media file upload
+    -   [x] api mutations/resolvers for gql file upload
     -   [ ] web
         -   [ ] file uploader
         -   [ ] media viewer

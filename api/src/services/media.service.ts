@@ -1,18 +1,10 @@
+import { MediaDTO } from '@shared/types/message';
 import { FileUpload } from 'graphql-upload';
+import { db } from 'prisma/connection';
 import { getS3Client } from 'src/aws/s3';
 import { getConfig } from 'src/internal/config';
 
-export interface File {
-	filename: string;
-	mimetype: string;
-	encoding: string;
-}
-export interface UploadResponse {
-	url: string;
-	file: File;
-}
-
-export async function uploadSingleFile(stream: Promise<FileUpload>): Promise<UploadResponse> {
+export async function uploadSingleFile(stream: Promise<FileUpload>): Promise<MediaDTO> {
 	const config = getConfig();
 	const client = getS3Client();
 
@@ -31,18 +23,16 @@ export async function uploadSingleFile(stream: Promise<FileUpload>): Promise<Upl
 		.promise();
 
 	return {
-		file,
+		...file,
 		url: `http://${config.cdnHost}/${config.s3BucketName}/${response.Key}`,
 	};
 }
 
-export async function uploadMultipleFiles(
-	streams: Promise<FileUpload>[]
-): Promise<UploadResponse[]> {
+export async function uploadMultipleFiles(streams: Promise<FileUpload>[]): Promise<MediaDTO[]> {
 	const config = getConfig();
 	const client = getS3Client();
 
-	let res: UploadResponse[] = [];
+	let res: MediaDTO[] = [];
 
 	for (const stream of streams) {
 		const { filename, mimetype, encoding, createReadStream } = await stream;
@@ -60,10 +50,14 @@ export async function uploadMultipleFiles(
 			.promise();
 
 		res.push({
-			file,
+			...file,
 			url: `http://${config.cdnHost}/${config.s3BucketName}/${response.Key}`,
 		});
 	}
 
 	return res;
+}
+
+export async function getMediaForMessage(messageId: string) {
+	return await db.media.findMany({ where: { messageId } });
 }
