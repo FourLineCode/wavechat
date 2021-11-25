@@ -2,6 +2,7 @@ import SchemaBuilder from '@giraphql/core';
 import DataloaderPlugin from '@giraphql/plugin-dataloader';
 import ScopeAuthPlugin from '@giraphql/plugin-scope-auth';
 import ValidationPlugin from '@giraphql/plugin-validation';
+import { FileUpload } from 'graphql-upload';
 import { Context } from 'src/graphql/context';
 
 // GraphQL schema builder by GiraphQL plugin
@@ -11,6 +12,10 @@ export const builder = new SchemaBuilder<{
 		Date: {
 			Input: Date;
 			Output: Date;
+		};
+		Upload: {
+			Input: Promise<FileUpload>;
+			Output: FileUpload;
 		};
 	};
 	AuthScopes: {

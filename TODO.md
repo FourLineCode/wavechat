@@ -275,16 +275,17 @@
 
 -   [ ] media upload
 
-    -   [ ] setup localstack
-    -   [ ] setup aws sdk
+    -   [x] setup localstack
+    -   [x] setup aws sdk
+    -   [ ] services for aws media file upload
     -   [ ] api resolvers for gql file upload
     -   [ ] web
         -   [ ] file uploader
         -   [ ] media viewer
     -   [ ] update production env
-    -   [ ] add aws config to docs
-        -   [ ] commands to create bucket
-        -   [ ] add acl permission to bucket
+    -   [x] add aws config to docs
+        -   [x] commands to create bucket
+        -   [x] add acl permission to bucket
 
 -   [ ] reactions/emojis
 

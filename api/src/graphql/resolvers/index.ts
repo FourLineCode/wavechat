@@ -1,6 +1,7 @@
 import './auth.resolver';
 import './discover.resolver';
 import './friendship.resolver';
+import './media.resolver';
 import './message.resolver';
 import './messageThread.resolver';
 import './rtc.resolver';

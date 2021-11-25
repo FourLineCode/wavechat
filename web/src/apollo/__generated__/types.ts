@@ -1,6 +1,7 @@
 import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 export type Maybe<T> = T | null;
+export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
@@ -26,8 +27,8 @@ export type CreateMessageInput = {
   authorId: Scalars['String'];
   body: Scalars['String'];
   createdAt: Scalars['String'];
-  id?: Maybe<Scalars['String']>;
-  pk?: Maybe<Scalars['Int']>;
+  id?: InputMaybe<Scalars['String']>;
+  pk?: InputMaybe<Scalars['Int']>;
   threadId: Scalars['String'];
   updatedAt: Scalars['String'];
 };
@@ -191,14 +192,14 @@ export type Query = {
 
 
 export type QueryDiscoverUsersArgs = {
-  cursor?: Maybe<Scalars['Int']>;
+  cursor?: InputMaybe<Scalars['Int']>;
   limit?: Scalars['Int'];
   query: Scalars['String'];
 };
 
 
 export type QueryHelloArgs = {
-  name?: Maybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
 };
 
 
@@ -259,12 +260,12 @@ export type SigninInput = {
 };
 
 export type SignupInput = {
-  bio?: Maybe<Scalars['String']>;
-  department?: Maybe<Scalars['String']>;
+  bio?: InputMaybe<Scalars['String']>;
+  department?: InputMaybe<Scalars['String']>;
   email: Scalars['String'];
   password: Scalars['String'];
-  semester?: Maybe<Scalars['Int']>;
-  university?: Maybe<Scalars['String']>;
+  semester?: InputMaybe<Scalars['Int']>;
+  university?: InputMaybe<Scalars['String']>;
   username: Scalars['String'];
 };
 
@@ -306,7 +307,7 @@ export type User = {
 };
 
 export type UserDtoInput = {
-  avatarUrl?: Maybe<Scalars['String']>;
+  avatarUrl?: InputMaybe<Scalars['String']>;
   displayName: Scalars['String'];
   id: Scalars['String'];
   username: Scalars['String'];
@@ -314,8 +315,8 @@ export type UserDtoInput = {
 
 export type DiscoverUsersQueryVariables = Exact<{
   query: Scalars['String'];
-  limit?: Maybe<Scalars['Int']>;
-  cursor?: Maybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']>;
+  cursor?: InputMaybe<Scalars['Int']>;
 }>;
 
 

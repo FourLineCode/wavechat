@@ -15,6 +15,7 @@ export interface Config {
 	awsAccessKeyId: string;
 	awsSecretKey: string;
 	s3BucketName: string;
+	cdnHost: string;
 }
 
 // Global app configuration
@@ -29,6 +30,7 @@ const config: Config = {
 	awsAccessKeyId: process.env.AWS_ACCESS_KEY_ID || 'aws-access-key',
 	awsSecretKey: process.env.AWS_SECRET_KEY || 'aws-secret-key',
 	s3BucketName: process.env.AWS_BUCKET_NAME || 'wc-media',
+	cdnHost: 'cdn.wavechat.localhost',
 };
 
 export function getConfig(): Config {

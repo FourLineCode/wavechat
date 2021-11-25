@@ -17,6 +17,13 @@ input CreateMessageInput {
 
 scalar Date
 
+"""File upload object"""
+type File {
+  encoding: String!
+  filename: String!
+  mimetype: String!
+}
+
 """FriendRequest object type"""
 type FriendRequest {
   createdAt: Date!
@@ -97,6 +104,12 @@ type Mutation {
 
   """Unsend a sent friend request"""
   unsendRequest(requestId: String!): Boolean!
+
+  """Upload single file"""
+  uploadMultipleFiles(files: [Upload!]!): [UploadResponse!]!
+
+  """Upload single file"""
+  uploadSingleFile(file: Upload!): UploadResponse!
 }
 
 type Query {
@@ -181,6 +194,14 @@ type SocketAuthorizedResponse {
 """Response object for succesful queries"""
 type SuccessResult {
   success: Boolean!
+}
+
+scalar Upload
+
+"""Response object for file upload"""
+type UploadResponse {
+  file: File!
+  url: String!
 }
 
 """User object type"""
