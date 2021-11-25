@@ -395,7 +395,7 @@ export type ThreadMessagesQueryVariables = Exact<{
 }>;
 
 
-export type ThreadMessagesQuery = { __typename?: 'Query', threadMessages: Array<{ __typename?: 'Message', id: string, pk: number, body: string, createdAt: any, updatedAt: any, threadId: string, authorId: string, author: { __typename?: 'User', id: string, username: string, displayName: string, avatarUrl?: string | null | undefined } }> };
+export type ThreadMessagesQuery = { __typename?: 'Query', threadMessages: Array<{ __typename?: 'Message', id: string, pk: number, body: string, createdAt: any, updatedAt: any, threadId: string, authorId: string, attachments: Array<{ __typename?: 'Media', id: string, url: string, filename: string, mimetype: string }>, author: { __typename?: 'User', id: string, username: string, displayName: string, avatarUrl?: string | null | undefined } }> };
 
 export type GetUserDataQueryVariables = Exact<{
   userId: Scalars['String'];
@@ -588,6 +588,12 @@ export const ThreadMessagesDocument = gql`
     id
     pk
     body
+    attachments {
+      id
+      url
+      filename
+      mimetype
+    }
     createdAt
     updatedAt
     threadId

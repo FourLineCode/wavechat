@@ -12,6 +12,7 @@ import {
 	ThreadMessagesQueryVariables,
 	User,
 } from 'src/apollo/__generated__/types';
+import { MediaInput } from 'src/components/messages/thread/MediaInput';
 import { MessageListView } from 'src/components/messages/thread/MessageListView';
 import { MessageThreadTopBar } from 'src/components/messages/thread/MessageThreadTopBar';
 import { Spinner } from 'src/components/ui/Spinner';
@@ -24,6 +25,12 @@ const THREAD_MESSAGES = gql`
 			id
 			pk
 			body
+			attachments {
+				id
+				url
+				filename
+				mimetype
+			}
 			createdAt
 			updatedAt
 			threadId
@@ -203,7 +210,7 @@ export function MessageThreadPage({ thread }: Props) {
 							form.resetForm();
 						}}
 					>
-						<Form>
+						<Form className='flex items-center'>
 							<Field
 								as='textarea'
 								rows='1'
@@ -224,6 +231,7 @@ export function MessageThreadPage({ thread }: Props) {
 								}
 								className='w-full px-4 pt-3 align-middle rounded-lg resize-none focus:ring-2 focus:outline-none ring-brand-500 bg-dark-600 bg-opacity-30 hover:bg-opacity-20'
 							/>
+							<MediaInput socket={socket} />
 						</Form>
 					</Formik>
 				</div>

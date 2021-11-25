@@ -1,19 +1,25 @@
 import { Dialog, Transition } from '@headlessui/react';
 import clsx from 'clsx';
-import React, { Fragment } from 'react';
+import React, { Fragment, MutableRefObject } from 'react';
 
 interface Props {
 	show: boolean;
 	onClose: () => void;
 	large?: boolean;
 	className?: string;
+	initialFocus?: MutableRefObject<HTMLElement | null>;
 	children?: React.ReactNode;
 }
 
-export function Modal({ show, onClose, large = false, className, children }: Props) {
+export function Modal({ show, onClose, large = false, className, initialFocus, children }: Props) {
 	return (
 		<Transition show={show} as={Fragment}>
-			<Dialog as='div' className='fixed inset-0 z-10' onClose={onClose}>
+			<Dialog
+				initialFocus={initialFocus}
+				as='div'
+				className='fixed inset-0 z-10'
+				onClose={onClose}
+			>
 				<div className='flex items-center justify-center min-h-screen px-4'>
 					<Transition.Child
 						as={Fragment}
