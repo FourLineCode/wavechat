@@ -24,6 +24,7 @@ export type AuthResult = {
 };
 
 export type CreateMessageInput = {
+  attachments?: InputMaybe<Array<MediaDtoInput>>;
   author: UserDtoInput;
   authorId: Scalars['String'];
   body: Scalars['String'];
@@ -32,14 +33,6 @@ export type CreateMessageInput = {
   pk?: InputMaybe<Scalars['Int']>;
   threadId: Scalars['String'];
   updatedAt: Scalars['String'];
-};
-
-/** File upload object */
-export type File = {
-  __typename?: 'File';
-  encoding: Scalars['String'];
-  filename: Scalars['String'];
-  mimetype: Scalars['String'];
 };
 
 /** FriendRequest object type */
@@ -68,9 +61,41 @@ export type Friendship = {
   updatedAt: Scalars['Date'];
 };
 
+/** Media object */
+export type Media = {
+  __typename?: 'Media';
+  createdAt: Scalars['Date'];
+  encoding: Scalars['String'];
+  filename: Scalars['String'];
+  id: Scalars['ID'];
+  message: Message;
+  messageId: Scalars['ID'];
+  mimetype: Scalars['String'];
+  pk: Scalars['Int'];
+  updatedAt: Scalars['Date'];
+  url: Scalars['String'];
+};
+
+/** Response object for file upload */
+export type MediaDto = {
+  __typename?: 'MediaDTO';
+  encoding: Scalars['String'];
+  filename: Scalars['String'];
+  mimetype: Scalars['String'];
+  url: Scalars['String'];
+};
+
+export type MediaDtoInput = {
+  encoding: Scalars['String'];
+  filename: Scalars['String'];
+  mimetype: Scalars['String'];
+  url: Scalars['String'];
+};
+
 /** Message object type */
 export type Message = {
   __typename?: 'Message';
+  attachments: Array<Media>;
   author: User;
   authorId: Scalars['ID'];
   body: Scalars['String'];
@@ -118,9 +143,9 @@ export type Mutation = {
   /** Unsend a sent friend request */
   unsendRequest: Scalars['Boolean'];
   /** Upload single file */
-  uploadMultipleFiles: Array<UploadResponse>;
+  uploadMultipleFiles: Array<MediaDto>;
   /** Upload single file */
-  uploadSingleFile: UploadResponse;
+  uploadSingleFile: MediaDto;
 };
 
 
@@ -303,13 +328,6 @@ export type SocketAuthorizedResponse = {
 export type SuccessResult = {
   __typename?: 'SuccessResult';
   success: Scalars['Boolean'];
-};
-
-/** Response object for file upload */
-export type UploadResponse = {
-  __typename?: 'UploadResponse';
-  file: File;
-  url: Scalars['String'];
 };
 
 /** User object type */
