@@ -2,7 +2,6 @@ import { gql, useQuery } from '@apollo/client';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import { BarLoader } from 'react-spinners';
 import {
 	GetMessageThreadQuery,
 	GetMessageThreadQueryVariables,
@@ -15,6 +14,7 @@ import { DirectMessages } from 'src/components/messages/sidebar/DirectMessages';
 import { MessageThreadPage } from 'src/components/messages/thread/MessageThreadPage';
 import { NavigationSidebar } from 'src/components/navigations/NavigationSidebar';
 import { SidebarWithProfile } from 'src/components/profile/SidebarWithProfile';
+import { Spinner } from 'src/components/ui/Spinner';
 import { useAuth } from 'src/store/useAuth';
 import { authRedirect } from 'src/utils/redirects/auth';
 
@@ -83,7 +83,7 @@ export default function Thread() {
 						/>
 					) : (
 						<div className='flex flex-col items-center justify-center w-full h-full'>
-							<BarLoader color='white' />
+							<Spinner />
 						</div>
 					)}
 				</div>

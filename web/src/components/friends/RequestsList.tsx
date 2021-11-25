@@ -1,10 +1,10 @@
 import { gql, useMutation, useQuery } from '@apollo/client';
 import toast from 'react-hot-toast';
-import { BarLoader } from 'react-spinners';
 import { FriendRequest, PendingRequestsQuery } from 'src/apollo/__generated__/types';
 import { FriendRequestCard } from 'src/components/friends/FriendRequestCard';
 import { Button } from 'src/components/ui/Button';
 import { Modal } from 'src/components/ui/Modal';
+import { Spinner } from 'src/components/ui/Spinner';
 import { useModal } from 'src/hooks/useModal';
 
 export const GET_PENDING_REQUESTS = gql`
@@ -59,7 +59,7 @@ export function RequestsList() {
 
 	return loading ? (
 		<div className='flex justify-center h-full pt-16'>
-			<BarLoader color='silver' speedMultiplier={1.5} />
+			<Spinner />
 		</div>
 	) : (
 		<div className='pr-1 space-y-2 overflow-y-auto scrollbar-thin'>

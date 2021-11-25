@@ -5,12 +5,12 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { FaCaretLeft, FaCaretRight } from 'react-icons/fa';
-import { HashLoader } from 'react-spinners';
 import { Layout } from 'src/components/layouts/Layout';
 import { NavBar } from 'src/components/layouts/NavBar';
 import { Button } from 'src/components/ui/Button';
 import { Card } from 'src/components/ui/Card';
 import { Input } from 'src/components/ui/Input';
+import { Spinner } from 'src/components/ui/Spinner';
 import { Textarea } from 'src/components/ui/Textarea';
 import { useAuth } from 'src/store/useAuth';
 
@@ -94,7 +94,7 @@ export default function SignUp() {
 								)}
 							>
 								{redirecting ? (
-									<HashLoader color='white' />
+									<Spinner />
 								) : (
 									<>
 										<div className='text-5xl italic font-bold text-center'>

@@ -1,11 +1,11 @@
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { ScaleLoader } from 'react-spinners';
 import { User } from 'src/apollo/__generated__/types';
 import { AddButton } from 'src/components/requests/AddButton';
 import { RespondButton } from 'src/components/requests/RespondButton';
 import { UnfriendButton } from 'src/components/requests/UnfriendButton';
 import { UnsendButton } from 'src/components/requests/UnsendButton';
 import { Button } from 'src/components/ui/Button';
+import { Spinner } from 'src/components/ui/Spinner';
 import { useAuth } from 'src/store/useAuth';
 
 interface Props {
@@ -116,7 +116,7 @@ export function RequestButton({ user, className }: Props) {
 		/>
 	) : (
 		<Button>
-			<ScaleLoader color='white' height='4' />
+			<Spinner />
 		</Button>
 	);
 }

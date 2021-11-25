@@ -7,6 +7,7 @@ import {
 } from 'src/apollo/__generated__/types';
 import { MessageThreadCard } from 'src/components/messages/sidebar/MessageThreadCard';
 import { SearchFriendsInput } from 'src/components/search/SearchFriendsInput';
+import { Spinner } from 'src/components/ui/Spinner';
 
 export const ACTIVE_MESSAGE_THREADS = gql`
 	query ActiveMessageThreads {
@@ -24,14 +25,14 @@ export const ACTIVE_MESSAGE_THREADS = gql`
 `;
 
 export function DirectMessages() {
-	const { data } = useQuery<ActiveMessageThreadsQuery, ActiveMessageThreadsQueryVariables>(
-		ACTIVE_MESSAGE_THREADS,
-		{
-			onError: (error) => {
-				toast.error(error.message);
-			},
-		}
-	);
+	const { data, loading } = useQuery<
+		ActiveMessageThreadsQuery,
+		ActiveMessageThreadsQueryVariables
+	>(ACTIVE_MESSAGE_THREADS, {
+		onError: (error) => {
+			toast.error(error.message);
+		},
+	});
 
 	return (
 		<div className='flex flex-col flex-grow w-64 min-h-0 px-2 py-4 bg-dark-800 xl:w-80'>
@@ -53,7 +54,15 @@ export function DirectMessages() {
 							<MessageThreadCard thread={thread as MessageThread} key={thread.id} />
 						))}
 					</div>
-				) : null}
+				) : loading ? (
+					<div className='flex justify-center w-full pt-24'>
+						<Spinner />
+					</div>
+				) : (
+					<div className='w-full pt-24 text-xl font-semibold text-center text-muted'>
+						No Messages
+					</div>
+				)}
 			</div>
 		</div>
 	);

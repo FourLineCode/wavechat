@@ -5,7 +5,6 @@ import { Field, Form, Formik, FormikProps } from 'formik';
 import React, { ChangeEvent, useEffect, useMemo, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 import { BiMessage, BiMessageError } from 'react-icons/bi';
-import { BarLoader } from 'react-spinners';
 import {
 	Message,
 	MessageThread,
@@ -15,6 +14,7 @@ import {
 } from 'src/apollo/__generated__/types';
 import { MessageListView } from 'src/components/messages/thread/MessageListView';
 import { MessageThreadTopBar } from 'src/components/messages/thread/MessageThreadTopBar';
+import { Spinner } from 'src/components/ui/Spinner';
 import { useSocket } from 'src/socket/useSocket';
 import { useAuth } from 'src/store/useAuth';
 
@@ -167,7 +167,7 @@ export function MessageThreadPage({ thread }: Props) {
 				) : (
 					messagesLoading && (
 						<div className='flex items-center justify-center flex-1'>
-							<BarLoader color='white' />
+							<Spinner />
 						</div>
 					)
 				)}

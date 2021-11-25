@@ -4,11 +4,11 @@ import ordinal from 'ordinal';
 import toast from 'react-hot-toast';
 import { FaBuilding, FaCommentAlt, FaGraduationCap, FaUniversity } from 'react-icons/fa';
 import { RiFileUserFill } from 'react-icons/ri';
-import { HashLoader } from 'react-spinners';
 import { GetUserDataQuery, GetUserDataQueryVariables, User } from 'src/apollo/__generated__/types';
 import { UserAvatar } from 'src/components/profile/UserAvatar';
 import { RequestButton } from 'src/components/requests/RequestButton';
 import { Button } from 'src/components/ui/Button';
+import { Spinner } from 'src/components/ui/Spinner';
 import { useIsUserFriend } from 'src/hooks/useIsUserFriend';
 import { useMessageUserMutation } from 'src/hooks/useMessageUserMutation';
 import { ModalProps } from 'src/hooks/useModal';
@@ -137,7 +137,7 @@ export function ProfileDetails({ userId, onClose }: Props) {
 		</>
 	) : (
 		<div className='flex items-center justify-center w-full h-32'>
-			<HashLoader color='silver' size='24px' />
+			<Spinner />
 		</div>
 	);
 }

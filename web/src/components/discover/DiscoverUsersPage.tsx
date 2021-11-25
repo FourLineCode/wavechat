@@ -2,11 +2,11 @@ import { gql, useQuery } from '@apollo/client';
 import { Form, Formik } from 'formik';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import { BarLoader } from 'react-spinners';
 import { DiscoverUsersQuery, DiscoverUsersQueryVariables } from 'src/apollo/__generated__/types';
 import { DiscoveredUser } from 'src/components/discover/DiscoveredUser';
 import { Button } from 'src/components/ui/Button';
 import { Input } from 'src/components/ui/Input';
+import { Spinner } from 'src/components/ui/Spinner';
 
 export const GET_DISCOVER_USERS = gql`
 	query DiscoverUsers($query: String!, $limit: Int, $cursor: Int) {
@@ -126,7 +126,7 @@ export function DiscoverUsersPage() {
 			) : (
 				<div className='flex items-center justify-center flex-1'>
 					{loading ? (
-						<BarLoader color='silver' speedMultiplier={1.5} />
+						<Spinner />
 					) : queryTerm.length > 0 ? (
 						<div className='text-4xl font-bold text-secondary'>No user found</div>
 					) : (
