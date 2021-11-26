@@ -39,7 +39,7 @@ export const Button = React.forwardRef<HTMLButtonElement, Props>(function Button
 			ref={ref}
 			onClick={onClick}
 			type={type}
-			disabled={isSubmitting}
+			disabled={isSubmitting || disabled}
 			className={clsx(
 				VariantStyles[variant],
 				isSubmitting && 'bg-opacity-75 flex justify-center items-center cursor-not-allowed',

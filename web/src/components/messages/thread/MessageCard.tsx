@@ -45,12 +45,29 @@ export function MessageCard({ messageGroup, topMessage = false }: Props) {
 				</div>
 				<div className='space-y-1.5'>
 					{messageGroup.messages.map((message) => (
-						<pre
-							className='text-base break-all whitespace-pre-wrap font-roboto'
-							key={message.id}
-						>
-							{message.body}
-						</pre>
+						<div key={message.id}>
+							{message.body.trim().length > 0 && (
+								<pre className='text-base break-all whitespace-pre-wrap font-roboto'>
+									{message.body}
+								</pre>
+							)}{' '}
+							{message.attachments && message.attachments.length > 0 ? (
+								<div className='grid grid-cols-3 gap-2 pb-2'>
+									{message.attachments.slice(0, 2).map((media) => (
+										<img
+											src={media.url}
+											key={message.id + media.id}
+											className='object-cover w-64 transition rounded-lg cursor-pointer h-36 hover:brightness-50'
+										/>
+									))}
+									{message.attachments.length > 2 && (
+										<div className='flex items-center justify-center transition-colors border border-opacity-50 rounded-lg cursor-pointer hover:bg-dark-800 hover:bg-opacity-50 border-dark-600 text-secondary'>
+											{`+${message.attachments.length - 2} other ...`}
+										</div>
+									)}
+								</div>
+							) : null}
+						</div>
 					))}
 				</div>
 			</div>

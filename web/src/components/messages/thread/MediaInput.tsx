@@ -1,22 +1,89 @@
+import { gql, useMutation } from '@apollo/client';
+import { MessageSocketEvents } from '@shared/socket/events';
+import { MediaDTO, MessageDTO } from '@shared/types/message';
 import clsx from 'clsx';
 import React, { useRef, useState } from 'react';
 import Dropzone from 'react-dropzone';
+import toast from 'react-hot-toast';
 import { CgImage } from 'react-icons/cg';
 import { ImCross } from 'react-icons/im';
+import {
+	MessageThread,
+	UploadMultipleFilesMutation,
+	UploadMultipleFilesMutationVariables,
+} from 'src/apollo/__generated__/types';
 import { Button } from 'src/components/ui/Button';
 import { Modal } from 'src/components/ui/Modal';
 import { Tooltip } from 'src/components/ui/Tooltip';
 import { useModal } from 'src/hooks/useModal';
 import { SocketState } from 'src/socket/useSocket';
+import { useAuth } from 'src/store/useAuth';
 
 interface Props {
 	socket: SocketState;
+	thread: MessageThread;
 }
 
-export function MediaInput({ socket }: Props) {
+const UPLOAD_MULTIPLE_FILES = gql`
+	mutation UploadMultipleFiles($files: [Upload!]!) {
+		uploadMultipleFiles(files: $files) {
+			url
+			filename
+			mimetype
+			encoding
+		}
+	}
+`;
+
+export function MediaInput({ socket, thread }: Props) {
+	const currentUser = useAuth().user;
 	const imageInputModal = useModal();
 	const [files, setFiles] = useState<File[]>([]);
 	const cancelButtonRef = useRef<HTMLButtonElement>(null);
+
+	const [uploadFiles, { loading }] = useMutation<
+		UploadMultipleFilesMutation,
+		UploadMultipleFilesMutationVariables
+	>(UPLOAD_MULTIPLE_FILES, {
+		variables: { files: files },
+		onCompleted: (data) => {
+			setFiles([]);
+			imageInputModal.onClose();
+
+			if (!currentUser) {
+				toast.error('You are not signed in');
+				return;
+			}
+
+			const uploadedFiles: MediaDTO[] = data.uploadMultipleFiles.map((file) => ({
+				url: file.url,
+				filename: file.filename,
+				mimetype: file.mimetype,
+				encoding: file.encoding,
+			}));
+
+			const messageDTO: MessageDTO = {
+				body: '',
+				attachments: uploadedFiles,
+				threadId: thread.id,
+				authorId: currentUser.id,
+				author: {
+					id: currentUser.id,
+					username: currentUser.username,
+					displayName: currentUser.displayName,
+					avatarUrl: currentUser.avatarUrl,
+				},
+			};
+
+			socket.conn.emit(MessageSocketEvents.SendMessage, messageDTO);
+
+			toast.success('Uploaded successfully');
+		},
+		onError: (error) => {
+			setFiles([]);
+			toast.error(error.message);
+		},
+	});
 
 	return (
 		<>
@@ -27,7 +94,10 @@ export function MediaInput({ socket }: Props) {
 				<CgImage size='24' />
 			</div>
 			<Modal initialFocus={cancelButtonRef} large {...imageInputModal}>
-				<Dropzone onDrop={(curr) => setFiles((prev) => [...prev, ...curr])}>
+				<Dropzone
+					accept='image/png, image/jpg, image/jpeg, image/webp'
+					onDrop={(curr) => setFiles((prev) => [...prev, ...curr])}
+				>
 					{({ getRootProps, getInputProps }) => (
 						<div
 							className={clsx(
@@ -70,7 +140,7 @@ export function MediaInput({ socket }: Props) {
 					)}
 				>
 					{files.length > 0 && (
-						<Tooltip text='Clear Selection' position='bottom' className='text-sm'>
+						<Tooltip text='Clear Selection' position='bottom'>
 							<Button
 								variant='outlined'
 								disabled={!files.length}
@@ -80,7 +150,7 @@ export function MediaInput({ socket }: Props) {
 							</Button>
 						</Tooltip>
 					)}
-					<div className='space-x-3'>
+					<div className='flex justify-end w-full space-x-3'>
 						<Button
 							ref={cancelButtonRef}
 							variant='outlined'
@@ -88,7 +158,14 @@ export function MediaInput({ socket }: Props) {
 						>
 							Cancel
 						</Button>
-						<Button disabled={!files.length}>Upload</Button>
+						<Button
+							onClick={uploadFiles}
+							isSubmitting={loading}
+							type='submit'
+							disabled={files.length <= 0}
+						>
+							Upload
+						</Button>
 					</div>
 				</div>
 			</Modal>

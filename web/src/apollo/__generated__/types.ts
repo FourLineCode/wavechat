@@ -390,6 +390,13 @@ export type ActiveMessageThreadsQueryVariables = Exact<{ [key: string]: never; }
 
 export type ActiveMessageThreadsQuery = { __typename?: 'Query', activeMessageThreads: Array<{ __typename?: 'MessageThread', id: string, updatedAt: any, participants: Array<{ __typename?: 'User', id: string, username: string, displayName: string, avatarUrl?: string | null | undefined }> }> };
 
+export type UploadMultipleFilesMutationVariables = Exact<{
+  files: Array<Scalars['Upload']> | Scalars['Upload'];
+}>;
+
+
+export type UploadMultipleFilesMutation = { __typename?: 'Mutation', uploadMultipleFiles: Array<{ __typename?: 'MediaDTO', url: string, filename: string, mimetype: string, encoding: string }> };
+
 export type ThreadMessagesQueryVariables = Exact<{
   threadId: Scalars['String'];
 }>;
@@ -582,6 +589,17 @@ export const ActiveMessageThreadsDocument = gql`
   }
 }
     `;
+export const UploadMultipleFilesDocument = gql`
+    mutation UploadMultipleFiles($files: [Upload!]!) {
+  uploadMultipleFiles(files: $files) {
+    url
+    filename
+    mimetype
+    encoding
+  }
+}
+    `;
+export type UploadMultipleFilesMutationOptions = Apollo.BaseMutationOptions<UploadMultipleFilesMutation, UploadMultipleFilesMutationVariables>;
 export const ThreadMessagesDocument = gql`
     query ThreadMessages($threadId: String!) {
   threadMessages(threadId: $threadId) {

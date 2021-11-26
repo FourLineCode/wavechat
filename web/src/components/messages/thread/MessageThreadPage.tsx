@@ -231,7 +231,7 @@ export function MessageThreadPage({ thread }: Props) {
 								}
 								className='w-full px-4 pt-3 align-middle rounded-lg resize-none focus:ring-2 focus:outline-none ring-brand-500 bg-dark-600 bg-opacity-30 hover:bg-opacity-20'
 							/>
-							<MediaInput socket={socket} />
+							<MediaInput socket={socket} thread={thread} />
 						</Form>
 					</Formik>
 				</div>

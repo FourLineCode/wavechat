@@ -53,6 +53,10 @@ async function publishMessage(message: MessageDTO) {
 	message.createdAt = currentTime;
 	message.updatedAt = currentTime;
 
+	if (message.attachments) {
+		message.attachments = message.attachments.map((media) => ({ id: uuid(), ...media }));
+	}
+
 	await pubsub.publisher.publish(UserPubsubChannels.Message, JSON.stringify(message));
 
 	// Persist message in api service database

@@ -53,6 +53,7 @@ export const UserDTOInput = builder.inputRef<UserDTO>('UserDTOInput').implement(
 
 export const MediaDTOInput = builder.inputRef<MediaDTO>('MediaDTOInput').implement({
 	fields: (t) => ({
+		id: t.string(),
 		url: t.string({ required: true }),
 		filename: t.string({ required: true }),
 		mimetype: t.string({ required: true }),
@@ -66,9 +67,6 @@ export const CreateMessageInput = builder.inputRef<MessageDTO>('CreateMessageInp
 		pk: t.int(),
 		body: t.string({
 			required: true,
-			validate: {
-				minLength: 1,
-			},
 		}),
 		attachments: t.field({
 			type: [MediaDTOInput],

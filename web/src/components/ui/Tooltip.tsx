@@ -18,7 +18,10 @@ export const Tooltip = React.forwardRef<Element, Props>(function TooltipComponen
 		<Tippy
 			content={text}
 			duration={0}
-			className={clsx('p-1 rounded-md text-primary bg-dark-600', className)}
+			className={clsx(
+				'p-1 text-sm font-semibold rounded-md text-primary bg-dark-600 bg-opacity-75',
+				className
+			)}
 			placement={position}
 			offset={[0, 12]}
 			ref={ref}

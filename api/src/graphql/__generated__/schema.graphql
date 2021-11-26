@@ -67,6 +67,7 @@ type MediaDTO {
 input MediaDTOInput {
   encoding: String!
   filename: String!
+  id: String
   mimetype: String!
   url: String!
 }

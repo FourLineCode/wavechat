@@ -1,6 +1,7 @@
 import { UserDTO } from './auth';
 
 export interface MediaDTO {
+	id?: string;
 	url: string;
 	filename: string;
 	mimetype: string;
