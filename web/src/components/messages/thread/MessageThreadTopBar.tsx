@@ -29,11 +29,8 @@ export function MessageThreadTopBar({ user }: Props) {
 			</div>
 			<div>
 				<DropdownMenu>
-					<DropdownMenuButton className='p-1.5 rounded-full cursor-pointer hover:bg-dark-700 group'>
-						<HiDotsVertical
-							size='20px'
-							className='p-0.5 text-black rounded-full bg-dark-600 group-hover:bg-dark-500'
-						/>
+					<DropdownMenuButton className='p-1 rounded-full cursor-pointer hover:bg-dark-700'>
+						<HiDotsVertical size='20px' className='rounded-full text-primary' />
 					</DropdownMenuButton>
 					<DropdownMenuItems>
 						<DropdownMenuItem onClick={profileModal.onOpen}>

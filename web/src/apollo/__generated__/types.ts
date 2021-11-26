@@ -88,6 +88,7 @@ export type MediaDto = {
 export type MediaDtoInput = {
   encoding: Scalars['String'];
   filename: Scalars['String'];
+  id?: InputMaybe<Scalars['String']>;
   mimetype: Scalars['String'];
   url: Scalars['String'];
 };

@@ -41,13 +41,14 @@ export function MediaInput({ socket, thread }: Props) {
 	const [files, setFiles] = useState<File[]>([]);
 	const cancelButtonRef = useRef<HTMLButtonElement>(null);
 
-	const [uploadFiles, { loading }] = useMutation<
+	const [uploadFiles, { loading, reset }] = useMutation<
 		UploadMultipleFilesMutation,
 		UploadMultipleFilesMutationVariables
 	>(UPLOAD_MULTIPLE_FILES, {
 		variables: { files: files },
 		onCompleted: (data) => {
 			setFiles([]);
+			reset();
 			imageInputModal.onClose();
 
 			if (!currentUser) {
@@ -81,6 +82,7 @@ export function MediaInput({ socket, thread }: Props) {
 		},
 		onError: (error) => {
 			setFiles([]);
+			reset();
 			toast.error(error.message);
 		},
 	});
@@ -101,7 +103,7 @@ export function MediaInput({ socket, thread }: Props) {
 					{({ getRootProps, getInputProps }) => (
 						<div
 							className={clsx(
-								'flex items-center justify-center w-full p-2 mb-4 transition-colors border border-dashed rounded-lg cursor-pointer bg-opacity-60 hover:bg-dark-700 border-dark-600',
+								'flex items-center focus:outline-none focus:ring-4 ring-opacity-50 ring-brand-500 justify-center w-full p-2 mb-4 transition-colors border border-dashed rounded-lg cursor-pointer bg-opacity-60 hover:bg-dark-700 border-dark-600',
 								files.length > 0 ? 'py-12' : 'py-20'
 							)}
 							{...getRootProps()}
@@ -127,9 +129,9 @@ export function MediaInput({ socket, thread }: Props) {
 							);
 						})}
 						{files.length > 3 && (
-							<div className='flex items-center justify-center w-full h-full text-xs border border-opacity-50 rounded-lg md:text-sm border-dark-700 text-secondary'>{`+${
-								files.length - 3
-							} other ...`}</div>
+							<div className='flex items-center justify-center w-full h-full text-xs border border-opacity-50 rounded-lg md:text-sm border-dark-700 text-secondary'>
+								{`+${files.length - 3} other ...`}
+							</div>
 						)}
 					</div>
 				)}
@@ -141,13 +143,12 @@ export function MediaInput({ socket, thread }: Props) {
 				>
 					{files.length > 0 && (
 						<Tooltip text='Clear Selection' position='bottom'>
-							<Button
-								variant='outlined'
-								disabled={!files.length}
+							<button
 								onClick={() => setFiles([])}
+								className='flex items-center justify-center px-4 py-2 transition-colors border border-opacity-50 rounded-md cursor-pointer focus:outline-none focus:ring-4 ring-opacity-50 ring-brand-500 border-dark-600 hover:text-red-500 hover:bg-dark-700 hover:bg-opacity-50'
 							>
 								<ImCross />
-							</Button>
+							</button>
 						</Tooltip>
 					)}
 					<div className='flex justify-end w-full space-x-3'>
@@ -159,9 +160,9 @@ export function MediaInput({ socket, thread }: Props) {
 							Cancel
 						</Button>
 						<Button
+							type='submit'
 							onClick={uploadFiles}
 							isSubmitting={loading}
-							type='submit'
 							disabled={files.length <= 0}
 						>
 							Upload

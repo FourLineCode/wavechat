@@ -279,9 +279,12 @@
     -   [x] setup aws sdk
     -   [x] services for aws media file upload
     -   [x] api mutations/resolvers for gql file upload
-    -   [ ] web
-        -   [ ] file uploader
+    -   [x] web
+        -   [x] file uploader
+            -   [ ] remove single images
         -   [ ] media viewer
+            -   [ ] modal with backdrop
+            -   [ ] fixed size?
     -   [ ] update production env
     -   [x] add aws config to docs
         -   [x] commands to create bucket

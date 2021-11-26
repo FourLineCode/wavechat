@@ -18,6 +18,27 @@ services:
         networks:
             - wave
 
+    # Local AWS simulation container
+    wcp-localstack:
+        container_name: wcp-localstack
+        image: localstack/localstack:0.12.20
+        ports:
+            - 4566:4566
+        volumes:
+            - ./.localstack:/tmp/localstack
+            - /var/run/docker.sock:/var/run/docker.sock
+        networks:
+            - wave
+        environment:
+            - SERVICES=s3
+            - DEBUG=1
+            - DATA_DIR=/tmp/localstack/data
+        labels:
+            - traefik.enable=true
+            - traefik.http.routers.localstack.entrypoints=wave
+            # Routes prefixed with specific routes gets forwarded to localstack
+            - traefik.http.routers.localstack.rule=Host(`cdn.wavechat.localhost`)
+
     # PostgreSQL database container
     wcp-postgres:
         container_name: wcp-postgres

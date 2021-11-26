@@ -17,7 +17,7 @@ export function MessageCard({ messageGroup, topMessage = false }: Props) {
 		<div
 			className={clsx(
 				topMessage && 'mt-auto',
-				'flex hover:bg-dark-800 hover:bg-opacity-50 cursor-default py-1 pl-4 space-x-4 pr-4'
+				'flex hover:bg-dark-800 hover:bg-opacity-30 cursor-default py-1 pl-4 space-x-4 pr-4'
 			)}
 		>
 			<div className='flex-shrink-0 pt-1.5'>
@@ -52,7 +52,7 @@ export function MessageCard({ messageGroup, topMessage = false }: Props) {
 								</pre>
 							)}{' '}
 							{message.attachments && message.attachments.length > 0 ? (
-								<div className='grid grid-cols-3 gap-2 pb-2'>
+								<div className='grid grid-cols-3 gap-2 pb-2 max-w-max'>
 									{message.attachments.slice(0, 2).map((media) => (
 										<img
 											src={media.url}
@@ -61,7 +61,7 @@ export function MessageCard({ messageGroup, topMessage = false }: Props) {
 										/>
 									))}
 									{message.attachments.length > 2 && (
-										<div className='flex items-center justify-center transition-colors border border-opacity-50 rounded-lg cursor-pointer hover:bg-dark-800 hover:bg-opacity-50 border-dark-600 text-secondary'>
+										<div className='flex items-center justify-center text-xs transition-colors border border-opacity-50 rounded-lg cursor-pointer bg-dark-700 lg:text-base hover:bg-dark-800 hover:bg-opacity-50 border-dark-600 text-secondary'>
 											{`+${message.attachments.length - 2} other ...`}
 										</div>
 									)}
