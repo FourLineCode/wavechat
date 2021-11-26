@@ -52,19 +52,14 @@ export function MessageCard({ messageGroup, topMessage = false }: Props) {
 								</pre>
 							)}{' '}
 							{message.attachments && message.attachments.length > 0 ? (
-								<div className='grid grid-cols-3 gap-2 pb-2 max-w-max'>
-									{message.attachments.slice(0, 2).map((media) => (
+								<div className='py-2 space-y-1'>
+									{message.attachments.map((media) => (
 										<img
 											src={media.url}
 											key={message.id + media.id}
-											className='object-cover w-64 transition rounded-lg cursor-pointer h-36 hover:brightness-50'
+											className='object-cover h-auto max-w-xl transition rounded-lg cursor-pointer max-h-64 hover:brightness-50'
 										/>
 									))}
-									{message.attachments.length > 2 && (
-										<div className='flex items-center justify-center text-xs transition-colors border border-opacity-50 rounded-lg cursor-pointer bg-dark-700 lg:text-base hover:bg-dark-800 hover:bg-opacity-50 border-dark-600 text-secondary'>
-											{`+${message.attachments.length - 2} other ...`}
-										</div>
-									)}
 								</div>
 							) : null}
 						</div>
