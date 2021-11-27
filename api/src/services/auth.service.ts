@@ -45,9 +45,7 @@ export async function signOut(sessionId: string) {
 }
 
 export async function getSessionsForUser(userId: string) {
-	return await db.session.findMany({
-		where: { userId },
-	});
+	return await db.session.findMany({ where: { userId } });
 }
 
 export async function validatePassword({

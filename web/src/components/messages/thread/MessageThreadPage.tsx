@@ -5,7 +5,6 @@ import { Field, Form, Formik, FormikProps } from 'formik';
 import React, { ChangeEvent, useEffect, useMemo, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 import { BiMessage, BiMessageError } from 'react-icons/bi';
-import { BarLoader } from 'react-spinners';
 import {
 	Message,
 	MessageThread,
@@ -13,8 +12,10 @@ import {
 	ThreadMessagesQueryVariables,
 	User,
 } from 'src/apollo/__generated__/types';
+import { MediaInput } from 'src/components/messages/thread/MediaInput';
 import { MessageListView } from 'src/components/messages/thread/MessageListView';
 import { MessageThreadTopBar } from 'src/components/messages/thread/MessageThreadTopBar';
+import { Spinner } from 'src/components/ui/Spinner';
 import { useSocket } from 'src/socket/useSocket';
 import { useAuth } from 'src/store/useAuth';
 
@@ -24,6 +25,12 @@ const THREAD_MESSAGES = gql`
 			id
 			pk
 			body
+			attachments {
+				id
+				url
+				filename
+				mimetype
+			}
 			createdAt
 			updatedAt
 			threadId
@@ -167,7 +174,7 @@ export function MessageThreadPage({ thread }: Props) {
 				) : (
 					messagesLoading && (
 						<div className='flex items-center justify-center flex-1'>
-							<BarLoader color='white' />
+							<Spinner />
 						</div>
 					)
 				)}
@@ -203,7 +210,7 @@ export function MessageThreadPage({ thread }: Props) {
 							form.resetForm();
 						}}
 					>
-						<Form>
+						<Form className='flex items-center'>
 							<Field
 								as='textarea'
 								rows='1'
@@ -224,6 +231,7 @@ export function MessageThreadPage({ thread }: Props) {
 								}
 								className='w-full px-4 pt-3 align-middle rounded-lg resize-none focus:ring-2 focus:outline-none ring-brand-500 bg-dark-600 bg-opacity-30 hover:bg-opacity-20'
 							/>
+							<MediaInput socket={socket} thread={thread} />
 						</Form>
 					</Formik>
 				</div>

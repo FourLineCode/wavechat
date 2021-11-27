@@ -20,7 +20,6 @@ if [[ "$1" == "--reset" || "$2" == "--reset" ]]
 then
 	docker-compose start postgres
 	sleep 10 && pnpm --dir api db:reset
-	docker-compose stop postgres
 fi
 
 docker-compose up

@@ -25,10 +25,10 @@ export function NavBar() {
 			<Link passHref href='/'>
 				<div className='flex items-center cursor-pointer'>
 					<Image src={config.iconUrl} alt='logo' height='40' width='60' />
-					<span className='ml-2 text-3xl italic font-bold'>
+					<div className='ml-2 text-3xl italic font-bold'>
 						<span>Wave</span>
 						<span className='underline'>Chat</span>
-					</span>
+					</div>
 					<div className='uppercase bg-brand-500 rounded-md py-0.5 px-1 ml-2 text-xs'>
 						BETA
 					</div>

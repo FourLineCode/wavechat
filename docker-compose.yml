@@ -18,6 +18,27 @@ services:
         networks:
             - wave
 
+    # Local AWS simulation container
+    localstack:
+        container_name: wc-localstack
+        image: localstack/localstack:0.12.20
+        ports:
+            - 4566:4566
+        volumes:
+            - ./.localstack:/tmp/localstack
+            - /var/run/docker.sock:/var/run/docker.sock
+        networks:
+            - wave
+        environment:
+            - SERVICES=s3
+            - DEBUG=1
+            - DATA_DIR=/tmp/localstack/data
+        labels:
+            - traefik.enable=true
+            - traefik.http.routers.localstack.entrypoints=wave
+            # Routes prefixed with specific routes gets forwarded to localstack
+            - traefik.http.routers.localstack.rule=Host(`cdn.wavechat.localhost`)
+
     # PostgreSQL database container
     postgres:
         container_name: wc-postgres
@@ -48,6 +69,7 @@ services:
             context: ./api
             target: development
         working_dir: /api
+        user: $UID:$GID
         volumes:
             - ./api:/api:rw
         networks:
@@ -60,7 +82,8 @@ services:
             - traefik.enable=true
             - traefik.http.routers.api.entrypoints=wave
             # Web route prefixed with specific routes gets forwarded to api
-            - traefik.http.routers.api.rule=Host(`wavechat.localhost`) && PathPrefix(`/graphql`)
+            - traefik.http.routers.api.rule=Host(`wavechat.localhost`) &&
+              PathPrefix(`/graphql`)
 
     # WaveChat Chat service container
     rtc:
@@ -69,6 +92,7 @@ services:
             context: ./rtc
             target: development
         working_dir: /rtc
+        user: $UID:$GID
         volumes:
             - ./rtc:/rtc:rw
         networks:
@@ -87,7 +111,8 @@ services:
             - traefik.http.services.rtc.loadbalancer.sticky.cookie.httpOnly=true
             - traefik.http.services.rtc.loadbalancer.sticky.cookie.secure=true
             # Web route prefixed with specific routes gets forwarded to rtc
-            - traefik.http.routers.rtc.rule=Host(`wavechat.localhost`) && PathPrefix(`/ws`)
+            - traefik.http.routers.rtc.rule=Host(`wavechat.localhost`) &&
+              PathPrefix(`/ws`)
 
     # WaveChat Web app container (Frontend)
     web:
@@ -96,6 +121,7 @@ services:
             context: ./web
             target: development
         working_dir: /web
+        user: $UID:$GID
         volumes:
             - ./web:/web:rw
         networks:
@@ -119,6 +145,7 @@ services:
             context: ./web
             target: development
         working_dir: /web
+        user: $UID:$GID
         command: pnpm codegen
         volumes:
             - ./web:/web:rw

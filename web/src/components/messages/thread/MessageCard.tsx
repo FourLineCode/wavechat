@@ -1,5 +1,7 @@
 import clsx from 'clsx';
 import { formatDistanceToNow } from 'date-fns';
+import React from 'react';
+import { MessageMedia } from 'src/components/messages/thread/MessageMedia';
 import { MessageGroup } from 'src/components/messages/thread/MessageThreadPage';
 import { ProfileModal } from 'src/components/profile/ProfileModal';
 import { UserAvatar } from 'src/components/profile/UserAvatar';
@@ -17,7 +19,7 @@ export function MessageCard({ messageGroup, topMessage = false }: Props) {
 		<div
 			className={clsx(
 				topMessage && 'mt-auto',
-				'flex hover:bg-dark-800 hover:bg-opacity-50 cursor-default py-1 pl-4 space-x-4 pr-4'
+				'flex hover:bg-dark-800 hover:bg-opacity-30 cursor-default py-1 pl-4 space-x-4 pr-4'
 			)}
 		>
 			<div className='flex-shrink-0 pt-1.5'>
@@ -45,12 +47,20 @@ export function MessageCard({ messageGroup, topMessage = false }: Props) {
 				</div>
 				<div className='space-y-1.5'>
 					{messageGroup.messages.map((message) => (
-						<pre
-							className='text-base break-all whitespace-pre-wrap font-roboto'
-							key={message.id}
-						>
-							{message.body}
-						</pre>
+						<div key={message.id}>
+							{message.body.trim().length > 0 && (
+								<pre className='text-base break-all whitespace-pre-wrap font-roboto'>
+									{message.body}
+								</pre>
+							)}
+							{message.attachments && message.attachments.length > 0 && (
+								<div className='py-2 space-y-1'>
+									{message.attachments.map((media) => (
+										<MessageMedia message={message} media={media} />
+									))}
+								</div>
+							)}
+						</div>
 					))}
 				</div>
 			</div>

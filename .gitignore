@@ -7,3 +7,5 @@
 **/yarn-error.log
 **/.pnpm-debug.log
 **/.cache
+**/.localstack
+**/pgdata

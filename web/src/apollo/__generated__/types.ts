@@ -1,6 +1,7 @@
 import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 export type Maybe<T> = T | null;
+export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
@@ -12,6 +13,7 @@ export type Scalars = {
   Int: number;
   Float: number;
   Date: any;
+  Upload: any;
 };
 
 /** Response object for authentication queries */
@@ -22,12 +24,13 @@ export type AuthResult = {
 };
 
 export type CreateMessageInput = {
+  attachments?: InputMaybe<Array<MediaDtoInput>>;
   author: UserDtoInput;
   authorId: Scalars['String'];
   body: Scalars['String'];
   createdAt: Scalars['String'];
-  id?: Maybe<Scalars['String']>;
-  pk?: Maybe<Scalars['Int']>;
+  id?: InputMaybe<Scalars['String']>;
+  pk?: InputMaybe<Scalars['Int']>;
   threadId: Scalars['String'];
   updatedAt: Scalars['String'];
 };
@@ -58,9 +61,42 @@ export type Friendship = {
   updatedAt: Scalars['Date'];
 };
 
+/** Media object */
+export type Media = {
+  __typename?: 'Media';
+  createdAt: Scalars['Date'];
+  encoding: Scalars['String'];
+  filename: Scalars['String'];
+  id: Scalars['ID'];
+  message: Message;
+  messageId: Scalars['ID'];
+  mimetype: Scalars['String'];
+  pk: Scalars['Int'];
+  updatedAt: Scalars['Date'];
+  url: Scalars['String'];
+};
+
+/** Response object for file upload */
+export type MediaDto = {
+  __typename?: 'MediaDTO';
+  encoding: Scalars['String'];
+  filename: Scalars['String'];
+  mimetype: Scalars['String'];
+  url: Scalars['String'];
+};
+
+export type MediaDtoInput = {
+  encoding: Scalars['String'];
+  filename: Scalars['String'];
+  id?: InputMaybe<Scalars['String']>;
+  mimetype: Scalars['String'];
+  url: Scalars['String'];
+};
+
 /** Message object type */
 export type Message = {
   __typename?: 'Message';
+  attachments: Array<Media>;
   author: User;
   authorId: Scalars['ID'];
   body: Scalars['String'];
@@ -107,6 +143,10 @@ export type Mutation = {
   unfriend: Friendship;
   /** Unsend a sent friend request */
   unsendRequest: Scalars['Boolean'];
+  /** Upload single file */
+  uploadMultipleFiles: Array<MediaDto>;
+  /** Upload single file */
+  uploadSingleFile: MediaDto;
 };
 
 
@@ -154,6 +194,16 @@ export type MutationUnsendRequestArgs = {
   requestId: Scalars['String'];
 };
 
+
+export type MutationUploadMultipleFilesArgs = {
+  files: Array<Scalars['Upload']>;
+};
+
+
+export type MutationUploadSingleFileArgs = {
+  file: Scalars['Upload'];
+};
+
 export type Query = {
   __typename?: 'Query';
   /** Returns currently active MessageThreads for user */
@@ -191,14 +241,14 @@ export type Query = {
 
 
 export type QueryDiscoverUsersArgs = {
-  cursor?: Maybe<Scalars['Int']>;
+  cursor?: InputMaybe<Scalars['Int']>;
   limit?: Scalars['Int'];
   query: Scalars['String'];
 };
 
 
 export type QueryHelloArgs = {
-  name?: Maybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
 };
 
 
@@ -259,12 +309,12 @@ export type SigninInput = {
 };
 
 export type SignupInput = {
-  bio?: Maybe<Scalars['String']>;
-  department?: Maybe<Scalars['String']>;
+  bio?: InputMaybe<Scalars['String']>;
+  department?: InputMaybe<Scalars['String']>;
   email: Scalars['String'];
   password: Scalars['String'];
-  semester?: Maybe<Scalars['Int']>;
-  university?: Maybe<Scalars['String']>;
+  semester?: InputMaybe<Scalars['Int']>;
+  university?: InputMaybe<Scalars['String']>;
   username: Scalars['String'];
 };
 
@@ -306,7 +356,7 @@ export type User = {
 };
 
 export type UserDtoInput = {
-  avatarUrl?: Maybe<Scalars['String']>;
+  avatarUrl?: InputMaybe<Scalars['String']>;
   displayName: Scalars['String'];
   id: Scalars['String'];
   username: Scalars['String'];
@@ -314,8 +364,8 @@ export type UserDtoInput = {
 
 export type DiscoverUsersQueryVariables = Exact<{
   query: Scalars['String'];
-  limit?: Maybe<Scalars['Int']>;
-  cursor?: Maybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']>;
+  cursor?: InputMaybe<Scalars['Int']>;
 }>;
 
 
@@ -341,12 +391,19 @@ export type ActiveMessageThreadsQueryVariables = Exact<{ [key: string]: never; }
 
 export type ActiveMessageThreadsQuery = { __typename?: 'Query', activeMessageThreads: Array<{ __typename?: 'MessageThread', id: string, updatedAt: any, participants: Array<{ __typename?: 'User', id: string, username: string, displayName: string, avatarUrl?: string | null | undefined }> }> };
 
+export type UploadMultipleFilesMutationVariables = Exact<{
+  files: Array<Scalars['Upload']> | Scalars['Upload'];
+}>;
+
+
+export type UploadMultipleFilesMutation = { __typename?: 'Mutation', uploadMultipleFiles: Array<{ __typename?: 'MediaDTO', url: string, filename: string, mimetype: string, encoding: string }> };
+
 export type ThreadMessagesQueryVariables = Exact<{
   threadId: Scalars['String'];
 }>;
 
 
-export type ThreadMessagesQuery = { __typename?: 'Query', threadMessages: Array<{ __typename?: 'Message', id: string, pk: number, body: string, createdAt: any, updatedAt: any, threadId: string, authorId: string, author: { __typename?: 'User', id: string, username: string, displayName: string, avatarUrl?: string | null | undefined } }> };
+export type ThreadMessagesQuery = { __typename?: 'Query', threadMessages: Array<{ __typename?: 'Message', id: string, pk: number, body: string, createdAt: any, updatedAt: any, threadId: string, authorId: string, attachments: Array<{ __typename?: 'Media', id: string, url: string, filename: string, mimetype: string }>, author: { __typename?: 'User', id: string, username: string, displayName: string, avatarUrl?: string | null | undefined } }> };
 
 export type GetUserDataQueryVariables = Exact<{
   userId: Scalars['String'];
@@ -533,12 +590,29 @@ export const ActiveMessageThreadsDocument = gql`
   }
 }
     `;
+export const UploadMultipleFilesDocument = gql`
+    mutation UploadMultipleFiles($files: [Upload!]!) {
+  uploadMultipleFiles(files: $files) {
+    url
+    filename
+    mimetype
+    encoding
+  }
+}
+    `;
+export type UploadMultipleFilesMutationOptions = Apollo.BaseMutationOptions<UploadMultipleFilesMutation, UploadMultipleFilesMutationVariables>;
 export const ThreadMessagesDocument = gql`
     query ThreadMessages($threadId: String!) {
   threadMessages(threadId: $threadId) {
     id
     pk
     body
+    attachments {
+      id
+      url
+      filename
+      mimetype
+    }
     createdAt
     updatedAt
     threadId

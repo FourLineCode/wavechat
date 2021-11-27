@@ -20,6 +20,9 @@ ENV JWT_SECRET=verysecretkey
 ENV INTERNAL_SECRET=internalsecretkey
 ENV REDIS_PORT=6379
 ENV REDIS_HOST=redis
+ENV AWS_ACCESS_KEY_ID=aws-access-key
+ENV AWS_SECRET_KEY=aws-secret-key
+ENV AWS_BUCKET_NAME=wc-media
 
 # Install dependencies
 COPY package.json pnpm-lock.yaml ./
@@ -62,6 +65,9 @@ ENV JWT_SECRET=verysecretkey
 ENV INTERNAL_SECRET=internalsecretkey
 ENV REDIS_PORT=6379
 ENV REDIS_HOST=wcp-redis
+ENV AWS_ACCESS_KEY_ID=aws-access-key
+ENV AWS_SECRET_KEY=aws-secret-key
+ENV AWS_BUCKET_NAME=wc-media
 
 # Install dependencies
 COPY package.json pnpm-lock.yaml ./

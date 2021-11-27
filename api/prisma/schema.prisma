@@ -82,13 +82,29 @@ model FriendRequest {
     @@unique([fromUserId, toUserId])
 }
 
+model Media {
+    id        String   @id @default(uuid())
+    pk        Int      @default(autoincrement())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    url      String
+    filename String
+    mimetype String
+    encoding String
+
+    message   Message @relation("message_media", fields: [messageId], references: [id])
+    messageId String
+}
+
 model Message {
     id        String   @id @default(uuid())
     pk        Int      @default(autoincrement())
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 
-    body String @default("")
+    body        String  @default("")
+    attachments Media[] @relation("message_media")
 
     author   User   @relation("user_messages", fields: [authorId], references: [id])
     authorId String

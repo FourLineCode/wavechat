@@ -53,6 +53,11 @@ export async function createMessage(messageDTO: MessageDTO) {
 		db.message.create({
 			data: {
 				body: messageDTO.body,
+				attachments: messageDTO.attachments && {
+					createMany: {
+						data: [...messageDTO.attachments],
+					},
+				},
 				threadId: messageDTO.threadId,
 				authorId: messageDTO.authorId,
 				createdAt: messageDTO.createdAt,

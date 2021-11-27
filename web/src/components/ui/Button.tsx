@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import React from 'react';
-import { ClipLoader } from 'react-spinners';
+import { Spinner } from 'src/components/ui/Spinner';
 
 interface Props extends React.HTMLAttributes<HTMLButtonElement> {
 	type?: 'button' | 'submit' | 'reset';
@@ -39,17 +39,17 @@ export const Button = React.forwardRef<HTMLButtonElement, Props>(function Button
 			ref={ref}
 			onClick={onClick}
 			type={type}
-			disabled={isSubmitting}
+			disabled={isSubmitting || disabled}
 			className={clsx(
-				className,
 				VariantStyles[variant],
 				isSubmitting && 'bg-opacity-75 flex justify-center items-center cursor-not-allowed',
 				disabled && 'filter grayscale cursor-not-allowed',
-				'px-4 py-1 font-semibold rounded-lg transition duration-150 focus:outline-none focus:ring-4 ring-opacity-50 border-2 border-brand-500 ring-brand-500'
+				'px-4 py-1 font-semibold rounded-lg transition duration-150 focus:outline-none focus:ring-4 ring-opacity-50 border-2 border-brand-500 ring-brand-500',
+				className
 			)}
 			{...props}
 		>
-			{isSubmitting && <ClipLoader size='18px' color='white' />}
+			{isSubmitting && <Spinner size='24px' />}
 			<div className={clsx(isSubmitting && 'ml-1')}>{children}</div>
 		</button>
 	);

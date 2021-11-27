@@ -26,12 +26,19 @@ module.exports = {
 				muted: customDark[600],
 			},
 			fontFamily: {
-				roboto: ['Roboto', 'sans-serif'],
+				'open-sans': ['Open Sans', 'sans-serif'],
+			},
+			maxHeight: {
+				'4/5': '80%',
 			},
 		},
 	},
 	variants: {
 		extend: {},
 	},
-	plugins: [require('@tailwindcss/line-clamp'), require('tailwind-scrollbar')],
+	plugins: [
+		require('@tailwindcss/line-clamp'),
+		require('tailwind-scrollbar'),
+		require('@tailwindcss/aspect-ratio'),
+	],
 };

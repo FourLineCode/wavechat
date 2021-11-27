@@ -1,6 +1,7 @@
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import express from 'express';
+import { graphqlUploadExpress } from 'graphql-upload';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import { getConfig } from 'src/internal/config';
@@ -28,3 +29,6 @@ app.use(express.json());
 
 // Cookie parser for authorization
 app.use(cookieParser());
+
+// File upload middleware for apollo server
+app.use(graphqlUploadExpress());
