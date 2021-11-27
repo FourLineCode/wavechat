@@ -1,6 +1,6 @@
-import { ProfileDetails } from 'src/components/profile/ProfileDetails';
-import { Modal } from 'src/components/ui/Modal';
-import { ModalProps } from 'src/hooks/useModal';
+import { ProfileDetails } from "src/components/profile/ProfileDetails";
+import { Modal } from "src/components/ui/Modal";
+import { ModalProps } from "src/hooks/useModal";
 
 interface Props extends ModalProps {
 	userId: string;

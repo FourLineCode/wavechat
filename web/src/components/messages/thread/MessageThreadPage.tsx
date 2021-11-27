@@ -1,23 +1,23 @@
-import { gql, useQuery } from '@apollo/client';
-import { ErrorSocketEvents, MessageSocketEvents } from '@shared/socket/events';
-import { MessageDTO } from '@shared/types/message';
-import { Field, Form, Formik, FormikProps } from 'formik';
-import React, { ChangeEvent, useEffect, useMemo, useRef, useState } from 'react';
-import toast from 'react-hot-toast';
-import { BiMessage, BiMessageError } from 'react-icons/bi';
+import { gql, useQuery } from "@apollo/client";
+import { ErrorSocketEvents, MessageSocketEvents } from "@shared/socket/events";
+import { MessageDTO } from "@shared/types/message";
+import { Field, Form, Formik, FormikProps } from "formik";
+import React, { ChangeEvent, useEffect, useMemo, useRef, useState } from "react";
+import toast from "react-hot-toast";
+import { BiMessage, BiMessageError } from "react-icons/bi";
 import {
 	Message,
 	MessageThread,
 	ThreadMessagesQuery,
 	ThreadMessagesQueryVariables,
 	User,
-} from 'src/apollo/__generated__/types';
-import { MediaInput } from 'src/components/messages/thread/MediaInput';
-import { MessageListView } from 'src/components/messages/thread/MessageListView';
-import { MessageThreadTopBar } from 'src/components/messages/thread/MessageThreadTopBar';
-import { Spinner } from 'src/components/ui/Spinner';
-import { useSocket } from 'src/socket/useSocket';
-import { useAuth } from 'src/store/useAuth';
+} from "src/apollo/__generated__/types";
+import { MediaInput } from "src/components/messages/thread/MediaInput";
+import { MessageListView } from "src/components/messages/thread/MessageListView";
+import { MessageThreadTopBar } from "src/components/messages/thread/MessageThreadTopBar";
+import { Spinner } from "src/components/ui/Spinner";
+import { useSocket } from "src/socket/useSocket";
+import { useAuth } from "src/store/useAuth";
 
 const THREAD_MESSAGES = gql`
 	query ThreadMessages($threadId: String!) {
@@ -64,7 +64,7 @@ export function MessageThreadPage({ thread }: Props) {
 	const [messages, setMessages] = useState<Message[]>([]);
 	const [error, setError] = useState(false);
 	const [messagesLoading, setMessagesLoading] = useState(true);
-	const [inputValue, setInputValue] = useState('');
+	const [inputValue, setInputValue] = useState("");
 	const [prevMessages, setPrevMessages] = useState<string[]>([]);
 	const [prevMessageIndex, setPrevMessageIndex] = useState<number>(-1);
 	const inputRef = useRef<HTMLTextAreaElement>(null);
@@ -84,7 +84,7 @@ export function MessageThreadPage({ thread }: Props) {
 			setMessagesLoading(false);
 			toast.error(error.message);
 		},
-		fetchPolicy: 'no-cache',
+		fetchPolicy: "no-cache",
 	});
 
 	useEffect(() => {
@@ -143,44 +143,44 @@ export function MessageThreadPage({ thread }: Props) {
 	}, []);
 
 	const onKeyDownHandler = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-		if (['ArrowUp', 'ArrowDown'].includes(e.key)) e.preventDefault();
+		if (["ArrowUp", "ArrowDown"].includes(e.key)) e.preventDefault();
 
-		if (e.key == 'Enter' && !e.shiftKey) {
+		if (e.key == "Enter" && !e.shiftKey) {
 			e.preventDefault();
 			formRef.current?.submitForm();
-		} else if (e.key == 'ArrowUp') {
+		} else if (e.key == "ArrowUp") {
 			setPrevMessageIndex((prev) => Math.min(prevMessages.length - 1, prev + 1));
-		} else if (e.key == 'ArrowDown') {
+		} else if (e.key == "ArrowDown") {
 			setPrevMessageIndex((prev) => Math.max(-1, prev - 1));
 		}
 	};
 
 	return (
-		<div className='flex flex-col w-full h-full'>
+		<div className="flex flex-col w-full h-full">
 			<MessageThreadTopBar user={user} />
-			<div className='flex flex-col flex-1 w-full min-h-0 pb-4'>
+			<div className="flex flex-col flex-1 w-full min-h-0 pb-4">
 				{messages.length > 0 && !error && !messagesLoading ? (
 					<MessageListView messageGroups={messageGroups} />
 				) : !error && !messagesLoading ? (
-					<div className='flex flex-col items-center justify-center flex-1 text-muted'>
-						<BiMessage size='156px' />
-						<div className='text-xl font-semibold'>Send a message</div>
+					<div className="flex flex-col items-center justify-center flex-1 text-muted">
+						<BiMessage size="156px" />
+						<div className="text-xl font-semibold">Send a message</div>
 					</div>
 				) : error && !messagesLoading ? (
-					<div className='flex flex-col items-center justify-center flex-1 text-muted'>
-						<BiMessageError size='156px' />
-						<div className='text-xl font-semibold'>Something went wrong!</div>
+					<div className="flex flex-col items-center justify-center flex-1 text-muted">
+						<BiMessageError size="156px" />
+						<div className="text-xl font-semibold">Something went wrong!</div>
 					</div>
 				) : (
 					messagesLoading && (
-						<div className='flex items-center justify-center flex-1'>
+						<div className="flex items-center justify-center flex-1">
 							<Spinner />
 						</div>
 					)
 				)}
-				<div className='px-4'>
+				<div className="px-4">
 					<Formik
-						initialValues={{ messageBody: '' }}
+						initialValues={{ messageBody: "" }}
 						innerRef={formRef}
 						onSubmit={async ({ messageBody }, form) => {
 							messageBody = messageBody.trim();
@@ -206,20 +206,20 @@ export function MessageThreadPage({ thread }: Props) {
 
 							setPrevMessages((prev) => [messageBody, ...prev]);
 							setPrevMessageIndex(-1);
-							setInputValue('');
+							setInputValue("");
 							form.resetForm();
 						}}
 					>
-						<Form className='flex items-center'>
+						<Form className="flex items-center">
 							<Field
-								as='textarea'
-								rows='1'
-								type='text'
-								name='messageBody'
+								as="textarea"
+								rows="1"
+								type="text"
+								name="messageBody"
 								innerRef={inputRef}
-								autoComplete='off'
+								autoComplete="off"
 								disabled={error}
-								placeholder='Send a message'
+								placeholder="Send a message"
 								onKeyDown={onKeyDownHandler}
 								value={
 									prevMessageIndex > -1
@@ -229,7 +229,7 @@ export function MessageThreadPage({ thread }: Props) {
 								onInput={(e: ChangeEvent<HTMLInputElement>) =>
 									setInputValue(e.target.value)
 								}
-								className='w-full px-4 pt-3 align-middle rounded-lg resize-none focus:ring-2 focus:outline-none ring-brand-500 bg-dark-600 bg-opacity-30 hover:bg-opacity-20'
+								className="w-full px-4 pt-3 align-middle rounded-lg resize-none focus:ring-2 focus:outline-none ring-brand-500 bg-dark-600 bg-opacity-30 hover:bg-opacity-20"
 							/>
 							<MediaInput socket={socket} thread={thread} />
 						</Form>

@@ -1,14 +1,14 @@
-import { ErrorSocketEvents, MessageSocketEvents, SocketEvents } from '@shared/socket/events';
-import { AuthorizeSocketDTO } from '@shared/types/auth';
-import cookie from 'cookie';
-import { Server as IOServer, Socket } from 'socket.io';
-import { graphQLClient } from 'src/graphql/client';
+import { ErrorSocketEvents, MessageSocketEvents, SocketEvents } from "@shared/socket/events";
+import { AuthorizeSocketDTO } from "@shared/types/auth";
+import cookie from "cookie";
+import { Server as IOServer, Socket } from "socket.io";
+import { graphQLClient } from "src/graphql/client";
 import {
 	AUTHORIZE_SOCKET,
 	IsSocketAuthorizedQuery,
 	IsSocketAuthorizedVariables,
-} from 'src/graphql/queries';
-import { store } from 'src/redis/store';
+} from "src/graphql/queries";
+import { store } from "src/redis/store";
 
 export async function initializeSocketHandler(io: IOServer) {
 	io.on(SocketEvents.Connect, onConnect);
@@ -19,7 +19,7 @@ async function onConnect(socket: Socket) {
 	if (!authorized) {
 		socket.emit(
 			ErrorSocketEvents.AuthorizationError,
-			'You are not signed in, or your session has expired'
+			"You are not signed in, or your session has expired"
 		);
 		socket.disconnect();
 		return;
@@ -39,7 +39,7 @@ async function onDisconnect(socket: Socket) {
 
 async function authorizeSocket(socket: Socket): Promise<AuthorizeSocketDTO> {
 	try {
-		const cookies = cookie.parse(socket.request.headers.cookie || '');
+		const cookies = cookie.parse(socket.request.headers.cookie || "");
 		const data = await graphQLClient.request<
 			IsSocketAuthorizedQuery,
 			IsSocketAuthorizedVariables

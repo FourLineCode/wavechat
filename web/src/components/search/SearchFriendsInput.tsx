@@ -1,14 +1,14 @@
-import { gql, useApolloClient, useLazyQuery } from '@apollo/client';
-import { useEffect, useState } from 'react';
-import toast from 'react-hot-toast';
+import { gql, useApolloClient, useLazyQuery } from "@apollo/client";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import {
 	SearchFriendsQuery,
 	SearchFriendsQueryVariables,
 	User,
-} from 'src/apollo/__generated__/types';
-import { SearchedUserList } from 'src/components/search/SearchedUserList';
-import { useDebounceValue } from 'src/hooks/useDebounceValue';
-import { useModal } from 'src/hooks/useModal';
+} from "src/apollo/__generated__/types";
+import { SearchedUserList } from "src/components/search/SearchedUserList";
+import { useDebounceValue } from "src/hooks/useDebounceValue";
+import { useModal } from "src/hooks/useModal";
 
 const SEARCH_FRIENDS = gql`
 	query SearchFriends($searchTerm: String!) {
@@ -24,7 +24,7 @@ const SEARCH_FRIENDS = gql`
 
 export function SearchFriendsInput() {
 	const apolloClient = useApolloClient();
-	const [searchTerm, setSearchTerm] = useState('');
+	const [searchTerm, setSearchTerm] = useState("");
 	const { show, onOpen, onClose } = useModal(true);
 	const [users, setUsers] = useState<User[]>([]);
 	const debounceSearchTerm = useDebounceValue(searchTerm, 500);
@@ -65,23 +65,23 @@ export function SearchFriendsInput() {
 	}, [data]);
 
 	return (
-		<div className='relative w-full'>
+		<div className="relative w-full">
 			<input
-				type='text'
-				placeholder='Search a friend'
+				type="text"
+				placeholder="Search a friend"
 				value={searchTerm}
 				onChange={(e) => {
 					setSearchTerm(e.target.value);
 					onOpen();
 				}}
-				onKeyDown={(e) => ['ArrowUp', 'ArrowDown'].includes(e.key) && e.preventDefault()}
-				className='w-full p-2 text-sm transition rounded-lg placeholder-dark-500 text-primary bg-dark-700 focus:bg-dark-600 focus:ring-2 ring-brand-500 focus:outline-none'
+				onKeyDown={(e) => ["ArrowUp", "ArrowDown"].includes(e.key) && e.preventDefault()}
+				className="w-full p-2 text-sm transition rounded-lg placeholder-dark-500 text-primary bg-dark-700 focus:bg-dark-600 focus:ring-2 ring-brand-500 focus:outline-none"
 			/>
 			{users.length > 0 && show && (
 				<SearchedUserList
 					users={users}
 					onEscape={onClose}
-					clearSearchInput={() => setSearchTerm('')}
+					clearSearchInput={() => setSearchTerm("")}
 				/>
 			)}
 		</div>

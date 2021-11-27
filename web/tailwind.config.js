@@ -1,20 +1,20 @@
-const colors = require('tailwindcss/colors');
+const colors = require("tailwindcss/colors");
 
 const customDark = {
-	100: '#f8f9fa',
-	200: '#e9ecef',
-	300: '#dee2e6',
-	400: '#ced4da',
-	500: '#adb5bd',
-	600: '#6C757D',
-	700: '#373D43',
-	800: '#25292D',
-	900: '#121417',
+	100: "#f8f9fa",
+	200: "#e9ecef",
+	300: "#dee2e6",
+	400: "#ced4da",
+	500: "#adb5bd",
+	600: "#6C757D",
+	700: "#373D43",
+	800: "#25292D",
+	900: "#121417",
 };
 
 module.exports = {
-	mode: 'jit',
-	purge: ['./src/**/*.{ts,tsx}'],
+	mode: "jit",
+	purge: ["./src/**/*.{ts,tsx}"],
 	darkMode: false, // or 'media' or 'class'
 	theme: {
 		extend: {
@@ -26,10 +26,10 @@ module.exports = {
 				muted: customDark[600],
 			},
 			fontFamily: {
-				'open-sans': ['Open Sans', 'sans-serif'],
+				"open-sans": ["Open Sans", "sans-serif"],
 			},
 			maxHeight: {
-				'4/5': '80%',
+				"4/5": "80%",
 			},
 		},
 	},
@@ -37,8 +37,8 @@ module.exports = {
 		extend: {},
 	},
 	plugins: [
-		require('@tailwindcss/line-clamp'),
-		require('tailwind-scrollbar'),
-		require('@tailwindcss/aspect-ratio'),
+		require("@tailwindcss/line-clamp"),
+		require("tailwind-scrollbar"),
+		require("@tailwindcss/aspect-ratio"),
 	],
 };

@@ -1,11 +1,11 @@
-import { gql, useMutation } from '@apollo/client';
-import { useRouter } from 'next/router';
-import toast from 'react-hot-toast';
+import { gql, useMutation } from "@apollo/client";
+import { useRouter } from "next/router";
+import toast from "react-hot-toast";
 import {
 	CreateMessageThreadMutation,
 	CreateMessageThreadMutationVariables,
-} from 'src/apollo/__generated__/types';
-import { ACTIVE_MESSAGE_THREADS } from 'src/components/messages/sidebar/DirectMessages';
+} from "src/apollo/__generated__/types";
+import { ACTIVE_MESSAGE_THREADS } from "src/components/messages/sidebar/DirectMessages";
 
 export const CREATE_MESSAGE_THREAD = gql`
 	mutation CreateMessageThread($userId: String!) {

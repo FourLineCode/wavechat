@@ -1,13 +1,13 @@
-import { gql, useMutation } from '@apollo/client';
-import toast from 'react-hot-toast';
-import { IoArrowUndo } from 'react-icons/io5';
+import { gql, useMutation } from "@apollo/client";
+import toast from "react-hot-toast";
+import { IoArrowUndo } from "react-icons/io5";
 import {
 	UnsendRequestMutation,
 	UnsendRequestMutationVariables,
-} from 'src/apollo/__generated__/types';
-import { GET_USER_DATA } from 'src/components/profile/ProfileDetails';
-import { RequestButtonProps, RequestButtonState } from 'src/components/requests/RequestButton';
-import { Button } from 'src/components/ui/Button';
+} from "src/apollo/__generated__/types";
+import { GET_USER_DATA } from "src/components/profile/ProfileDetails";
+import { RequestButtonProps, RequestButtonState } from "src/components/requests/RequestButton";
+import { Button } from "src/components/ui/Button";
 
 export const UNSEND_REQUEST = gql`
 	mutation UnsendRequest($requestId: String!) {
@@ -24,7 +24,7 @@ export function UnsendButton({ user, className, setState, reqId, setReqId }: Req
 		onCompleted: () => {
 			setState(RequestButtonState.NotFriend);
 			setReqId(null);
-			toast.success('Unsent request successfully');
+			toast.success("Unsent request successfully");
 		},
 		onError: (error) => {
 			toast.error(error.message);
@@ -33,10 +33,10 @@ export function UnsendButton({ user, className, setState, reqId, setReqId }: Req
 	});
 
 	return (
-		<Button type='submit' className={className} onClick={unsendRequest} isSubmitting={loading}>
-			<div className='flex items-center justify-center space-x-1'>
+		<Button type="submit" className={className} onClick={unsendRequest} isSubmitting={loading}>
+			<div className="flex items-center justify-center space-x-1">
 				<IoArrowUndo />
-				<span className='line-clamp-1'>Unsend Request</span>
+				<span className="line-clamp-1">Unsend Request</span>
 			</div>
 		</Button>
 	);

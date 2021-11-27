@@ -1,7 +1,7 @@
-import { gql } from '@apollo/client';
-import { GetServerSidePropsContext } from 'next';
-import { client } from 'src/apollo/client';
-import { AuthorizeQuery } from 'src/apollo/__generated__/types';
+import { gql } from "@apollo/client";
+import { GetServerSidePropsContext } from "next";
+import { client } from "src/apollo/client";
+import { AuthorizeQuery } from "src/apollo/__generated__/types";
 
 export async function authorize(context: GetServerSidePropsContext): Promise<AuthorizeQuery> {
 	const { data } = await client.query<AuthorizeQuery>({
@@ -30,7 +30,7 @@ export async function authorize(context: GetServerSidePropsContext): Promise<Aut
 				cookie: context.req.headers.cookie,
 			},
 		},
-		fetchPolicy: 'no-cache',
+		fetchPolicy: "no-cache",
 	});
 
 	return data;

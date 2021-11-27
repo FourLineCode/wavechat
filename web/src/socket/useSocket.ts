@@ -1,6 +1,6 @@
-import io, { Socket } from 'socket.io-client';
-import { config } from 'src/internal/config';
-import create, { State } from 'zustand';
+import io, { Socket } from "socket.io-client";
+import { config } from "src/internal/config";
+import create, { State } from "zustand";
 
 export interface SocketState extends State {
 	conn: Socket;

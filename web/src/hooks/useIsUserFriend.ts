@@ -1,6 +1,6 @@
-import { gql, useQuery } from '@apollo/client';
-import { useState } from 'react';
-import { IsFriendQuery, IsFriendQueryVariables } from 'src/apollo/__generated__/types';
+import { gql, useQuery } from "@apollo/client";
+import { useState } from "react";
+import { IsFriendQuery, IsFriendQueryVariables } from "src/apollo/__generated__/types";
 
 export const IS_FRIEND = gql`
 	query IsFriend($userId: String!) {

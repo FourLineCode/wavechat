@@ -1,18 +1,18 @@
-import clsx from 'clsx';
-import { Form, Formik, FormikProps } from 'formik';
-import { useRouter } from 'next/dist/client/router';
-import Link from 'next/link';
-import { useEffect, useState } from 'react';
-import toast from 'react-hot-toast';
-import { FaCaretLeft, FaCaretRight } from 'react-icons/fa';
-import { Layout } from 'src/components/layouts/Layout';
-import { NavBar } from 'src/components/layouts/NavBar';
-import { Button } from 'src/components/ui/Button';
-import { Card } from 'src/components/ui/Card';
-import { Input } from 'src/components/ui/Input';
-import { Spinner } from 'src/components/ui/Spinner';
-import { Textarea } from 'src/components/ui/Textarea';
-import { useAuth } from 'src/store/useAuth';
+import clsx from "clsx";
+import { Form, Formik, FormikProps } from "formik";
+import { useRouter } from "next/dist/client/router";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import { FaCaretLeft, FaCaretRight } from "react-icons/fa";
+import { Layout } from "src/components/layouts/Layout";
+import { NavBar } from "src/components/layouts/NavBar";
+import { Button } from "src/components/ui/Button";
+import { Card } from "src/components/ui/Card";
+import { Input } from "src/components/ui/Input";
+import { Spinner } from "src/components/ui/Spinner";
+import { Textarea } from "src/components/ui/Textarea";
+import { useAuth } from "src/store/useAuth";
 
 interface FormInitialValue {
 	email: string;
@@ -38,16 +38,16 @@ export default function SignUp() {
 	}, []);
 
 	return (
-		<Layout title='Sign Up'>
-			<div className='w-screen h-screen'>
-				<div className='w-full bg-gradient-to-b from-brand-800 to-dark-900 h-2/3'>
+		<Layout title="Sign Up">
+			<div className="w-screen h-screen">
+				<div className="w-full bg-gradient-to-b from-brand-800 to-dark-900 h-2/3">
 					<NavBar />
 					<Formik<FormInitialValue>
 						initialValues={{
-							email: '',
-							username: '',
-							password: '',
-							confirmPassword: '',
+							email: "",
+							username: "",
+							password: "",
+							confirmPassword: "",
 						}}
 						onSubmit={async ({
 							email,
@@ -60,7 +60,7 @@ export default function SignUp() {
 							semester,
 						}) => {
 							if (password !== confirmPassword) {
-								toast.error('Passwords do not match');
+								toast.error("Passwords do not match");
 								return;
 							}
 
@@ -81,7 +81,7 @@ export default function SignUp() {
 
 							toast.success(res.message);
 							setRedirecting(true);
-							router.push('/messages');
+							router.push("/messages");
 						}}
 					>
 						{(props) => (
@@ -89,15 +89,15 @@ export default function SignUp() {
 								inverted
 								as={Form}
 								className={clsx(
-									'max-w-md mx-auto mt-16 space-y-4',
-									redirecting && 'flex justify-center items-center h-56'
+									"max-w-md mx-auto mt-16 space-y-4",
+									redirecting && "flex justify-center items-center h-56"
 								)}
 							>
 								{redirecting ? (
 									<Spinner />
 								) : (
 									<>
-										<div className='text-5xl italic font-bold text-center'>
+										<div className="text-5xl italic font-bold text-center">
 											Sign Up
 										</div>
 										{page === 0 ? (
@@ -105,11 +105,11 @@ export default function SignUp() {
 										) : (
 											<Page2 form={props} />
 										)}
-										<div className='flex flex-row-reverse items-center justify-between'>
-											<div className='flex flex-row-reverse items-center space-x-2 space-x-reverse'>
+										<div className="flex flex-row-reverse items-center justify-between">
+											<div className="flex flex-row-reverse items-center space-x-2 space-x-reverse">
 												{page === 1 ? (
 													<Button
-														type='submit'
+														type="submit"
 														isSubmitting={props.isSubmitting}
 													>
 														Sign up
@@ -119,21 +119,21 @@ export default function SignUp() {
 														<Button
 															onClick={() => page !== 1 && setPage(1)}
 														>
-															<FaCaretRight className='w-[16px] h-[24px]' />
+															<FaCaretRight className="w-[16px] h-[24px]" />
 														</Button>
 													</>
 												)}
 												<Button onClick={() => page !== 0 && setPage(0)}>
-													<FaCaretLeft className='w-[16px] h-[24px]' />
+													<FaCaretLeft className="w-[16px] h-[24px]" />
 												</Button>
 												<div
-													className={clsx(page === 1 && 'text-brand-500')}
+													className={clsx(page === 1 && "text-brand-500")}
 												>{`${page + 1}/2`}</div>
 											</div>
 											<div>
 												<span>Have an account?</span>
-												<Link passHref href='/signin'>
-													<a className='ml-2 font-semibold cursor-pointer hover:underline text-brand-500'>
+												<Link passHref href="/signin">
+													<a className="ml-2 font-semibold cursor-pointer hover:underline text-brand-500">
 														Sign in
 													</a>
 												</Link>
@@ -154,32 +154,32 @@ function Page1({ form }: { form: FormikProps<FormInitialValue> }) {
 	return (
 		<div>
 			<Input
-				label='Email'
-				name='email'
-				placeholder='Email...'
-				type='email'
+				label="Email"
+				name="email"
+				placeholder="Email..."
+				type="email"
 				disabled={form.isSubmitting}
 				initialFocus
 			/>
 			<Input
-				label='Username'
-				name='username'
-				placeholder='Username...'
-				type='text'
+				label="Username"
+				name="username"
+				placeholder="Username..."
+				type="text"
 				disabled={form.isSubmitting}
 			/>
 			<Input
-				label='Password'
-				name='password'
-				placeholder='Password...'
-				type='password'
+				label="Password"
+				name="password"
+				placeholder="Password..."
+				type="password"
 				disabled={form.isSubmitting}
 			/>
 			<Input
-				label='Confirm Password'
-				name='confirmPassword'
-				placeholder='Confirm Password...'
-				type='password'
+				label="Confirm Password"
+				name="confirmPassword"
+				placeholder="Confirm Password..."
+				type="password"
 				disabled={form.isSubmitting}
 			/>
 		</div>
@@ -190,31 +190,31 @@ function Page2({ form }: { form: FormikProps<FormInitialValue> }) {
 	return (
 		<div>
 			<Input
-				label='University'
-				name='university'
-				placeholder='University...'
-				type='text'
+				label="University"
+				name="university"
+				placeholder="University..."
+				type="text"
 				disabled={form.isSubmitting}
 				initialFocus
 			/>
 			<Input
-				label='Department'
-				name='department'
-				placeholder='Department...'
-				type='text'
+				label="Department"
+				name="department"
+				placeholder="Department..."
+				type="text"
 				disabled={form.isSubmitting}
 			/>
 			<Input
-				label='Semester'
-				name='semester'
-				placeholder='Semester...'
-				type='number'
+				label="Semester"
+				name="semester"
+				placeholder="Semester..."
+				type="number"
 				disabled={form.isSubmitting}
 			/>
 			<Textarea
-				label='Bio'
-				name='bio'
-				placeholder='Bio (about yourself)...'
+				label="Bio"
+				name="bio"
+				placeholder="Bio (about yourself)..."
 				disabled={form.isSubmitting}
 			/>
 		</div>

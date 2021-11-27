@@ -1,12 +1,12 @@
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { User } from 'src/apollo/__generated__/types';
-import { AddButton } from 'src/components/requests/AddButton';
-import { RespondButton } from 'src/components/requests/RespondButton';
-import { UnfriendButton } from 'src/components/requests/UnfriendButton';
-import { UnsendButton } from 'src/components/requests/UnsendButton';
-import { Button } from 'src/components/ui/Button';
-import { Spinner } from 'src/components/ui/Spinner';
-import { useAuth } from 'src/store/useAuth';
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { User } from "src/apollo/__generated__/types";
+import { AddButton } from "src/components/requests/AddButton";
+import { RespondButton } from "src/components/requests/RespondButton";
+import { UnfriendButton } from "src/components/requests/UnfriendButton";
+import { UnsendButton } from "src/components/requests/UnsendButton";
+import { Button } from "src/components/ui/Button";
+import { Spinner } from "src/components/ui/Spinner";
+import { useAuth } from "src/store/useAuth";
 
 interface Props {
 	user: User;
@@ -86,7 +86,7 @@ export function RequestButton({ user, className }: Props) {
 		<UnfriendButton
 			user={user}
 			className={className}
-			reqId={reqId ?? 'NULL_REQUEST_ID_ERROR'}
+			reqId={reqId ?? "NULL_REQUEST_ID_ERROR"}
 			setState={setState}
 			setReqId={setReqId}
 		/>
@@ -94,7 +94,7 @@ export function RequestButton({ user, className }: Props) {
 		<RespondButton
 			user={user}
 			className={className}
-			reqId={reqId ?? 'NULL_REQUEST_ID_ERROR'}
+			reqId={reqId ?? "NULL_REQUEST_ID_ERROR"}
 			setState={setState}
 			setReqId={setReqId}
 		/>
@@ -102,7 +102,7 @@ export function RequestButton({ user, className }: Props) {
 		<UnsendButton
 			user={user}
 			className={className}
-			reqId={reqId ?? 'NULL_REQUEST_ID_ERROR'}
+			reqId={reqId ?? "NULL_REQUEST_ID_ERROR"}
 			setState={setState}
 			setReqId={setReqId}
 		/>
@@ -110,7 +110,7 @@ export function RequestButton({ user, className }: Props) {
 		<AddButton
 			user={user}
 			className={className}
-			reqId={reqId ?? 'NULL_REQUEST_ID_ERROR'}
+			reqId={reqId ?? "NULL_REQUEST_ID_ERROR"}
 			setState={setState}
 			setReqId={setReqId}
 		/>

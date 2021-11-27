@@ -1,6 +1,6 @@
-import { UserDTO } from '@shared/types/auth';
-import { MessageDTO } from '@shared/types/message';
-import { gql } from 'graphql-request';
+import { UserDTO } from "@shared/types/auth";
+import { MessageDTO } from "@shared/types/message";
+import { gql } from "graphql-request";
 
 export const AUTHORIZE_SOCKET = gql`
 	query IsSocketAuthorized($sessionId: String!) {

@@ -1,9 +1,9 @@
-import { Session, User, UserRole } from '@prisma/client';
-import { ExpressContext } from 'apollo-server-express';
-import { Request, Response } from 'express';
-import jwt from 'jsonwebtoken';
-import { db } from 'prisma/connection';
-import { JWTPayload } from 'src/graphql/resolvers/auth.resolver';
+import { Session, User, UserRole } from "@prisma/client";
+import { ExpressContext } from "apollo-server-express";
+import { Request, Response } from "express";
+import jwt from "jsonwebtoken";
+import { db } from "prisma/connection";
+import { JWTPayload } from "src/graphql/resolvers/auth.resolver";
 
 export interface Context {
 	req: Request;
@@ -29,7 +29,7 @@ export async function createContext({ req, res }: ExpressContext): Promise<Conte
 	};
 
 	// Read http only session cookie from request headers
-	const token = req.cookies['session'] as string;
+	const token = req.cookies["session"] as string;
 
 	if (token) {
 		const verified = jwt.verify(token, process.env.JWT_SECRET!);
@@ -53,13 +53,13 @@ export async function createContext({ req, res }: ExpressContext): Promise<Conte
 				ctx.user = session.user;
 				ctx.session = session;
 				ctx.role = session.user.role;
-				ctx.admin = session.user.role === 'ADMIN';
+				ctx.admin = session.user.role === "ADMIN";
 			}
 		}
 	}
 
 	// Read internal authorization jwt token from request headers
-	const internalToken = req.headers['internal-token'] as string;
+	const internalToken = req.headers["internal-token"] as string;
 
 	if (internalToken) {
 		const verified = jwt.verify(internalToken, process.env.INTERNAL_SECRET!);

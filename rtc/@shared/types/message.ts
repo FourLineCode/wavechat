@@ -1,4 +1,4 @@
-import { UserDTO } from './auth';
+import { UserDTO } from "./auth";
 
 export interface MediaDTO {
 	id?: string;

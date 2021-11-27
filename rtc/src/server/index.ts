@@ -1,9 +1,9 @@
-import fastify, { FastifyInstance } from 'fastify';
-import fastifyCookie from 'fastify-cookie';
-import fastifyCors from 'fastify-cors';
-import fastifyHelmet from 'fastify-helmet';
-import fastifyIO from 'fastify-socket.io';
-import { Config } from 'src/internal/config';
+import fastify, { FastifyInstance } from "fastify";
+import fastifyCookie from "fastify-cookie";
+import fastifyCors from "fastify-cors";
+import fastifyHelmet from "fastify-helmet";
+import fastifyIO from "fastify-socket.io";
+import { Config } from "src/internal/config";
 
 export async function initializeServer(config: Config): Promise<FastifyInstance> {
 	const server = fastify();
@@ -21,8 +21,8 @@ function registerMiddleware(server: FastifyInstance, config: Config) {
 	server.register(fastifyHelmet, { contentSecurityPolicy: false });
 	server.register(fastifyCookie);
 	server.register(fastifyIO, {
-		path: '/ws',
-		logLevel: config.isDev ? 'debug' : 'fatal',
+		path: "/ws",
+		logLevel: config.isDev ? "debug" : "fatal",
 		cors: {
 			origin: config.origins,
 			credentials: true,
@@ -31,7 +31,7 @@ function registerMiddleware(server: FastifyInstance, config: Config) {
 }
 
 function registerRoutes(server: FastifyInstance) {
-	server.get('/ws', async () => {
-		server.io.emit('init');
+	server.get("/ws", async () => {
+		server.io.emit("init");
 	});
 }

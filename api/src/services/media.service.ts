@@ -1,8 +1,8 @@
-import { MediaDTO } from '@shared/types/message';
-import { FileUpload } from 'graphql-upload';
-import { db } from 'prisma/connection';
-import { getS3Client } from 'src/aws/s3';
-import { getConfig } from 'src/internal/config';
+import { MediaDTO } from "@shared/types/message";
+import { FileUpload } from "graphql-upload";
+import { db } from "prisma/connection";
+import { getS3Client } from "src/aws/s3";
+import { getConfig } from "src/internal/config";
 
 export async function uploadSingleFile(stream: Promise<FileUpload>): Promise<MediaDTO> {
 	const config = getConfig();
@@ -10,7 +10,7 @@ export async function uploadSingleFile(stream: Promise<FileUpload>): Promise<Med
 
 	const { filename, mimetype, encoding, createReadStream } = await stream;
 
-	const ext = '.' + filename.split('.').pop() ?? 'media';
+	const ext = "." + filename.split(".").pop() ?? "media";
 	const key = `media-${Date.now().toString()}${ext}`;
 
 	const response = await client
@@ -34,7 +34,7 @@ export async function uploadMultipleFiles(streams: Promise<FileUpload>[]): Promi
 	for (const stream of streams) {
 		const { filename, mimetype, encoding, createReadStream } = await stream;
 
-		const ext = '.' + filename.split('.').pop() ?? 'media';
+		const ext = "." + filename.split(".").pop() ?? "media";
 		const key = `media-${Date.now().toString()}${ext}`;
 
 		const response = await client

@@ -1,29 +1,29 @@
-import { ObjectRef } from '@giraphql/core';
-import { User } from '@prisma/client';
-import { builder } from 'src/graphql/builder';
-import { SessionObject } from 'src/graphql/resolvers/auth.resolver';
-import { FriendRequestObject, FriendshipObject } from 'src/graphql/resolvers/friendship.resolver';
-import { MessageObject } from 'src/graphql/resolvers/message.resolver';
-import { MessageThreadObject } from 'src/graphql/resolvers/messageThread.resolver';
-import { services } from 'src/services';
+import { ObjectRef } from "@giraphql/core";
+import { User } from "@prisma/client";
+import { builder } from "src/graphql/builder";
+import { SessionObject } from "src/graphql/resolvers/auth.resolver";
+import { FriendRequestObject, FriendshipObject } from "src/graphql/resolvers/friendship.resolver";
+import { MessageObject } from "src/graphql/resolvers/message.resolver";
+import { MessageThreadObject } from "src/graphql/resolvers/messageThread.resolver";
+import { services } from "src/services";
 
-export const UserObject: ObjectRef<User, User> = builder.objectRef<User>('User').implement({
-	name: 'User',
-	description: 'User object type',
+export const UserObject: ObjectRef<User, User> = builder.objectRef<User>("User").implement({
+	name: "User",
+	description: "User object type",
 	fields: (t) => ({
-		id: t.exposeID('id'),
-		pk: t.exposeInt('pk'),
-		createdAt: t.expose('createdAt', { type: 'Date' }),
-		updatedAt: t.expose('updatedAt', { type: 'Date' }),
-		email: t.exposeString('email'),
-		username: t.exposeString('username'),
-		displayName: t.exposeString('displayName'),
-		role: t.exposeString('role'),
-		bio: t.expose('bio', { type: 'String', nullable: true }),
-		avatarUrl: t.expose('avatarUrl', { type: 'String', nullable: true }),
-		university: t.exposeString('university', { nullable: true }),
-		department: t.exposeString('department', { nullable: true }),
-		semester: t.exposeInt('semester', { nullable: true }),
+		id: t.exposeID("id"),
+		pk: t.exposeInt("pk"),
+		createdAt: t.expose("createdAt", { type: "Date" }),
+		updatedAt: t.expose("updatedAt", { type: "Date" }),
+		email: t.exposeString("email"),
+		username: t.exposeString("username"),
+		displayName: t.exposeString("displayName"),
+		role: t.exposeString("role"),
+		bio: t.expose("bio", { type: "String", nullable: true }),
+		avatarUrl: t.expose("avatarUrl", { type: "String", nullable: true }),
+		university: t.exposeString("university", { nullable: true }),
+		department: t.exposeString("department", { nullable: true }),
+		semester: t.exposeInt("semester", { nullable: true }),
 		sessions: t.field({
 			type: [SessionObject],
 			resolve: async (user) => {
@@ -63,10 +63,10 @@ export const UserObject: ObjectRef<User, User> = builder.objectRef<User>('User')
 	}),
 });
 
-builder.queryField('allUsers', (t) =>
+builder.queryField("allUsers", (t) =>
 	t.field({
 		type: [UserObject],
-		description: 'returns all users',
+		description: "returns all users",
 		authScopes: { admin: true },
 		resolve: async () => {
 			return await services.user.getAllUsers();
@@ -74,24 +74,24 @@ builder.queryField('allUsers', (t) =>
 	})
 );
 
-builder.queryField('user', (t) =>
+builder.queryField("user", (t) =>
 	t.field({
 		type: UserObject,
-		description: 'returns info for a user',
+		description: "returns info for a user",
 		authScopes: { user: true },
-		args: { userId: t.arg({ type: 'String', required: true }) },
+		args: { userId: t.arg({ type: "String", required: true }) },
 		resolve: async (_parent, { userId }) => {
 			return await services.user.getUserById(userId);
 		},
 	})
 );
 
-builder.queryField('userByUsername', (t) =>
+builder.queryField("userByUsername", (t) =>
 	t.field({
 		type: UserObject,
-		description: 'returns info for a user by username',
+		description: "returns info for a user by username",
 		authScopes: { user: true },
-		args: { username: t.arg({ type: 'String', required: true }) },
+		args: { username: t.arg({ type: "String", required: true }) },
 		resolve: async (_parent, { username }) => {
 			return await services.user.getUserByUsername(username.toLowerCase());
 		},

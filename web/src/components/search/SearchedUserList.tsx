@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
-import { User } from 'src/apollo/__generated__/types';
-import { SearchUserCard } from 'src/components/search/SearchUserCard';
+import { useCallback, useEffect, useRef, useState } from "react";
+import { User } from "src/apollo/__generated__/types";
+import { SearchUserCard } from "src/components/search/SearchUserCard";
 
 interface Props {
 	users: User[];
@@ -14,11 +14,11 @@ export function SearchedUserList({ users, clearSearchInput, onEscape }: Props) {
 
 	const arrowKeyHandler = useCallback(
 		(e: KeyboardEvent) => {
-			if (e.key === 'ArrowUp') {
+			if (e.key === "ArrowUp") {
 				setActive((curr) => Math.max(0, curr - 1));
-			} else if (e.key === 'ArrowDown') {
+			} else if (e.key === "ArrowDown") {
 				setActive((curr) => Math.min(users.length - 1, curr + 1));
-			} else if (e.key === 'Escape') {
+			} else if (e.key === "Escape") {
 				if (active >= 0) {
 					setActive(-1);
 				} else {
@@ -30,10 +30,10 @@ export function SearchedUserList({ users, clearSearchInput, onEscape }: Props) {
 	);
 
 	useEffect(() => {
-		window.addEventListener('keydown', arrowKeyHandler);
+		window.addEventListener("keydown", arrowKeyHandler);
 
 		return () => {
-			window.removeEventListener('keydown', arrowKeyHandler);
+			window.removeEventListener("keydown", arrowKeyHandler);
 		};
 	}, [active]);
 
@@ -45,10 +45,10 @@ export function SearchedUserList({ users, clearSearchInput, onEscape }: Props) {
 			}
 		};
 
-		window.addEventListener('click', clickOutsideHandler);
+		window.addEventListener("click", clickOutsideHandler);
 
 		return () => {
-			window.removeEventListener('click', clickOutsideHandler);
+			window.removeEventListener("click", clickOutsideHandler);
 		};
 	}, []);
 
@@ -59,7 +59,7 @@ export function SearchedUserList({ users, clearSearchInput, onEscape }: Props) {
 	return (
 		<div
 			ref={ref}
-			className='absolute left-0 w-full p-2 mt-1 space-y-1 overflow-x-hidden overflow-y-auto transition-all transform border rounded-lg shadow-lg max-h-96 scrollbar-none bg-dark-900 border-dark-700 top-full'
+			className="absolute left-0 w-full p-2 mt-1 space-y-1 overflow-x-hidden overflow-y-auto transition-all transform border rounded-lg shadow-lg max-h-96 scrollbar-none bg-dark-900 border-dark-700 top-full"
 		>
 			{users.map((user, index) => (
 				<SearchUserCard

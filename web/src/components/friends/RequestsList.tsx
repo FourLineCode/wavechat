@@ -1,11 +1,11 @@
-import { gql, useMutation, useQuery } from '@apollo/client';
-import toast from 'react-hot-toast';
-import { FriendRequest, PendingRequestsQuery } from 'src/apollo/__generated__/types';
-import { FriendRequestCard } from 'src/components/friends/FriendRequestCard';
-import { Button } from 'src/components/ui/Button';
-import { Modal } from 'src/components/ui/Modal';
-import { Spinner } from 'src/components/ui/Spinner';
-import { useModal } from 'src/hooks/useModal';
+import { gql, useMutation, useQuery } from "@apollo/client";
+import toast from "react-hot-toast";
+import { FriendRequest, PendingRequestsQuery } from "src/apollo/__generated__/types";
+import { FriendRequestCard } from "src/components/friends/FriendRequestCard";
+import { Button } from "src/components/ui/Button";
+import { Modal } from "src/components/ui/Modal";
+import { Spinner } from "src/components/ui/Spinner";
+import { useModal } from "src/hooks/useModal";
 
 export const GET_PENDING_REQUESTS = gql`
 	query PendingRequests {
@@ -49,7 +49,7 @@ export function RequestsList() {
 	const [declineAll, { loading: declineAllLoading }] = useMutation(DECLINE_ALL_REQUESTS, {
 		onCompleted: () => {
 			declineRequestModal.onClose();
-			toast.success('Declined All Requests');
+			toast.success("Declined All Requests");
 		},
 		onError: (error) => {
 			toast.error(error.message);
@@ -58,32 +58,32 @@ export function RequestsList() {
 	});
 
 	return loading ? (
-		<div className='flex justify-center h-full pt-16'>
+		<div className="flex justify-center h-full pt-16">
 			<Spinner />
 		</div>
 	) : (
-		<div className='pr-1 space-y-2 overflow-y-auto scrollbar-thin'>
+		<div className="pr-1 space-y-2 overflow-y-auto scrollbar-thin">
 			{data && data?.pendingRequests.length > 0 ? (
 				<>
-					<div className='flex justify-end px-2'>
+					<div className="flex justify-end px-2">
 						<span
 							onClick={declineRequestModal.onOpen}
-							className='cursor-pointer hover:text-red-500'
+							className="cursor-pointer hover:text-red-500"
 						>
 							Decline all
 						</span>
 						<Modal {...declineRequestModal}>
-							<div className='text-lg font-semibold'>Decline all Requests?</div>
-							<div className='mt-2 text-sm'>
+							<div className="text-lg font-semibold">Decline all Requests?</div>
+							<div className="mt-2 text-sm">
 								All the current pending requests will be declined and this action is
 								not reversible. Click <b>Confirm</b> to decline all requests.
 							</div>
-							<div className='flex justify-center mt-4 space-x-4'>
-								<Button variant='outlined' onClick={declineRequestModal.onClose}>
+							<div className="flex justify-center mt-4 space-x-4">
+								<Button variant="outlined" onClick={declineRequestModal.onClose}>
 									Cancel
 								</Button>
 								<Button
-									type='submit'
+									type="submit"
 									onClick={declineAll}
 									isSubmitting={declineAllLoading}
 								>
@@ -97,7 +97,7 @@ export function RequestsList() {
 					))}
 				</>
 			) : (
-				<div className='mt-6 text-center text-secondary'>No Pending Requests</div>
+				<div className="mt-6 text-center text-secondary">No Pending Requests</div>
 			)}
 		</div>
 	);

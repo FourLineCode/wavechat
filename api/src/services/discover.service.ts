@@ -1,4 +1,4 @@
-import { db } from 'prisma/connection';
+import { db } from "prisma/connection";
 
 interface Params {
 	query: string;
@@ -18,13 +18,13 @@ export async function getDiscoverUsers({ query, cursor, limit, userId }: Params)
 						{
 							username: {
 								contains: query,
-								mode: 'insensitive',
+								mode: "insensitive",
 							},
 						},
 						{
 							displayName: {
 								contains: query,
-								mode: 'insensitive',
+								mode: "insensitive",
 							},
 						},
 					],
@@ -45,7 +45,7 @@ export async function getDiscoverUsers({ query, cursor, limit, userId }: Params)
 				  }
 				: undefined,
 		orderBy: {
-			pk: 'asc',
+			pk: "asc",
 		},
 	});
 }

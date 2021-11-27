@@ -1,10 +1,10 @@
-import cookieParser from 'cookie-parser';
-import cors from 'cors';
-import express from 'express';
-import { graphqlUploadExpress } from 'graphql-upload';
-import helmet from 'helmet';
-import morgan from 'morgan';
-import { getConfig } from 'src/internal/config';
+import cookieParser from "cookie-parser";
+import cors from "cors";
+import express from "express";
+import { graphqlUploadExpress } from "graphql-upload";
+import helmet from "helmet";
+import morgan from "morgan";
+import { getConfig } from "src/internal/config";
 
 const config = getConfig();
 export const app = express();
@@ -19,7 +19,7 @@ app.use(helmet({ contentSecurityPolicy: false }));
 
 // For logging api request data
 app.use(
-	morgan('dev', {
+	morgan("dev", {
 		skip: () => !config.isDev,
 	})
 );

@@ -1,4 +1,4 @@
-import { db } from 'prisma/connection';
+import { db } from "prisma/connection";
 
 interface SearchParams {
 	queryTerm: string;

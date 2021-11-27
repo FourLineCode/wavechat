@@ -1,8 +1,8 @@
-import { User } from '@prisma/client';
-import jwt from 'jsonwebtoken';
-import { db } from 'prisma/connection';
-import { JWTPayload } from 'src/graphql/resolvers/auth.resolver';
-import { services } from 'src/services';
+import { User } from "@prisma/client";
+import jwt from "jsonwebtoken";
+import { db } from "prisma/connection";
+import { JWTPayload } from "src/graphql/resolvers/auth.resolver";
+import { services } from "src/services";
 
 interface RtcAuthResponse {
 	authorized: boolean;

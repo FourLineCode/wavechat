@@ -1,6 +1,6 @@
-import { gql } from '@apollo/client';
-import toast from 'react-hot-toast';
-import { client } from 'src/apollo/client';
+import { gql } from "@apollo/client";
+import toast from "react-hot-toast";
+import { client } from "src/apollo/client";
 import {
 	SigninInput,
 	SigninMutation,
@@ -10,9 +10,9 @@ import {
 	SignupMutation,
 	SignupMutationVariables,
 	User,
-} from 'src/apollo/__generated__/types';
-import { parseErrorMessage } from 'src/utils/parseErrorMessage';
-import create, { State } from 'zustand';
+} from "src/apollo/__generated__/types";
+import { parseErrorMessage } from "src/utils/parseErrorMessage";
+import create, { State } from "zustand";
 
 interface Response {
 	success: boolean;
@@ -58,13 +58,13 @@ export const useAuth = create<AuthState>((set, get) => ({
 
 			if (data?.signup.success) {
 				await get().signin({ email, password });
-				return { success: true, message: 'Successfully signed up' };
+				return { success: true, message: "Successfully signed up" };
 			}
 		} catch (error) {
 			return { success: false, message: parseErrorMessage(error) };
 		}
 
-		return { success: false, message: 'An unknown error has occured' };
+		return { success: false, message: "An unknown error has occured" };
 	},
 	signin: async ({ email, password }) => {
 		try {
@@ -103,13 +103,13 @@ export const useAuth = create<AuthState>((set, get) => ({
 					user: data.signin.user as User,
 				});
 
-				return { success: true, message: 'Successfully signed in' };
+				return { success: true, message: "Successfully signed in" };
 			}
 		} catch (error) {
 			return { success: false, message: parseErrorMessage(error) };
 		}
 
-		return { success: false, message: 'An unknown error has occured' };
+		return { success: false, message: "An unknown error has occured" };
 	},
 	signout: async () => {
 		try {
@@ -133,18 +133,18 @@ export const useAuth = create<AuthState>((set, get) => ({
 				await client.clearStore();
 
 				if (process.browser) {
-					window.location.replace('/signin');
-					toast.success('Successfully signed out');
+					window.location.replace("/signin");
+					toast.success("Successfully signed out");
 				}
 
 				set((prev) => ({ ...prev, signoutInFlight: false }));
-				return { success: true, message: 'Successfully signed out' };
+				return { success: true, message: "Successfully signed out" };
 			}
 		} catch (error) {
 			return { success: false, message: parseErrorMessage(error) };
 		}
 
-		return { success: false, message: 'An unknown error has occured' };
+		return { success: false, message: "An unknown error has occured" };
 	},
 	setAuthInfo: (payload) => {
 		set((prevState) => ({

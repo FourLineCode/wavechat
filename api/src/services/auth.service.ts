@@ -1,7 +1,7 @@
-import { User } from '@prisma/client';
-import bcrypt from 'bcrypt';
-import { db } from 'prisma/connection';
-import { services } from 'src/services';
+import { User } from "@prisma/client";
+import bcrypt from "bcrypt";
+import { db } from "prisma/connection";
+import { services } from "src/services";
 
 export async function signUp(input: User) {
 	const userExists = await services.user.userExistWithUsernameOrEmail({
@@ -9,7 +9,7 @@ export async function signUp(input: User) {
 		username: input.username.toLowerCase(),
 	});
 	if (userExists) {
-		throw new Error('User already exists with given username or email');
+		throw new Error("User already exists with given username or email");
 	}
 
 	const newUser = await services.user.createNewUser(input);
@@ -28,7 +28,7 @@ export async function signIn({ email, password }: { email: string; password: str
 
 	const validated = await validatePassword({ password, hashedPassword: user.password });
 	if (!validated) {
-		throw new Error('Invalid Credentials');
+		throw new Error("Invalid Credentials");
 	}
 
 	const session = await db.session.create({
