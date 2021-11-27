@@ -1,15 +1,9 @@
 import { ObjectRef } from '@giraphql/core';
 import { Media } from '@prisma/client';
 import { MediaDTO } from '@shared/types/message';
-import { GraphQLUpload } from 'graphql-upload';
 import { builder } from 'src/graphql/builder';
 import { MessageObject } from 'src/graphql/resolvers/message.resolver';
 import { services } from 'src/services';
-
-builder.scalarType('Upload', {
-	serialize: GraphQLUpload.serialize,
-	parseValue: GraphQLUpload.parseValue,
-});
 
 export const MediaObject: ObjectRef<Media, Media> = builder.objectRef<Media>('Media').implement({
 	name: 'Media',

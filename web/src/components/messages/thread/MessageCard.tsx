@@ -1,5 +1,7 @@
 import clsx from 'clsx';
 import { formatDistanceToNow } from 'date-fns';
+import React from 'react';
+import { MessageMedia } from 'src/components/messages/thread/MessageMedia';
 import { MessageGroup } from 'src/components/messages/thread/MessageThreadPage';
 import { ProfileModal } from 'src/components/profile/ProfileModal';
 import { UserAvatar } from 'src/components/profile/UserAvatar';
@@ -50,18 +52,14 @@ export function MessageCard({ messageGroup, topMessage = false }: Props) {
 								<pre className='text-base break-all whitespace-pre-wrap font-roboto'>
 									{message.body}
 								</pre>
-							)}{' '}
-							{message.attachments && message.attachments.length > 0 ? (
+							)}
+							{message.attachments && message.attachments.length > 0 && (
 								<div className='py-2 space-y-1'>
 									{message.attachments.map((media) => (
-										<img
-											src={media.url}
-											key={message.id + media.id}
-											className='object-cover h-auto max-w-xl transition rounded-lg cursor-pointer max-h-64 hover:brightness-50'
-										/>
+										<MessageMedia message={message} media={media} />
 									))}
 								</div>
-							) : null}
+							)}
 						</div>
 					))}
 				</div>

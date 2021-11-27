@@ -28,6 +28,9 @@ module.exports = {
 			fontFamily: {
 				'open-sans': ['Open Sans', 'sans-serif'],
 			},
+			maxHeight: {
+				'4/5': '80%',
+			},
 		},
 	},
 	variants: {

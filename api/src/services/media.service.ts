@@ -9,13 +9,8 @@ export async function uploadSingleFile(stream: Promise<FileUpload>): Promise<Med
 	const client = getS3Client();
 
 	const { filename, mimetype, encoding, createReadStream } = await stream;
-	const file = {
-		filename,
-		mimetype,
-		encoding,
-	};
 
-	const ext = '.' + file.filename.split('.').pop() ?? 'media';
+	const ext = '.' + filename.split('.').pop() ?? 'media';
 	const key = `media-${Date.now().toString()}${ext}`;
 
 	const response = await client
@@ -23,7 +18,9 @@ export async function uploadSingleFile(stream: Promise<FileUpload>): Promise<Med
 		.promise();
 
 	return {
-		...file,
+		filename,
+		mimetype,
+		encoding,
 		url: `http://${config.cdnHost}/${config.s3BucketName}/${response.Key}`,
 	};
 }
@@ -36,13 +33,8 @@ export async function uploadMultipleFiles(streams: Promise<FileUpload>[]): Promi
 
 	for (const stream of streams) {
 		const { filename, mimetype, encoding, createReadStream } = await stream;
-		const file = {
-			filename,
-			mimetype,
-			encoding,
-		};
 
-		const ext = '.' + file.filename.split('.').pop() ?? 'media';
+		const ext = '.' + filename.split('.').pop() ?? 'media';
 		const key = `media-${Date.now().toString()}${ext}`;
 
 		const response = await client
@@ -50,7 +42,9 @@ export async function uploadMultipleFiles(streams: Promise<FileUpload>[]): Promi
 			.promise();
 
 		res.push({
-			...file,
+			filename,
+			mimetype,
+			encoding,
 			url: `http://${config.cdnHost}/${config.s3BucketName}/${response.Key}`,
 		});
 	}

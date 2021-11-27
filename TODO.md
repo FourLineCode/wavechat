@@ -158,11 +158,6 @@
         -   [x] integrate in discovered users
         -   [ ] integrate in messages
 
--   [ ] settings page
-
-    -   [ ] add profile edit
-    -   [ ] add profile picture + banner maybe
-
 -   [ ] direct messages
 
     -   [x] message threads
@@ -273,7 +268,7 @@
     -   [x] change shared naming
     -   [x] change services naming
 
--   [ ] media upload
+-   [x] media upload
 
     -   [x] setup localstack
     -   [x] setup aws sdk
@@ -281,14 +276,19 @@
     -   [x] api mutations/resolvers for gql file upload
     -   [x] web
         -   [x] file uploader
-            -   [ ] remove single images
-        -   [ ] media viewer
-            -   [ ] modal with backdrop
-            -   [ ] fixed size?
-    -   [ ] update production env
+            -   [x] remove single images
+        -   [x] media viewer
+            -   {x}] modal with backdrop
+            -   [x] fixed size?
+    -   [x] update production env
     -   [x] add aws config to docs
         -   [x] commands to create bucket
         -   [x] add acl permission to bucket
+
+-   [ ] settings page
+
+    -   [ ] add profile edit
+    -   [ ] add profile picture + banner maybe
 
 -   [ ] reactions/emojis
 

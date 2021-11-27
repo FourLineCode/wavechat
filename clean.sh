@@ -6,6 +6,7 @@ rm -rf web/node_modules
 rm -rf api/dist
 rm -rf rtc/dist
 rm -rf web/.next
+rm -rf .pnpm-debug.log
 
 if [[ "$1" == "--reset" ]]
 then

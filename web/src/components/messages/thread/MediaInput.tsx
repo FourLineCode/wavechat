@@ -116,18 +116,23 @@ export function MediaInput({ socket, thread }: Props) {
 					)}
 				</Dropzone>
 				{files.length > 0 && (
-					<div className='grid h-24 grid-cols-4 gap-2 mb-4 md:gap-4'>
-						{files.slice(0, 3).map((file) => {
-							const url = URL.createObjectURL(file);
-							return (
+					<div className='grid w-full h-24 grid-cols-4 gap-2 mb-4 md:gap-4'>
+						{files.slice(0, 3).map((file, index) => (
+							<div className='relative w-full h-full'>
 								<img
-									className='object-cover w-full h-full rounded-lg'
-									src={url}
+									className='object-cover w-full h-24 rounded-lg'
+									src={URL.createObjectURL(file)}
 									alt='image'
 									key={file.name}
 								/>
-							);
-						})}
+								<div
+									onClick={() => setFiles((p) => p.filter((_, i) => i !== index))}
+									className='absolute p-1 transition-colors transform bg-red-500 bg-opacity-75 rounded-full cursor-pointer hover:bg-opacity-100 -top-1 -right-1'
+								>
+									<ImCross size='8px' />
+								</div>
+							</div>
+						))}
 						{files.length > 3 && (
 							<div className='flex items-center justify-center w-full h-full text-xs border border-opacity-50 rounded-lg md:text-sm border-dark-700 text-secondary'>
 								{`+${files.length - 3} other ...`}

@@ -17,7 +17,7 @@ specifiers:
   '@types/node': ^16.11.7
   apollo-server-core: ^3.5.0
   apollo-server-express: ^3.5.0
-  aws-sdk: ^2.1035.0
+  aws-sdk: ^2.1037.0
   bcrypt: ^5.0.1
   cookie-parser: ^1.4.5
   cors: ^2.8.5
@@ -44,7 +44,7 @@ dependencies:
   '@giraphql/plugin-validation': 2.15.0_graphql@16.0.1+zod@3.11.6
   '@prisma/client': 3.5.0_prisma@3.5.0
   apollo-server-express: 3.5.0_express@4.17.1+graphql@16.0.1
-  aws-sdk: 2.1036.0
+  aws-sdk: 2.1037.0
   bcrypt: 5.0.1
   cookie-parser: 1.4.6
   cors: 2.8.5
@@ -641,8 +641,8 @@ packages:
     dependencies:
       retry: 0.13.1
 
-  /aws-sdk/2.1036.0:
-    resolution: {integrity: sha512-K0f4uXL32ZdoPmWiuSQEAC5ae5v7gNmhjzoEB7VonE5E8l2umWsoU0Ahm8WPr14LgsvtkeyBuqBjphbxLz6hIw==}
+  /aws-sdk/2.1037.0:
+    resolution: {integrity: sha512-z1IfFFvKg1ZKikyExhLeiax0jIe/YwFrBjIUhcPjBfh+c4otvuqp9RBp2iyXt3GamhEkKoPyvd6a5K7IGsTBMw==}
     engines: {node: '>= 10.0.0'}
     dependencies:
       buffer: 4.9.2
