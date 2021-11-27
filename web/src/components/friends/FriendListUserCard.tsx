@@ -1,12 +1,12 @@
-import { ContextMenuTrigger } from 'react-contextmenu';
-import { Friendship } from 'src/apollo/__generated__/types';
-import { ProfileModal } from 'src/components/profile/ProfileModal';
-import { UserAvatar } from 'src/components/profile/UserAvatar';
-import { ContextMenu, ContextMenuItem } from 'src/components/ui/ContextMenu';
-import { useMessageUserMutation } from 'src/hooks/useMessageUserMutation';
-import { useModal } from 'src/hooks/useModal';
-import { useUnfriendMutation } from 'src/hooks/useUnfriendMutation';
-import { useAuth } from 'src/store/useAuth';
+import { ContextMenuTrigger } from "react-contextmenu";
+import { Friendship } from "src/apollo/__generated__/types";
+import { ProfileModal } from "src/components/profile/ProfileModal";
+import { UserAvatar } from "src/components/profile/UserAvatar";
+import { ContextMenu, ContextMenuItem } from "src/components/ui/ContextMenu";
+import { useMessageUserMutation } from "src/hooks/useMessageUserMutation";
+import { useModal } from "src/hooks/useModal";
+import { useUnfriendMutation } from "src/hooks/useUnfriendMutation";
+import { useAuth } from "src/store/useAuth";
 
 interface Props {
 	friendship: Friendship;
@@ -23,19 +23,19 @@ export function FriendListUserCard({ friendship }: Props) {
 		<ContextMenuTrigger id={`friend-list-card-${friend.id}`}>
 			<div
 				onClick={friendListProfile.onOpen}
-				className='w-full p-2 space-y-2 rounded-lg cursor-pointer bg-dark-800 hover:bg-dark-700'
+				className="w-full p-2 space-y-2 rounded-lg cursor-pointer bg-dark-800 hover:bg-dark-700"
 			>
-				<div className='flex items-center space-x-2'>
+				<div className="flex items-center space-x-2">
 					<UserAvatar
 						user={friend}
-						className='flex-shrink-0 w-10 h-10 rounded-lg cursor-pointer'
+						className="flex-shrink-0 w-10 h-10 rounded-lg cursor-pointer"
 					/>
-					<div className='w-full'>
-						<div className='font-semibold cursor-pointer line-clamp-1'>
+					<div className="w-full">
+						<div className="font-semibold cursor-pointer line-clamp-1">
 							{friend.displayName}
 						</div>
-						<div className='text-xs line-clamp-1 text-secondary'>
-							{friend.university ?? 'unknown'}
+						<div className="text-xs line-clamp-1 text-secondary">
+							{friend.university ?? "unknown"}
 						</div>
 					</div>
 				</div>

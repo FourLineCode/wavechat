@@ -1,6 +1,6 @@
-import { useEffect, useRef } from 'react';
-import { MessageCard } from 'src/components/messages/thread/MessageCard';
-import { MessageGroup } from 'src/components/messages/thread/MessageThreadPage';
+import { useEffect, useRef } from "react";
+import { MessageCard } from "src/components/messages/thread/MessageCard";
+import { MessageGroup } from "src/components/messages/thread/MessageThreadPage";
 
 interface Props {
 	messageGroups: MessageGroup[];
@@ -13,7 +13,7 @@ export function MessageListView({ messageGroups }: Props) {
 	useEffect(() => {
 		if (ref.current) {
 			ref.current.scrollIntoView({
-				behavior: 'auto',
+				behavior: "auto",
 			});
 		}
 	}, [messageGroups]);
@@ -21,7 +21,7 @@ export function MessageListView({ messageGroups }: Props) {
 	return (
 		<div
 			ref={container}
-			className='flex flex-col flex-1 w-full space-y-2 overflow-x-hidden overflow-y-auto text-xl scrollbar-thin'
+			className="flex flex-col flex-1 w-full space-y-2 overflow-x-hidden overflow-y-auto text-xl scrollbar-thin"
 		>
 			{messageGroups.map((group, index) => (
 				<MessageCard messageGroup={group} topMessage={index === 0} key={group.id} />

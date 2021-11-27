@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from "@prisma/client";
 
 /* This makes sure that there is only one instance of PrismaClient being used throughout the server */
 
@@ -12,4 +12,4 @@ declare const global: CustomNodeJsGlobal;
 
 export const db = global.prisma || new PrismaClient({ log: [] });
 
-if (process.env.NODE_ENV === 'development') global.prisma = db;
+if (process.env.NODE_ENV === "development") global.prisma = db;

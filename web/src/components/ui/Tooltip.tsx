@@ -1,7 +1,7 @@
-import Tippy, { TippyProps } from '@tippyjs/react';
-import clsx from 'clsx';
-import React from 'react';
-import { Placement } from 'tippy.js';
+import Tippy, { TippyProps } from "@tippyjs/react";
+import clsx from "clsx";
+import React from "react";
+import { Placement } from "tippy.js";
 
 interface Props extends TippyProps {
 	text?: string;
@@ -11,7 +11,7 @@ interface Props extends TippyProps {
 }
 
 export const Tooltip = React.forwardRef<Element, Props>(function TooltipComponent(
-	{ text, children, position = 'right', className, ...props },
+	{ text, children, position = "right", className, ...props },
 	ref
 ) {
 	return (
@@ -19,7 +19,7 @@ export const Tooltip = React.forwardRef<Element, Props>(function TooltipComponen
 			content={text}
 			duration={0}
 			className={clsx(
-				'p-1 text-sm font-semibold rounded-md text-primary bg-dark-600 bg-opacity-75',
+				"p-1 text-sm font-semibold rounded-md text-primary bg-dark-600 bg-opacity-75",
 				className
 			)}
 			placement={position}

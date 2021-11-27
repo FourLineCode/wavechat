@@ -1,5 +1,5 @@
-import Redis from 'ioredis';
-import { getConfig } from 'src/internal/config';
+import Redis from "ioredis";
+import { getConfig } from "src/internal/config";
 
 const config = getConfig();
 const port = config.redisPort;

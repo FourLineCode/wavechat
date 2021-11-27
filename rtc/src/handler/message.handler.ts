@@ -1,9 +1,9 @@
-import { UserPubsubChannels } from '@shared/pubsub/channels';
-import { ErrorSocketEvents, MessageSocketEvents, SocketEvents } from '@shared/socket/events';
-import { UserDTO } from '@shared/types/auth';
-import { MessageDTO, RoomEventDTO } from '@shared/types/message';
-import { Server as IOServer, Socket } from 'socket.io';
-import { graphQLClient } from 'src/graphql/client';
+import { UserPubsubChannels } from "@shared/pubsub/channels";
+import { ErrorSocketEvents, MessageSocketEvents, SocketEvents } from "@shared/socket/events";
+import { UserDTO } from "@shared/types/auth";
+import { MessageDTO, RoomEventDTO } from "@shared/types/message";
+import { Server as IOServer, Socket } from "socket.io";
+import { graphQLClient } from "src/graphql/client";
 import {
 	AUTHORIZE_JOIN_ROOM,
 	IsUserInThreadQuery,
@@ -11,10 +11,10 @@ import {
 	PersistMessageQuery,
 	PersistMessageVariables,
 	PERSIST_MESSAGE,
-} from 'src/graphql/queries';
-import { pubsub } from 'src/redis/pubsub';
-import { store } from 'src/redis/store';
-import { v4 as uuid } from 'uuid';
+} from "src/graphql/queries";
+import { pubsub } from "src/redis/pubsub";
+import { store } from "src/redis/store";
+import { v4 as uuid } from "uuid";
 
 interface RoomHandlerParams {
 	socket: Socket;
@@ -23,7 +23,7 @@ interface RoomHandlerParams {
 
 export async function initializeMessageHandler(io: IOServer) {
 	await pubsub.subscriber.subscribe(UserPubsubChannels.Message);
-	pubsub.subscriber.on('message', (_channel: string, message: string) => {
+	pubsub.subscriber.on("message", (_channel: string, message: string) => {
 		const messageDTO: MessageDTO = JSON.parse(message);
 		broadcastMessage(io, messageDTO);
 	});
@@ -74,7 +74,7 @@ async function broadcastMessage(io: IOServer, message: MessageDTO) {
 async function joinRoom({ socket, roomId }: RoomHandlerParams) {
 	const authorized = await authorizeJoinRoom({ socket, roomId });
 	if (!authorized) {
-		socket.emit(ErrorSocketEvents.JoinRoomError, 'You are not part of this conversation');
+		socket.emit(ErrorSocketEvents.JoinRoomError, "You are not part of this conversation");
 		return;
 	}
 

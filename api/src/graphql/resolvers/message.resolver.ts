@@ -1,38 +1,38 @@
-import { ObjectRef } from '@giraphql/core';
-import { Message } from '@prisma/client';
-import { UserDTO } from '@shared/types/auth';
-import { MediaDTO, MessageDTO } from '@shared/types/message';
-import { builder } from 'src/graphql/builder';
-import { MediaObject } from 'src/graphql/resolvers/media.resolver';
-import { MessageThreadObject } from 'src/graphql/resolvers/messageThread.resolver';
-import { UserObject } from 'src/graphql/resolvers/user.resolver';
-import { services } from 'src/services';
+import { ObjectRef } from "@giraphql/core";
+import { Message } from "@prisma/client";
+import { UserDTO } from "@shared/types/auth";
+import { MediaDTO, MessageDTO } from "@shared/types/message";
+import { builder } from "src/graphql/builder";
+import { MediaObject } from "src/graphql/resolvers/media.resolver";
+import { MessageThreadObject } from "src/graphql/resolvers/messageThread.resolver";
+import { UserObject } from "src/graphql/resolvers/user.resolver";
+import { services } from "src/services";
 
 export const MessageObject: ObjectRef<Message, Message> = builder
-	.objectRef<Message>('Message')
+	.objectRef<Message>("Message")
 	.implement({
-		name: 'Message',
-		description: 'Message object type',
+		name: "Message",
+		description: "Message object type",
 		fields: (t) => ({
-			id: t.exposeID('id'),
-			pk: t.exposeInt('pk'),
-			createdAt: t.expose('createdAt', { type: 'Date' }),
-			updatedAt: t.expose('updatedAt', { type: 'Date' }),
-			body: t.exposeString('body'),
+			id: t.exposeID("id"),
+			pk: t.exposeInt("pk"),
+			createdAt: t.expose("createdAt", { type: "Date" }),
+			updatedAt: t.expose("updatedAt", { type: "Date" }),
+			body: t.exposeString("body"),
 			attachments: t.field({
 				type: [MediaObject],
 				resolve: async (message) => {
 					return await services.media.getMediaForMessage(message.id);
 				},
 			}),
-			authorId: t.exposeID('authorId'),
+			authorId: t.exposeID("authorId"),
 			author: t.loadable({
 				type: UserObject,
 				sort: (user) => user.id,
 				load: (ids: string[]) => services.dataloader.loadUserByIDs(ids),
 				resolve: (message) => message.authorId,
 			}),
-			threadId: t.exposeID('threadId'),
+			threadId: t.exposeID("threadId"),
 			thread: t.loadable({
 				type: MessageThreadObject,
 				sort: (thread) => thread.id,
@@ -42,7 +42,7 @@ export const MessageObject: ObjectRef<Message, Message> = builder
 		}),
 	});
 
-export const UserDTOInput = builder.inputRef<UserDTO>('UserDTOInput').implement({
+export const UserDTOInput = builder.inputRef<UserDTO>("UserDTOInput").implement({
 	fields: (t) => ({
 		id: t.string({ required: true }),
 		username: t.string({ required: true }),
@@ -51,7 +51,7 @@ export const UserDTOInput = builder.inputRef<UserDTO>('UserDTOInput').implement(
 	}),
 });
 
-export const MediaDTOInput = builder.inputRef<MediaDTO>('MediaDTOInput').implement({
+export const MediaDTOInput = builder.inputRef<MediaDTO>("MediaDTOInput").implement({
 	fields: (t) => ({
 		id: t.string(),
 		url: t.string({ required: true }),
@@ -61,7 +61,7 @@ export const MediaDTOInput = builder.inputRef<MediaDTO>('MediaDTOInput').impleme
 	}),
 });
 
-export const CreateMessageInput = builder.inputRef<MessageDTO>('CreateMessageInput').implement({
+export const CreateMessageInput = builder.inputRef<MessageDTO>("CreateMessageInput").implement({
 	fields: (t) => ({
 		id: t.string(),
 		pk: t.int(),
@@ -83,10 +83,10 @@ export const CreateMessageInput = builder.inputRef<MessageDTO>('CreateMessageInp
 	}),
 });
 
-builder.mutationField('createMessage', (t) =>
+builder.mutationField("createMessage", (t) =>
 	t.field({
 		type: MessageObject,
-		description: 'Saves a message to the database',
+		description: "Saves a message to the database",
 		authScopes: { internal: true },
 		args: { messageDTO: t.arg({ type: CreateMessageInput, required: true }) },
 		resolve: async (_parent, { messageDTO }) => {
@@ -95,14 +95,14 @@ builder.mutationField('createMessage', (t) =>
 	})
 );
 
-builder.queryField('threadMessages', (t) =>
+builder.queryField("threadMessages", (t) =>
 	t.field({
 		type: [MessageObject],
-		description: 'Returns all messages owned by a thread',
+		description: "Returns all messages owned by a thread",
 		authScopes: { user: true },
-		args: { threadId: t.arg({ type: 'String', required: true }) },
+		args: { threadId: t.arg({ type: "String", required: true }) },
 		resolve: async (_parent, { threadId }, { user }) => {
-			if (!user) throw new Error('Unauthorized');
+			if (!user) throw new Error("Unauthorized");
 
 			return await services.message.getUserThreadMessages({
 				threadId,

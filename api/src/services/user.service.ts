@@ -1,6 +1,6 @@
-import { User } from '@prisma/client';
-import bcrypt from 'bcrypt';
-import { db } from 'prisma/connection';
+import { User } from "@prisma/client";
+import bcrypt from "bcrypt";
+import { db } from "prisma/connection";
 
 export async function getAllUsers() {
 	return await db.user.findMany();

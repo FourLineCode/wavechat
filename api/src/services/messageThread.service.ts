@@ -1,5 +1,5 @@
-import { db } from 'prisma/connection';
-import { services } from 'src/services';
+import { db } from "prisma/connection";
+import { services } from "src/services";
 
 interface MessageThreadParams {
 	threadId: string;
@@ -66,7 +66,7 @@ export async function findExistingThread(participants: string[]) {
 
 export async function getOrCreateThread({ userId, currentUserId }: GetMessageThreadParams) {
 	if (currentUserId === userId) {
-		throw new Error('You cannot Message yourself');
+		throw new Error("You cannot Message yourself");
 	}
 
 	const friendshipExists = await services.friendship.doesFriendshipExist({
@@ -74,7 +74,7 @@ export async function getOrCreateThread({ userId, currentUserId }: GetMessageThr
 		secondUserId: userId,
 	});
 	if (!friendshipExists) {
-		throw new Error('You are not friends with this user');
+		throw new Error("You are not friends with this user");
 	}
 
 	const existingThread = await findExistingThread([userId, currentUserId]);
@@ -97,7 +97,7 @@ export async function getActiveThreads(userId: string) {
 		include: {
 			messageThreads: {
 				include: { participants: true },
-				orderBy: { updatedAt: 'desc' },
+				orderBy: { updatedAt: "desc" },
 			},
 			friends_forward: true,
 			friends_inverse: true,

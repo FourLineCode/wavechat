@@ -1,5 +1,5 @@
-import clsx from 'clsx';
-import { IconType } from 'react-icons';
+import clsx from "clsx";
+import { IconType } from "react-icons";
 
 interface Props {
 	icon: IconType;
@@ -12,11 +12,11 @@ export function IconButton({ className, icon: IconComponent, onClick }: Props) {
 		<div
 			onClick={onClick}
 			className={clsx(
-				'p-1.5 rounded-full cursor-pointer text-secondary hover:text-primary hover:bg-opacity-25 hover:bg-dark-500',
+				"p-1.5 rounded-full cursor-pointer text-secondary hover:text-primary hover:bg-opacity-25 hover:bg-dark-500",
 				className
 			)}
 		>
-			<IconComponent size='24' />
+			<IconComponent size="24" />
 		</div>
 	);
 }

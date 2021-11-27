@@ -1,5 +1,5 @@
-import AWS from 'aws-sdk';
-import { getConfig } from 'src/internal/config';
+import AWS from "aws-sdk";
+import { getConfig } from "src/internal/config";
 
 let s3Client: AWS.S3;
 

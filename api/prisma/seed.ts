@@ -1,6 +1,6 @@
-import { PrismaClient } from '@prisma/client';
-import bcrypt from 'bcrypt';
-import faker from 'faker';
+import { PrismaClient } from "@prisma/client";
+import bcrypt from "bcrypt";
+import faker from "faker";
 
 const db = new PrismaClient();
 
@@ -13,15 +13,15 @@ async function seed() {
 	// Create Admin user account
 	const admin = await db.user.create({
 		data: {
-			email: 'akmal@wave.com',
-			username: 'akmal',
-			displayName: 'Akmal Hossain',
+			email: "akmal@wave.com",
+			username: "akmal",
+			displayName: "Akmal Hossain",
 			password: bcrypt.hashSync(process.env.ADMIN_PASS!, 12),
-			role: 'ADMIN',
-			bio: 'I made this website LLOOL',
-			avatarUrl: 'https://avatars.githubusercontent.com/u/56719270?v=4',
-			university: 'East West University',
-			department: 'CSE',
+			role: "ADMIN",
+			bio: "I made this website LLOOL",
+			avatarUrl: "https://avatars.githubusercontent.com/u/56719270?v=4",
+			university: "East West University",
+			department: "CSE",
 			semester: 6,
 		},
 	});
@@ -32,7 +32,7 @@ async function seed() {
 		const user = await db.user.create({
 			data: {
 				email: faker.internet.email(),
-				username: name.split(' ').join('').toLowerCase(),
+				username: name.split(" ").join("").toLowerCase(),
 				displayName: name,
 				password: bcrypt.hashSync(process.env.BOT_PASS!, 10),
 				bio: faker.lorem.sentences(2),
@@ -66,12 +66,12 @@ async function seed() {
 					db.message.createMany({
 						data: [
 							{
-								body: 'Example message #1',
+								body: "Example message #1",
 								threadId: thread.id,
 								authorId: user.id,
 							},
 							{
-								body: 'Example message #2',
+								body: "Example message #2",
 								threadId: thread.id,
 								authorId: user.id,
 							},

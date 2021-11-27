@@ -1,5 +1,5 @@
-import { GetServerSideProps } from 'next';
-import { authorize } from 'src/utils/authorize';
+import { GetServerSideProps } from "next";
+import { authorize } from "src/utils/authorize";
 
 type DefaultRedirectHandler = (route: string) => GetServerSideProps;
 
@@ -8,7 +8,7 @@ export const defaultRedirect: DefaultRedirectHandler = (route) => async (context
 		const data = await authorize(context);
 
 		if (!data.authorize.success) {
-			throw new Error('Unauthorized');
+			throw new Error("Unauthorized");
 		}
 
 		return {

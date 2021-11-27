@@ -1,22 +1,22 @@
-import { gql, useQuery } from '@apollo/client';
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-import toast from 'react-hot-toast';
+import { gql, useQuery } from "@apollo/client";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import {
 	GetMessageThreadQuery,
 	GetMessageThreadQueryVariables,
 	MessageThread,
 	User,
-} from 'src/apollo/__generated__/types';
-import { FriendsInfo } from 'src/components/friends/FriendsInfo';
-import { Layout } from 'src/components/layouts/Layout';
-import { DirectMessages } from 'src/components/messages/sidebar/DirectMessages';
-import { MessageThreadPage } from 'src/components/messages/thread/MessageThreadPage';
-import { NavigationSidebar } from 'src/components/navigations/NavigationSidebar';
-import { SidebarWithProfile } from 'src/components/profile/SidebarWithProfile';
-import { Spinner } from 'src/components/ui/Spinner';
-import { useAuth } from 'src/store/useAuth';
-import { authRedirect } from 'src/utils/redirects/auth';
+} from "src/apollo/__generated__/types";
+import { FriendsInfo } from "src/components/friends/FriendsInfo";
+import { Layout } from "src/components/layouts/Layout";
+import { DirectMessages } from "src/components/messages/sidebar/DirectMessages";
+import { MessageThreadPage } from "src/components/messages/thread/MessageThreadPage";
+import { NavigationSidebar } from "src/components/navigations/NavigationSidebar";
+import { SidebarWithProfile } from "src/components/profile/SidebarWithProfile";
+import { Spinner } from "src/components/ui/Spinner";
+import { useAuth } from "src/store/useAuth";
+import { authRedirect } from "src/utils/redirects/auth";
 
 export const GET_MESSAGE_THREAD = gql`
 	query GetMessageThread($threadId: String!) {
@@ -57,7 +57,7 @@ export default function Thread() {
 			},
 			onError: (error) => {
 				toast.error(error.message);
-				router.push('/messages');
+				router.push("/messages");
 			},
 		}
 	);
@@ -71,18 +71,18 @@ export default function Thread() {
 	}, [data]);
 
 	return (
-		<Layout title={user?.displayName ?? 'Message'} desc='WaveChat | Thread description'>
-			<div className='flex w-screen h-screen'>
+		<Layout title={user?.displayName ?? "Message"} desc="WaveChat | Thread description">
+			<div className="flex w-screen h-screen">
 				<NavigationSidebar />
 				<SidebarWithProfile component={DirectMessages} />
-				<div className='flex-1 min-w-0 min-h-0 bg-dark-700'>
+				<div className="flex-1 min-w-0 min-h-0 bg-dark-700">
 					{data && !loading ? (
 						<MessageThreadPage
 							thread={data.messageThread as MessageThread}
 							key={threadId}
 						/>
 					) : (
-						<div className='flex flex-col items-center justify-center w-full h-full'>
+						<div className="flex flex-col items-center justify-center w-full h-full">
 							<Spinner />
 						</div>
 					)}

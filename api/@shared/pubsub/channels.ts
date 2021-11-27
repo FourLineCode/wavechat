@@ -1,3 +1,3 @@
 export enum UserPubsubChannels {
-	Message = 'user:message',
+	Message = "user:message",
 }

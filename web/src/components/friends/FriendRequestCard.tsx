@@ -1,11 +1,11 @@
-import { FriendRequest } from 'src/apollo/__generated__/types';
-import { ProfileModal } from 'src/components/profile/ProfileModal';
-import { UserAvatar } from 'src/components/profile/UserAvatar';
-import { Button } from 'src/components/ui/Button';
-import { Card } from 'src/components/ui/Card';
-import { useAcceptRequestMutation } from 'src/hooks/useAcceptRequestMutation';
-import { useDeclineRequestMutation } from 'src/hooks/useDeclineRequestMutation';
-import { useModal } from 'src/hooks/useModal';
+import { FriendRequest } from "src/apollo/__generated__/types";
+import { ProfileModal } from "src/components/profile/ProfileModal";
+import { UserAvatar } from "src/components/profile/UserAvatar";
+import { Button } from "src/components/ui/Button";
+import { Card } from "src/components/ui/Card";
+import { useAcceptRequestMutation } from "src/hooks/useAcceptRequestMutation";
+import { useDeclineRequestMutation } from "src/hooks/useDeclineRequestMutation";
+import { useModal } from "src/hooks/useModal";
 
 interface Props {
 	request: FriendRequest;
@@ -24,42 +24,42 @@ export function FriendRequestCard({ request }: Props) {
 	});
 
 	return (
-		<Card className='w-full !p-2 space-y-2'>
-			<div className='flex items-center space-x-2'>
+		<Card className="w-full !p-2 space-y-2">
+			<div className="flex items-center space-x-2">
 				<UserAvatar
 					user={request.fromUser}
 					onClick={friendRequestProfile.onOpen}
-					className='w-10 h-10 rounded-lg cursor-pointer hover:ring-2 ring-brand-500'
+					className="w-10 h-10 rounded-lg cursor-pointer hover:ring-2 ring-brand-500"
 				/>
 				<div>
 					<div
 						onClick={friendRequestProfile.onOpen}
-						className='font-semibold cursor-pointer line-clamp-1 hover:underline'
+						className="font-semibold cursor-pointer line-clamp-1 hover:underline"
 					>
 						{request.fromUser.displayName}
 					</div>
-					<div className='text-xs line-clamp-1 text-secondary'>
-						{request.fromUser.university ?? 'unknown'}
+					<div className="text-xs line-clamp-1 text-secondary">
+						{request.fromUser.university ?? "unknown"}
 					</div>
 				</div>
 			</div>
-			<div className='flex space-x-2'>
+			<div className="flex space-x-2">
 				<Button
-					type='submit'
+					type="submit"
 					isSubmitting={acceptRequestLoading}
 					onClick={acceptRequest}
-					className='w-full text-sm 2xl:text-base'
+					className="w-full text-sm 2xl:text-base"
 				>
-					<span className='line-clamp-1'>Accept</span>
+					<span className="line-clamp-1">Accept</span>
 				</Button>
 				<Button
-					type='submit'
-					variant='outlined'
+					type="submit"
+					variant="outlined"
 					isSubmitting={declineRequestLoading}
 					onClick={declineRequest}
-					className='w-full text-sm 2xl:text-base'
+					className="w-full text-sm 2xl:text-base"
 				>
-					<span className='line-clamp-1'>Decline</span>
+					<span className="line-clamp-1">Decline</span>
 				</Button>
 			</div>
 			<ProfileModal userId={request.fromUserId} {...friendRequestProfile} />

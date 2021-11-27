@@ -1,4 +1,4 @@
-import { db } from 'prisma/connection';
+import { db } from "prisma/connection";
 
 interface FriendshipParams {
 	firstUserId: string;
@@ -43,12 +43,12 @@ export async function doesRequestExist({ fromUserId, toUserId }: RequestParams) 
 
 export async function sendReuqest({ fromUserId, toUserId }: RequestParams) {
 	if (fromUserId === toUserId) {
-		throw new Error('You cannot send yourself friend request');
+		throw new Error("You cannot send yourself friend request");
 	}
 
 	const requestExists = await doesRequestExist({ fromUserId, toUserId });
 	if (requestExists) {
-		throw new Error('You already sent a request to this user');
+		throw new Error("You already sent a request to this user");
 	}
 
 	const friendshipExists = await doesFriendshipExist({
@@ -56,7 +56,7 @@ export async function sendReuqest({ fromUserId, toUserId }: RequestParams) {
 		secondUserId: toUserId,
 	});
 	if (friendshipExists) {
-		throw new Error('You are already friends with this user');
+		throw new Error("You are already friends with this user");
 	}
 
 	return await db.friendRequest.create({
@@ -112,7 +112,7 @@ export async function declineAllRequests(userId: string) {
 
 export async function unfriend({ userId, currentUserId }: FriendshipMutationParams) {
 	if (userId === currentUserId) {
-		throw new Error('You cannot unfriend yourself');
+		throw new Error("You cannot unfriend yourself");
 	}
 
 	const unfriend = await db.friendship.findFirst({
@@ -132,7 +132,7 @@ export async function unfriend({ userId, currentUserId }: FriendshipMutationPara
 
 export async function isUserFriend({ userId, currentUserId }: FriendshipMutationParams) {
 	if (userId === currentUserId) {
-		throw new Error('You cannot be friends with yourself');
+		throw new Error("You cannot be friends with yourself");
 	}
 
 	const friendship = await db.friendship.findFirst({
@@ -153,7 +153,7 @@ export async function getFriendList(userId: string) {
 			OR: [{ firstUserId: userId }, { secondUserId: userId }],
 		},
 		orderBy: {
-			updatedAt: 'asc',
+			updatedAt: "asc",
 		},
 	});
 }

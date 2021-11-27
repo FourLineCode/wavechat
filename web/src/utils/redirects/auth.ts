@@ -1,12 +1,12 @@
-import { GetServerSideProps } from 'next';
-import { authorize } from 'src/utils/authorize';
+import { GetServerSideProps } from "next";
+import { authorize } from "src/utils/authorize";
 
 export const authRedirect: GetServerSideProps = async (context) => {
 	try {
 		const data = await authorize(context);
 
 		if (!data.authorize.success) {
-			throw new Error('Unauthorized');
+			throw new Error("Unauthorized");
 		}
 
 		return {

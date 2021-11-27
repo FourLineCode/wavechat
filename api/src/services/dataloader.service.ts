@@ -1,4 +1,4 @@
-import { db } from 'prisma/connection';
+import { db } from "prisma/connection";
 
 export async function loadUserByIDs(ids: string[]) {
 	return await db.user.findMany({

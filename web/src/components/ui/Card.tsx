@@ -1,4 +1,4 @@
-import clsx from 'clsx';
+import clsx from "clsx";
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
 	as?: any;
@@ -8,7 +8,7 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export function Card({
-	as: Component = 'div',
+	as: Component = "div",
 	className,
 	inverted = false,
 	children,
@@ -16,7 +16,7 @@ export function Card({
 }: Props) {
 	return (
 		<Component
-			className={clsx(className, inverted ? 'bg-dark-800' : 'bg-dark-700', 'p-4 rounded-lg')}
+			className={clsx(className, inverted ? "bg-dark-800" : "bg-dark-700", "p-4 rounded-lg")}
 			{...props}
 		>
 			{children}

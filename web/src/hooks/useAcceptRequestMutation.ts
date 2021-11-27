@@ -1,12 +1,12 @@
-import { gql, useMutation } from '@apollo/client';
-import toast from 'react-hot-toast';
+import { gql, useMutation } from "@apollo/client";
+import toast from "react-hot-toast";
 import {
 	AcceptRequestMutation,
 	AcceptRequestMutationVariables,
-} from 'src/apollo/__generated__/types';
-import { GET_FRIENDS_LIST } from 'src/components/friends/FriendsList';
-import { GET_PENDING_REQUESTS } from 'src/components/friends/RequestsList';
-import { GET_USER_DATA } from 'src/components/profile/ProfileDetails';
+} from "src/apollo/__generated__/types";
+import { GET_FRIENDS_LIST } from "src/components/friends/FriendsList";
+import { GET_PENDING_REQUESTS } from "src/components/friends/RequestsList";
+import { GET_USER_DATA } from "src/components/profile/ProfileDetails";
 
 export const ACCEPT_REQUEST = gql`
 	mutation AcceptRequest($requestId: String!) {
@@ -25,7 +25,7 @@ export function useAcceptRequestMutation({ reqId, userId }: { reqId: string; use
 			requestId: reqId,
 		},
 		onCompleted: () => {
-			toast.success('Request Accepted');
+			toast.success("Request Accepted");
 		},
 		onError: (error) => {
 			toast.error(error.message);

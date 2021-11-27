@@ -1,6 +1,6 @@
-import { MessageDTO } from '@shared/types/message';
-import { db } from 'prisma/connection';
-import { services } from 'src/services';
+import { MessageDTO } from "@shared/types/message";
+import { db } from "prisma/connection";
+import { services } from "src/services";
 
 interface MessageThreadParams {
 	threadId: string;

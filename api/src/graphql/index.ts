@@ -1,13 +1,13 @@
 import {
 	ApolloServerPluginLandingPageGraphQLPlayground,
 	ApolloServerPluginLandingPageProductionDefault,
-} from 'apollo-server-core';
-import { ApolloServer } from 'apollo-server-express';
-import { createServer } from 'http';
-import { app } from 'src/app';
-import { createContext } from 'src/graphql/context';
-import { schema } from 'src/graphql/schema';
-import { Config } from 'src/internal/config';
+} from "apollo-server-core";
+import { ApolloServer } from "apollo-server-express";
+import { createServer } from "http";
+import { app } from "src/app";
+import { createContext } from "src/graphql/context";
+import { schema } from "src/graphql/schema";
+import { Config } from "src/internal/config";
 
 export async function startServer(config: Config) {
 	//Create ApolloServer instance with caching and authorized context
@@ -18,7 +18,7 @@ export async function startServer(config: Config) {
 			config.isDev
 				? ApolloServerPluginLandingPageGraphQLPlayground({
 						settings: {
-							'request.credentials': 'include',
+							"request.credentials": "include",
 						},
 				  })
 				: ApolloServerPluginLandingPageProductionDefault(),
@@ -29,7 +29,7 @@ export async function startServer(config: Config) {
 	await apolloServer.start();
 
 	// Apply Express as middleware with cors disabled (cors handled by express)
-	apolloServer.applyMiddleware({ app, path: '/graphql', cors: false });
+	apolloServer.applyMiddleware({ app, path: "/graphql", cors: false });
 
 	// Create the http server instance
 	const server = createServer(app);
