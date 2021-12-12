@@ -66,12 +66,12 @@ services:
     api:
         container_name: wc-api
         build:
-            context: ./api
+            context: .
+            dockerfile: ./api/Dockerfile
             target: development
-        working_dir: /api
         user: $UID:$GID
         volumes:
-            - ./api:/api:rw
+            - .:/app:rw
         networks:
             - wave
         depends_on:
@@ -89,12 +89,12 @@ services:
     rtc:
         container_name: wc-rtc
         build:
-            context: ./rtc
+            context: .
+            dockerfile: ./rtc/Dockerfile
             target: development
-        working_dir: /rtc
         user: $UID:$GID
         volumes:
-            - ./rtc:/rtc:rw
+            - .:/app:rw
         networks:
             - wave
         depends_on:
@@ -118,12 +118,12 @@ services:
     web:
         container_name: wc-web
         build:
-            context: ./web
+            context: .
+            dockerfile: ./web/Dockerfile
             target: development
-        working_dir: /web
         user: $UID:$GID
         volumes:
-            - ./web:/web:rw
+            - .:/app:rw
         networks:
             - wave
         depends_on:
@@ -142,13 +142,13 @@ services:
     codegen:
         container_name: wc-codegen
         build:
-            context: ./web
+            context: .
+            dockerfile: ./web/Dockerfile
             target: development
-        working_dir: /web
         user: $UID:$GID
         command: pnpm codegen
         volumes:
-            - ./web:/web:rw
+            - .:/app:rw
         networks:
             - wave
         depends_on:

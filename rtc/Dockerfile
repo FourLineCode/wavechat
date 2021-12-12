@@ -2,7 +2,7 @@
 FROM node:16-alpine AS development
 
 # Default work directory for the container
-WORKDIR /rtc
+WORKDIR /app/rtc
 
 # Install pnpm
 RUN npm install -g pnpm
@@ -34,7 +34,7 @@ CMD [ "pnpm", "dev" ]
 FROM node:16-alpine AS production
 
 # Default work directory for the container
-WORKDIR /rtc
+WORKDIR /app/rtc
 
 # Install pnpm
 RUN npm install -g pnpm
