@@ -18,8 +18,8 @@ const config: Config = {
 	port: parseInt(process.env.PORT || "8001"),
 	redisPort: parseInt(process.env.REDIS_PORT || "6379"),
 	redisHost: process.env.REDIS_HOST || "redis",
-	origins: ["http://wavechat.localhost"],
-	gqlEndpoint: isDev ? "http://api:5000/graphql" : "http://wcp-api:5000/graphql",
+	origins: ["http://localhost:3000"],
+	gqlEndpoint: "http://localhost:5000/graphql",
 };
 
 export function getConfig(): Config {

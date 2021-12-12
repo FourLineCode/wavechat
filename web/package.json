@@ -9,12 +9,11 @@
 		"dev": "next dev",
 		"build": "next build",
 		"start": "next start",
-		"prod": "pnpm build && pnpm start",
-		"lint": "next lint",
-		"typecheck": "pnpx tsc --noEmit",
+		"typecheck": "tsc --noEmit",
 		"clean": "rm -rf node_modules && rm -rf .next",
 		"dep": "pnpm install",
-		"codegen": "pnpm graphql-codegen --watch"
+		"codegen": "graphql-codegen",
+		"codegen:watch": "graphql-codegen --watch"
 	},
 	"dependencies": {
 		"@apollo/client": "^3.4.17",

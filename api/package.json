@@ -10,19 +10,14 @@
 		"dev": "ts-node-dev --respawn --transpile-only -r tsconfig-paths/register src/index.ts",
 		"build": "tsc",
 		"start": "NODE_PATH=dist node dist/src/index.js",
-		"typecheck": "pnpx tsc --noEmit",
+		"typecheck": "tsc --noEmit",
 		"clean": "rm -rf node_modules && rm -rf dist",
 		"dep": "pnpm install",
-		"prisma:docker": "docker-compose run api pnpm prisma",
-		"migrate": "docker-compose run api pnpm prisma migrate dev",
-		"generate": "docker-compose run api pnpm prisma generate",
-		"seed": "docker-compose run api pnpm prisma db seed",
-		"studio": "docker-compose run -p 5555:5555 api pnpm prisma studio --browser none",
-		"db:reset": "pnpm migrate && pnpm seed",
-		"prod": "pnpm build && pnpm start",
-		"prod:db:migrate": "docker-compose -f ../docker-compose.prod.yml run wcp-api pnpm prisma migrate deploy",
-		"prod:db:seed": "docker-compose -f ../docker-compose.prod.yml run wcp-api pnpm prisma db seed",
-		"prod:db:reset": "pnpm prod:db:migrate && pnpm prod:db:seed"
+		"migrate": "prisma migrate dev",
+		"generate": "prisma generate",
+		"seed": "prisma db seed",
+		"studio": "prisma studio --browser none",
+		"db:reset": "pnpm migrate && pnpm seed"
 	},
 	"prisma": {
 		"seed": "ts-node prisma/seed.ts"

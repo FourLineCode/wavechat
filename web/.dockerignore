@@ -1,9 +1,0 @@
-**/node_modules
-**/dist
-**/build
-**/.next
-**/*Dockerfile
-**/*.dockerignore
-**/*.log
-**/*.cache
-**/*.env*

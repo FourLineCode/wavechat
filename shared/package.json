@@ -8,7 +8,8 @@
 	"scripts": {
 		"build": "tsc -d",
 		"clean": "rm -rf node_modules && rm -rf dist",
-		"dep": "pnpm install"
+		"dep": "pnpm install",
+		"typecheck": "tsc --noEmit"
 	},
 	"devDependencies": {
 		"typescript": "^4.5.3"

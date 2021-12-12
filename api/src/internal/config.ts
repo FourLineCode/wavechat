@@ -15,7 +15,6 @@ export interface Config {
 	awsAccessKeyId: string;
 	awsSecretKey: string;
 	s3BucketName: string;
-	cdnHost: string;
 }
 
 // Global app configuration
@@ -24,13 +23,12 @@ const config: Config = {
 	port: parseInt(process.env.PORT || "5001"),
 	redisPort: parseInt(process.env.REDIS_PORT || "6379"),
 	redisHost: process.env.REDIS_HOST || "redis",
-	origins: ["http://wavechat.localhost"],
-	awsEndpoint: isDev ? "http://localstack:4566" : "http://wcp-localstack:4566",
+	origins: ["http://localhost:3000"],
+	awsEndpoint: "http://localhost:4566",
 	awsRegion: "ap-south-1",
 	awsAccessKeyId: process.env.AWS_ACCESS_KEY_ID || "aws-access-key",
 	awsSecretKey: process.env.AWS_SECRET_KEY || "aws-secret-key",
 	s3BucketName: process.env.AWS_BUCKET_NAME || "wc-media",
-	cdnHost: "cdn.wavechat.localhost",
 };
 
 export function getConfig(): Config {

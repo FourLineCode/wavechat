@@ -9,7 +9,7 @@ export interface SocketState extends State {
 }
 
 export const useSocket = create<SocketState>((set, get) => ({
-	conn: io(config.wsEndpoint, { path: config.wsPath, autoConnect: false }),
+	conn: io(config.wsEndpoint, { path: config.wsPath, autoConnect: false, withCredentials: true }),
 	connect: () => {
 		get().conn.connect();
 	},

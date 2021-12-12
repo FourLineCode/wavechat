@@ -10,10 +10,9 @@
 		"dev": "ts-node-dev --respawn --transpile-only -r tsconfig-paths/register src/index.ts",
 		"build": "tsc",
 		"start": "NODE_PATH=dist node dist/src/index.js",
-		"typecheck": "pnpx tsc --noEmit",
+		"typecheck": "tsc --noEmit",
 		"clean": "rm -rf node_modules && rm -rf dist",
-		"dep": "pnpm install",
-		"prod": "pnpm build && pnpm start"
+		"dep": "pnpm install"
 	},
 	"dependencies": {
 		"cookie": "^0.4.1",

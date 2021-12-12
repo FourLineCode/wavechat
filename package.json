@@ -7,19 +7,15 @@
 	"author": "FourLineCode",
 	"homepage": "https://github.com/FourLineCode/wavechat#readme",
 	"scripts": {
-		"format": "prettier --write '**/*.{ts,tsx,.md}'",
+		"dev": "pnpm recursive run dev",
+		"db:reset": "pnpm --dir api db:reset",
+		"codegen": "pnpm --dir web codegen",
+		"codegen:watch": "pnpm --dir web codegen:watch",
 		"clean": "pnpm recursive run clean",
 		"dep": "pnpm recursive run dep",
-		"down": "docker-compose down --remove-orphans && docker-compose -f docker-compose.prod.yml down --volumes --remove-orphans",
-		"down:volume": "docker-compose down --volumes --remove-orphans && docker-compose -f docker-compose.prod.yml down --volumes --remove-orphans",
-		"reset": "pnpm clean && pnpm down && pnpm dep",
-		"dev": "pnpm dep && docker-compose up",
-		"dev:down": "pnpm dep && pnpm down:volume && docker-compose up",
-		"dev:build": "pnpm dep && docker-compose up --build",
-		"dev:reset": "pnpm dep && pnpm down:volume && docker-compose up --build",
-		"db:reset": "pnpm --dir api db:reset",
-		"deploy": "pnpm down:volume && docker-compose -f docker-compose.prod.yml up --scale wcp-api=2 --scale wcp-rtc=2",
-		"prod:db:reset": "pnpm --dir api prod:db:reset"
+		"reset": "pnpm clean && pnpm dep",
+		"typecheck": "pnpm recursive run typecheck",
+		"format": "prettier --write '**/*.{ts,tsx,.md}'"
 	},
 	"devDependencies": {
 		"prettier": "^2.5.1"

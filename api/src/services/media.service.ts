@@ -21,7 +21,7 @@ export async function uploadSingleFile(stream: Promise<FileUpload>): Promise<Med
 		filename,
 		mimetype,
 		encoding,
-		url: `http://${config.cdnHost}/${config.s3BucketName}/${response.Key}`,
+		url: `${config.awsEndpoint}/${config.s3BucketName}/${response.Key}`,
 	};
 }
 
@@ -45,7 +45,7 @@ export async function uploadMultipleFiles(streams: Promise<FileUpload>[]): Promi
 			filename,
 			mimetype,
 			encoding,
-			url: `http://${config.cdnHost}/${config.s3BucketName}/${response.Key}`,
+			url: `${config.awsEndpoint}/${config.s3BucketName}/${response.Key}`,
 		});
 	}
 
