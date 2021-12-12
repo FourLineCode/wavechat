@@ -1,0 +1,14 @@
+{
+	"name": "@wavechat/shared",
+	"version": "1.0.0",
+	"description": "shared types for wavechat",
+	"main": "dist/index.js",
+	"author": "FourLineCode",
+	"license": "MIT",
+	"scripts": {
+		"build": "tsc -d"
+	},
+	"devDependencies": {
+		"typescript": "^4.5.3"
+	}
+}

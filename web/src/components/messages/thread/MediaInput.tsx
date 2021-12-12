@@ -1,6 +1,5 @@
 import { gql, useMutation } from "@apollo/client";
-import { MessageSocketEvents } from "@shared/socket/events";
-import { MediaDTO, MessageDTO } from "@shared/types/message";
+import { MediaDTO, MessageDTO, MessageSocketEvents } from "@wavechat/shared";
 import clsx from "clsx";
 import React, { useRef, useState } from "react";
 import Dropzone from "react-dropzone";

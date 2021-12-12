@@ -1,5 +1,5 @@
 {
-	"name": "wave-client",
+	"name": "@wavechat/web",
 	"version": "1.0.0",
 	"description": "Frontend client for wavechat",
 	"author": "FourLineCode",
@@ -36,6 +36,7 @@
 		"zustand": "3.6.5"
 	},
 	"devDependencies": {
+		"@wavechat/shared": "workspace:*",
 		"@graphql-codegen/cli": "^2.2.2",
 		"@graphql-codegen/typescript": "^2.3.1",
 		"@graphql-codegen/typescript-operations": "^2.2.0",

@@ -1,7 +1,7 @@
 {
-	"name": "wave-server",
+	"name": "@wavechat/api",
 	"version": "1.0.0",
-	"description": "Backend server for wavechat",
+	"description": "Api server for wavechat",
 	"main": "dist/src/index.js",
 	"author": "FourLineCode",
 	"license": "MIT",
@@ -47,6 +47,7 @@
 		"zod": "^3.11.6"
 	},
 	"devDependencies": {
+		"@wavechat/shared": "workspace:*",
 		"@types/bcrypt": "^5.0.0",
 		"@types/cookie-parser": "^1.4.2",
 		"@types/cors": "^2.8.12",

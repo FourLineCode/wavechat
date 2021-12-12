@@ -1,4 +1,4 @@
-import { MediaDTO } from "@shared/types/message";
+import { MediaDTO } from "@wavechat/shared";
 import { FileUpload } from "graphql-upload";
 import { db } from "prisma/connection";
 import { getS3Client } from "src/aws/s3";

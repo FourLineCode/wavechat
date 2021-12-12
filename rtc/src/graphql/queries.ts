@@ -1,5 +1,4 @@
-import { UserDTO } from "@shared/types/auth";
-import { MessageDTO } from "@shared/types/message";
+import { MessageDTO, UserDTO } from "@wavechat/shared";
 import { gql } from "graphql-request";
 
 export const AUTHORIZE_SOCKET = gql`

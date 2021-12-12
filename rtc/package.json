@@ -1,7 +1,7 @@
 {
-	"name": "wave-rtc",
+	"name": "@wavechat/rtc",
 	"version": "1.0.0",
-	"description": "Backend server for wavechat",
+	"description": "RTC server for wavechat",
 	"main": "dist/src/index.js",
 	"author": "FourLineCode",
 	"license": "MIT",
@@ -29,6 +29,7 @@
 		"uuid": "^8.3.2"
 	},
 	"devDependencies": {
+		"@wavechat/shared": "workspace:*",
 		"@types/cookie": "^0.4.1",
 		"@types/ioredis": "^4.28.1",
 		"@types/jsonwebtoken": "^8.5.5",

@@ -1,0 +1,12 @@
+{
+	"name": "@wavechat/root",
+	"version": "1.0.0",
+	"description": "A real time social media platform",
+	"main": "index.js",
+	"license": "MIT",
+	"author": "FourLineCode",
+	"homepage": "https://github.com/FourLineCode/wavechat#readme",
+	"scripts": {
+		"format": "prettier --write '**/*.{ts,tsx,.md}'"
+	}
+}
