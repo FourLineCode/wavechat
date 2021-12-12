@@ -11,6 +11,8 @@
 		"build": "tsc",
 		"start": "NODE_PATH=dist node dist/src/index.js",
 		"typecheck": "pnpx tsc --noEmit",
+		"clean": "rm -rf node_modules && rm -rf dist",
+		"dep": "pnpm install",
 		"prod": "pnpm build && pnpm start"
 	},
 	"dependencies": {

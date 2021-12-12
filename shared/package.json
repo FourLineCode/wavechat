@@ -6,7 +6,9 @@
 	"author": "FourLineCode",
 	"license": "MIT",
 	"scripts": {
-		"build": "tsc -d"
+		"build": "tsc -d",
+		"clean": "rm -rf node_modules && rm -rf dist",
+		"dep": "pnpm install"
 	},
 	"devDependencies": {
 		"typescript": "^4.5.3"

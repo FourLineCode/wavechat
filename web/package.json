@@ -12,6 +12,8 @@
 		"prod": "pnpm build && pnpm start",
 		"lint": "next lint",
 		"typecheck": "pnpx tsc --noEmit",
+		"clean": "rm -rf node_modules && rm -rf .next",
+		"dep": "pnpm install",
 		"codegen": "pnpm graphql-codegen --watch"
 	},
 	"dependencies": {
