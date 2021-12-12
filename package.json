@@ -8,6 +8,8 @@
 	"homepage": "https://github.com/FourLineCode/wavechat#readme",
 	"scripts": {
 		"dev": "pnpm recursive run dev",
+		"build": "pnpm recursive run build",
+		"start": "pnpm recursive run start",
 		"db:reset": "pnpm --dir api db:reset",
 		"codegen": "pnpm --dir web codegen",
 		"codegen:watch": "pnpm --dir web codegen:watch",
