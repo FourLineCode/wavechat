@@ -1,4 +1,3 @@
-import clsx from "clsx";
 import { formatDistanceToNow } from "date-fns";
 import React from "react";
 import { MessageMedia } from "src/components/messages/thread/MessageMedia";
@@ -9,19 +8,13 @@ import { useModal } from "src/hooks/useModal";
 
 interface Props {
 	messageGroup: MessageGroup;
-	topMessage?: boolean;
 }
 
-export function MessageCard({ messageGroup, topMessage = false }: Props) {
+export function MessageCard({ messageGroup }: Props) {
 	const messageAuthorModal = useModal();
 
 	return (
-		<div
-			className={clsx(
-				topMessage && "mt-auto",
-				"flex hover:bg-dark-800 hover:bg-opacity-30 cursor-default py-1 pl-4 space-x-4 pr-4"
-			)}
-		>
+		<div className="flex py-1 pl-4 pr-4 space-x-4 cursor-default hover:bg-dark-800 first:mt-auto hover:bg-opacity-30">
 			<div className="flex-shrink-0 pt-1.5">
 				<UserAvatar
 					user={messageGroup.author}
