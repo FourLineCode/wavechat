@@ -10,9 +10,10 @@
 		"dev": "docker-compose up -d && turbo run dev",
 		"build": "turbo run build",
 		"start": "docker-compose up -d && turbo run start",
-		"up": "docker-compose up",
-		"down": "docker-compose down",
-		"down:volume": "docker-compose down --volumes",
+		"deploy": "pnpm build && pnpm start",
+		"dc:up": "docker-compose up -d",
+		"dc:down": "docker-compose down",
+		"dc:down:volume": "docker-compose down --volumes",
 		"db:init": "pnpm --dir api db:init",
 		"db:studio": "pnpm --dir api studio",
 		"codegen": "pnpm --dir web codegen",
@@ -34,7 +35,7 @@
 			"dev": {
 				"cache": false,
 				"dependsOn": [
-					"^dep"
+					"^build"
 				]
 			},
 			"build": {

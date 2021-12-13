@@ -49,7 +49,11 @@ export function MessageCard({ messageGroup }: Props) {
 							{message.attachments && message.attachments.length > 0 && (
 								<div className="py-2 space-y-1">
 									{message.attachments.map((media) => (
-										<MessageMedia message={message} media={media} />
+										<MessageMedia
+											message={message}
+											media={media}
+											key={media.id}
+										/>
 									))}
 								</div>
 							)}

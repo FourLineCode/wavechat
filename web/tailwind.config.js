@@ -18,7 +18,7 @@ module.exports = {
 	theme: {
 		extend: {
 			colors: {
-				brand: colors.emerald,
+				brand: colors.rose,
 				dark: customDark,
 				primary: customDark[200],
 				secondary: customDark[500],
