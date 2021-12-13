@@ -49,8 +49,6 @@ git clone https://github.com/FourLineCode/wavechat.git
 
 ## Run in production mode
 
-**Command**
-
 ```bash
 pnpm deploy
 ```
@@ -58,8 +56,6 @@ pnpm deploy
 > Make sure to install dependencies with `pnpm dep` command before deploy.
 
 ## Run in development mode
-
-**Command**
 
 ```bash
 pnpm dev

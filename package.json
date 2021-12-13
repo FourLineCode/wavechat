@@ -23,7 +23,7 @@
 		"dep": "turbo run dep",
 		"reset": "pnpm clean && pnpm dep",
 		"typecheck": "turbo run typecheck",
-		"format": "prettier --write '**/*.{ts,tsx,.md}'"
+		"format": "prettier --write '**/*.{js,jsx,ts,tsx,md}'"
 	},
 	"devDependencies": {
 		"prettier": "^2.5.1",
