@@ -47,14 +47,23 @@ communicate with each other about their activities and help each other.
 git clone https://github.com/FourLineCode/wavechat.git
 ```
 
+## Run in production mode
+
+**Command**
+
+```bash
+pnpm build && pnpm start
+```
+
 ## Run in development mode
 
 **Command**
 
 ```bash
-docker-compose up
 pnpm dev
 ```
+
+> Development runs docker containers in the background. Run `pnpm down` to stop the containers.
 
 ## Initialize AWS S3 bucket
 

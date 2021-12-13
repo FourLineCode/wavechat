@@ -8,6 +8,7 @@
 	"scripts": {
 		"build": "tsc -d",
 		"clean": "rm -rf node_modules && rm -rf dist",
+		"clean:cache": "rm -rf dist",
 		"dep": "pnpm install",
 		"typecheck": "tsc --noEmit"
 	},

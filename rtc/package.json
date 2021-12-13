@@ -12,6 +12,7 @@
 		"start": "NODE_PATH=dist node dist/src/index.js",
 		"typecheck": "tsc --noEmit",
 		"clean": "rm -rf node_modules && rm -rf dist",
+		"clean:cache": "rm -rf dist",
 		"dep": "pnpm install"
 	},
 	"dependencies": {

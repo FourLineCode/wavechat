@@ -11,6 +11,7 @@
 		"start": "next start",
 		"typecheck": "tsc --noEmit",
 		"clean": "rm -rf node_modules && rm -rf .next",
+		"clean:cache": "rm -rf .next",
 		"dep": "pnpm install",
 		"codegen": "graphql-codegen",
 		"codegen:watch": "graphql-codegen --watch"

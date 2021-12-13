@@ -13,10 +13,12 @@
 		"up": "docker-compose up",
 		"down": "docker-compose down",
 		"down:volume": "docker-compose down --volumes",
-		"db:reset": "pnpm --dir api db:reset",
+		"db:init": "pnpm --dir api db:init",
+		"db:studio": "pnpm --dir api studio",
 		"codegen": "pnpm --dir web codegen",
 		"codegen:watch": "pnpm --dir web codegen:watch",
 		"clean": "turbo run clean",
+		"clean:cache": "turbo run clean:cache",
 		"dep": "turbo run dep",
 		"reset": "pnpm clean && pnpm dep",
 		"typecheck": "turbo run typecheck",
@@ -30,7 +32,10 @@
 		"baseBranch": "origin/main",
 		"pipeline": {
 			"dev": {
-				"cache": false
+				"cache": false,
+				"dependsOn": [
+					"^dep"
+				]
 			},
 			"build": {
 				"dependsOn": [
@@ -48,6 +53,9 @@
 				]
 			},
 			"clean": {
+				"cache": false
+			},
+			"clean:cache": {
 				"cache": false
 			},
 			"dep": {
