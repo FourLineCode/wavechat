@@ -23,7 +23,7 @@ const config: Config = {
 	port: parseInt(process.env.PORT || "5001"),
 	redisPort: parseInt(process.env.REDIS_PORT || "6379"),
 	redisHost: process.env.REDIS_HOST || "redis",
-	origins: ["http://localhost:3000"],
+	origins: ["http://localhost:3000", "http://localhost:3001"],
 	awsEndpoint: "http://localhost:4566",
 	awsRegion: "ap-south-1",
 	awsAccessKeyId: process.env.AWS_ACCESS_KEY_ID || "aws-access-key",

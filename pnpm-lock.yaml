@@ -5,8 +5,10 @@ importers:
   .:
     specifiers:
       prettier: ^2.5.1
+      turbo: ^1.0.6
     devDependencies:
       prettier: 2.5.1
+      turbo: 1.0.6
 
   api:
     specifiers:
@@ -7157,6 +7159,14 @@ packages:
     resolution: {integrity: sha512-C3TaO7K81YvjCgQH9Q1S3R3P3BtN3RIM8n+OvX4il1K1zgE8ZhI0op7kClgkxtutIE8hQrcrHBXvIheqKUUCxw==}
     dev: false
 
+  /turbo/1.0.6:
+    resolution: {integrity: sha512-sAbPHCm8usX3a27WHfWmAqt+wHxk/5Z6tqLqqI1MIzFoSEtmLZWyXOTxpi+60fwfwivOdW97cTsrZbkezVhGyw==}
+    hasBin: true
+    requiresBuild: true
+    dependencies:
+      zlib: 1.0.5
+    dev: true
+
   /type-fest/0.21.3:
     resolution: {integrity: sha512-t0rzBq87m3fVcduHDUFhKmyyX+9eo6WQjZvf51Ea/M0Q7+T374Jp1aUiyUl0GKxp8M/OETVHSDvmkyPgvX+X2w==}
     engines: {node: '>=10'}
@@ -7567,6 +7577,11 @@ packages:
   /zen-observable/0.8.15:
     resolution: {integrity: sha512-PQ2PC7R9rslx84ndNBZB/Dkv8V8fZEpk83RLgXtYd0fwUgEjseMn1Dgajh2x6S8QbZAFa9p2qVCEuYZNgve0dQ==}
     dev: false
+
+  /zlib/1.0.5:
+    resolution: {integrity: sha1-bnyXL8NxxkWmr7A6sUdp3vEU/MA=}
+    engines: {node: '>=0.2.0'}
+    dev: true
 
   /zod/3.11.6:
     resolution: {integrity: sha512-daZ80A81I3/9lIydI44motWe6n59kRBfNzTuS2bfzVh1nAXi667TOTWWtatxyG+fwgNUiagSj/CWZwRRbevJIg==}

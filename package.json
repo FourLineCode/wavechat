@@ -7,19 +7,55 @@
 	"author": "FourLineCode",
 	"homepage": "https://github.com/FourLineCode/wavechat#readme",
 	"scripts": {
-		"dev": "pnpm recursive run dev",
-		"build": "pnpm recursive run build",
-		"start": "pnpm recursive run start",
+		"dev": "docker-compose up -d && turbo run dev",
+		"build": "turbo run build",
+		"start": "docker-compose up -d && turbo run start",
+		"up": "docker-compose up",
+		"down": "docker-compose down",
+		"down:volume": "docker-compose down --volumes",
 		"db:reset": "pnpm --dir api db:reset",
 		"codegen": "pnpm --dir web codegen",
 		"codegen:watch": "pnpm --dir web codegen:watch",
-		"clean": "pnpm recursive run clean",
-		"dep": "pnpm recursive run dep",
+		"clean": "turbo run clean",
+		"dep": "turbo run dep",
 		"reset": "pnpm clean && pnpm dep",
-		"typecheck": "pnpm recursive run typecheck",
+		"typecheck": "turbo run typecheck",
 		"format": "prettier --write '**/*.{ts,tsx,.md}'"
 	},
 	"devDependencies": {
-		"prettier": "^2.5.1"
+		"prettier": "^2.5.1",
+		"turbo": "^1.0.6"
+	},
+	"turbo": {
+		"baseBranch": "origin/main",
+		"pipeline": {
+			"dev": {
+				"cache": false
+			},
+			"build": {
+				"dependsOn": [
+					"^build"
+				],
+				"outputs": [
+					".next/**",
+					"dist"
+				]
+			},
+			"start": {
+				"cache": false,
+				"dependsOn": [
+					"^build"
+				]
+			},
+			"clean": {
+				"cache": false
+			},
+			"dep": {
+				"cache": false
+			},
+			"typecheck": {
+				"cache": false
+			}
+		}
 	}
 }

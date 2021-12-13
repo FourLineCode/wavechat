@@ -28,13 +28,11 @@ export async function createContext({ req, res }: ExpressContext): Promise<Conte
 		internal: false,
 	};
 
-	// Read http only session cookie from request headers
 	const token = req.cookies["session"] as string;
 
 	if (token) {
 		const verified = jwt.verify(token, process.env.JWT_SECRET!);
 
-		// User is verified
 		if (verified) {
 			const { sessionId, userId } = jwt.decode(token) as JWTPayload;
 
@@ -58,7 +56,6 @@ export async function createContext({ req, res }: ExpressContext): Promise<Conte
 		}
 	}
 
-	// Read internal authorization jwt token from request headers
 	const internalToken = req.headers["internal-token"] as string;
 
 	if (internalToken) {
