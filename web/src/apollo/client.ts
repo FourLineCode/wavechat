@@ -7,5 +7,5 @@ export const client = new ApolloClient({
 	ssrMode: typeof window === undefined,
 	credentials: "include",
 	cache: new InMemoryCache(),
-	link: createUploadLink({ uri: config.apiEndpoint }),
+	link: createUploadLink({ uri: config.apiEndpoint, credentials: "include" }),
 });

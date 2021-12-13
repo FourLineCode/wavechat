@@ -1,7 +1,12 @@
-import { UserPubsubChannels } from "@shared/pubsub/channels";
-import { ErrorSocketEvents, MessageSocketEvents, SocketEvents } from "@shared/socket/events";
-import { UserDTO } from "@shared/types/auth";
-import { MessageDTO, RoomEventDTO } from "@shared/types/message";
+import {
+	ErrorSocketEvents,
+	MessageDTO,
+	MessageSocketEvents,
+	RoomEventDTO,
+	SocketEvents,
+	UserDTO,
+	UserPubsubChannels,
+} from "@wavechat/shared";
 import { Server as IOServer, Socket } from "socket.io";
 import { graphQLClient } from "src/graphql/client";
 import {

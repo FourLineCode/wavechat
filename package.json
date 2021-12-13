@@ -1,0 +1,70 @@
+{
+	"name": "@wavechat/root",
+	"version": "1.0.0",
+	"description": "A real time social media platform",
+	"main": "index.js",
+	"license": "MIT",
+	"author": "FourLineCode",
+	"homepage": "https://github.com/FourLineCode/wavechat#readme",
+	"scripts": {
+		"dev": "docker-compose up -d && turbo run dev",
+		"build": "turbo run build",
+		"start": "docker-compose up -d && turbo run start",
+		"deploy": "pnpm build && pnpm start",
+		"dc:up": "docker-compose up -d",
+		"dc:down": "docker-compose down",
+		"dc:down:volume": "docker-compose down --volumes",
+		"db:init": "pnpm --dir api db:init",
+		"db:studio": "pnpm --dir api studio",
+		"codegen": "pnpm --dir web codegen",
+		"codegen:watch": "pnpm --dir web codegen:watch",
+		"clean": "turbo run clean",
+		"clean:cache": "turbo run clean:cache",
+		"dep": "turbo run dep",
+		"reset": "pnpm clean && pnpm dep",
+		"typecheck": "turbo run typecheck",
+		"format": "prettier --write '**/*.{js,jsx,ts,tsx,md}'"
+	},
+	"devDependencies": {
+		"prettier": "^2.5.1",
+		"turbo": "^1.0.6"
+	},
+	"turbo": {
+		"baseBranch": "origin/main",
+		"pipeline": {
+			"dev": {
+				"cache": false,
+				"dependsOn": [
+					"^build"
+				]
+			},
+			"build": {
+				"dependsOn": [
+					"^build"
+				],
+				"outputs": [
+					".next/**",
+					"dist"
+				]
+			},
+			"start": {
+				"cache": false,
+				"dependsOn": [
+					"^build"
+				]
+			},
+			"clean": {
+				"cache": false
+			},
+			"clean:cache": {
+				"cache": false
+			},
+			"dep": {
+				"cache": false
+			},
+			"typecheck": {
+				"cache": false
+			}
+		}
+	}
+}

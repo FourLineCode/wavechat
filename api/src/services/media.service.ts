@@ -1,4 +1,4 @@
-import { MediaDTO } from "@shared/types/message";
+import { MediaDTO } from "@wavechat/shared";
 import { FileUpload } from "graphql-upload";
 import { db } from "prisma/connection";
 import { getS3Client } from "src/aws/s3";
@@ -21,7 +21,7 @@ export async function uploadSingleFile(stream: Promise<FileUpload>): Promise<Med
 		filename,
 		mimetype,
 		encoding,
-		url: `http://${config.cdnHost}/${config.s3BucketName}/${response.Key}`,
+		url: `${config.awsEndpoint}/${config.s3BucketName}/${response.Key}`,
 	};
 }
 
@@ -45,7 +45,7 @@ export async function uploadMultipleFiles(streams: Promise<FileUpload>[]): Promi
 			filename,
 			mimetype,
 			encoding,
-			url: `http://${config.cdnHost}/${config.s3BucketName}/${response.Key}`,
+			url: `${config.awsEndpoint}/${config.s3BucketName}/${response.Key}`,
 		});
 	}
 

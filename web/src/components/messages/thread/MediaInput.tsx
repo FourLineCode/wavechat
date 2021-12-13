@@ -1,6 +1,5 @@
 import { gql, useMutation } from "@apollo/client";
-import { MessageSocketEvents } from "@shared/socket/events";
-import { MediaDTO, MessageDTO } from "@shared/types/message";
+import { MediaDTO, MessageDTO, MessageSocketEvents } from "@wavechat/shared";
 import clsx from "clsx";
 import React, { useRef, useState } from "react";
 import Dropzone from "react-dropzone";
@@ -118,7 +117,7 @@ export function MediaInput({ socket, thread }: Props) {
 				{files.length > 0 && (
 					<div className="grid w-full h-24 grid-cols-4 gap-2 mb-4 md:gap-4">
 						{files.slice(0, 3).map((file, index) => (
-							<div className="relative w-full h-full">
+							<div className="relative w-full h-full" key={file.name}>
 								<img
 									className="object-cover w-full h-24 rounded-lg"
 									src={URL.createObjectURL(file)}

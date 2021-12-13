@@ -1,5 +1,9 @@
-import { ErrorSocketEvents, MessageSocketEvents, SocketEvents } from "@shared/socket/events";
-import { AuthorizeSocketDTO } from "@shared/types/auth";
+import {
+	AuthorizeSocketDTO,
+	ErrorSocketEvents,
+	MessageSocketEvents,
+	SocketEvents,
+} from "@wavechat/shared";
 import cookie from "cookie";
 import { Server as IOServer, Socket } from "socket.io";
 import { graphQLClient } from "src/graphql/client";

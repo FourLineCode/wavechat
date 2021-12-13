@@ -13,13 +13,12 @@ const customDark = {
 };
 
 module.exports = {
-	mode: "jit",
-	purge: ["./src/**/*.{ts,tsx}"],
+	content: ["./src/**/*.{ts,tsx}"],
 	darkMode: false, // or 'media' or 'class'
 	theme: {
 		extend: {
 			colors: {
-				brand: colors.emerald,
+				brand: colors.rose,
 				dark: customDark,
 				primary: customDark[200],
 				secondary: customDark[500],

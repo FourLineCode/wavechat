@@ -1,6 +1,6 @@
 import { ObjectRef } from "@giraphql/core";
 import { Media } from "@prisma/client";
-import { MediaDTO } from "@shared/types/message";
+import { MediaDTO } from "@wavechat/shared";
 import { builder } from "src/graphql/builder";
 import { MessageObject } from "src/graphql/resolvers/message.resolver";
 import { services } from "src/services";

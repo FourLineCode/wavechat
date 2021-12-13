@@ -1,0 +1,5 @@
+**/__generated__/**
+**/dist/**
+**/.next/**
+**/.turbo/**
+**/.localstack/**

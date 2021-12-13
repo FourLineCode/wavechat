@@ -17,17 +17,15 @@ communicate with each other about their activities and help each other.
     <td align="center"><a href="https://reactjs.org"><img src=".github/images/react.png" width="80px;" height="75px;" style="border-radius: 8px;" alt="React JS"/><br /><b><font color="#777">ReactJs</font></b></a></td>
     <td align="center"><a href="https://www.apollographql.com/"><img src=".github/images/apollo.png" width="75px;" height="75px;" alt="Apollo"/><br /><b><font color="#777">Apollo</font></b></a></td>
     <td align="center"><a href="https://tailwindcss.com/"><img src=".github/images/tailwind.png" width="75px;" height="75px;" alt="Tailwind"/><br /><b><font color="#777">Tailwind CSS</font></b></a></td>
-  </tr>
     <td align="center"><a href="https://graphql.org/"><img src=".github/images/graphql.png" width="80px;" height="75px;" alt="GraphQL"/><br /><b><font color="#777">GraphQL</font></b></a></td>
     <td align="center"><a href="https://giraphql.com/"><img src=".github/images/giraphql.png" width="80px;" height="75px;" alt="GiraphQL"/><br /><b><font color="#777">GiraphQL</font></b></a></td>
+  </tr>
     <td align="center"><a href="https://socket.io"><img src=".github/images/socket.png" width="75px;" height="75px;" alt="Socket"/><br /><b><font color="#777">Socket</font></b></a></td>
     <td align="center"><a href="https://nodejs.org/en/"><img src=".github/images/nodejs.png" width="70px;" height="75px;" alt="NodeJs"/><br /><b><font color="#777">NodeJs</font></b></a></td>
     <td align="center"><a href="https://www.prisma.io/"><img src=".github/images/prisma.png" width="110px;" height="75px;" alt="Prisma"/><br /><b><font color="#777">Prisma</font></b></a></td>
-  <tr>
     <td align="center"><a href="https://www.postgresql.org/"><img src=".github/images/postgres.png" width="75px;" height="75px;" alt="PostgreSQL"/><br /><b><font color="#777">PostgreSQL</font></b></a></td>
 	<td align="center"><a href="https://redis.io/"><img src=".github/images/redis.png" width="75px;" height="75px;" alt="Redis"/><br /><b><font color="#777">Redis</font></b></a></td>
     <td align="center"><a href="https://www.docker.com/"><img src=".github/images/docker.png" width="75px;" height="75px;" alt="Docker"/><br /><b><font color="#777">Docker</font></b></a></td>
-	<td align="center"><a href="https://traefik.io/"><img src=".github/images/traefik.png" width="75px;" height="75px;" alt="Traefik"/><br /><b><font color="#777">Traefik</font></b></a></td>
 	<td align="center"><a href="https://aws.amazon.com/s3"><img style="border-radius: 8px;" src=".github/images/aws.png" width="110px;" height="75px;" alt="AWS"/><br /><b><font color="#777">AWS S3</font></b></a></td>
   </tr>
 </table>
@@ -36,8 +34,8 @@ communicate with each other about their activities and help each other.
 
 ## Requirements
 
--   [Node.js 16.0.0^](https://nodejs.org/en/)
--   [Pnpm 6.0.0^](https://pnpm.io/installation)
+-   [Node.js](https://nodejs.org/en/)
+-   [Pnpm](https://pnpm.io/installation)
 -   [Docker](https://docs.docker.com/get-docker/)
 -   [Docker-Compose](https://docs.docker.com/compose/install/)
 -   [Git](https://git-scm.com/downloads)
@@ -51,32 +49,20 @@ git clone https://github.com/FourLineCode/wavechat.git
 
 ## Run in production mode
 
-**Command**
-
 ```bash
-./deploy.sh
+pnpm deploy
 ```
 
-> Deploy script currently deploys 2 replicas of backend images. Edit deploy script to change scaling factor
-
-## Visit the site at your local custom domain
-
--   **Frontend - [http://wavechat.localhost](http://wavechat.localhost)**
-
----
+> Make sure to install dependencies with `pnpm dep` command before deploy.
 
 ## Run in development mode
 
-**Command**
-
 ```bash
-./dev.sh
+pnpm dev
 ```
 
-> -   Pass the `--build` flag to rebuild the containers.
-> -   Pass the `--reset` flag to reset the volumes.
-> -   If the reset script fails to connect, just restart the dev script to fix it.
-> -   Make sure to export $UID and $GID as ENV variable if you are experiencing file permission issues.
+> Make sure to install dependencies with `pnpm dep` command before development.\
+> Development runs docker containers in the background. Run `pnpm down` to stop the containers.
 
 ## Initialize AWS S3 bucket
 
@@ -90,5 +76,5 @@ awslocal --endpoint-url=http://localhost:4566 s3api put-bucket-acl --bucket wc-m
 
 ## Open the development server on custom domain
 
--   **Frontend - [http://wavechat.localhost](http://wavechat.localhost)**
--   **GraphQL Playground - [http://wavechat.localhost/graphql](http://wavechat.localhost/graphql)**
+-   **Frontend - [http://localhost:3000](http://localhost:3000)**
+-   **GraphQL Playground - [http://localhost:5000/graphql](http://localhost:5000/graphql)**

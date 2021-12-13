@@ -10,7 +10,6 @@ import { schema } from "src/graphql/schema";
 import { Config } from "src/internal/config";
 
 export async function startServer(config: Config) {
-	//Create ApolloServer instance with caching and authorized context
 	const apolloServer = new ApolloServer({
 		schema,
 		context: createContext,
@@ -25,16 +24,12 @@ export async function startServer(config: Config) {
 		],
 	});
 
-	// Start ApolloServer instance - (new in apollo-server v3)
 	await apolloServer.start();
 
-	// Apply Express as middleware with cors disabled (cors handled by express)
 	apolloServer.applyMiddleware({ app, path: "/graphql", cors: false });
 
-	// Create the http server instance
 	const server = createServer(app);
 
-	// Start the server
 	server.listen({ port: config.port }, () => {
 		console.log(`\nApi Server is now running on http://localhost:${config.port}\n`);
 	});

@@ -121,7 +121,7 @@ builder.mutationField("signup", (t) =>
 			res.cookie("session", token, {
 				httpOnly: true,
 				secure: true,
-				sameSite: "strict",
+				sameSite: "lax",
 			});
 
 			return { success: true, user: newUser };
@@ -168,7 +168,7 @@ builder.mutationField("signin", (t) =>
 			res.cookie("session", token, {
 				httpOnly: true,
 				secure: true,
-				sameSite: "strict",
+				sameSite: "lax",
 			});
 
 			return { success: true, user: user };

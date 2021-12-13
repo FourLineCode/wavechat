@@ -1,4 +1,4 @@
-import { MessageDTO } from "@shared/types/message";
+import { MessageDTO } from "@wavechat/shared";
 import { db } from "prisma/connection";
 import { services } from "src/services";
 

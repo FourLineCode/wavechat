@@ -1,6 +1,5 @@
 import { gql, useQuery } from "@apollo/client";
-import { ErrorSocketEvents, MessageSocketEvents } from "@shared/socket/events";
-import { MessageDTO } from "@shared/types/message";
+import { ErrorSocketEvents, MessageDTO, MessageSocketEvents } from "@wavechat/shared";
 import { Field, Form, Formik, FormikProps } from "formik";
 import React, { ChangeEvent, useEffect, useMemo, useRef, useState } from "react";
 import toast from "react-hot-toast";

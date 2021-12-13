@@ -1,5 +1,5 @@
-schema: http://api:5000/graphql
-documents: "src/**/*.{ts,tsx}"
+schema: http://localhost:5000/graphql
+documents: 'src/**/*.{ts,tsx}'
 generates:
     ./src/apollo/__generated__/types.ts:
         plugins:

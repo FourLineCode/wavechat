@@ -6,7 +6,7 @@ const config = getConfig();
 
 const internalToken = generateInternalToken();
 
-export const graphQLClient = new GraphQLClient(config.gqlEndpoint, {
+export const graphQLClient = new GraphQLClient(config.apiEndpoint, {
 	headers: {
 		"internal-token": internalToken,
 	},

@@ -30,6 +30,7 @@
 		"declaration": false,
 		"declarationMap": false,
 		"pretty": true,
+		"rootDir": ".",
 		"outDir": "dist",
 		"baseUrl": ".",
 		"paths": {}

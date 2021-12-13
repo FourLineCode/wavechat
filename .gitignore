@@ -3,9 +3,11 @@
 **/dist
 **/.next
 **/.env
+**/.env.local
 **/debug.log
 **/yarn-error.log
 **/.pnpm-debug.log
 **/.cache
 **/.localstack
 **/pgdata
+**/.turbo
