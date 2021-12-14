@@ -6,7 +6,7 @@
 	</h5>
 </div>
 
-<details>
+<details open>
 	<summary>Table of Contents</summary>
 	<ol>
 		<li>
@@ -37,7 +37,7 @@
 
 WaveChat is a real time social media application made for college/university students. In the recent couple years, the covid-19 pandemic has changed how students of all level interact with each other. It has been really tough for students to meet new people and make friends over the internet. This app was made for students to find other students of similar interest and make new friends. It also makes it easy for students of a certain course or section to communicate with each other about their activities and help each other.
 
-#### Preview
+### Preview
 
 <div align="center">
 	<img src=".github/images/demo1.png" alt="demo" width="800">
@@ -126,5 +126,6 @@ Published and distributed under the MIT License. See `LICENSE` for more informat
 
 ## Contact
 
-Akmal Hossain - [@FourLineCode](https://twitter.com/FourLineCode) - akmal3535.ah@gmail.com
-Project Issues: [https://github.com/FourLIneCode/wavechat](https://github.com/FourLineCode/wavechat)
+Email - [akmal3535.ah@gmail.com](https://mail.google.com/mail/?view=cm&fs=1&to=akmal3535.ah@gmail.com&su=%23Issue@Wavechat:&body=Your%20Issue%20Here) \
+Twitter - [@FourLineCode](https://twitter.com/FourLineCode) \
+Facebook - [Akmal Hossain](https://facebook.com/FourLineCode)
