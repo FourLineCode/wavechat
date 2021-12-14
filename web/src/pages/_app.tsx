@@ -3,6 +3,7 @@ import type { AppProps } from "next/app";
 import { useEffect } from "react";
 import { Toaster } from "react-hot-toast";
 import { client } from "src/apollo/client";
+import { LayoutWarning } from "src/components/layouts/LayoutWarning";
 import { useAuth } from "src/store/useAuth";
 import "../styles/tailwind.css";
 
@@ -25,6 +26,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
 					duration: 2500,
 				}}
 			/>
+			<LayoutWarning />
 		</ApolloProvider>
 	);
 }

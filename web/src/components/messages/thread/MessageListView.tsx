@@ -7,12 +7,12 @@ interface Props {
 }
 
 export function MessageListView({ messageGroups }: Props) {
-	const ref = useRef<HTMLDivElement>(null);
+	const bottom = useRef<HTMLDivElement>(null);
 	const container = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
-		if (ref.current) {
-			ref.current.scrollIntoView({
+		if (bottom.current) {
+			bottom.current.scrollIntoView({
 				behavior: "auto",
 			});
 		}
@@ -26,7 +26,7 @@ export function MessageListView({ messageGroups }: Props) {
 			{messageGroups.map((group) => (
 				<MessageCard messageGroup={group} key={group.id} />
 			))}
-			<div ref={ref} />
+			<div ref={bottom} />
 		</div>
 	);
 }
