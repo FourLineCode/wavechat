@@ -34,7 +34,7 @@ export function MessageThreadCard({ thread }: Props) {
 					)}
 				>
 					<div className="flex items-center space-x-2">
-						<UserAvatar user={user} className="flex-shrink-0 w-10 h-10 rounded-lg" />
+						<UserAvatar user={user} className="shrink-0 w-10 h-10 rounded-lg" />
 						<div className="flex items-center w-full">
 							<div className="flex-1">
 								<div className="font-semibold cursor-pointer line-clamp-1">

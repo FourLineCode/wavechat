@@ -45,7 +45,7 @@ export function Modal({ show, onClose, large = false, className, initialFocus, c
 							className={clsx(
 								large ? "max-w-xl" : "max-w-md",
 								className,
-								"w-full p-6 transition-all border border-dark-800 transform rounded-lg shadow-xl bg-dark-900 text-primary"
+								"w-full p-6 z-20 transition-all border border-dark-800 rounded-lg shadow-xl bg-dark-900 text-primary"
 							)}
 						>
 							{children}

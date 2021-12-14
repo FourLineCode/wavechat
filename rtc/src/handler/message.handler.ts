@@ -39,7 +39,7 @@ export async function initializeMessageHandler(io: IOServer) {
 		});
 
 		socket.on(MessageSocketEvents.SendMessage, (message: MessageDTO) =>
-			publishMessage(message)
+			publishMessage(socket, message)
 		);
 
 		socket.on(MessageSocketEvents.LeaveRoom, ({ roomId }: RoomEventDTO) => {
@@ -52,7 +52,7 @@ export async function initializeMessageHandler(io: IOServer) {
 	});
 }
 
-async function publishMessage(message: MessageDTO) {
+async function publishMessage(socket: Socket, message: MessageDTO) {
 	message.id = uuid();
 	const currentTime = new Date().toISOString();
 	message.createdAt = currentTime;
@@ -67,9 +67,13 @@ async function publishMessage(message: MessageDTO) {
 	// Persist message in api service database
 	// NOTE: this grqphql request is not awaited intentionally
 	// fire and forget request
-	graphQLClient.request<PersistMessageQuery, PersistMessageVariables>(PERSIST_MESSAGE, {
-		messageDTO: message,
-	});
+	try {
+		await graphQLClient.request<PersistMessageQuery, PersistMessageVariables>(PERSIST_MESSAGE, {
+			messageDTO: message,
+		});
+	} catch (error) {
+		socket.emit(ErrorSocketEvents.SendMessageError, "Something went wrong");
+	}
 }
 
 async function broadcastMessage(io: IOServer, message: MessageDTO) {

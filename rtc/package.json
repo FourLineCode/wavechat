@@ -11,8 +11,8 @@
 		"build": "tsc",
 		"start": "NODE_PATH=dist node dist/src/index.js",
 		"typecheck": "tsc --noEmit",
-		"clean": "rm -rf node_modules && rm -rf dist",
-		"clean:cache": "rm -rf dist",
+		"clean": "rm -rf node_modules && pnpm clean:cache",
+		"clean:cache": "rm -rf dist && rm -rf .turbo",
 		"dep": "pnpm install"
 	},
 	"dependencies": {

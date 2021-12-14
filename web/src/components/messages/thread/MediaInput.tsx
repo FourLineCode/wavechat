@@ -126,7 +126,7 @@ export function MediaInput({ socket, thread }: Props) {
 								/>
 								<div
 									onClick={() => setFiles((p) => p.filter((_, i) => i !== index))}
-									className="absolute p-1 transition-colors transform bg-red-500 bg-opacity-75 rounded-full cursor-pointer hover:bg-opacity-100 -top-1 -right-1"
+									className="absolute p-1 transition-colors bg-red-500 bg-opacity-75 rounded-full cursor-pointer hover:bg-opacity-100 -top-1 -right-1"
 								>
 									<ImCross size="8px" />
 								</div>

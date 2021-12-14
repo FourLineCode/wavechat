@@ -49,17 +49,17 @@ export function NavBar() {
 					</a>
 				</Link>
 			</div>
-			<Modal large {...aboutModal}>
+			<Modal large {...aboutModal} className="overflow-y-auto">
 				<div className="mb-2 text-2xl font-semibold text-center">About this app</div>
 				<div className="space-y-2">
 					<div>
-						This is a real time chat app made for college/university students. In the
-						recent couple years, the covid-19 pandemic has changed how students of all
-						level interact with each other. It has been really tough for students to
-						meet new people and make friends over the internet. This app was made for
-						students to find other students of their similar level and make new friends.
-						It also makes it easy for students of a certain course or section to
-						communicate with each other about their activities and help each other.
+						WaveChat is a real time social media application made for college/university
+						students. In the recent couple years, the covid-19 pandemic has changed how
+						students of all level interact with each other. It has been really tough for
+						students to meet new people and make friends over the internet. This app was
+						made for students to find other students of similar interest and make new
+						friends. It also makes it easy for students of a certain course or section
+						to communicate with each other about their activities and help each other.
 					</div>
 					<div>
 						This app was built by{" "}

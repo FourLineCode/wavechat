@@ -14,4 +14,5 @@ export enum MessageSocketEvents {
 export enum ErrorSocketEvents {
 	AuthorizationError = "error:unauthorized",
 	JoinRoomError = "error:join-room",
+	SendMessageError = "error:send-message",
 }

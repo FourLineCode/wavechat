@@ -14,7 +14,6 @@ const customDark = {
 
 module.exports = {
 	content: ["./src/**/*.{ts,tsx}"],
-	darkMode: false, // or 'media' or 'class'
 	theme: {
 		extend: {
 			colors: {
@@ -31,9 +30,6 @@ module.exports = {
 				"4/5": "80%",
 			},
 		},
-	},
-	variants: {
-		extend: {},
 	},
 	plugins: [
 		require("@tailwindcss/line-clamp"),

@@ -44,10 +44,16 @@ export async function createMessage(messageDTO: MessageDTO) {
 		rejectOnNotFound: true,
 	});
 
-	await services.messageThread.getThreadById({
+	const thread = await services.messageThread.getThreadById({
 		threadId: messageDTO.threadId,
 		userId: messageDTO.authorId,
 	});
+
+	const isFriend = await services.friendship.doesFriendshipExist({
+		firstUserId: thread.participants[0].id,
+		secondUserId: thread.participants[1].id,
+	});
+	if (!isFriend) throw new Error("You cannot send messages to this user");
 
 	const [message, _thread] = await db.$transaction([
 		db.message.create({

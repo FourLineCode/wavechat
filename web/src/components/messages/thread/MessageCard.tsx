@@ -15,7 +15,7 @@ export function MessageCard({ messageGroup }: Props) {
 
 	return (
 		<div className="flex py-1 pl-4 pr-4 space-x-4 cursor-default hover:bg-dark-800 first:mt-auto hover:bg-opacity-30">
-			<div className="flex-shrink-0 pt-1.5">
+			<div className="shrink-0 pt-1.5">
 				<UserAvatar
 					user={messageGroup.author}
 					onClick={messageAuthorModal.onOpen}

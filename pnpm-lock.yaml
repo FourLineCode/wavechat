@@ -5,10 +5,10 @@ importers:
   .:
     specifiers:
       prettier: ^2.5.1
-      turbo: ^1.0.6
+      turbo: ^1.0.9
     devDependencies:
       prettier: 2.5.1
-      turbo: 1.0.6
+      turbo: 1.0.9
 
   api:
     specifiers:
@@ -176,9 +176,9 @@ importers:
       regenerator-runtime: ^0.13.9
       socket.io-client: ^4.3.2
       tailwind-scrollbar: ^1.3.1
-      tailwindcss: ^3.0.1
+      tailwindcss: ^3.0.2
       tippy.js: ^6.3.7
-      typescript: 4.5.3
+      typescript: 4.5.4
       zustand: 3.6.7
     dependencies:
       '@apollo/client': 3.5.6_graphql@16.1.0+react@17.0.2
@@ -201,21 +201,21 @@ importers:
       socket.io-client: 4.4.0
       zustand: 3.6.7_react@17.0.2
     devDependencies:
-      '@graphql-codegen/cli': 2.3.0_graphql@16.1.0+typescript@4.5.3
+      '@graphql-codegen/cli': 2.3.0_graphql@16.1.0+typescript@4.5.4
       '@graphql-codegen/typescript': 2.4.1_graphql@16.1.0
       '@graphql-codegen/typescript-operations': 2.2.1_graphql@16.1.0
       '@graphql-codegen/typescript-react-apollo': 3.2.2_graphql@16.1.0
-      '@tailwindcss/aspect-ratio': 0.4.0_tailwindcss@3.0.1
-      '@tailwindcss/line-clamp': 0.3.0_tailwindcss@3.0.1
+      '@tailwindcss/aspect-ratio': 0.4.0_tailwindcss@3.0.2
+      '@tailwindcss/line-clamp': 0.3.0_tailwindcss@3.0.2
       '@types/react': 17.0.37
       '@wavechat/shared': link:../shared
       autoprefixer: 10.4.0_postcss@8.4.5
       postcss: 8.4.5
       regenerator-runtime: 0.13.9
       tailwind-scrollbar: 1.3.1_16a290f6d0e3717bf6d2667234aebd30
-      tailwindcss: 3.0.1_16a290f6d0e3717bf6d2667234aebd30
+      tailwindcss: 3.0.2_16a290f6d0e3717bf6d2667234aebd30
       tippy.js: 6.3.7
-      typescript: 4.5.3
+      typescript: 4.5.4
 
 packages:
 
@@ -886,7 +886,7 @@ packages:
       '@cspotcode/source-map-consumer': 0.8.0
     dev: true
 
-  /@endemolshinegroup/cosmiconfig-typescript-loader/3.0.2_f1e39502f5444cf4e1bb49a6f24fb32b:
+  /@endemolshinegroup/cosmiconfig-typescript-loader/3.0.2_71a2f61964e37a4d68dab6dadd2a99a0:
     resolution: {integrity: sha512-QRVtqJuS1mcT56oHpVegkKBlgtWjXw/gHNWO3eL9oyB5Sc7HBoc2OLG/nYpVfT/Jejvo3NUrD0Udk7XgoyDKkA==}
     engines: {node: '>=10.0.0'}
     peerDependencies:
@@ -895,7 +895,7 @@ packages:
       cosmiconfig: 7.0.1
       lodash.get: 4.4.2
       make-error: 1.3.6
-      ts-node: 9.1.1_typescript@4.5.3
+      ts-node: 9.1.1_typescript@4.5.4
       tslib: 2.3.1
     transitivePeerDependencies:
       - typescript
@@ -943,7 +943,7 @@ packages:
       zod: 3.11.6
     dev: false
 
-  /@graphql-codegen/cli/2.3.0_graphql@16.1.0+typescript@4.5.3:
+  /@graphql-codegen/cli/2.3.0_graphql@16.1.0+typescript@4.5.4:
     resolution: {integrity: sha512-5pgrcnBFeOJbDGfZwhnytwMqpwFDrmdaAgD6HYywT9Fggsrx2yWSkVrxoAjEcbDMFLhxzjxECwfJYklm967AKA==}
     hasBin: true
     peerDependencies:
@@ -973,7 +973,7 @@ packages:
       glob: 7.2.0
       globby: 11.0.4
       graphql: 16.1.0
-      graphql-config: 4.1.0_graphql@16.1.0+typescript@4.5.3
+      graphql-config: 4.1.0_graphql@16.1.0+typescript@4.5.4
       inquirer: 7.3.3
       is-glob: 4.0.3
       json-to-pretty-yaml: 1.2.2
@@ -1723,20 +1723,20 @@ packages:
       defer-to-connect: 1.1.3
     dev: true
 
-  /@tailwindcss/aspect-ratio/0.4.0_tailwindcss@3.0.1:
+  /@tailwindcss/aspect-ratio/0.4.0_tailwindcss@3.0.2:
     resolution: {integrity: sha512-WJu0I4PpqNPuutpaA9zDUq2JXR+lorZ7PbLcKNLmb6GL9/HLfC7w3CRsMhJF4BbYd/lkY6CfXOvkYpuGnZfkpQ==}
     peerDependencies:
       tailwindcss: '>=2.0.0 || >=3.0.0 || >=3.0.0-alpha.1'
     dependencies:
-      tailwindcss: 3.0.1_16a290f6d0e3717bf6d2667234aebd30
+      tailwindcss: 3.0.2_16a290f6d0e3717bf6d2667234aebd30
     dev: true
 
-  /@tailwindcss/line-clamp/0.3.0_tailwindcss@3.0.1:
+  /@tailwindcss/line-clamp/0.3.0_tailwindcss@3.0.2:
     resolution: {integrity: sha512-ffDDclrqr3sy8cpChCozedDUAN8enxqAiWeH8d4dGQ2hcXlxf51+7KleveFi/n/TxEuRVApoL7hICeDOdYPKpg==}
     peerDependencies:
       tailwindcss: '>=2.0.0 || >=3.0.0 || >=3.0.0-alpha.1'
     dependencies:
-      tailwindcss: 3.0.1_16a290f6d0e3717bf6d2667234aebd30
+      tailwindcss: 3.0.2_16a290f6d0e3717bf6d2667234aebd30
     dev: true
 
   /@tippyjs/react/4.2.6_react-dom@17.0.2+react@17.0.2:
@@ -4098,13 +4098,13 @@ packages:
     resolution: {integrity: sha512-qkIilPUYcNhJpd33n0GBXTB1MMPp14TxEsEs0pTrsSVucApsYzW5V+Q8Qxhik6KU3evy+qkAAowTByymK0avdg==}
     dev: false
 
-  /graphql-config/4.1.0_graphql@16.1.0+typescript@4.5.3:
+  /graphql-config/4.1.0_graphql@16.1.0+typescript@4.5.4:
     resolution: {integrity: sha512-Myqay6pmdcmX3KqoH+bMbeKZ1cTODpHS2CxF1ZzNnfTE+YUpGTcp01bOw6LpzamRb0T/WTYtGFbZeXGo9Hab2Q==}
     engines: {node: '>= 10.0.0'}
     peerDependencies:
       graphql: ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
     dependencies:
-      '@endemolshinegroup/cosmiconfig-typescript-loader': 3.0.2_f1e39502f5444cf4e1bb49a6f24fb32b
+      '@endemolshinegroup/cosmiconfig-typescript-loader': 3.0.2_71a2f61964e37a4d68dab6dadd2a99a0
       '@graphql-tools/graphql-file-loader': 7.3.3_graphql@16.1.0
       '@graphql-tools/json-file-loader': 7.3.3_graphql@16.1.0
       '@graphql-tools/load': 7.4.1_graphql@16.1.0
@@ -6703,15 +6703,15 @@ packages:
   /tailwind-scrollbar/1.3.1_16a290f6d0e3717bf6d2667234aebd30:
     resolution: {integrity: sha512-FeYuLxLtCRMO4PmjPJCzm5wQouFro2BInZXKPxqg54DR/55NAHoS8uNYWMiRG5l6qsLkWBfVEM34gq2XAQUwVg==}
     dependencies:
-      tailwindcss: 3.0.1_16a290f6d0e3717bf6d2667234aebd30
+      tailwindcss: 3.0.2_16a290f6d0e3717bf6d2667234aebd30
     transitivePeerDependencies:
       - autoprefixer
       - postcss
       - ts-node
     dev: true
 
-  /tailwindcss/3.0.1_16a290f6d0e3717bf6d2667234aebd30:
-    resolution: {integrity: sha512-EVDXVZkcueZ77/zfOJw7XkzCuxe5TCiT/S9pw9P183oRzSuwMZ7WO+W/L76jbJQA5qxGeUBJOVOLVBuAUfeZ3g==}
+  /tailwindcss/3.0.2_16a290f6d0e3717bf6d2667234aebd30:
+    resolution: {integrity: sha512-i1KpjYnGYftjzdAth6jA5iMPjhxpUkk5L6DafhfnQs+KiiWaThYxmk47Weh4oFH1mZqP6MuiQNHxtoRVPOraLg==}
     engines: {node: '>=12.13.0'}
     hasBin: true
     peerDependencies:
@@ -6922,6 +6922,22 @@ packages:
       yn: 3.1.1
     dev: true
 
+  /ts-node/9.1.1_typescript@4.5.4:
+    resolution: {integrity: sha512-hPlt7ZACERQGf03M253ytLY3dHbGNGrAq9qIHWUY9XHYl1z7wYngSr3OQ5xmui8o2AaxsONxIzjafLUiWBo1Fg==}
+    engines: {node: '>=10.0.0'}
+    hasBin: true
+    peerDependencies:
+      typescript: '>=2.7'
+    dependencies:
+      arg: 4.1.3
+      create-require: 1.1.1
+      diff: 4.0.2
+      make-error: 1.3.6
+      source-map-support: 0.5.21
+      typescript: 4.5.4
+      yn: 3.1.1
+    dev: true
+
   /tsconfig-paths/3.12.0:
     resolution: {integrity: sha512-e5adrnOYT6zqVnWqZu7i/BQ3BnhzvGbjEjejFXO20lKIKpwTaupkCPgEfv4GZK1IBciJUEhYs3J3p75FdaTFVg==}
     dependencies:
@@ -6950,8 +6966,8 @@ packages:
     resolution: {integrity: sha512-C3TaO7K81YvjCgQH9Q1S3R3P3BtN3RIM8n+OvX4il1K1zgE8ZhI0op7kClgkxtutIE8hQrcrHBXvIheqKUUCxw==}
     dev: false
 
-  /turbo/1.0.6:
-    resolution: {integrity: sha512-sAbPHCm8usX3a27WHfWmAqt+wHxk/5Z6tqLqqI1MIzFoSEtmLZWyXOTxpi+60fwfwivOdW97cTsrZbkezVhGyw==}
+  /turbo/1.0.9:
+    resolution: {integrity: sha512-th0vdSpiO0gWQfehhTsG6vDXnq2fRXwvWSy1/LW2PBosv7VGgD2RENRVpjvPCNo7xEnkF6hZXnBfz0Tlvwu32A==}
     hasBin: true
     requiresBuild: true
     dependencies:
@@ -6978,6 +6994,12 @@ packages:
 
   /typescript/4.5.3:
     resolution: {integrity: sha512-eVYaEHALSt+s9LbvgEv4Ef+Tdq7hBiIZgii12xXJnukryt3pMgJf6aKhoCZ3FWQsu6sydEnkg11fYXLzhLBjeQ==}
+    engines: {node: '>=4.2.0'}
+    hasBin: true
+    dev: true
+
+  /typescript/4.5.4:
+    resolution: {integrity: sha512-VgYs2A2QIRuGphtzFV7aQJduJ2gyfTljngLzjpfW9FoYZF6xuw1W0vW9ghCKLfcWrCFxK81CSGRAvS1pn4fIUg==}
     engines: {node: '>=4.2.0'}
     hasBin: true
     dev: true

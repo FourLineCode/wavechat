@@ -16,7 +16,7 @@ const tabs = [
 
 export function FriendsInfo() {
 	return (
-		<div className="flex flex-col flex-shrink-0 w-64 h-full xl:w-80 bg-dark-800">
+		<div className="flex flex-col shrink-0 w-64 h-full xl:w-80 bg-dark-800">
 			<Tab.Group as={Fragment}>
 				<div className="p-2 pb-3 bg-dark-800">
 					<Tab.List className="flex w-full overflow-hidden rounded-lg">
@@ -39,7 +39,7 @@ export function FriendsInfo() {
 				</div>
 				<Tab.Panels className="flex flex-col min-h-0 px-2 pb-2">
 					{tabs.map((tab) => (
-						<Tab.Panel className="flex flex-col flex-grow min-h-0" key={tab.id}>
+						<Tab.Panel className="flex flex-col min-h-0 grow" key={tab.id}>
 							<tab.Component />
 						</Tab.Panel>
 					))}

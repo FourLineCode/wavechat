@@ -135,6 +135,11 @@ export function MessageThreadPage({ thread }: Props) {
 			toast.error(message);
 		});
 
+		socket.conn.on(ErrorSocketEvents.SendMessageError, (message: string) => {
+			setError(true);
+			toast.error(message);
+		});
+
 		return () => {
 			socket.conn.emit(MessageSocketEvents.LeaveRoom, { roomId: thread.id });
 			socket.disconnect();

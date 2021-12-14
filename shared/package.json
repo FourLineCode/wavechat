@@ -7,8 +7,8 @@
 	"license": "MIT",
 	"scripts": {
 		"build": "tsc -d",
-		"clean": "rm -rf node_modules && rm -rf dist",
-		"clean:cache": "rm -rf dist",
+		"clean": "rm -rf node_modules && pnpm clean:cache",
+		"clean:cache": "rm -rf dist && rm -rf .turbo",
 		"dep": "pnpm install",
 		"typecheck": "tsc --noEmit"
 	},
