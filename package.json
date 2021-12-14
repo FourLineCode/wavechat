@@ -33,10 +33,7 @@
 		"baseBranch": "origin/main",
 		"pipeline": {
 			"dev": {
-				"cache": false,
-				"dependsOn": [
-					"^build"
-				]
+				"cache": false
 			},
 			"build": {
 				"dependsOn": [

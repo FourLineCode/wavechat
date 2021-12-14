@@ -233,7 +233,7 @@ export function MessageThreadPage({ thread }: Props) {
 								onInput={(e: ChangeEvent<HTMLInputElement>) =>
 									setInputValue(e.target.value)
 								}
-								className="w-full px-4 pt-3 align-middle rounded-lg resize-none focus:ring-2 focus:outline-none ring-brand-500 bg-dark-600 bg-opacity-30 hover:bg-opacity-20"
+								className="w-full px-4 pt-3 align-middle transition-shadow rounded-lg shadow-md resize-none focus:ring-2 focus:outline-none ring-brand-500 bg-dark-600 bg-opacity-30 hover:bg-opacity-20"
 							/>
 							<MediaInput socket={socket} thread={thread} />
 						</Form>
