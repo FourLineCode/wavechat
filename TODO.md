@@ -1,74 +1,8 @@
 # ToDo's
 
--   [ ] bootstrap
-
-    -   [x] init server
-    -   [x] init client
-    -   [x] github repo
-    -   [x] init docker
-    -   [x] pg service
-    -   [x] prisma setup
-    -   [x] apollo client
-    -   [x] gql codegen
-    -   [x] codegen watcher container
-    -   [x] socket server
-    -   [x] socket client
-    -   [x] yarn migration
-    -   [x] readme
-    -   [x] path alias
-
 -   [ ] general
 
-    -   [x] docker run prisma commands
-    -   [x] move server env in docker-compose
-    -   [x] dataloader
-    -   [x] auth plugin
-    -   [x] input server validation plugin
-    -   [x] implement context properly
-    -   [x] fix codegen
-    -   [x] custom not found page
-    -   [x] add loading state after signup/signin process
-    -   [x] pnpm migration
-    -   [x] remove tailwind-spinner
-    -   [x] prisma to name db
-    -   [x] server side apollo client hostname dynamic
-    -   [x] comments and docs
-    -   [x] use alpine images
-    -   [x] add traefik reverse proxy
-    -   [x] requirement updates
-    -   [x] images folder refactor
-    -   [x] add prettierrc
-    -   [x] full color revamp
-    -   [x] docker prod env
-    -   [x] load balancing + reverse proxy
-    -   [x] with scaling, all replicas run migration and seed
-    -   [x] update pnpm version
-    -   [x] figure out a way to remove dockerignore files
-    -   [x] update docs
-    -   [x] implement front page urls (about/contact)
-    -   [ ] fix ws connection error in production build
     -   [ ] use prisma giraphql plugin
-
--   [x] services
-
-    -   [x] add independent services
-        -   [x] services hold db transaction
-        -   [x] keep auth checks in gql resolver level
-        -   [x] move data loaders to services
-    -   [x] remove db usage from objectrefs fields
-    -   [x] remove db and loaders from gql request context
-        -   [x] loader
-        -   [x] db
-    -   [x] add repository level (not sure yet, since prisma adds abstraction anyway)
-
-    -   [x] individual services
-        -   [x] auth
-        -   [x] user
-        -   [x] discover
-        -   [x] friendship
-        -   [x] search
-        -   [x] messagethread
-        -   [x] message
 
 -   [ ] auth
 
@@ -255,19 +189,6 @@
         -   [x] messages types
         -   [x] auth user types
 
--   [x] functional
-
-    -   [x] services
-
-        -   [x] rtc
-        -   [x] web
-        -   [x] api
-
-    -   [x] remove classes
-    -   [x] change file naming
-    -   [x] change shared naming
-    -   [x] change services naming
-
 -   [x] media upload
 
     -   [x] setup localstack
@@ -285,27 +206,33 @@
         -   [x] commands to create bucket
         -   [x] add acl permission to bucket
 
+-   [ ] messages
+
+    -   [ ] media upload
+        -   [x] use localstack
+        -   [x] s3 bucket
+        -   [x] images
+        -   [ ] videos
+        -   [ ] audio
+        -   [ ] file upload
+    -   [ ] mentions
+        -   [ ] shows user card on click
+    -   [ ] reply to messages
+    -   [ ] reactions to messages
+        -   [ ] only emojis
+    -   [ ] maybe markup
+
 -   [ ] settings page
 
     -   [ ] add profile edit
     -   [ ] add profile picture + banner maybe
+    -   [ ] logout
+    -   [ ] change password
 
 -   [ ] reactions/emojis
 
     -   [ ] emoji picker
     -   [ ] message reactions
-
--   [ ] messages
-
-    -   [ ] mentions
-        -   [ ] shows user card on click
-    -   [ ] images/videos
-        -   [ ] use localstack
-        -   [ ] s3 bucket
-    -   [ ] reply to messages
-    -   [ ] reactions to messages
-        -   [ ] only emojis
-    -   [ ] maybe markup
 
 -   [ ] channels
 
@@ -321,7 +248,7 @@
             -   [ ] anyone can join
 
 -   [ ] discover
-    -   [ ] search users
+    -   [x] search users
     -   [ ] search public channels
     -   [ ] filter by uni/semester/department
     -   [ ] recommend users/servers
