@@ -23,11 +23,15 @@
 				<li><a href="#clone-the-repository">Clone the repository</a></li>
 			</ul>
 		</li>
-		<li><a href="#usage">Usage</a></li>
-		<li><a href="#run-in-production-mode">Run in production mode</a></li>
-		<li><a href="#run-in-development-mode">Run in development mode</a></li>
-		<li><a href="#initialize-aws-s3-bucket">Initialize AWS S3 bucket</a></li>
-		<li><a href="#browse-the-app">Browse the app</a></li>
+		<li>
+			<a href="#usage">Usage</a>
+			<ul>
+				<li><a href="#run-in-production-mode">Run in production mode</a></li>
+				<li><a href="#run-in-development-mode">Run in development mode</a></li>
+				<li><a href="#initialize-aws-s3-bucket">Initialize AWS S3 bucket</a></li>
+				<li><a href="#browse-the-app">Browse the app</a></li>
+			</ul>
+		</li>
 		<li><a href="#license">License</a></li>
 		<li><a href="#contact">Contact</a></li>
 	</ol>
