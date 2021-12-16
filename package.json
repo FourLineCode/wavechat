@@ -7,15 +7,16 @@
 	"author": "FourLineCode",
 	"homepage": "https://github.com/FourLineCode/wavechat#readme",
 	"scripts": {
-		"dev": "docker-compose up -d && turbo run dev",
+		"dev": "pnpm dc:up && turbo run dev",
 		"build": "turbo run build",
-		"start": "docker-compose up -d && turbo run start",
+		"start": "pnpm dc:up && turbo run start",
 		"deploy": "pnpm build && pnpm start",
 		"dc:up": "docker-compose up -d",
 		"dc:down": "docker-compose down",
 		"dc:down:volume": "docker-compose down --volumes",
 		"db:init": "pnpm --dir api db:init",
 		"db:studio": "pnpm --dir api studio",
+		"db:gen": "pnpm --dir api generate",
 		"codegen": "pnpm --dir web codegen",
 		"codegen:watch": "pnpm --dir web codegen:watch",
 		"clean": "turbo run clean",
@@ -27,7 +28,7 @@
 	},
 	"devDependencies": {
 		"prettier": "^2.5.1",
-		"turbo": "^1.0.9"
+		"turbo": "^1.0.13"
 	},
 	"turbo": {
 		"baseBranch": "origin/main",

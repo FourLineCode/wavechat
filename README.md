@@ -98,7 +98,7 @@ git clone https://github.com/FourLineCode/wavechat.git
 pnpm deploy
 ```
 
-> Make sure to install dependencies with `pnpm dep` command before deploy.
+> Make sure to install dependencies with `pnpm install` command before deploy.
 
 #### Run in development mode
 
@@ -106,7 +106,7 @@ pnpm deploy
 pnpm dev
 ```
 
-> Make sure to install dependencies with `pnpm dep` command before development.\
+> Make sure to install dependencies with `pnpm install` command before development.\
 > Development runs docker containers in the background. Run `pnpm dc:down` to stop the containers.
 
 #### Initialize AWS S3 bucket
