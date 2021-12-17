@@ -122,6 +122,7 @@ builder.mutationField("signup", (t) =>
 				httpOnly: true,
 				secure: true,
 				sameSite: "lax",
+				maxAge: 30 * 24 * 3600 * 1000, // a month
 			});
 
 			return { success: true, user: newUser };
@@ -169,6 +170,7 @@ builder.mutationField("signin", (t) =>
 				httpOnly: true,
 				secure: true,
 				sameSite: "lax",
+				maxAge: 30 * 24 * 3600 * 1000, // a month
 			});
 
 			return { success: true, user: user };

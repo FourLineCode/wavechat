@@ -225,7 +225,8 @@
 -   [ ] settings page
 
     -   [ ] add profile edit
-    -   [ ] add profile picture + banner maybe
+    -   [ ] add profile picture
+    -   [ ] add banner maybe
     -   [ ] logout
     -   [ ] change password
 
