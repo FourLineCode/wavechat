@@ -72,7 +72,7 @@ export default function SignIn() {
 										<div className="text-5xl italic font-bold text-center">
 											Sign In
 										</div>
-										<div>
+										<div className="space-y-4">
 											<Input
 												label="Email"
 												name="email"

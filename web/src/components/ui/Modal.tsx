@@ -6,12 +6,21 @@ interface Props {
 	show: boolean;
 	onClose: () => void;
 	large?: boolean;
+	extraLarge?: boolean;
 	className?: string;
 	initialFocus?: MutableRefObject<HTMLElement | null>;
 	children?: React.ReactNode;
 }
 
-export function Modal({ show, onClose, large = false, className, initialFocus, children }: Props) {
+export function Modal({
+	show,
+	onClose,
+	large = false,
+	extraLarge = false,
+	className,
+	initialFocus,
+	children,
+}: Props) {
 	return (
 		<Transition show={show} as={Fragment}>
 			<Dialog
@@ -43,7 +52,7 @@ export function Modal({ show, onClose, large = false, className, initialFocus, c
 					>
 						<div
 							className={clsx(
-								large ? "max-w-xl" : "max-w-md",
+								extraLarge ? "max-w-3xl" : large ? "max-w-xl" : "max-w-md",
 								className,
 								"w-full p-6 z-20 transition-all border border-dark-800 rounded-lg shadow-xl bg-dark-900 text-primary"
 							)}

@@ -227,7 +227,8 @@
     -   [ ] add profile edit
     -   [ ] add profile picture
     -   [ ] add banner maybe
-    -   [ ] logout
+    -   [x] logout
+    -   [ ] sign out of all sessions
     -   [ ] change password
 
 -   [ ] reactions/emojis

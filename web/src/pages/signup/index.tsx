@@ -152,7 +152,7 @@ export default function SignUp() {
 
 function Page1({ form }: { form: FormikProps<FormInitialValue> }) {
 	return (
-		<div>
+		<div className="space-y-4">
 			<Input
 				label="Email"
 				name="email"
@@ -188,7 +188,7 @@ function Page1({ form }: { form: FormikProps<FormInitialValue> }) {
 
 function Page2({ form }: { form: FormikProps<FormInitialValue> }) {
 	return (
-		<div>
+		<div className="space-y-4">
 			<Input
 				label="University"
 				name="university"

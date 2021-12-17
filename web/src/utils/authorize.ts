@@ -15,6 +15,7 @@ export async function authorize(context: GetServerSidePropsContext): Promise<Aut
 						username
 						displayName
 						avatarUrl
+						bio
 						role
 						createdAt
 						updatedAt

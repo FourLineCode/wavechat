@@ -60,9 +60,9 @@ export const Input = React.forwardRef<HTMLInputElement, Props>(function InputCom
 	}, []);
 
 	return (
-		<>
+		<div className="w-full">
 			{label && (
-				<label htmlFor={name} className="pl-1 text-primary">
+				<label htmlFor={name} className="pl-1 text-sm text-primary">
 					{label}
 				</label>
 			)}
@@ -76,10 +76,11 @@ export const Input = React.forwardRef<HTMLInputElement, Props>(function InputCom
 				disabled={disabled}
 				className={clsx(
 					className,
-					"w-full p-2 rounded-lg mt-0.5 bg-dark-300 focus:bg-white transition focus:ring-4 ring-brand-500 focus:outline-none text-dark-800"
+					disabled ? "cursor-not-allowed bg-dark-400" : "bg-dark-300",
+					"w-full p-2 rounded-lg mt-0.5 focus:bg-white transition focus:ring-4 ring-brand-500 focus:outline-none text-dark-800"
 				)}
 				{...props}
 			/>
-		</>
+		</div>
 	);
 });
