@@ -1,6 +1,7 @@
 import { User } from "@prisma/client";
 import bcrypt from "bcrypt";
 import { db } from "prisma/connection";
+import { getConfig } from "src/internal/config";
 import { services } from "src/services";
 
 export async function signUp(input: User) {
@@ -66,6 +67,30 @@ export async function validatePassword({
 	hashedPassword: string;
 }) {
 	return await bcrypt.compare(password, hashedPassword);
+}
+
+export async function changePassword({
+	user,
+	oldPassword,
+	newPassword,
+}: {
+	user: User;
+	oldPassword: string;
+	newPassword: string;
+}) {
+	const config = getConfig();
+
+	const hashed = await bcrypt.compare(oldPassword, user.password);
+	if (!hashed) {
+		throw new Error("Incorrect old password");
+	}
+
+	await db.user.update({
+		where: { id: user.id },
+		data: {
+			password: await bcrypt.hash(newPassword, config.hashSalt),
+		},
+	});
 }
 
 export async function removeOtherSessions({

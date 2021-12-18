@@ -1,8 +1,10 @@
 import { gql, useMutation, useQuery } from "@apollo/client";
 import { Tab } from "@headlessui/react";
 import { format } from "date-fns";
+import { useEffect } from "react";
 import toast from "react-hot-toast";
 import { GetSessionsQuery } from "src/apollo/__generated__/types";
+import { ChangePasswordModal } from "src/components/settings/ChangePasswordModal";
 import { Button } from "src/components/ui/Button";
 import { Modal } from "src/components/ui/Modal";
 import { useModal } from "src/hooks/useModal";
@@ -29,12 +31,17 @@ export function SecuritySettings() {
 	const auth = useAuth();
 	const signOutModal = useModal();
 	const removeSessionsModal = useModal();
+	const changePasswordModal = useModal();
 
-	const { data, loading } = useQuery<GetSessionsQuery>(GET_SESSIONS, {
+	const { data, loading, refetch } = useQuery<GetSessionsQuery>(GET_SESSIONS, {
 		onError: (error) => {
 			toast.error(error.message);
 		},
 	});
+
+	useEffect(() => {
+		refetch();
+	}, []);
 
 	const [removeOtherSessions, { loading: removeSessionsLoading }] = useMutation(
 		REMOVE_OTHER_SESSIONS,
@@ -106,7 +113,11 @@ export function SecuritySettings() {
 				</div>
 				<div className="flex items-center justify-between">
 					<span>Remove all other sessions</span>
-					<Button type="submit" onClick={removeSessionsModal.onOpen}>
+					<Button
+						type="submit"
+						onClick={removeSessionsModal.onOpen}
+						disabled={!data || data.sessions.length <= 1}
+					>
 						Remove
 					</Button>
 					<Modal
@@ -135,7 +146,8 @@ export function SecuritySettings() {
 			</div>
 			<div className="flex items-center justify-between pt-4">
 				<span>Change your password</span>
-				<Button onClick={() => toast.error("Not implemented")}>Change password</Button>
+				<Button onClick={changePasswordModal.onOpen}>Change password</Button>
+				<ChangePasswordModal modalProps={changePasswordModal} />
 			</div>
 		</Tab.Panel>
 	);

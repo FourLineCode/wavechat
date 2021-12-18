@@ -255,3 +255,41 @@ builder.mutationField("removeOtherSessions", (t) =>
 		},
 	})
 );
+
+const ChangePasswordInput = builder.inputType("ChangePasswordInput", {
+	fields: (t) => ({
+		oldPassword: t.string({
+			required: true,
+			validate: {
+				minLength: [1, { message: "Invalid old password" }],
+			},
+		}),
+		newPassword: t.string({
+			required: true,
+			validate: {
+				minLength: [6, { message: "Password must be atleast 6 characters" }],
+				maxLength: [18, { message: "Password can be up to 18 characters" }],
+			},
+		}),
+	}),
+});
+
+builder.mutationField("changePassword", (t) =>
+	t.field({
+		type: SuccessResultObject,
+		description: "Change users password",
+		authScopes: { user: true },
+		args: { input: t.arg({ type: ChangePasswordInput, required: true }) },
+		resolve: async (_parent, { input }, { user }) => {
+			if (!user) throw new Error("Unauthorized");
+
+			await services.auth.changePassword({
+				user: user,
+				oldPassword: input.oldPassword,
+				newPassword: input.newPassword,
+			});
+
+			return { success: true };
+		},
+	})
+);

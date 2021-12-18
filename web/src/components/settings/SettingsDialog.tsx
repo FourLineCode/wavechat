@@ -18,9 +18,11 @@ const tabs = [
 	},
 ];
 
-interface Props extends ModalProps {}
+interface Props {
+	modalProps: ModalProps;
+}
 
-export function SettingsDialog({ ...modalProps }: Props) {
+export function SettingsDialog({ modalProps }: Props) {
 	return (
 		<Modal {...modalProps} extraLarge>
 			<Tab.Group vertical>

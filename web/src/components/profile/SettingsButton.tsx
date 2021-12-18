@@ -13,7 +13,7 @@ export function SeetingsButton() {
 			>
 				<FaCog size="20" />
 			</div>
-			<SettingsDialog {...profileSettingsModal} />
+			<SettingsDialog modalProps={profileSettingsModal} />
 		</>
 	);
 }

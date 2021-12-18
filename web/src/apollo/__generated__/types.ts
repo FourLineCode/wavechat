@@ -23,6 +23,11 @@ export type AuthResult = {
   user: User;
 };
 
+export type ChangePasswordInput = {
+  newPassword: Scalars['String'];
+  oldPassword: Scalars['String'];
+};
+
 export type CreateMessageInput = {
   attachments?: InputMaybe<Array<MediaDtoInput>>;
   author: UserDtoInput;
@@ -123,6 +128,8 @@ export type Mutation = {
   __typename?: 'Mutation';
   /** Accept a pending friend request */
   acceptRequest: Friendship;
+  /** Change users password */
+  changePassword: SuccessResult;
   /** Saves a message to the database */
   createMessage: Message;
   /** Returns an existing or newly created MessageThread */
@@ -154,6 +161,11 @@ export type Mutation = {
 
 export type MutationAcceptRequestArgs = {
   requestId: Scalars['String'];
+};
+
+
+export type MutationChangePasswordArgs = {
+  input: ChangePasswordInput;
 };
 
 
@@ -437,6 +449,13 @@ export type SearchFriendsQueryVariables = Exact<{
 
 export type SearchFriendsQuery = { __typename?: 'Query', searchFriends: Array<{ __typename?: 'User', id: string, username: string, displayName: string, university?: string | null | undefined, avatarUrl?: string | null | undefined }> };
 
+export type ChangePasswordMutationVariables = Exact<{
+  input: ChangePasswordInput;
+}>;
+
+
+export type ChangePasswordMutation = { __typename?: 'Mutation', changePassword: { __typename?: 'SuccessResult', success: boolean } };
+
 export type GetSessionsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -695,6 +714,14 @@ export const SearchFriendsDocument = gql`
   }
 }
     `;
+export const ChangePasswordDocument = gql`
+    mutation ChangePassword($input: ChangePasswordInput!) {
+  changePassword(input: $input) {
+    success
+  }
+}
+    `;
+export type ChangePasswordMutationOptions = Apollo.BaseMutationOptions<ChangePasswordMutation, ChangePasswordMutationVariables>;
 export const GetSessionsDocument = gql`
     query GetSessions {
   sessions {
