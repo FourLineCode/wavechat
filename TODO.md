@@ -228,8 +228,8 @@
     -   [ ] add profile picture
     -   [ ] add banner maybe
     -   [x] logout
-    -   [ ] sign out of all sessions
-    -   [ ] change password
+    -   [x] sign out of all sessions
+    -   [x] change password
 
 -   [ ] reactions/emojis
 

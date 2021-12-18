@@ -64,9 +64,6 @@ async function publishMessage(socket: Socket, message: MessageDTO) {
 
 	await pubsub.publisher.publish(UserPubsubChannels.Message, JSON.stringify(message));
 
-	// Persist message in api service database
-	// NOTE: this grqphql request is not awaited intentionally
-	// fire and forget request
 	try {
 		await graphQLClient.request<PersistMessageQuery, PersistMessageVariables>(PERSIST_MESSAGE, {
 			messageDTO: message,
