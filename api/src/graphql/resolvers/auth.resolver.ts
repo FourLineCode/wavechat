@@ -182,9 +182,7 @@ builder.queryField("authorize", (t) =>
 	t.field({
 		type: AuthResultObject,
 		description: "Authorize user session",
-		authScopes: {
-			public: true,
-		},
+		authScopes: { public: true },
 		resolve: async (_parent, _args, { authorized, user }) => {
 			if (!authorized || !user) {
 				throw new Error("Unauthorized");
@@ -213,9 +211,7 @@ builder.mutationField("signout", (t) =>
 	t.field({
 		type: SuccessResultObject,
 		description: "Sign out user",
-		authScopes: {
-			user: true,
-		},
+		authScopes: { user: true },
 		resolve: async (_parent, _args, { authorized, session, res }) => {
 			if (!authorized || !session) {
 				throw new Error("You are not signed in");
@@ -224,6 +220,36 @@ builder.mutationField("signout", (t) =>
 			await services.auth.signOut(session.id);
 
 			res.clearCookie("session");
+
+			return { success: true };
+		},
+	})
+);
+
+builder.queryField("sessions", (t) =>
+	t.field({
+		type: [SessionObject],
+		description: "Returns all active sessions",
+		authScopes: { user: true },
+		resolve: async (_parent, _args, { user }) => {
+			if (!user) throw new Error("Unauthorized");
+
+			return await services.auth.getSessionsForUser(user.id);
+		},
+	})
+);
+
+builder.mutationField("removeOtherSessions", (t) =>
+	t.field({
+		type: SuccessResultObject,
+		description: "Removes all sessions other than current session",
+		authScopes: { user: true },
+		resolve: async (_parent, _args, { session, user }) => {
+			if (!user || !session) {
+				throw new Error("Unauthorized");
+			}
+
+			await services.auth.removeOtherSessions({ userId: user.id, sessionId: session.id });
 
 			return { success: true };
 		},

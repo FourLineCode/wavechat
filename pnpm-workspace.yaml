@@ -1,5 +1,5 @@
 packages:
+    - 'shared'
+    - 'web'
     - 'api'
     - 'rtc'
-    - 'web'
-    - 'shared'

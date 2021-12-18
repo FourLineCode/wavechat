@@ -112,6 +112,9 @@ type Mutation {
   """Decline a pending friend request"""
   declineRequest(requestId: String!): FriendRequest!
 
+  """Removes all sessions other than current session"""
+  removeOtherSessions: SuccessResult!
+
   """Send a friend request to a user"""
   sendRequest(userId: String!): FriendRequest!
 
@@ -174,6 +177,9 @@ type Query {
 
   """Get sent requests of current user"""
   sentRequests: [FriendRequest!]!
+
+  """Returns all active sessions"""
+  sessions: [Session!]!
 
   """Returns all messages owned by a thread"""
   threadMessages(threadId: String!): [Message!]!

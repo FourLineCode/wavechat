@@ -45,7 +45,17 @@ export async function signOut(sessionId: string) {
 }
 
 export async function getSessionsForUser(userId: string) {
-	return await db.session.findMany({ where: { userId } });
+	const lastDate = new Date();
+	lastDate.setMonth(lastDate.getMonth() - 1);
+
+	return await db.session.findMany({
+		where: {
+			userId,
+			createdAt: {
+				gte: lastDate,
+			},
+		},
+	});
 }
 
 export async function validatePassword({
@@ -56,4 +66,19 @@ export async function validatePassword({
 	hashedPassword: string;
 }) {
 	return await bcrypt.compare(password, hashedPassword);
+}
+
+export async function removeOtherSessions({
+	sessionId,
+	userId,
+}: {
+	sessionId: string;
+	userId: string;
+}) {
+	return await db.session.deleteMany({
+		where: {
+			userId,
+			id: { not: sessionId },
+		},
+	});
 }

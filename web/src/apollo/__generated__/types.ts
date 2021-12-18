@@ -131,6 +131,8 @@ export type Mutation = {
   declineAllRequests: Scalars['Boolean'];
   /** Decline a pending friend request */
   declineRequest: FriendRequest;
+  /** Removes all sessions other than current session */
+  removeOtherSessions: SuccessResult;
   /** Send a friend request to a user */
   sendRequest: FriendRequest;
   /** Sign in user */
@@ -231,6 +233,8 @@ export type Query = {
   searchFriends: Array<User>;
   /** Get sent requests of current user */
   sentRequests: Array<FriendRequest>;
+  /** Returns all active sessions */
+  sessions: Array<Session>;
   /** Returns all messages owned by a thread */
   threadMessages: Array<Message>;
   /** returns info for a user */
@@ -433,6 +437,16 @@ export type SearchFriendsQueryVariables = Exact<{
 
 export type SearchFriendsQuery = { __typename?: 'Query', searchFriends: Array<{ __typename?: 'User', id: string, username: string, displayName: string, university?: string | null | undefined, avatarUrl?: string | null | undefined }> };
 
+export type GetSessionsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetSessionsQuery = { __typename?: 'Query', sessions: Array<{ __typename?: 'Session', id: string, createdAt: any }> };
+
+export type RemoveOtherSessionsMutationVariables = Exact<{ [key: string]: never; }>;
+
+
+export type RemoveOtherSessionsMutation = { __typename?: 'Mutation', removeOtherSessions: { __typename?: 'SuccessResult', success: boolean } };
+
 export type AcceptRequestMutationVariables = Exact<{
   requestId: Scalars['String'];
 }>;
@@ -487,7 +501,7 @@ export type SigninMutationVariables = Exact<{
 }>;
 
 
-export type SigninMutation = { __typename?: 'Mutation', signin: { __typename?: 'AuthResult', success: boolean, user: { __typename?: 'User', id: string, email: string, username: string, displayName: string, avatarUrl?: string | null | undefined, role: string, createdAt: any, updatedAt: any, university?: string | null | undefined, department?: string | null | undefined, semester?: number | null | undefined } } };
+export type SigninMutation = { __typename?: 'Mutation', signin: { __typename?: 'AuthResult', success: boolean, user: { __typename?: 'User', id: string, email: string, username: string, displayName: string, avatarUrl?: string | null | undefined, bio?: string | null | undefined, role: string, createdAt: any, updatedAt: any, university?: string | null | undefined, department?: string | null | undefined, semester?: number | null | undefined } } };
 
 export type SignoutMutationVariables = Exact<{ [key: string]: never; }>;
 
@@ -497,7 +511,7 @@ export type SignoutMutation = { __typename?: 'Mutation', signout: { __typename?:
 export type AuthorizeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type AuthorizeQuery = { __typename?: 'Query', authorize: { __typename?: 'AuthResult', success: boolean, user: { __typename?: 'User', id: string, email: string, username: string, displayName: string, avatarUrl?: string | null | undefined, role: string, createdAt: any, updatedAt: any, university?: string | null | undefined, department?: string | null | undefined, semester?: number | null | undefined } } };
+export type AuthorizeQuery = { __typename?: 'Query', authorize: { __typename?: 'AuthResult', success: boolean, user: { __typename?: 'User', id: string, email: string, username: string, displayName: string, avatarUrl?: string | null | undefined, bio?: string | null | undefined, role: string, createdAt: any, updatedAt: any, university?: string | null | undefined, department?: string | null | undefined, semester?: number | null | undefined } } };
 
 
 export const DiscoverUsersDocument = gql`
@@ -681,6 +695,22 @@ export const SearchFriendsDocument = gql`
   }
 }
     `;
+export const GetSessionsDocument = gql`
+    query GetSessions {
+  sessions {
+    id
+    createdAt
+  }
+}
+    `;
+export const RemoveOtherSessionsDocument = gql`
+    mutation RemoveOtherSessions {
+  removeOtherSessions {
+    success
+  }
+}
+    `;
+export type RemoveOtherSessionsMutationOptions = Apollo.BaseMutationOptions<RemoveOtherSessionsMutation, RemoveOtherSessionsMutationVariables>;
 export const AcceptRequestDocument = gql`
     mutation AcceptRequest($requestId: String!) {
   acceptRequest(requestId: $requestId) {
@@ -766,6 +796,7 @@ export const SigninDocument = gql`
       username
       displayName
       avatarUrl
+      bio
       role
       createdAt
       updatedAt
@@ -795,6 +826,7 @@ export const AuthorizeDocument = gql`
       username
       displayName
       avatarUrl
+      bio
       role
       createdAt
       updatedAt
