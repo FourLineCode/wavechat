@@ -141,7 +141,10 @@ type Mutation {
   """Unsend a sent friend request"""
   unsendRequest(requestId: String!): Boolean!
 
-  """Upload single file"""
+  """Update info for a user"""
+  updateUser(input: UpdateUserInput!): User!
+
+  """Upload multiple files"""
   uploadMultipleFiles(files: [Upload!]!): [MediaDTO!]!
 
   """Upload single file"""
@@ -233,6 +236,15 @@ type SocketAuthorizedResponse {
 """Response object for succesful queries"""
 type SuccessResult {
   success: Boolean!
+}
+
+input UpdateUserInput {
+  avatarUrl: String
+  bio: String
+  department: String
+  displayName: String
+  semester: Int
+  university: String
 }
 
 scalar Upload

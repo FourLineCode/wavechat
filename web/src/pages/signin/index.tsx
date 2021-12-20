@@ -93,7 +93,7 @@ export default function SignIn() {
 											<Button type="submit" isSubmitting={props.isSubmitting}>
 												Sign in
 											</Button>
-											<div>
+											<div className="text-xs">
 												<span>{"Don't have an account?"}</span>
 												<Link passHref href="/signup">
 													<a className="ml-2 font-semibold cursor-pointer hover:underline text-brand-500">

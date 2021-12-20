@@ -97,3 +97,58 @@ builder.queryField("userByUsername", (t) =>
 		},
 	})
 );
+
+const UpdateUserInput = builder.inputType("UpdateUserInput", {
+	fields: (t) => ({
+		displayName: t.string({
+			validate: {
+				minLength: [2, { message: "Display Name must be atleast 2 characters" }],
+				maxLength: [32, { message: "Display Name can be up to 32 characters" }],
+			},
+		}),
+		bio: t.string({
+			validate: {
+				minLength: [2, { message: "Bio is too short (minimum 2 characters)" }],
+				maxLength: [256, { message: "Bio is too long (maximum 256 characters)" }],
+			},
+		}),
+		avatarUrl: t.string({
+			validate: {
+				url: true,
+			},
+		}),
+		university: t.string({
+			validate: {
+				minLength: [2, { message: "University name is too short" }],
+				maxLength: [64, { message: "University name too long" }],
+			},
+		}),
+		department: t.string({
+			validate: {
+				minLength: [2, { message: "Department name is too short" }],
+				maxLength: [64, { message: "Department name too long" }],
+			},
+		}),
+		semester: t.int({
+			validate: {
+				positive: true,
+				min: [0, { message: "Semester must be in range 0-18" }],
+				max: [18, { message: "Semester must be in range 0-18" }],
+			},
+		}),
+	}),
+});
+
+builder.mutationField("updateUser", (t) =>
+	t.field({
+		type: UserObject,
+		description: "Update info for a user",
+		authScopes: { user: true },
+		args: { input: t.arg({ type: UpdateUserInput, required: true }) },
+		resolve: async (_parent, { input }, { user }) => {
+			if (!user) throw new Error("Unauthorized");
+
+			return await services.user.updateUser(user.id, input as Partial<User>);
+		},
+	})
+);

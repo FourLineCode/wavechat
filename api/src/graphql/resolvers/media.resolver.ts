@@ -55,7 +55,7 @@ builder.mutationField("uploadSingleFile", (t) =>
 builder.mutationField("uploadMultipleFiles", (t) =>
 	t.field({
 		type: [MediaDTOObject],
-		description: "Upload single file",
+		description: "Upload multiple files",
 		authScopes: { user: true },
 		args: { files: t.arg({ type: ["Upload"], required: true }) },
 		resolve: async (_parent, { files }) => {

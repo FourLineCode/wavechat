@@ -59,3 +59,10 @@ export async function findUserByEmail(email: string) {
 		rejectOnNotFound: true,
 	});
 }
+
+export async function updateUser(userId: string, input: Partial<User>) {
+	return await db.user.update({
+		where: { id: userId },
+		data: { ...input },
+	});
+}

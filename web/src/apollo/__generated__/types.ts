@@ -152,7 +152,9 @@ export type Mutation = {
   unfriend: Friendship;
   /** Unsend a sent friend request */
   unsendRequest: Scalars['Boolean'];
-  /** Upload single file */
+  /** Update info for a user */
+  updateUser: User;
+  /** Upload multiple files */
   uploadMultipleFiles: Array<MediaDto>;
   /** Upload single file */
   uploadSingleFile: MediaDto;
@@ -206,6 +208,11 @@ export type MutationUnfriendArgs = {
 
 export type MutationUnsendRequestArgs = {
   requestId: Scalars['String'];
+};
+
+
+export type MutationUpdateUserArgs = {
+  input: UpdateUserInput;
 };
 
 
@@ -347,6 +354,15 @@ export type SuccessResult = {
   success: Scalars['Boolean'];
 };
 
+export type UpdateUserInput = {
+  avatarUrl?: InputMaybe<Scalars['String']>;
+  bio?: InputMaybe<Scalars['String']>;
+  department?: InputMaybe<Scalars['String']>;
+  displayName?: InputMaybe<Scalars['String']>;
+  semester?: InputMaybe<Scalars['Int']>;
+  university?: InputMaybe<Scalars['String']>;
+};
+
 /** User object type */
 export type User = {
   __typename?: 'User';
@@ -455,6 +471,20 @@ export type ChangePasswordMutationVariables = Exact<{
 
 
 export type ChangePasswordMutation = { __typename?: 'Mutation', changePassword: { __typename?: 'SuccessResult', success: boolean } };
+
+export type UpdateUserMutationVariables = Exact<{
+  input: UpdateUserInput;
+}>;
+
+
+export type UpdateUserMutation = { __typename?: 'Mutation', updateUser: { __typename?: 'User', id: string, email: string, username: string, displayName: string, avatarUrl?: string | null | undefined, bio?: string | null | undefined, role: string, createdAt: any, updatedAt: any, university?: string | null | undefined, department?: string | null | undefined, semester?: number | null | undefined } };
+
+export type UploadAvatarMutationVariables = Exact<{
+  file: Scalars['Upload'];
+}>;
+
+
+export type UploadAvatarMutation = { __typename?: 'Mutation', uploadSingleFile: { __typename?: 'MediaDTO', url: string, filename: string, mimetype: string, encoding: string } };
 
 export type GetSessionsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -722,6 +752,36 @@ export const ChangePasswordDocument = gql`
 }
     `;
 export type ChangePasswordMutationOptions = Apollo.BaseMutationOptions<ChangePasswordMutation, ChangePasswordMutationVariables>;
+export const UpdateUserDocument = gql`
+    mutation UpdateUser($input: UpdateUserInput!) {
+  updateUser(input: $input) {
+    id
+    email
+    username
+    displayName
+    avatarUrl
+    bio
+    role
+    createdAt
+    updatedAt
+    university
+    department
+    semester
+  }
+}
+    `;
+export type UpdateUserMutationOptions = Apollo.BaseMutationOptions<UpdateUserMutation, UpdateUserMutationVariables>;
+export const UploadAvatarDocument = gql`
+    mutation UploadAvatar($file: Upload!) {
+  uploadSingleFile(file: $file) {
+    url
+    filename
+    mimetype
+    encoding
+  }
+}
+    `;
+export type UploadAvatarMutationOptions = Apollo.BaseMutationOptions<UploadAvatarMutation, UploadAvatarMutationVariables>;
 export const GetSessionsDocument = gql`
     query GetSessions {
   sessions {

@@ -130,7 +130,7 @@ export default function SignUp() {
 													className={clsx(page === 1 && "text-brand-500")}
 												>{`${page + 1}/2`}</div>
 											</div>
-											<div>
+											<div className="text-xs">
 												<span>Have an account?</span>
 												<Link passHref href="/signin">
 													<a className="ml-2 font-semibold cursor-pointer hover:underline text-brand-500">
