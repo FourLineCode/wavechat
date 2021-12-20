@@ -149,10 +149,7 @@ export function MessageThreadPage({ thread }: Props) {
 	const onKeyDownHandler = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
 		if (["ArrowUp", "ArrowDown"].includes(e.key)) e.preventDefault();
 
-		if (e.key == "Enter" && !e.shiftKey) {
-			e.preventDefault();
-			formRef.current?.submitForm();
-		} else if (e.key == "ArrowUp") {
+		if (e.key == "ArrowUp") {
 			setPrevMessageIndex((prev) => Math.min(prevMessages.length - 1, prev + 1));
 		} else if (e.key == "ArrowDown") {
 			setPrevMessageIndex((prev) => Math.max(-1, prev - 1));
@@ -216,8 +213,7 @@ export function MessageThreadPage({ thread }: Props) {
 					>
 						<Form className="flex items-center">
 							<Field
-								as="textarea"
-								rows="1"
+								as="input"
 								type="text"
 								name="messageBody"
 								innerRef={inputRef}
@@ -233,7 +229,7 @@ export function MessageThreadPage({ thread }: Props) {
 								onInput={(e: ChangeEvent<HTMLInputElement>) =>
 									setInputValue(e.target.value)
 								}
-								className="w-full px-4 pt-3 align-middle transition-shadow rounded-lg shadow-md resize-none focus:ring-2 focus:outline-none ring-brand-500 bg-dark-600 bg-opacity-30 hover:bg-opacity-20"
+								className="w-full p-2.5 px-4 transition-shadow rounded-lg shadow-md focus:ring-2 focus:outline-none ring-brand-500 bg-dark-600 bg-opacity-30 hover:bg-opacity-20"
 							/>
 							<MediaInput socket={socket} thread={thread} />
 						</Form>

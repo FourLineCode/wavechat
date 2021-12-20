@@ -1,8 +1,10 @@
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcrypt";
 import faker from "faker";
+import { getConfig } from "src/internal/config";
 
 const db = new PrismaClient();
+const config = getConfig();
 
 async function seed() {
 	const user = await db.user.findFirst();
@@ -16,7 +18,7 @@ async function seed() {
 			email: "akmal@wave.com",
 			username: "akmal",
 			displayName: "Akmal Hossain",
-			password: bcrypt.hashSync(process.env.ADMIN_PASS!, 12),
+			password: bcrypt.hashSync(process.env.ADMIN_PASS!, config.hashSalt),
 			role: "ADMIN",
 			bio: "I made this website LLOOL",
 			avatarUrl: "https://avatars.githubusercontent.com/u/56719270?v=4",
@@ -34,7 +36,7 @@ async function seed() {
 				email: faker.internet.email(),
 				username: name.split(" ").join("").toLowerCase(),
 				displayName: name,
-				password: bcrypt.hashSync(process.env.BOT_PASS!, 10),
+				password: bcrypt.hashSync(process.env.BOT_PASS!, config.hashSalt),
 				bio: faker.lorem.sentences(2),
 				// avatarUrl: faker.internet.avatar(),
 				university: faker.company.companyName(),
@@ -103,7 +105,7 @@ async function seed() {
 				email: `bot${i}@wave.com`,
 				username: `bot${i}`,
 				displayName: `BOT${i}`,
-				password: bcrypt.hashSync(process.env.BOT_PASS!, 10),
+				password: bcrypt.hashSync(process.env.BOT_PASS!, config.hashSalt),
 				bio: faker.lorem.sentences(2),
 				// avatarUrl: faker.internet.avatar(),
 				university: faker.company.companyName(),

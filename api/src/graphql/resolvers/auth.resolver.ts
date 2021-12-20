@@ -122,6 +122,7 @@ builder.mutationField("signup", (t) =>
 				httpOnly: true,
 				secure: true,
 				sameSite: "lax",
+				maxAge: 30 * 24 * 3600 * 1000, // a month
 			});
 
 			return { success: true, user: newUser };
@@ -169,6 +170,7 @@ builder.mutationField("signin", (t) =>
 				httpOnly: true,
 				secure: true,
 				sameSite: "lax",
+				maxAge: 30 * 24 * 3600 * 1000, // a month
 			});
 
 			return { success: true, user: user };
@@ -180,9 +182,7 @@ builder.queryField("authorize", (t) =>
 	t.field({
 		type: AuthResultObject,
 		description: "Authorize user session",
-		authScopes: {
-			public: true,
-		},
+		authScopes: { public: true },
 		resolve: async (_parent, _args, { authorized, user }) => {
 			if (!authorized || !user) {
 				throw new Error("Unauthorized");
@@ -211,9 +211,7 @@ builder.mutationField("signout", (t) =>
 	t.field({
 		type: SuccessResultObject,
 		description: "Sign out user",
-		authScopes: {
-			user: true,
-		},
+		authScopes: { user: true },
 		resolve: async (_parent, _args, { authorized, session, res }) => {
 			if (!authorized || !session) {
 				throw new Error("You are not signed in");
@@ -222,6 +220,74 @@ builder.mutationField("signout", (t) =>
 			await services.auth.signOut(session.id);
 
 			res.clearCookie("session");
+
+			return { success: true };
+		},
+	})
+);
+
+builder.queryField("sessions", (t) =>
+	t.field({
+		type: [SessionObject],
+		description: "Returns all active sessions",
+		authScopes: { user: true },
+		resolve: async (_parent, _args, { user }) => {
+			if (!user) throw new Error("Unauthorized");
+
+			return await services.auth.getSessionsForUser(user.id);
+		},
+	})
+);
+
+builder.mutationField("removeOtherSessions", (t) =>
+	t.field({
+		type: SuccessResultObject,
+		description: "Removes all sessions other than current session",
+		authScopes: { user: true },
+		resolve: async (_parent, _args, { session, user }) => {
+			if (!user || !session) {
+				throw new Error("Unauthorized");
+			}
+
+			await services.auth.removeOtherSessions({ userId: user.id, sessionId: session.id });
+
+			return { success: true };
+		},
+	})
+);
+
+const ChangePasswordInput = builder.inputType("ChangePasswordInput", {
+	fields: (t) => ({
+		oldPassword: t.string({
+			required: true,
+			validate: {
+				minLength: [1, { message: "Invalid old password" }],
+			},
+		}),
+		newPassword: t.string({
+			required: true,
+			validate: {
+				minLength: [6, { message: "Password must be atleast 6 characters" }],
+				maxLength: [18, { message: "Password can be up to 18 characters" }],
+			},
+		}),
+	}),
+});
+
+builder.mutationField("changePassword", (t) =>
+	t.field({
+		type: SuccessResultObject,
+		description: "Change users password",
+		authScopes: { user: true },
+		args: { input: t.arg({ type: ChangePasswordInput, required: true }) },
+		resolve: async (_parent, { input }, { user }) => {
+			if (!user) throw new Error("Unauthorized");
+
+			await services.auth.changePassword({
+				user: user,
+				oldPassword: input.oldPassword,
+				newPassword: input.newPassword,
+			});
 
 			return { success: true };
 		},

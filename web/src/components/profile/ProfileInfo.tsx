@@ -1,6 +1,6 @@
 import { User } from "src/apollo/__generated__/types";
 import { ProfileModal } from "src/components/profile/ProfileModal";
-import { ProfileSettings } from "src/components/profile/ProfileSettings";
+import { SeetingsButton } from "src/components/profile/SettingsButton";
 import { UserAvatar } from "src/components/profile/UserAvatar";
 import { useModal } from "src/hooks/useModal";
 import { useAuth } from "src/store/useAuth";
@@ -30,7 +30,7 @@ export function ProfileInfo() {
 					</div>
 				</div>
 			</div>
-			<ProfileSettings />
+			<SeetingsButton />
 			{user && <ProfileModal userId={user.id} {...profileModal} />}
 		</div>
 	);

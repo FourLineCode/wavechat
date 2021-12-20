@@ -67,7 +67,7 @@ export function DiscoverUsersPage() {
 
 	return (
 		<div className="flex flex-col flex-1 p-2 space-y-2 bg-dark-700">
-			<div className="shrink-0 p-3 h-52 rounded-2xl bg-gradient-to-bl from-brand-700 to-dark-900">
+			<div className="p-3 shrink-0 h-52 rounded-2xl bg-gradient-to-bl from-brand-700 to-dark-900">
 				<Formik
 					initialValues={{ searchTerm: "" }}
 					onSubmit={async ({ searchTerm }) => {
@@ -89,13 +89,14 @@ export function DiscoverUsersPage() {
 							<div className="text-3xl font-bold line-clamp-1">
 								Search for people you may know
 							</div>
-							<Input
-								name="searchTerm"
-								placeholder="Username..."
-								disabled={props.isSubmitting}
-								initialFocus
-								className="w-4/5 lg:w-2/5"
-							/>
+							<div className="w-4/5 lg:w-2/5">
+								<Input
+									name="searchTerm"
+									placeholder="Username..."
+									disabled={props.isSubmitting}
+									initialFocus
+								/>
+							</div>
 						</Form>
 					)}
 				</Formik>

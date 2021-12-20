@@ -23,11 +23,15 @@
 				<li><a href="#clone-the-repository">Clone the repository</a></li>
 			</ul>
 		</li>
-		<li><a href="#usage">Usage</a></li>
-		<li><a href="#run-in-production-mode">Run in production mode</a></li>
-		<li><a href="#run-in-development-mode">Run in development mode</a></li>
-		<li><a href="#initialize-aws-s3-bucket">Initialize AWS S3 bucket</a></li>
-		<li><a href="#browse-the-app">Browse the app</a></li>
+		<li>
+			<a href="#usage">Usage</a>
+			<ul>
+				<li><a href="#run-in-production-mode">Run in production mode</a></li>
+				<li><a href="#run-in-development-mode">Run in development mode</a></li>
+				<li><a href="#initialize-aws-s3-bucket">Initialize AWS S3 bucket</a></li>
+				<li><a href="#browse-the-app">Browse the app</a></li>
+			</ul>
+		</li>
 		<li><a href="#license">License</a></li>
 		<li><a href="#contact">Contact</a></li>
 	</ol>
@@ -76,7 +80,7 @@ WaveChat is a real time social media application made for college/university stu
 -   [Node.js](https://nodejs.org/en/)
 -   [Pnpm](https://pnpm.io/installation)
 -   [Docker](https://docs.docker.com/get-docker/)
--   [Docker-Compose](https://docs.docker.com/compose/install/)
+-   [Docker Compose](https://docs.docker.com/compose/install/)
 -   [Git](https://git-scm.com/downloads)
 -   [AWS-CLI](https://github.com/localstack/awscli-local)
 
@@ -103,7 +107,7 @@ pnpm dev
 ```
 
 > Make sure to install dependencies with `pnpm install` command before development.\
-> Development runs docker containers in the background. Run `pnpm down` to stop the containers.
+> Development runs docker containers in the background. Run `pnpm dc:down` to stop the containers.
 
 #### Initialize AWS S3 bucket
 

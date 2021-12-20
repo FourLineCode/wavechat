@@ -23,6 +23,11 @@ export type AuthResult = {
   user: User;
 };
 
+export type ChangePasswordInput = {
+  newPassword: Scalars['String'];
+  oldPassword: Scalars['String'];
+};
+
 export type CreateMessageInput = {
   attachments?: InputMaybe<Array<MediaDtoInput>>;
   author: UserDtoInput;
@@ -123,6 +128,8 @@ export type Mutation = {
   __typename?: 'Mutation';
   /** Accept a pending friend request */
   acceptRequest: Friendship;
+  /** Change users password */
+  changePassword: SuccessResult;
   /** Saves a message to the database */
   createMessage: Message;
   /** Returns an existing or newly created MessageThread */
@@ -131,6 +138,8 @@ export type Mutation = {
   declineAllRequests: Scalars['Boolean'];
   /** Decline a pending friend request */
   declineRequest: FriendRequest;
+  /** Removes all sessions other than current session */
+  removeOtherSessions: SuccessResult;
   /** Send a friend request to a user */
   sendRequest: FriendRequest;
   /** Sign in user */
@@ -143,7 +152,9 @@ export type Mutation = {
   unfriend: Friendship;
   /** Unsend a sent friend request */
   unsendRequest: Scalars['Boolean'];
-  /** Upload single file */
+  /** Update info for a user */
+  updateUser: User;
+  /** Upload multiple files */
   uploadMultipleFiles: Array<MediaDto>;
   /** Upload single file */
   uploadSingleFile: MediaDto;
@@ -152,6 +163,11 @@ export type Mutation = {
 
 export type MutationAcceptRequestArgs = {
   requestId: Scalars['String'];
+};
+
+
+export type MutationChangePasswordArgs = {
+  input: ChangePasswordInput;
 };
 
 
@@ -195,6 +211,11 @@ export type MutationUnsendRequestArgs = {
 };
 
 
+export type MutationUpdateUserArgs = {
+  input: UpdateUserInput;
+};
+
+
 export type MutationUploadMultipleFilesArgs = {
   files: Array<Scalars['Upload']>;
 };
@@ -231,6 +252,8 @@ export type Query = {
   searchFriends: Array<User>;
   /** Get sent requests of current user */
   sentRequests: Array<FriendRequest>;
+  /** Returns all active sessions */
+  sessions: Array<Session>;
   /** Returns all messages owned by a thread */
   threadMessages: Array<Message>;
   /** returns info for a user */
@@ -329,6 +352,15 @@ export type SocketAuthorizedResponse = {
 export type SuccessResult = {
   __typename?: 'SuccessResult';
   success: Scalars['Boolean'];
+};
+
+export type UpdateUserInput = {
+  avatarUrl?: InputMaybe<Scalars['String']>;
+  bio?: InputMaybe<Scalars['String']>;
+  department?: InputMaybe<Scalars['String']>;
+  displayName?: InputMaybe<Scalars['String']>;
+  semester?: InputMaybe<Scalars['Int']>;
+  university?: InputMaybe<Scalars['String']>;
 };
 
 /** User object type */
@@ -433,6 +465,37 @@ export type SearchFriendsQueryVariables = Exact<{
 
 export type SearchFriendsQuery = { __typename?: 'Query', searchFriends: Array<{ __typename?: 'User', id: string, username: string, displayName: string, university?: string | null | undefined, avatarUrl?: string | null | undefined }> };
 
+export type ChangePasswordMutationVariables = Exact<{
+  input: ChangePasswordInput;
+}>;
+
+
+export type ChangePasswordMutation = { __typename?: 'Mutation', changePassword: { __typename?: 'SuccessResult', success: boolean } };
+
+export type UpdateUserMutationVariables = Exact<{
+  input: UpdateUserInput;
+}>;
+
+
+export type UpdateUserMutation = { __typename?: 'Mutation', updateUser: { __typename?: 'User', id: string, email: string, username: string, displayName: string, avatarUrl?: string | null | undefined, bio?: string | null | undefined, role: string, createdAt: any, updatedAt: any, university?: string | null | undefined, department?: string | null | undefined, semester?: number | null | undefined } };
+
+export type UploadAvatarMutationVariables = Exact<{
+  file: Scalars['Upload'];
+}>;
+
+
+export type UploadAvatarMutation = { __typename?: 'Mutation', uploadSingleFile: { __typename?: 'MediaDTO', url: string, filename: string, mimetype: string, encoding: string } };
+
+export type GetSessionsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetSessionsQuery = { __typename?: 'Query', sessions: Array<{ __typename?: 'Session', id: string, createdAt: any }> };
+
+export type RemoveOtherSessionsMutationVariables = Exact<{ [key: string]: never; }>;
+
+
+export type RemoveOtherSessionsMutation = { __typename?: 'Mutation', removeOtherSessions: { __typename?: 'SuccessResult', success: boolean } };
+
 export type AcceptRequestMutationVariables = Exact<{
   requestId: Scalars['String'];
 }>;
@@ -487,7 +550,7 @@ export type SigninMutationVariables = Exact<{
 }>;
 
 
-export type SigninMutation = { __typename?: 'Mutation', signin: { __typename?: 'AuthResult', success: boolean, user: { __typename?: 'User', id: string, email: string, username: string, displayName: string, avatarUrl?: string | null | undefined, role: string, createdAt: any, updatedAt: any, university?: string | null | undefined, department?: string | null | undefined, semester?: number | null | undefined } } };
+export type SigninMutation = { __typename?: 'Mutation', signin: { __typename?: 'AuthResult', success: boolean, user: { __typename?: 'User', id: string, email: string, username: string, displayName: string, avatarUrl?: string | null | undefined, bio?: string | null | undefined, role: string, createdAt: any, updatedAt: any, university?: string | null | undefined, department?: string | null | undefined, semester?: number | null | undefined } } };
 
 export type SignoutMutationVariables = Exact<{ [key: string]: never; }>;
 
@@ -497,7 +560,7 @@ export type SignoutMutation = { __typename?: 'Mutation', signout: { __typename?:
 export type AuthorizeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type AuthorizeQuery = { __typename?: 'Query', authorize: { __typename?: 'AuthResult', success: boolean, user: { __typename?: 'User', id: string, email: string, username: string, displayName: string, avatarUrl?: string | null | undefined, role: string, createdAt: any, updatedAt: any, university?: string | null | undefined, department?: string | null | undefined, semester?: number | null | undefined } } };
+export type AuthorizeQuery = { __typename?: 'Query', authorize: { __typename?: 'AuthResult', success: boolean, user: { __typename?: 'User', id: string, email: string, username: string, displayName: string, avatarUrl?: string | null | undefined, bio?: string | null | undefined, role: string, createdAt: any, updatedAt: any, university?: string | null | undefined, department?: string | null | undefined, semester?: number | null | undefined } } };
 
 
 export const DiscoverUsersDocument = gql`
@@ -681,6 +744,60 @@ export const SearchFriendsDocument = gql`
   }
 }
     `;
+export const ChangePasswordDocument = gql`
+    mutation ChangePassword($input: ChangePasswordInput!) {
+  changePassword(input: $input) {
+    success
+  }
+}
+    `;
+export type ChangePasswordMutationOptions = Apollo.BaseMutationOptions<ChangePasswordMutation, ChangePasswordMutationVariables>;
+export const UpdateUserDocument = gql`
+    mutation UpdateUser($input: UpdateUserInput!) {
+  updateUser(input: $input) {
+    id
+    email
+    username
+    displayName
+    avatarUrl
+    bio
+    role
+    createdAt
+    updatedAt
+    university
+    department
+    semester
+  }
+}
+    `;
+export type UpdateUserMutationOptions = Apollo.BaseMutationOptions<UpdateUserMutation, UpdateUserMutationVariables>;
+export const UploadAvatarDocument = gql`
+    mutation UploadAvatar($file: Upload!) {
+  uploadSingleFile(file: $file) {
+    url
+    filename
+    mimetype
+    encoding
+  }
+}
+    `;
+export type UploadAvatarMutationOptions = Apollo.BaseMutationOptions<UploadAvatarMutation, UploadAvatarMutationVariables>;
+export const GetSessionsDocument = gql`
+    query GetSessions {
+  sessions {
+    id
+    createdAt
+  }
+}
+    `;
+export const RemoveOtherSessionsDocument = gql`
+    mutation RemoveOtherSessions {
+  removeOtherSessions {
+    success
+  }
+}
+    `;
+export type RemoveOtherSessionsMutationOptions = Apollo.BaseMutationOptions<RemoveOtherSessionsMutation, RemoveOtherSessionsMutationVariables>;
 export const AcceptRequestDocument = gql`
     mutation AcceptRequest($requestId: String!) {
   acceptRequest(requestId: $requestId) {
@@ -766,6 +883,7 @@ export const SigninDocument = gql`
       username
       displayName
       avatarUrl
+      bio
       role
       createdAt
       updatedAt
@@ -795,6 +913,7 @@ export const AuthorizeDocument = gql`
       username
       displayName
       avatarUrl
+      bio
       role
       createdAt
       updatedAt

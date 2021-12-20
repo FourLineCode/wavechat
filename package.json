@@ -11,9 +11,9 @@
 		"build": "turbo run build",
 		"start": "pnpm dc:up && turbo run start",
 		"deploy": "pnpm build && pnpm start",
-		"dc:up": "docker-compose up -d",
-		"dc:down": "docker-compose down",
-		"dc:down:volume": "docker-compose down --volumes",
+		"dc:up": "docker compose up -d",
+		"dc:down": "docker compose down",
+		"dc:down:volume": "docker compose down --volumes",
 		"db:init": "pnpm --dir api db:init",
 		"db:studio": "pnpm --dir api studio",
 		"db:gen": "pnpm --dir api generate",
@@ -28,13 +28,16 @@
 	},
 	"devDependencies": {
 		"prettier": "^2.5.1",
-		"turbo": "^1.0.13"
+		"turbo": "^1.0.19"
 	},
 	"turbo": {
 		"baseBranch": "origin/main",
 		"pipeline": {
 			"dev": {
-				"cache": false
+				"cache": false,
+				"dependsOn": [
+					"^build"
+				]
 			},
 			"build": {
 				"dependsOn": [

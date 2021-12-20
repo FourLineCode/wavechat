@@ -222,12 +222,13 @@
         -   [ ] only emojis
     -   [ ] maybe markup
 
--   [ ] settings page
+-   [x] settings page
 
-    -   [ ] add profile edit
-    -   [ ] add profile picture + banner maybe
-    -   [ ] logout
-    -   [ ] change password
+    -   [x] add profile edit
+    -   [x] add profile picture
+    -   [x] logout
+    -   [x] sign out of all sessions
+    -   [x] change password
 
 -   [ ] reactions/emojis
 

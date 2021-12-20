@@ -79,6 +79,7 @@ export const useAuth = create<AuthState>((set, get) => ({
 								username
 								displayName
 								avatarUrl
+								bio
 								role
 								createdAt
 								updatedAt
