@@ -222,11 +222,10 @@
         -   [ ] only emojis
     -   [ ] maybe markup
 
--   [ ] settings page
+-   [x] settings page
 
-    -   [ ] add profile edit
-    -   [ ] add profile picture
-    -   [ ] add banner maybe
+    -   [x] add profile edit
+    -   [x] add profile picture
     -   [x] logout
     -   [x] sign out of all sessions
     -   [x] change password
