@@ -19,6 +19,7 @@ export async function initializeSocketHandler(io: IOServer) {
 }
 
 async function onConnect(socket: Socket) {
+	console.log("+ User has connected -", socket.id);
 	const { authorized, user } = await authorizeSocket(socket);
 	if (!authorized) {
 		socket.emit(
@@ -39,6 +40,7 @@ async function onConnect(socket: Socket) {
 async function onDisconnect(socket: Socket) {
 	// Remove auth info from redis store
 	await store.del(socket.id);
+	console.log("- User has disconnected -", socket.id);
 }
 
 async function authorizeSocket(socket: Socket): Promise<AuthorizeSocketDTO> {

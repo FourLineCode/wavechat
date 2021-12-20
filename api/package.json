@@ -20,7 +20,7 @@
 		"db:init": "pnpm migrate && pnpm seed"
 	},
 	"prisma": {
-		"seed": "ts-node prisma/seed.ts"
+		"seed": "ts-node --transpile-only -r tsconfig-paths/register prisma/seed.ts"
 	},
 	"dependencies": {
 		"@giraphql/core": "2.22.0",

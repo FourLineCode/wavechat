@@ -14,16 +14,17 @@
 		"dc:up": "docker compose up -d",
 		"dc:down": "docker compose down",
 		"dc:down:volume": "docker compose down --volumes",
-		"db:init": "pnpm --dir api db:init",
+		"db:init": "pnpm db:gen && pnpm --dir api db:init",
 		"db:studio": "pnpm --dir api studio",
 		"db:gen": "pnpm --dir api generate",
 		"codegen": "pnpm --dir web codegen",
 		"codegen:watch": "pnpm --dir web codegen:watch",
-		"clean": "rm -rf node_modules && turbo run clean",
+		"clean": "turbo run clean && rm -rf node_modules",
 		"clean:cache": "turbo run clean:cache",
 		"reset": "pnpm clean && pnpm install",
 		"typecheck": "turbo run typecheck",
-		"format": "prettier --write '**/*.{js,jsx,ts,tsx,md}'"
+		"format": "prettier --write '**/*.{js,jsx,ts,tsx,md}'",
+		"aws:init": "awslocal --endpoint-url=http://localhost:4566 s3 mb s3://wc-media && awslocal --endpoint-url=http://localhost:4566 s3api put-bucket-acl --bucket wc-media --acl public-read"
 	},
 	"devDependencies": {
 		"prettier": "^2.5.1",
