@@ -19,10 +19,9 @@
 		"db:gen": "pnpm --dir api generate",
 		"codegen": "pnpm --dir web codegen",
 		"codegen:watch": "pnpm --dir web codegen:watch",
-		"clean": "turbo run clean",
+		"clean": "rm -rf node_modules && turbo run clean",
 		"clean:cache": "turbo run clean:cache",
-		"dep": "turbo run dep",
-		"reset": "pnpm clean && pnpm dep",
+		"reset": "pnpm clean && pnpm install",
 		"typecheck": "turbo run typecheck",
 		"format": "prettier --write '**/*.{js,jsx,ts,tsx,md}'"
 	},
@@ -58,9 +57,6 @@
 				"cache": false
 			},
 			"clean:cache": {
-				"cache": false
-			},
-			"dep": {
 				"cache": false
 			},
 			"typecheck": {

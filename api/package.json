@@ -13,7 +13,6 @@
 		"typecheck": "tsc --noEmit",
 		"clean": "rm -rf node_modules && pnpm clean:cache",
 		"clean:cache": "rm -rf dist && rm -rf .turbo",
-		"dep": "pnpm install",
 		"migrate": "prisma migrate dev",
 		"generate": "prisma generate",
 		"seed": "prisma db seed",

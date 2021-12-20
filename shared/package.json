@@ -10,7 +10,6 @@
 		"build": "tsc -d",
 		"clean": "rm -rf node_modules && pnpm clean:cache",
 		"clean:cache": "rm -rf dist && rm -rf .turbo",
-		"dep": "pnpm install",
 		"typecheck": "tsc --noEmit"
 	},
 	"devDependencies": {

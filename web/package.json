@@ -12,7 +12,6 @@
 		"typecheck": "tsc --noEmit",
 		"clean": "rm -rf node_modules && pnpm clean:cache",
 		"clean:cache": "rm -rf .next && rm -rf .turbo",
-		"dep": "pnpm install",
 		"codegen": "graphql-codegen",
 		"codegen:watch": "graphql-codegen --watch"
 	},
