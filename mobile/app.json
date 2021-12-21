@@ -1,7 +1,7 @@
 {
 	"expo": {
-		"name": "@wavechat/mobile",
-		"slug": "@wavechat/mobile",
+		"name": "WaveChat",
+		"slug": "wavechat",
 		"version": "1.0.0",
 		"orientation": "portrait",
 		"icon": "./assets/icon.png",

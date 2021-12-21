@@ -41,6 +41,7 @@ export function SignIn({ navigation }: NativeStackScreenProps<any, any>) {
 						mt={4}
 						rounded="lg"
 						_text={{ fontSize: "lg", fontWeight: "bold" }}
+						onPress={() => navigation.navigate("Home")}
 					>
 						Sign In
 					</Button>

@@ -2,6 +2,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { registerRootComponent } from "expo";
 import { NativeBaseProvider } from "native-base";
+import { Home } from "./screens/Home";
 import { SignIn } from "./screens/SignIn";
 import { SignUp } from "./screens/SignUp";
 import { config } from "./theme/config";
@@ -17,6 +18,10 @@ const screens = [
 	{
 		name: "SignIn",
 		component: SignIn,
+	},
+	{
+		name: "Home",
+		component: Home,
 	},
 ];
 
