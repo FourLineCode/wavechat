@@ -1,22 +1,11 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import {
-	Button,
-	Center,
-	FormControl,
-	Heading,
-	HStack,
-	Input,
-	StatusBar,
-	Text,
-	theme,
-} from "native-base";
+import { Button, Center, FormControl, Heading, HStack, Input, Text } from "native-base";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export function SignIn({ navigation }: NativeStackScreenProps<any, any>) {
 	return (
 		<SafeAreaView style={{ flex: 1 }}>
-			<StatusBar backgroundColor={theme.colors.rose[500]} />
 			<Center
 				flex={1}
 				px={4}
@@ -41,7 +30,7 @@ export function SignIn({ navigation }: NativeStackScreenProps<any, any>) {
 						mt={4}
 						rounded="lg"
 						_text={{ fontSize: "lg", fontWeight: "bold" }}
-						onPress={() => navigation.navigate("Home")}
+						onPress={() => navigation.replace("Home")}
 					>
 						Sign In
 					</Button>

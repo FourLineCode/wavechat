@@ -1,6 +1,7 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { registerRootComponent } from "expo";
+import { StatusBar } from "expo-status-bar";
 import { NativeBaseProvider } from "native-base";
 import { Home } from "./screens/Home";
 import { SignIn } from "./screens/SignIn";
@@ -29,12 +30,13 @@ export default registerRootComponent(function () {
 	return (
 		<NativeBaseProvider theme={theme} config={config}>
 			<NavigationContainer>
+				<StatusBar style="light" backgroundColor={theme.colors.gray[900]} />
 				<RootStack.Navigator
-					initialRouteName="SignUp"
+					initialRouteName="Home"
 					screenOptions={{
 						headerShown: false,
 						animation: "slide_from_right",
-						statusBarStyle: "auto",
+						statusBarStyle: "light",
 					}}
 				>
 					{screens.map((screen, index) => (
