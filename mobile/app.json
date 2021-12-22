@@ -22,7 +22,8 @@
 			"adaptiveIcon": {
 				"foregroundImage": "./assets/adaptive-icon.png",
 				"backgroundColor": "#FFFFFF"
-			}
+			},
+			"package": "com.fourlinecode.wavechat"
 		},
 		"web": {
 			"favicon": "./assets/favicon.png"
