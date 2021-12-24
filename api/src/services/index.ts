@@ -10,14 +10,14 @@ import * as searchService from "src/services/search.service";
 import * as userService from "src/services/user.service";
 
 export const services = {
-	dataloader: dataloaderService,
-	user: userService,
-	auth: authService,
-	discover: discoverService,
-	friendship: friendshipService,
-	search: searchService,
-	messageThread: messageThreadService,
-	message: messageService,
-	rtc: rtcService,
-	media: mediaService,
+    dataloader: dataloaderService,
+    user: userService,
+    auth: authService,
+    discover: discoverService,
+    friendship: friendshipService,
+    search: searchService,
+    messageThread: messageThreadService,
+    message: messageService,
+    rtc: rtcService,
+    media: mediaService,
 };

@@ -1,68 +1,68 @@
 {
-	"name": "@wavechat/root",
-	"version": "1.0.0",
-	"description": "A real time social media platform",
-	"main": "index.js",
-	"license": "MIT",
-	"author": "FourLineCode",
-	"homepage": "https://github.com/FourLineCode/wavechat#readme",
-	"scripts": {
-		"dev": "pnpm dc:up && turbo run dev",
-		"build": "turbo run build",
-		"start": "pnpm dc:up && turbo run start",
-		"deploy": "pnpm build && pnpm start",
-		"dc:up": "docker compose up -d",
-		"dc:down": "docker compose down",
-		"dc:down:volume": "docker compose down --volumes",
-		"db:init": "pnpm db:gen && pnpm --dir api db:init",
-		"db:studio": "pnpm --dir api studio",
-		"db:gen": "pnpm --dir api generate",
-		"codegen": "pnpm --dir web codegen",
-		"codegen:watch": "pnpm --dir web codegen:watch",
-		"clean": "turbo run clean && rm -rf node_modules",
-		"clean:cache": "turbo run clean:cache",
-		"reset": "pnpm clean && pnpm install",
-		"typecheck": "turbo run typecheck",
-		"format": "prettier --write '**/*.{js,jsx,ts,tsx,md}'",
-		"aws:init": "awslocal --endpoint-url=http://localhost:4566 s3 mb s3://wc-media && awslocal --endpoint-url=http://localhost:4566 s3api put-bucket-acl --bucket wc-media --acl public-read"
-	},
-	"devDependencies": {
-		"prettier": "^2.5.1",
-		"turbo": "^1.0.19"
-	},
-	"turbo": {
-		"baseBranch": "origin/main",
-		"pipeline": {
-			"dev": {
-				"cache": false,
-				"dependsOn": [
-					"^build"
-				]
-			},
-			"build": {
-				"dependsOn": [
-					"^build"
-				],
-				"outputs": [
-					".next/**",
-					"dist"
-				]
-			},
-			"start": {
-				"cache": false,
-				"dependsOn": [
-					"^build"
-				]
-			},
-			"clean": {
-				"cache": false
-			},
-			"clean:cache": {
-				"cache": false
-			},
-			"typecheck": {
-				"cache": false
-			}
-		}
-	}
+    "name": "@wavechat/root",
+    "version": "1.0.0",
+    "description": "A real time social media platform",
+    "main": "index.js",
+    "license": "MIT",
+    "author": "FourLineCode",
+    "homepage": "https://github.com/FourLineCode/wavechat#readme",
+    "scripts": {
+        "dev": "pnpm dc:up && turbo run dev",
+        "build": "turbo run build",
+        "start": "pnpm dc:up && turbo run start",
+        "deploy": "pnpm build && pnpm start",
+        "dc:up": "docker compose up -d",
+        "dc:down": "docker compose down",
+        "dc:down:volume": "docker compose down --volumes",
+        "db:init": "pnpm db:gen && pnpm --dir api db:init",
+        "db:studio": "pnpm --dir api studio",
+        "db:gen": "pnpm --dir api generate",
+        "codegen": "pnpm --dir web codegen",
+        "codegen:watch": "pnpm --dir web codegen:watch",
+        "clean": "turbo run clean && rm -rf node_modules",
+        "clean:cache": "turbo run clean:cache",
+        "reset": "pnpm clean && pnpm install",
+        "typecheck": "turbo run typecheck",
+        "format": "prettier --write '**/*.{js,jsx,json,ts,tsx,md,html,css}'",
+        "aws:init": "awslocal --endpoint-url=http://localhost:4566 s3 mb s3://wc-media && awslocal --endpoint-url=http://localhost:4566 s3api put-bucket-acl --bucket wc-media --acl public-read"
+    },
+    "devDependencies": {
+        "prettier": "^2.5.1",
+        "turbo": "^1.0.19"
+    },
+    "turbo": {
+        "baseBranch": "origin/main",
+        "pipeline": {
+            "dev": {
+                "cache": false,
+                "dependsOn": [
+                    "^build"
+                ]
+            },
+            "build": {
+                "dependsOn": [
+                    "^build"
+                ],
+                "outputs": [
+                    ".next/**",
+                    "dist"
+                ]
+            },
+            "start": {
+                "cache": false,
+                "dependsOn": [
+                    "^build"
+                ]
+            },
+            "clean": {
+                "cache": false
+            },
+            "clean:cache": {
+                "cache": false
+            },
+            "typecheck": {
+                "cache": false
+            }
+        }
+    }
 }

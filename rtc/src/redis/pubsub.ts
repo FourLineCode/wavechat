@@ -9,6 +9,6 @@ const publisherClient = new Redis(port, host);
 const subscriberClient = new Redis(port, host);
 
 export const pubsub = {
-	publisher: publisherClient,
-	subscriber: subscriberClient,
+    publisher: publisherClient,
+    subscriber: subscriberClient,
 };

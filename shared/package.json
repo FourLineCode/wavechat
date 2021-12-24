@@ -1,18 +1,18 @@
 {
-	"name": "@wavechat/shared",
-	"version": "1.0.0",
-	"description": "shared types for wavechat",
-	"main": "dist/index.js",
-	"author": "FourLineCode",
-	"license": "MIT",
-	"scripts": {
-		"dev": "tsc -d -w --preserveWatchOutput",
-		"build": "tsc -d",
-		"clean": "rm -rf node_modules && pnpm clean:cache",
-		"clean:cache": "rm -rf dist && rm -rf .turbo",
-		"typecheck": "tsc --noEmit"
-	},
-	"devDependencies": {
-		"typescript": "^4.5.4"
-	}
+    "name": "@wavechat/shared",
+    "version": "1.0.0",
+    "description": "shared types for wavechat",
+    "main": "dist/index.js",
+    "author": "FourLineCode",
+    "license": "MIT",
+    "scripts": {
+        "dev": "tsc -d -w --preserveWatchOutput",
+        "build": "tsc -d",
+        "clean": "rm -rf node_modules && pnpm clean:cache",
+        "clean:cache": "rm -rf dist && rm -rf .turbo",
+        "typecheck": "tsc --noEmit"
+    },
+    "devDependencies": {
+        "typescript": "^4.5.4"
+    }
 }

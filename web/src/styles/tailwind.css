@@ -3,14 +3,14 @@
 @tailwind utilities;
 
 body {
-	@apply overflow-hidden antialiased font-open-sans bg-dark-900 text-primary;
+    @apply overflow-hidden antialiased font-open-sans bg-dark-900 text-primary;
 }
 
 pre {
-	@apply antialiased font-open-sans;
+    @apply antialiased font-open-sans;
 }
 
 /* This sets the style for alt text for images */
 img {
-	@apply flex items-center justify-center overflow-hidden text-xs text-opacity-50 text-brand-500;
+    @apply flex items-center justify-center overflow-hidden text-xs text-opacity-50 text-brand-500;
 }

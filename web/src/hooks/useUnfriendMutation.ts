@@ -5,26 +5,26 @@ import { GET_FRIENDS_LIST } from "src/components/friends/FriendsList";
 import { ACTIVE_MESSAGE_THREADS } from "src/components/messages/sidebar/DirectMessages";
 
 export const UNFRIEND_USER = gql`
-	mutation Unfriend($userId: String!) {
-		unfriend(userId: $userId) {
-			id
-		}
-	}
+    mutation Unfriend($userId: String!) {
+        unfriend(userId: $userId) {
+            id
+        }
+    }
 `;
 
 export function useUnfriendMutation(userId: string) {
-	const [unfriend] = useMutation<UnfriendMutation, UnfriendMutationVariables>(UNFRIEND_USER, {
-		variables: {
-			userId: userId,
-		},
-		onCompleted: () => {
-			toast.success("Unfriended Successfully");
-		},
-		onError: (error) => {
-			toast.error(error.message);
-		},
-		refetchQueries: [{ query: GET_FRIENDS_LIST }, { query: ACTIVE_MESSAGE_THREADS }],
-	});
+    const [unfriend] = useMutation<UnfriendMutation, UnfriendMutationVariables>(UNFRIEND_USER, {
+        variables: {
+            userId: userId,
+        },
+        onCompleted: () => {
+            toast.success("Unfriended Successfully");
+        },
+        onError: (error) => {
+            toast.error(error.message);
+        },
+        refetchQueries: [{ query: GET_FRIENDS_LIST }, { query: ACTIVE_MESSAGE_THREADS }],
+    });
 
-	return unfriend;
+    return unfriend;
 }

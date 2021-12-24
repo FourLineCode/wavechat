@@ -8,25 +8,25 @@ import { useAuth } from "src/store/useAuth";
 import "../styles/tailwind.css";
 
 export default function MyApp({ Component, pageProps }: AppProps) {
-	const auth = useAuth();
+    const auth = useAuth();
 
-	useEffect(() => {
-		if (pageProps.authorized) {
-			auth.setAuthInfo({ authorized: pageProps.authorized, user: pageProps.authorizedUser });
-		}
-	}, [pageProps]);
+    useEffect(() => {
+        if (pageProps.authorized) {
+            auth.setAuthInfo({ authorized: pageProps.authorized, user: pageProps.authorizedUser });
+        }
+    }, [pageProps]);
 
-	return (
-		<ApolloProvider client={client}>
-			<Component {...pageProps} />
-			<Toaster
-				position="bottom-center"
-				gutter={12}
-				toastOptions={{
-					duration: 2500,
-				}}
-			/>
-			<LayoutWarning />
-		</ApolloProvider>
-	);
+    return (
+        <ApolloProvider client={client}>
+            <Component {...pageProps} />
+            <Toaster
+                position="bottom-center"
+                gutter={12}
+                toastOptions={{
+                    duration: 2500,
+                }}
+            />
+            <LayoutWarning />
+        </ApolloProvider>
+    );
 }
