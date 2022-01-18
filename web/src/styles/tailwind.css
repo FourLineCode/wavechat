@@ -14,3 +14,23 @@ pre {
 img {
     @apply flex items-center justify-center overflow-hidden text-xs text-opacity-50 text-brand-500;
 }
+
+/* Scroll bar stylings */
+::-webkit-scrollbar {
+    @apply w-1.5;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    @apply bg-transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-dark-600;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    @apply bg-dark-500;
+}

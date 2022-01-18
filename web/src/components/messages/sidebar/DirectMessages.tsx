@@ -49,7 +49,7 @@ export function DirectMessages() {
             </div>
             <div className="flex flex-col min-h-0 mt-2">
                 {data && data.activeMessageThreads.length > 0 ? (
-                    <div className="pr-1 space-y-2 overflow-y-auto scrollbar-thin">
+                    <div className="pr-1 space-y-2 overflow-y-auto">
                         {data.activeMessageThreads.map((thread) => (
                             <MessageThreadCard thread={thread as MessageThread} key={thread.id} />
                         ))}

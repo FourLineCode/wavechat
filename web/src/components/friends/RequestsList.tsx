@@ -62,7 +62,7 @@ export function RequestsList() {
             <Spinner />
         </div>
     ) : (
-        <div className="pr-1 space-y-2 overflow-y-auto scrollbar-thin">
+        <div className="pr-1 space-y-2 overflow-y-auto">
             {data && data?.pendingRequests.length > 0 ? (
                 <>
                     <div className="flex justify-end px-2">

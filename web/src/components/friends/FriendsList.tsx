@@ -40,7 +40,7 @@ export function FriendsList() {
             <Spinner />
         </div>
     ) : (
-        <div className="pr-1 space-y-1 overflow-y-auto scrollbar-thin">
+        <div className="pr-1 space-y-1 overflow-y-auto">
             {data && data?.friendsList.length > 0 ? (
                 data?.friendsList.map((friendship) => (
                     <FriendListUserCard friendship={friendship as Friendship} key={friendship.id} />

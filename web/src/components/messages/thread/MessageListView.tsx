@@ -31,7 +31,7 @@ export function MessageListView({ messageGroups }: Props) {
     }, []);
 
     return (
-        <div className="flex flex-col flex-1 w-full min-h-fit space-y-2 overflow-x-hidden overflow-y-auto text-xl scrollbar-thin">
+        <div className="flex flex-col flex-1 w-full space-y-2 overflow-x-hidden overflow-y-auto text-xl min-h-fit">
             {messageGroups.map((group) => (
                 <MessageCard messageGroup={group} key={group.id} />
             ))}
