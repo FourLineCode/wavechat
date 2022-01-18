@@ -1,17 +1,13 @@
-import { GraphQLUpload } from "graphql-upload";
+import { GraphQLScalarValueParser } from "graphql";
+import { FileUpload, GraphQLUpload } from "graphql-upload";
 import { builder } from "src/graphql/builder";
 
-// TODO: fix the typecasting
 builder.scalarType("Date", {
-    serialize: (value) => {
-        return new Date(value as string | number | Date);
-    },
-    parseValue: (value) => {
-        return new Date(value as string | number | Date);
-    },
+    serialize: (value) => new Date(value),
+    parseValue: (value) => new Date(value as string | number | Date),
 });
 
 builder.scalarType("Upload", {
     serialize: GraphQLUpload.serialize,
-    parseValue: GraphQLUpload.parseValue,
+    parseValue: GraphQLUpload.parseValue as GraphQLScalarValueParser<Promise<FileUpload>>,
 });
