@@ -1,7 +1,7 @@
 module.exports = {
     reactStrictMode: true,
     images: {
-        domains: ["avatars.githubusercontent.com", "avatars.dicebear.com"],
+        domains: ["avatars.githubusercontent.com"],
     },
     eslint: {
         // Warning: This allows production builds to successfully complete even if

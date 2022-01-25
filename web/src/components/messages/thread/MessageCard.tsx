@@ -19,7 +19,7 @@ export function MessageCard({ messageGroup }: Props) {
                 <UserAvatar
                     user={messageGroup.author}
                     onClick={messageAuthorModal.onOpen}
-                    className="w-10 h-10 rounded-full cursor-pointer ring-brand-500 hover:ring-1"
+                    className="w-10 h-10 rounded-lg cursor-pointer shrink-0 ring-brand-500 hover:ring-1"
                 />
             </div>
             <div>

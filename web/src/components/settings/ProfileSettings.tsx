@@ -142,7 +142,7 @@ export function ProfileSettings() {
                             <img
                                 src={file ? URL.createObjectURL(file) : user?.avatarUrl!}
                                 alt="avatar"
-                                className="relative object-cover w-24 h-24 rounded-full"
+                                className="relative object-cover w-24 h-24 rounded-lg"
                             />
                             <label
                                 htmlFor="avatar"

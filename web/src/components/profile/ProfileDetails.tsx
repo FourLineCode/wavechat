@@ -67,7 +67,10 @@ export function ProfileDetails({ userId, onClose }: Props) {
         <>
             <div className="flex items-center justify-between">
                 <div className="flex items-center flex-1 space-x-2">
-                    <UserAvatar user={data.user as User} />
+                    <UserAvatar
+                        user={data.user as User}
+                        className="w-16 h-16 rounded-lg shrink-0"
+                    />
                     <div>
                         <div className="text-lg font-semibold line-clamp-1">
                             {data.user.displayName}

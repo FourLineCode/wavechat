@@ -24,7 +24,10 @@ export function MessageThreadTopBar({ user }: Props) {
     return (
         <div className="flex items-center justify-between w-full h-12 px-6 py-1 bg-opacity-50 bg-dark-800">
             <div className="flex items-center space-x-2">
-                <UserAvatar user={user} className="w-8 h-8 rounded-md ring ring-dark-700" />
+                <UserAvatar
+                    user={user}
+                    className="w-8 h-8 rounded-md ring shrink-0 ring-dark-700"
+                />
                 <span className="text-lg font-semibold">{user.displayName}</span>
             </div>
             <div>

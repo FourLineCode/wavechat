@@ -6,7 +6,7 @@ interface Props extends React.HTMLAttributes<HTMLImageElement> {
     className?: string;
 }
 
-export function UserAvatar({ user, className = "w-16 h-16 rounded-full", ...props }: Props) {
+export function UserAvatar({ user, className = "w-16 h-16 rounded-lg", ...props }: Props) {
     const avatarUrl = useAvatarUrl(user);
 
     return <img src={avatarUrl} alt="avatar" className={className} {...props} />;

@@ -26,7 +26,7 @@ export function DiscoveredUser({ user }: Props) {
                 <UserAvatar
                     user={user}
                     onClick={discoverUserProfile.onOpen}
-                    className="w-16 h-16 rounded-lg cursor-pointer hover:ring-2 ring-brand-500"
+                    className="w-16 h-16 rounded-lg cursor-pointer shrink-0 hover:ring-2 ring-brand-500"
                 />
                 <div>
                     <div
