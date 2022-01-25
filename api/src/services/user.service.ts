@@ -61,6 +61,18 @@ export async function findUserByEmail(email: string) {
 }
 
 export async function updateUser(userId: string, input: Partial<User>) {
+    if (input.displayName) {
+        const user = await db.user.findFirst({ where: { id: userId } });
+        if (!user) {
+            throw new Error("User not found");
+        }
+
+        input.displayName = input.displayName.trim();
+        if (input.displayName.toLowerCase() !== user.username) {
+            throw new Error("Display name must be same as username (Case insensitive)");
+        }
+    }
+
     return await db.user.update({
         where: { id: userId },
         data: { ...input },

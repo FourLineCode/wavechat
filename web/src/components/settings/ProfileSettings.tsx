@@ -88,7 +88,7 @@ export function ProfileSettings() {
                     department: user?.department ?? "",
                     semester: user?.semester ?? 0,
                 }}
-                onSubmit={async (values, form) => {
+                onSubmit={async (values) => {
                     setLoading(true);
 
                     const input: UpdateUserInput = {

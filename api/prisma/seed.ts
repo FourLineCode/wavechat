@@ -17,7 +17,7 @@ async function seed() {
         data: {
             email: "akmal@wave.com",
             username: "akmal",
-            displayName: "Akmal Hossain",
+            displayName: "Akmal",
             password: bcrypt.hashSync(process.env.ADMIN_PASS!, config.hashSalt),
             role: "ADMIN",
             bio: "I made this website LLOOL",
@@ -30,11 +30,11 @@ async function seed() {
 
     // Create some fake accounts
     for (let i = 0; i < 100; i++) {
-        const name = faker.name.findName();
+        const name = faker.name.findName().split(" ").join("");
         const user = await db.user.create({
             data: {
                 email: faker.internet.email(),
-                username: name.split(" ").join("").toLowerCase(),
+                username: name.toLowerCase(),
                 displayName: name,
                 password: bcrypt.hashSync(process.env.BOT_PASS!, config.hashSalt),
                 bio: faker.lorem.sentences(2),
@@ -107,7 +107,7 @@ async function seed() {
                 displayName: `BOT${i}`,
                 password: bcrypt.hashSync(process.env.BOT_PASS!, config.hashSalt),
                 bio: faker.lorem.sentences(2),
-                // avatarUrl: faker.internet.avatar(),
+                avatarUrl: faker.internet.avatar(),
                 university: faker.company.companyName(),
                 department: faker.commerce.department(),
                 semester: faker.datatype.number(16) + 1,

@@ -214,13 +214,20 @@
         -   [x] images
         -   [ ] videos
         -   [ ] audio
-        -   [ ] file upload
+        -   [ ] any file upload
     -   [ ] mentions
         -   [ ] shows user card on click
     -   [ ] reply to messages
     -   [ ] reactions to messages
         -   [ ] only emojis
     -   [ ] maybe markup
+
+-   [ ] discover
+
+    -   [x] search users
+    -   [ ] search public channels
+    -   [ ] filter by uni/semester/department
+    -   [ ] recommend users/servers
 
 -   [x] settings page
 
@@ -229,27 +236,42 @@
     -   [x] logout
     -   [x] sign out of all sessions
     -   [x] change password
+    -   [ ] username colors
+
+-   [ ] servers
+
+    -   [ ] create a server
+        -   [ ] change to a modal maybe instead of route?
+    -   [ ] model
+        -   [ ] public/private type
+            -   [ ] private invite only
+            -   [ ] public discoverable
+                -   [ ] anyone can join
+        -   [ ] members
+            -   [ ] show member on right
+            -   [ ] separate different roles
+        -   [ ] channels
+            -   [ ] each channel has a MessageThread in it
+            -   [ ] messages
+            -   [ ] default channels for every server (welcome/rules)
+        -   [ ] banner
+    -   [ ] roles
+        -   [ ] admins
+    -   [ ] add members
+        -   [ ] invite only?
+        -   [ ] can send invite to anyone with username
+        -   [ ] public join url
+        -   [ ] show pending invites on discover page
+    -   [ ] remove members
+    -   [ ] members leave
+    -   [ ] member permissions
+        -   [ ] block / ban users
+        -   [ ] admins can create/delete/update channels
+        -   [ ] lock a channel
+    -   [ ] mock server data
+    -   [ ] SEO changes (title, description)
 
 -   [ ] reactions/emojis
 
     -   [ ] emoji picker
     -   [ ] message reactions
-
--   [ ] channels
-
-    -   [ ] user channels
-        -   [ ] only 2 users
-        -   [ ] cannot leave without unfriend
-    -   [ ] server channels
-        -   [ ] multiuser
-        -   [ ] can leave
-    -   [ ] private/public channels
-        -   [ ] private invite only
-        -   [ ] public discoverable
-            -   [ ] anyone can join
-
--   [ ] discover
-    -   [x] search users
-    -   [ ] search public channels
-    -   [ ] filter by uni/semester/department
-    -   [ ] recommend users/servers
