@@ -9,12 +9,14 @@ import { Button } from "src/components/ui/Button";
 import { Modal } from "src/components/ui/Modal";
 import { useModal } from "src/hooks/useModal";
 import { useAuth } from "src/store/useAuth";
+import uaParser from "ua-parser-js";
 
 const GET_SESSIONS = gql`
     query GetSessions {
         sessions {
             id
             createdAt
+            userAgent
         }
     }
 `;
@@ -99,9 +101,19 @@ export function SecuritySettings() {
                                             <span className="font-semibold">
                                                 {format(
                                                     new Date(session.createdAt),
-                                                    "MMM dd, yyyy p"
+                                                    "MMM dd, yyyy"
                                                 )}
                                             </span>
+                                            {session.userAgent && (
+                                                <>
+                                                    <span className="text-secondary">{" on "}</span>
+                                                    <span className="font-bold">
+                                                        {`${
+                                                            uaParser(session.userAgent).browser.name
+                                                        } - ${uaParser(session.userAgent).os.name}`}
+                                                    </span>
+                                                </>
+                                            )}
                                         </li>
                                     ))}
                                 {data.sessions.length > 5 && (

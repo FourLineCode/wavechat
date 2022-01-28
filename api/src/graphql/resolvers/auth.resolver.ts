@@ -22,6 +22,7 @@ export const SessionObject: ObjectRef<Session, Session> = builder
                 load: (ids: string[]) => services.dataloader.loadUserByIDs(ids),
                 resolve: (session) => session.userId,
             }),
+            userAgent: t.exposeString("userAgent", { nullable: true }),
         }),
     });
 
@@ -108,8 +109,8 @@ builder.mutationField("signup", (t) =>
         type: AuthResultObject,
         description: "Sign up new user",
         args: { input: t.arg({ type: SignupInput, required: true }) },
-        resolve: async (_parent, { input }, { res }) => {
-            const { newUser, session } = await services.auth.signUp(input as User);
+        resolve: async (_parent, { input }, { req, res }) => {
+            const { newUser, session } = await services.auth.signUp(req, input as User);
 
             const payload: JWTPayload = {
                 sessionId: session.id,
@@ -153,8 +154,9 @@ builder.mutationField("signin", (t) =>
         type: AuthResultObject,
         description: "Sign in user",
         args: { input: t.arg({ type: SigninInput, required: true }) },
-        resolve: async (_parent, { input }, { res }) => {
+        resolve: async (_parent, { input }, { req, res }) => {
             const { user, session } = await services.auth.signIn({
+                req,
                 email: input.email,
                 password: input.password,
             });

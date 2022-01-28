@@ -323,6 +323,7 @@ export type Session = {
   pk: Scalars['Int'];
   updatedAt: Scalars['Date'];
   user: User;
+  userAgent?: Maybe<Scalars['String']>;
   userId: Scalars['ID'];
 };
 
@@ -489,7 +490,7 @@ export type UploadAvatarMutation = { __typename?: 'Mutation', uploadSingleFile: 
 export type GetSessionsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetSessionsQuery = { __typename?: 'Query', sessions: Array<{ __typename?: 'Session', id: string, createdAt: any }> };
+export type GetSessionsQuery = { __typename?: 'Query', sessions: Array<{ __typename?: 'Session', id: string, createdAt: any, userAgent?: string | null | undefined }> };
 
 export type RemoveOtherSessionsMutationVariables = Exact<{ [key: string]: never; }>;
 
@@ -787,6 +788,7 @@ export const GetSessionsDocument = gql`
   sessions {
     id
     createdAt
+    userAgent
   }
 }
     `;

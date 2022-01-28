@@ -1,10 +1,11 @@
 import { User } from "@prisma/client";
 import bcrypt from "bcrypt";
+import { Request } from "express";
 import { db } from "prisma/connection";
 import { getConfig } from "src/internal/config";
 import { services } from "src/services";
 
-export async function signUp(input: User) {
+export async function signUp(req: Request, input: User) {
     const userExists = await services.user.userExistWithUsernameOrEmail({
         email: input.email,
         username: input.username.toLowerCase(),
@@ -18,13 +19,22 @@ export async function signUp(input: User) {
     const session = await db.session.create({
         data: {
             userId: newUser.id,
+            userAgent: req.headers["user-agent"],
         },
     });
 
     return { newUser, session };
 }
 
-export async function signIn({ email, password }: { email: string; password: string }) {
+export async function signIn({
+    req,
+    email,
+    password,
+}: {
+    req: Request;
+    email: string;
+    password: string;
+}) {
     const user = await services.user.findUserByEmail(email);
 
     const validated = await validatePassword({ password, hashedPassword: user.password });
@@ -35,6 +45,7 @@ export async function signIn({ email, password }: { email: string; password: str
     const session = await db.session.create({
         data: {
             userId: user.id,
+            userAgent: req.headers["user-agent"],
         },
     });
 

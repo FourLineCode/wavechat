@@ -209,6 +209,7 @@ type Session {
   pk: Int!
   updatedAt: Date!
   user: User!
+  userAgent: String
   userId: ID!
 }
 

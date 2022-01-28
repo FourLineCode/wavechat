@@ -50,6 +50,8 @@ model Session {
 
     user   User   @relation("sessions", fields: [userId], references: [id])
     userId String
+
+    userAgent String?
 }
 
 model Friendship {
