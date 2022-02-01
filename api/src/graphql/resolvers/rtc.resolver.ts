@@ -1,4 +1,4 @@
-import { ObjectRef } from "@giraphql/core";
+import { ObjectRef } from "@pothos/core";
 import { User } from "@prisma/client";
 import { builder } from "src/graphql/builder";
 import { UserObject } from "src/graphql/resolvers/user.resolver";
@@ -13,7 +13,6 @@ const SocketAuthorizedResponseObject: ObjectRef<
     SocketAuthorizedResponse,
     SocketAuthorizedResponse
 > = builder.objectRef<SocketAuthorizedResponse>("SocketAuthorizedResponse").implement({
-    name: "SocketAuthorizedResponse",
     description: "Response object for authorized socket connections",
     fields: (t) => ({
         authorized: t.exposeBoolean("authorized"),

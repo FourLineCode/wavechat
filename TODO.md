@@ -2,7 +2,7 @@
 
 -   [ ] general
 
-    -   [ ] use prisma giraphql plugin
+    -   [ ] use prisma pothos plugin
 
 -   [ ] auth
 

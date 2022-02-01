@@ -1,4 +1,4 @@
-import { ObjectRef } from "@giraphql/core";
+import { ObjectRef } from "@pothos/core";
 import { Message } from "@prisma/client";
 import { MediaDTO, MessageDTO, UserDTO } from "@wavechat/shared";
 import { builder } from "src/graphql/builder";
@@ -10,7 +10,6 @@ import { services } from "src/services";
 export const MessageObject: ObjectRef<Message, Message> = builder
     .objectRef<Message>("Message")
     .implement({
-        name: "Message",
         description: "Message object type",
         fields: (t) => ({
             id: t.exposeID("id"),

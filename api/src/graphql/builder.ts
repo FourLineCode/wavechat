@@ -1,11 +1,11 @@
-import SchemaBuilder from "@giraphql/core";
-import DataloaderPlugin from "@giraphql/plugin-dataloader";
-import ScopeAuthPlugin from "@giraphql/plugin-scope-auth";
-import ValidationPlugin from "@giraphql/plugin-validation";
+import SchemaBuilder from "@pothos/core";
+import DataloaderPlugin from "@pothos/plugin-dataloader";
+import ScopeAuthPlugin from "@pothos/plugin-scope-auth";
+import ValidationPlugin from "@pothos/plugin-validation";
 import { FileUpload } from "graphql-upload";
 import { Context } from "src/graphql/context";
 
-// GraphQL schema builder by GiraphQL plugin
+// GraphQL schema builder by Pothos plugin
 export const builder = new SchemaBuilder<{
     Context: Context;
     Scalars: {

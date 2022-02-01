@@ -1,4 +1,4 @@
-import { ObjectRef } from "@giraphql/core";
+import { ObjectRef } from "@pothos/core";
 import { MessageThread } from "@prisma/client";
 import { builder } from "src/graphql/builder";
 import { MessageObject } from "src/graphql/resolvers/message.resolver";
@@ -8,7 +8,6 @@ import { services } from "src/services";
 export const MessageThreadObject: ObjectRef<MessageThread, MessageThread> = builder
     .objectRef<MessageThread>("MessageThread")
     .implement({
-        name: "MessageThread",
         description: "MessageThread object type",
         fields: (t) => ({
             id: t.exposeID("id"),

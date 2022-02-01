@@ -1,4 +1,4 @@
-import { ObjectRef } from "@giraphql/core";
+import { ObjectRef } from "@pothos/core";
 import { Session, User } from "@prisma/client";
 import jwt from "jsonwebtoken";
 import { builder } from "src/graphql/builder";
@@ -8,7 +8,6 @@ import { services } from "src/services";
 export const SessionObject: ObjectRef<Session, Session> = builder
     .objectRef<Session>("Session")
     .implement({
-        name: "Session",
         description: "Information about user session",
         fields: (t) => ({
             id: t.exposeID("id"),
@@ -34,7 +33,6 @@ interface AuthResult {
 const AuthResultObject: ObjectRef<AuthResult, AuthResult> = builder
     .objectRef<AuthResult>("AuthResult")
     .implement({
-        name: "AuthResult",
         description: "Response object for authentication queries",
         fields: (t) => ({
             success: t.exposeBoolean("success"),
@@ -202,7 +200,6 @@ interface SuccessResult {
 const SuccessResultObject: ObjectRef<SuccessResult, SuccessResult> = builder
     .objectRef<SuccessResult>("SuccessResult")
     .implement({
-        name: "SuccessResult",
         description: "Response object for succesful queries",
         fields: (t) => ({
             success: t.exposeBoolean("success"),

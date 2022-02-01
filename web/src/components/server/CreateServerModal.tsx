@@ -19,7 +19,7 @@ export function CreateServerModal() {
                         createServerModal.show
                             ? "bg-brand-500 rounded-xl"
                             : "bg-dark-800 rounded-3xl",
-                        "flex items-center focus:outline-none justify-center w-12 h-12 my-2 transition-all cursor-pointer group hover:bg-brand-500 hover:rounded-xl"
+                        "flex items-center focus:outline-none outline-none justify-center w-12 h-12 my-2 transition-all cursor-pointer group hover:bg-brand-500 hover:rounded-xl"
                     )}
                 >
                     <FaPlus

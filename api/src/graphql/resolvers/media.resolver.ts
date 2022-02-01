@@ -1,4 +1,4 @@
-import { ObjectRef } from "@giraphql/core";
+import { ObjectRef } from "@pothos/core";
 import { Media } from "@prisma/client";
 import { MediaDTO } from "@wavechat/shared";
 import { builder } from "src/graphql/builder";
@@ -6,7 +6,6 @@ import { MessageObject } from "src/graphql/resolvers/message.resolver";
 import { services } from "src/services";
 
 export const MediaObject: ObjectRef<Media, Media> = builder.objectRef<Media>("Media").implement({
-    name: "Media",
     description: "Media object",
     fields: (t) => ({
         id: t.exposeID("id"),
@@ -30,7 +29,6 @@ export const MediaObject: ObjectRef<Media, Media> = builder.objectRef<Media>("Me
 export const MediaDTOObject: ObjectRef<MediaDTO, MediaDTO> = builder
     .objectRef<MediaDTO>("MediaDTO")
     .implement({
-        name: "MediaDTO",
         description: "Response object for file upload",
         fields: (t) => ({
             url: t.exposeString("url"),

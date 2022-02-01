@@ -1,4 +1,4 @@
-import { ObjectRef } from "@giraphql/core";
+import { ObjectRef } from "@pothos/core";
 import { User } from "@prisma/client";
 import { builder } from "src/graphql/builder";
 import { SessionObject } from "src/graphql/resolvers/auth.resolver";
@@ -8,7 +8,6 @@ import { MessageThreadObject } from "src/graphql/resolvers/messageThread.resolve
 import { services } from "src/services";
 
 export const UserObject: ObjectRef<User, User> = builder.objectRef<User>("User").implement({
-    name: "User",
     description: "User object type",
     fields: (t) => ({
         id: t.exposeID("id"),

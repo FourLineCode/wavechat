@@ -1,4 +1,4 @@
-import { ObjectRef } from "@giraphql/core";
+import { ObjectRef } from "@pothos/core";
 import { FriendRequest, Friendship } from "@prisma/client";
 import { builder } from "src/graphql/builder";
 import { UserObject } from "src/graphql/resolvers/user.resolver";
@@ -7,7 +7,6 @@ import { services } from "src/services";
 export const FriendshipObject: ObjectRef<Friendship, Friendship> = builder
     .objectRef<Friendship>("Friendship")
     .implement({
-        name: "Friendship",
         description: "Friendship object type",
         fields: (t) => ({
             id: t.exposeID("id"),
@@ -34,7 +33,6 @@ export const FriendshipObject: ObjectRef<Friendship, Friendship> = builder
 export const FriendRequestObject: ObjectRef<FriendRequest, FriendRequest> = builder
     .objectRef<FriendRequest>("FriendRequest")
     .implement({
-        name: "FriendRequest",
         description: "FriendRequest object type",
         fields: (t) => ({
             id: t.exposeID("id"),
