@@ -6,6 +6,7 @@
     "license": "MIT",
     "author": "FourLineCode",
     "homepage": "https://github.com/FourLineCode/wavechat#readme",
+    "packageManager": "pnpm@6.29.1",
     "scripts": {
         "dev": "pnpm dc:up && turbo run dev",
         "build": "turbo run build",

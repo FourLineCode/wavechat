@@ -241,9 +241,13 @@
 -   [ ] servers
 
     -   [ ] create a server
-        -   [ ] change to a modal maybe instead of route?
+        -   [x] change to a modal maybe instead of route?
     -   [ ] model
-        -   [ ] public/private type
+        -   [ ] name
+        -   [ ] icon
+        -   [ ] banner
+        -   [ ] owner
+        -   [ ] type
             -   [ ] private invite only
             -   [ ] public discoverable
                 -   [ ] anyone can join
@@ -254,7 +258,6 @@
             -   [ ] each channel has a MessageThread in it
             -   [ ] messages
             -   [ ] default channels for every server (welcome/rules)
-        -   [ ] banner
     -   [ ] roles
         -   [ ] admins
     -   [ ] add members

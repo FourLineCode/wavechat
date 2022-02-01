@@ -1,5 +1,6 @@
-import { FaCompass, FaEnvelope, FaPlus, FaQuestion } from "react-icons/fa";
+import { FaCompass, FaEnvelope, FaQuestion } from "react-icons/fa";
 import { NavigationSidebarRoute } from "src/components/navigations/NavigationSidebarRoute";
+import { CreateServerModal } from "src/components/server/CreateServerModal";
 
 export function NavigationSidebar() {
     return (
@@ -14,12 +15,13 @@ export function NavigationSidebar() {
                         key={i}
                     />
                 ))}
-                <NavigationSidebarRoute route="/discover" tooltip="Discover" icon={FaCompass} />
                 <NavigationSidebarRoute
-                    route="/server/create"
-                    tooltip="Create a server"
-                    icon={FaPlus}
+                    route="/discover"
+                    tooltip="Discover"
+                    icon={FaCompass}
+                    marked
                 />
+                <CreateServerModal />
             </div>
         </div>
     );

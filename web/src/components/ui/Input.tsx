@@ -76,8 +76,8 @@ export const Input = React.forwardRef<HTMLInputElement, Props>(function InputCom
                 disabled={disabled}
                 className={clsx(
                     className,
-                    disabled ? "cursor-not-allowed bg-dark-400" : "bg-dark-300",
-                    "w-full p-2 rounded-lg mt-0.5 focus:bg-white transition focus:ring-4 ring-brand-500 focus:outline-none text-dark-800"
+                    disabled ? "cursor-not-allowed bg-dark-800" : "bg-dark-700",
+                    "w-full p-2 rounded-lg mt-0.5 transition focus:ring-4 placeholder-dark-500 text-primary focus:bg-dark-800 ring-brand-500 focus:outline-none"
                 )}
                 {...props}
             />

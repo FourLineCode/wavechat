@@ -3,7 +3,7 @@ import { FriendsInfo } from "src/components/friends/FriendsInfo";
 import { Layout } from "src/components/layouts/Layout";
 import { NavigationSidebar } from "src/components/navigations/NavigationSidebar";
 import { SidebarWithProfile } from "src/components/profile/SidebarWithProfile";
-import { ServerSidebar } from "src/components/server/ServerSIdebar";
+import { ServerSidebar } from "src/components/server/ServerSidebar";
 import { authRedirect } from "src/utils/redirects/auth";
 
 export default function ServerById() {
