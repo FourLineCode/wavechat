@@ -86,10 +86,10 @@ export default function SignUp() {
                     >
                         {(props) => (
                             <Card
-                                inverted
                                 as={Form}
+                                variant="fullDark"
                                 className={clsx(
-                                    "max-w-md mx-auto mt-16 space-y-4",
+                                    "max-w-md mx-auto mt-16 space-y-4 border border-dark-800",
                                     redirecting && "flex justify-center items-center h-56"
                                 )}
                             >
@@ -97,7 +97,7 @@ export default function SignUp() {
                                     <Spinner />
                                 ) : (
                                     <>
-                                        <div className="text-5xl italic font-bold text-center">
+                                        <div className="text-5xl font-bold text-center">
                                             Sign Up
                                         </div>
                                         {page === 0 ? (

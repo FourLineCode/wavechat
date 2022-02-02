@@ -24,7 +24,7 @@ export function FriendRequestCard({ request }: Props) {
     });
 
     return (
-        <Card className="w-full !p-2 space-y-2">
+        <Card variant="light" className="w-full !p-2 space-y-2">
             <div className="flex items-center space-x-2">
                 <UserAvatar
                     user={request.fromUser}

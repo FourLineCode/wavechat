@@ -21,7 +21,7 @@ export function DiscoveredUser({ user }: Props) {
     };
 
     return (
-        <Card inverted className="mx-2 mb-4 space-y-2 min-w-64">
+        <Card className="mx-2 mb-4 space-y-2 min-w-64">
             <div className="flex items-center space-x-2">
                 <UserAvatar
                     user={user}
