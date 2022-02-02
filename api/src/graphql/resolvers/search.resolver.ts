@@ -9,7 +9,9 @@ builder.queryField("searchFriends", (t) =>
         authScopes: { user: true },
         args: { searchTerm: t.arg({ type: "String", required: true }) },
         resolve: async (_parent, { searchTerm }, { user }) => {
-            if (!user) throw new Error("Unauthorized");
+            if (!user) {
+                throw new Error("Unauthorized");
+            }
 
             const queryTerm = searchTerm.trim().toLowerCase();
 

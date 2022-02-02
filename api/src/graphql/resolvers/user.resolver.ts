@@ -145,7 +145,9 @@ builder.mutationField("updateUser", (t) =>
         authScopes: { user: true },
         args: { input: t.arg({ type: UpdateUserInput, required: true }) },
         resolve: async (_parent, { input }, { user }) => {
-            if (!user) throw new Error("Unauthorized");
+            if (!user) {
+                throw new Error("Unauthorized");
+            }
 
             return await services.user.updateUser(user.id, input as Partial<User>);
         },

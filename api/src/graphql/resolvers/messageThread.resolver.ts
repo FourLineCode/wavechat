@@ -38,7 +38,9 @@ builder.mutationField("createMessageThread", (t) =>
         },
         args: { userId: t.arg({ type: "String", required: true }) },
         resolve: async (_parent, { userId }, { user }) => {
-            if (!user) throw new Error("Unauthorized");
+            if (!user) {
+                throw new Error("Unauthorized");
+            }
 
             return await services.messageThread.getOrCreateThread({
                 userId,
@@ -56,7 +58,9 @@ builder.queryField("activeMessageThreads", (t) =>
             user: true,
         },
         resolve: async (_parent, _args, { user }) => {
-            if (!user) throw new Error("Unauthorized");
+            if (!user) {
+                throw new Error("Unauthorized");
+            }
 
             return await services.messageThread.getActiveThreads(user.id);
         },
@@ -72,7 +76,9 @@ builder.queryField("messageThread", (t) =>
         },
         args: { threadId: t.arg({ type: "String", required: true }) },
         resolve: async (_parent, { threadId }, { user }) => {
-            if (!user) throw new Error("Unauthorized");
+            if (!user) {
+                throw new Error("Unauthorized");
+            }
 
             return await services.messageThread.getThreadById({ threadId, userId: user.id });
         },

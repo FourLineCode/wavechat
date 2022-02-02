@@ -53,7 +53,9 @@ export async function createMessage(messageDTO: MessageDTO) {
         firstUserId: thread.participants[0].id,
         secondUserId: thread.participants[1].id,
     });
-    if (!isFriend) throw new Error("You cannot send messages to this user");
+    if (!isFriend) {
+        throw new Error("You cannot send messages to this user");
+    }
 
     const [message, _thread] = await db.$transaction([
         db.message.create({

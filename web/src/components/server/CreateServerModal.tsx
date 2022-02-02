@@ -1,6 +1,11 @@
 import clsx from "clsx";
 import { Field, Form, Formik } from "formik";
+import { useState } from "react";
+import Dropzone from "react-dropzone";
+import toast from "react-hot-toast";
+import { BiImageAdd } from "react-icons/bi";
 import { FaChevronDown, FaPlus } from "react-icons/fa";
+import { ImCross } from "react-icons/im";
 import { Button } from "src/components/ui/Button";
 import { Input } from "src/components/ui/Input";
 import { Modal } from "src/components/ui/Modal";
@@ -9,6 +14,7 @@ import { useModal } from "src/hooks/useModal";
 
 export function CreateServerModal() {
     const createServerModal = useModal();
+    const [iconFile, setIconFile] = useState<File | null>(null);
 
     return (
         <>
@@ -33,13 +39,23 @@ export function CreateServerModal() {
             <Modal {...createServerModal}>
                 <div className="text-3xl font-bold text-center">Create a server</div>
                 <Formik
-                    initialValues={{ serverName: "", serverType: "public" }}
+                    initialValues={{ serverName: "", serverType: "public", iconFile: null }}
                     onSubmit={async (values, form) => {
+                        if (!iconFile) {
+                            toast.error("Select an icon for server");
+                            return;
+                        }
+
+                        if (!values.serverName.trim()) {
+                            toast.error("Invalid server name");
+                            return;
+                        }
+
                         await new Promise((resolve) => {
                             setTimeout(() => {
-                                console.log(values);
-                                form.resetForm();
+                                console.log({ ...values, iconFile });
                                 createServerModal.onClose();
+                                form.resetForm();
                                 resolve(null);
                             }, 1000);
                         });
@@ -47,6 +63,43 @@ export function CreateServerModal() {
                 >
                     {(props) => (
                         <Form className="mt-4 space-y-3">
+                            <Dropzone
+                                accept="image/png, image/jpg, image/jpeg, image/webp"
+                                onDrop={([curr]) => setIconFile(curr)}
+                            >
+                                {({ getRootProps, getInputProps }) => (
+                                    <div
+                                        className="flex items-center justify-center w-full cursor-pointer focus:outline-none group"
+                                        {...getRootProps()}
+                                    >
+                                        <input {...getInputProps()} />
+                                        {iconFile ? (
+                                            <div className="relative">
+                                                <img
+                                                    alt="icon"
+                                                    className="object-cover w-20 h-20 rounded-lg"
+                                                    src={URL.createObjectURL(iconFile)}
+                                                    key={iconFile.name}
+                                                />
+                                                <button
+                                                    onClick={(e) => {
+                                                        e.stopPropagation();
+                                                        e.preventDefault();
+                                                        setIconFile(null);
+                                                    }}
+                                                    className="absolute p-1 transition-transform transform bg-red-500 rounded-full -top-1 -right-1 hover:scale-125"
+                                                >
+                                                    <ImCross className="w-2 h-2 text-primary" />
+                                                </button>
+                                            </div>
+                                        ) : (
+                                            <div className="p-4 transition-colors border-2 border-dashed rounded-full border-dark-600 group-focus:border-brand-500 group-hover:bg-dark-700 group-hover:bg-opacity-50">
+                                                <BiImageAdd className="w-12 h-12 text-secondary" />
+                                            </div>
+                                        )}
+                                    </div>
+                                )}
+                            </Dropzone>
                             <Input
                                 name="serverName"
                                 label="Server name"

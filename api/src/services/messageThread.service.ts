@@ -99,17 +99,17 @@ export async function getActiveThreads(userId: string) {
                 include: { participants: true },
                 orderBy: { updatedAt: "desc" },
             },
-            friends_forward: true,
-            friends_inverse: true,
+            friendsForward: true,
+            friendsInverse: true,
         },
         rejectOnNotFound: true,
     });
 
     const friendsIds = [
-        ...currentUser.friends_forward.map(({ firstUserId, secondUserId }) =>
+        ...currentUser.friendsForward.map(({ firstUserId, secondUserId }) =>
             firstUserId !== userId ? firstUserId : secondUserId
         ),
-        ...currentUser.friends_inverse.map(({ firstUserId, secondUserId }) =>
+        ...currentUser.friendsInverse.map(({ firstUserId, secondUserId }) =>
             firstUserId !== userId ? firstUserId : secondUserId
         ),
     ];

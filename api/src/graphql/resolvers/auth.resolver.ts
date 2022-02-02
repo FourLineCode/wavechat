@@ -231,7 +231,9 @@ builder.queryField("sessions", (t) =>
         description: "Returns all active sessions",
         authScopes: { user: true },
         resolve: async (_parent, _args, { user }) => {
-            if (!user) throw new Error("Unauthorized");
+            if (!user) {
+                throw new Error("Unauthorized");
+            }
 
             return await services.auth.getSessionsForUser(user.id);
         },
@@ -280,7 +282,9 @@ builder.mutationField("changePassword", (t) =>
         authScopes: { user: true },
         args: { input: t.arg({ type: ChangePasswordInput, required: true }) },
         resolve: async (_parent, { input }, { user }) => {
-            if (!user) throw new Error("Unauthorized");
+            if (!user) {
+                throw new Error("Unauthorized");
+            }
 
             await services.auth.changePassword({
                 user: user,

@@ -17,7 +17,9 @@ interface MessageThreadParams {
 export async function authorize(sessionToken: string): Promise<RtcAuthResponse> {
     const verified = jwt.verify(sessionToken, process.env.JWT_SECRET!);
 
-    if (!verified) return { authorized: false, user: null };
+    if (!verified) {
+        return { authorized: false, user: null };
+    }
 
     const { sessionId, userId } = jwt.decode(sessionToken) as JWTPayload;
 

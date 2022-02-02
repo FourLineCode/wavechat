@@ -63,7 +63,9 @@ builder.mutationField("sendRequest", (t) =>
         authScopes: { user: true },
         args: { userId: t.arg({ type: "String", required: true }) },
         resolve: async (_parent, { userId }, { user }) => {
-            if (!user) throw new Error("Unauthorized");
+            if (!user) {
+                throw new Error("Unauthorized");
+            }
 
             return await services.friendship.sendReuqest({
                 fromUserId: user.id,
@@ -80,7 +82,9 @@ builder.mutationField("unsendRequest", (t) =>
         authScopes: { user: true },
         args: { requestId: t.arg({ type: "String", required: true }) },
         resolve: async (_parent, { requestId }, { user }) => {
-            if (!user) throw new Error("Unauthorized");
+            if (!user) {
+                throw new Error("Unauthorized");
+            }
 
             return await services.friendship.unsendRequest({ requestId, userId: user.id });
         },
@@ -94,7 +98,9 @@ builder.mutationField("acceptRequest", (t) =>
         authScopes: { user: true },
         args: { requestId: t.arg({ type: "String", required: true }) },
         resolve: async (_parent, { requestId }, { user }) => {
-            if (!user) throw new Error("Unauthorized");
+            if (!user) {
+                throw new Error("Unauthorized");
+            }
 
             return await services.friendship.acceptRequest({ requestId, userId: user.id });
         },
@@ -108,7 +114,9 @@ builder.mutationField("declineRequest", (t) =>
         authScopes: { user: true },
         args: { requestId: t.arg({ type: "String", required: true }) },
         resolve: async (_parent, { requestId }, { user }) => {
-            if (!user) throw new Error("Unauthorized");
+            if (!user) {
+                throw new Error("Unauthorized");
+            }
 
             return await services.friendship.declineRequest({ requestId, userId: user.id });
         },
@@ -121,7 +129,9 @@ builder.mutationField("declineAllRequests", (t) =>
         description: "Decline all pending friend requests",
         authScopes: { user: true },
         resolve: async (_parent, _args, { user }) => {
-            if (!user) throw new Error("Unauthorized");
+            if (!user) {
+                throw new Error("Unauthorized");
+            }
 
             return await services.friendship.declineAllRequests(user.id);
         },
@@ -135,7 +145,9 @@ builder.mutationField("unfriend", (t) =>
         authScopes: { user: true },
         args: { userId: t.arg({ type: "String", required: true }) },
         resolve: async (_parent, { userId }, { user }) => {
-            if (!user) throw new Error("Unauthorized");
+            if (!user) {
+                throw new Error("Unauthorized");
+            }
 
             return await services.friendship.unfriend({ userId, currentUserId: user.id });
         },
@@ -148,7 +160,9 @@ builder.queryField("friendsList", (t) =>
         description: "Get friends list of current user",
         authScopes: { user: true },
         resolve: async (_parent, _args, { user }) => {
-            if (!user) throw new Error("Unauthorized");
+            if (!user) {
+                throw new Error("Unauthorized");
+            }
 
             return await services.friendship.getFriendList(user.id);
         },
@@ -162,7 +176,9 @@ builder.queryField("isFriend", (t) =>
         authScopes: { user: true },
         args: { userId: t.arg({ type: "String", required: true }) },
         resolve: async (_parent, { userId }, { user }) => {
-            if (!user) throw new Error("Unauthorized");
+            if (!user) {
+                throw new Error("Unauthorized");
+            }
 
             return await services.friendship.isUserFriend({
                 userId,
@@ -178,7 +194,9 @@ builder.queryField("pendingRequests", (t) =>
         description: "Get pending requests of current user",
         authScopes: { user: true },
         resolve: async (_parent, _args, { user }) => {
-            if (!user) throw new Error("Unauthorized");
+            if (!user) {
+                throw new Error("Unauthorized");
+            }
 
             return await services.friendship.getPendingRequests(user.id);
         },
@@ -191,7 +209,9 @@ builder.queryField("sentRequests", (t) =>
         description: "Get sent requests of current user",
         authScopes: { user: true },
         resolve: async (_parent, _args, { user }) => {
-            if (!user) throw new Error("Unauthorized");
+            if (!user) {
+                throw new Error("Unauthorized");
+            }
 
             return await services.friendship.getSentRequests(user.id);
         },

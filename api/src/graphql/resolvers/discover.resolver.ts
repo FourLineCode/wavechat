@@ -15,7 +15,9 @@ builder.queryField("discoverUsers", (t) =>
             cursor: t.arg({ type: "Int" }),
         },
         resolve: async (_parent, { query, limit, cursor }, { user }) => {
-            if (!user) throw new Error("Unauthorized");
+            if (!user) {
+                throw new Error("Unauthorized");
+            }
 
             query = query.trim();
 

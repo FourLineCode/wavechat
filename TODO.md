@@ -251,26 +251,33 @@
             -   [ ] private invite only
             -   [ ] public discoverable
                 -   [ ] anyone can join
+            -   [ ] closed
+                -   [ ] cannot invite
+                -   [ ] pending invites can be accepted
         -   [ ] members
             -   [ ] show member on right
             -   [ ] separate different roles
         -   [ ] channels
-            -   [ ] each channel has a MessageThread in it
+            -   [ ] name
+            -   [ ] locked/normal
             -   [ ] messages
+            -   [ ] each channel has a MessageThread in it
             -   [ ] default channels for every server (welcome/rules)
+    -   [ ] server invites
+        -   [ ] show invites on discover page
     -   [ ] roles
         -   [ ] admins
     -   [ ] add members
         -   [ ] invite only?
         -   [ ] can send invite to anyone with username
         -   [ ] public join url
-        -   [ ] show pending invites on discover page
     -   [ ] remove members
     -   [ ] members leave
     -   [ ] member permissions
         -   [ ] block / ban users
         -   [ ] admins can create/delete/update channels
         -   [ ] lock a channel
+    -   [ ] permission checks on all mutations
     -   [ ] mock server data
     -   [ ] SEO changes (title, description)
 

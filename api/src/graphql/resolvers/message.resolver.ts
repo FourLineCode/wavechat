@@ -100,7 +100,9 @@ builder.queryField("threadMessages", (t) =>
         authScopes: { user: true },
         args: { threadId: t.arg({ type: "String", required: true }) },
         resolve: async (_parent, { threadId }, { user }) => {
-            if (!user) throw new Error("Unauthorized");
+            if (!user) {
+                throw new Error("Unauthorized");
+            }
 
             return await services.message.getUserThreadMessages({
                 threadId,

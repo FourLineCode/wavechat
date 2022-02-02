@@ -147,7 +147,9 @@ export function MessageThreadPage({ thread }: Props) {
     }, []);
 
     const onKeyDownHandler = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-        if (["ArrowUp", "ArrowDown"].includes(e.key)) e.preventDefault();
+        if (["ArrowUp", "ArrowDown"].includes(e.key)) {
+            e.preventDefault();
+        }
 
         if (e.key == "ArrowUp") {
             setPrevMessageIndex((prev) => Math.min(prevMessages.length - 1, prev + 1));
