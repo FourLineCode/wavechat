@@ -54,7 +54,7 @@ model Session {
     updatedAt DateTime @updatedAt
 
     user   User   @relation("sessions", fields: [userId], references: [id])
-    userId String @unique
+    userId String
 
     userAgent String?
 }
@@ -171,10 +171,10 @@ model Server {
     members      User[]         @relation("joinedServers")
     ServerOnUser ServerOnUser[]
 
-    admins      String[]
-    bannedUsers String[]
+    adminUserIds  String[]
+    bannedUserIds String[]
 
-    invitedUsers ServerInvite[] @relation("serverInvite")
+    pendingInvites ServerInvite[] @relation("serverInvite")
 }
 
 model ServerOnUser {
@@ -215,4 +215,6 @@ model ServerInvite {
 
     server   Server @relation("serverInvite", fields: [serverId], references: [id])
     serverId String
+
+    @@unique([userId, serverId])
 }

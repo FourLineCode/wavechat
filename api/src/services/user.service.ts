@@ -14,6 +14,16 @@ export async function getUserById(userId: string) {
     });
 }
 
+export async function getUsersByIdList(userIds: string[]) {
+    return await db.user.findMany({
+        where: {
+            id: {
+                in: userIds,
+            },
+        },
+    });
+}
+
 export async function getUserByUsername(username: string) {
     return await db.user.findFirst({
         where: { username: username },

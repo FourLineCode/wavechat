@@ -1,20 +1,77 @@
+import { gql, useMutation } from "@apollo/client";
 import clsx from "clsx";
 import { Field, Form, Formik } from "formik";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import Dropzone from "react-dropzone";
 import toast from "react-hot-toast";
 import { BiImageAdd } from "react-icons/bi";
 import { FaChevronDown, FaPlus } from "react-icons/fa";
 import { ImCross } from "react-icons/im";
+import {
+    CreateServerMutation,
+    CreateServerMutationVariables,
+    UploadServerIconMutation,
+    UploadServerIconMutationVariables,
+} from "src/apollo/__generated__/types";
+import { GET_JOINED_SERVERS } from "src/components/navigations/NavigationServersList";
 import { Button } from "src/components/ui/Button";
 import { Input } from "src/components/ui/Input";
 import { Modal } from "src/components/ui/Modal";
 import { Tooltip } from "src/components/ui/Tooltip";
 import { useModal } from "src/hooks/useModal";
 
+const CREATE_SERVER = gql`
+    mutation CreateServer($input: CreateServerInput!) {
+        createServer(input: $input) {
+            id
+        }
+    }
+`;
+
+const UPLOAD_SERVER_ICON = gql`
+    mutation UploadServerIcon($file: Upload!) {
+        uploadSingleFile(file: $file) {
+            url
+            filename
+            mimetype
+            encoding
+        }
+    }
+`;
+
 export function CreateServerModal() {
+    const router = useRouter();
     const createServerModal = useModal();
     const [iconFile, setIconFile] = useState<File | null>(null);
+
+    const [createServer] = useMutation<CreateServerMutation, CreateServerMutationVariables>(
+        CREATE_SERVER,
+        {
+            onError: (error) => {
+                setIconFile(null);
+                toast.error(error.message);
+            },
+            onCompleted: (data) => {
+                toast.success("Server created");
+                router.push(data.createServer.id);
+            },
+            refetchQueries: [{ query: GET_JOINED_SERVERS }],
+        }
+    );
+
+    const [uploadServerIcon] = useMutation<
+        UploadServerIconMutation,
+        UploadServerIconMutationVariables
+    >(UPLOAD_SERVER_ICON, {
+        onCompleted: () => {
+            setIconFile(null);
+        },
+        onError: (error) => {
+            setIconFile(null);
+            toast.error(error.message);
+        },
+    });
 
     return (
         <>
@@ -51,14 +108,26 @@ export function CreateServerModal() {
                             return;
                         }
 
-                        await new Promise((resolve) => {
-                            setTimeout(() => {
-                                console.log({ ...values, iconFile });
-                                createServerModal.onClose();
-                                form.resetForm();
-                                resolve(null);
-                            }, 1000);
+                        const { data, errors } = await uploadServerIcon({
+                            variables: { file: iconFile },
                         });
+                        if (!data || (errors && errors.length)) {
+                            toast.error("Couldn't upload icon");
+                            return;
+                        }
+
+                        await createServer({
+                            variables: {
+                                input: {
+                                    name: values.serverName,
+                                    type: values.serverType,
+                                    iconUrl: data.uploadSingleFile.url,
+                                },
+                            },
+                        });
+
+                        createServerModal.onClose();
+                        form.resetForm();
                     }}
                 >
                     {(props) => (

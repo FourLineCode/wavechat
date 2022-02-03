@@ -7,4 +7,5 @@ import "./messageThread.resolver";
 import "./rtc.resolver";
 import "./scalars.resolver";
 import "./search.resolver";
+import "./server.resolver";
 import "./user.resolver";

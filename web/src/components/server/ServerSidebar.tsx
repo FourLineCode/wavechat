@@ -6,7 +6,7 @@ export function ServerSidebar() {
 
     return (
         <div className="flex flex-col flex-1 w-64 px-2 py-4 bg-dark-800 xl:w-80">
-            <div className="text-2xl font-semibold">Server #{serverId} Info</div>
+            <div className="text-sm font-semibold">Server {serverId}</div>
         </div>
     );
 }

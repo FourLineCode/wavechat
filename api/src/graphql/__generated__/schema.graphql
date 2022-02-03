@@ -21,6 +21,12 @@ input CreateMessageInput {
   updatedAt: String!
 }
 
+input CreateServerInput {
+  iconUrl: String
+  name: String!
+  type: String!
+}
+
 scalar Date
 
 """FriendRequest object type"""
@@ -114,6 +120,9 @@ type Mutation {
   """Returns an existing or newly created MessageThread"""
   createMessageThread(userId: String!): MessageThread!
 
+  """Create a new server"""
+  createServer(input: CreateServerInput!): Server!
+
   """Decline all pending friend requests"""
   declineAllRequests: Boolean!
 
@@ -177,6 +186,9 @@ type Query {
   """Authorize a user to join a rtc socket room"""
   isUserInThread(threadId: String!, userId: String!): Boolean!
 
+  """Get all joined servers for current user"""
+  joinedServers: [Server!]!
+
   """Returns a MessageThread by id"""
   messageThread(threadId: String!): MessageThread!
 
@@ -200,6 +212,48 @@ type Query {
 
   """returns info for a user by username"""
   userByUsername(username: String!): User!
+}
+
+"""Server object type"""
+type Server {
+  adminUserIds: [String!]!
+  bannedUserIds: [String!]!
+  bannerUrl: String
+  createdAt: Date!
+  iconUrl: String
+  id: ID!
+  members: [User!]!
+  name: String!
+  owner: User!
+  ownerId: String!
+  pendingInvites: [ServerInvite!]!
+  pk: Int!
+  type: String!
+  updatedAt: Date!
+}
+
+"""ServerChannel object type"""
+type ServerChannel {
+  createdAt: Date!
+  id: ID!
+  locked: Boolean!
+  name: String!
+  pk: Int!
+  thread: MessageThread!
+  threadId: String!
+  updatedAt: Date!
+}
+
+"""ServerInvite object type"""
+type ServerInvite {
+  createdAt: Date!
+  id: ID!
+  pk: Int!
+  server: Server!
+  serverId: String!
+  updatedAt: Date!
+  user: User!
+  userId: String!
 }
 
 """Information about user session"""

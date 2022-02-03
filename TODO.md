@@ -277,6 +277,9 @@
         -   [ ] block / ban users
         -   [ ] admins can create/delete/update channels
         -   [ ] lock a channel
+    -   [ ] update server mutations
+    -   [ ] close server
+    -   [ ] lock threads/channels
     -   [ ] permission checks on all mutations
     -   [ ] mock server data
     -   [ ] SEO changes (title, description)

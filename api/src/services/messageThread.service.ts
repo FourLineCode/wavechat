@@ -11,6 +11,15 @@ interface GetMessageThreadParams {
     currentUserId: string;
 }
 
+export async function getThreadByThreadId(threadId: string) {
+    return await db.messageThread.findFirst({
+        where: {
+            id: threadId,
+        },
+        rejectOnNotFound: true,
+    });
+}
+
 export async function getThreadById({ threadId, userId }: MessageThreadParams) {
     return await db.messageThread.findFirst({
         where: {

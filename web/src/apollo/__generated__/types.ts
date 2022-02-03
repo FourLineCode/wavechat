@@ -40,6 +40,12 @@ export type CreateMessageInput = {
   updatedAt: Scalars['String'];
 };
 
+export type CreateServerInput = {
+  iconUrl?: InputMaybe<Scalars['String']>;
+  name: Scalars['String'];
+  type: Scalars['String'];
+};
+
 /** FriendRequest object type */
 export type FriendRequest = {
   __typename?: 'FriendRequest';
@@ -134,6 +140,8 @@ export type Mutation = {
   createMessage: Message;
   /** Returns an existing or newly created MessageThread */
   createMessageThread: MessageThread;
+  /** Create a new server */
+  createServer: Server;
   /** Decline all pending friend requests */
   declineAllRequests: Scalars['Boolean'];
   /** Decline a pending friend request */
@@ -178,6 +186,11 @@ export type MutationCreateMessageArgs = {
 
 export type MutationCreateMessageThreadArgs = {
   userId: Scalars['String'];
+};
+
+
+export type MutationCreateServerArgs = {
+  input: CreateServerInput;
 };
 
 
@@ -244,6 +257,8 @@ export type Query = {
   isSocketAuthorized: SocketAuthorizedResponse;
   /** Authorize a user to join a rtc socket room */
   isUserInThread: Scalars['Boolean'];
+  /** Get all joined servers for current user */
+  joinedServers: Array<Server>;
   /** Returns a MessageThread by id */
   messageThread: MessageThread;
   /** Get pending requests of current user */
@@ -313,6 +328,51 @@ export type QueryUserArgs = {
 
 export type QueryUserByUsernameArgs = {
   username: Scalars['String'];
+};
+
+/** Server object type */
+export type Server = {
+  __typename?: 'Server';
+  adminUserIds: Array<Scalars['String']>;
+  bannedUserIds: Array<Scalars['String']>;
+  bannerUrl?: Maybe<Scalars['String']>;
+  createdAt: Scalars['Date'];
+  iconUrl?: Maybe<Scalars['String']>;
+  id: Scalars['ID'];
+  members: Array<User>;
+  name: Scalars['String'];
+  owner: User;
+  ownerId: Scalars['String'];
+  pendingInvites: Array<ServerInvite>;
+  pk: Scalars['Int'];
+  type: Scalars['String'];
+  updatedAt: Scalars['Date'];
+};
+
+/** ServerChannel object type */
+export type ServerChannel = {
+  __typename?: 'ServerChannel';
+  createdAt: Scalars['Date'];
+  id: Scalars['ID'];
+  locked: Scalars['Boolean'];
+  name: Scalars['String'];
+  pk: Scalars['Int'];
+  thread: MessageThread;
+  threadId: Scalars['String'];
+  updatedAt: Scalars['Date'];
+};
+
+/** ServerInvite object type */
+export type ServerInvite = {
+  __typename?: 'ServerInvite';
+  createdAt: Scalars['Date'];
+  id: Scalars['ID'];
+  pk: Scalars['Int'];
+  server: Server;
+  serverId: Scalars['String'];
+  updatedAt: Scalars['Date'];
+  user: User;
+  userId: Scalars['String'];
 };
 
 /** Information about user session */
@@ -402,17 +462,17 @@ export type DiscoverUsersQueryVariables = Exact<{
 }>;
 
 
-export type DiscoverUsersQuery = { __typename?: 'Query', discoverUsers: Array<{ __typename?: 'User', id: string, pk: number, displayName: string, avatarUrl?: string | null | undefined, university?: string | null | undefined, friends: Array<{ __typename?: 'Friendship', id: string, firstUserId: string, secondUserId: string }>, pendingRequests: Array<{ __typename?: 'FriendRequest', id: string, fromUserId: string }>, sentRequests: Array<{ __typename?: 'FriendRequest', id: string, toUserId: string }> }> };
+export type DiscoverUsersQuery = { __typename?: 'Query', discoverUsers: Array<{ __typename?: 'User', id: string, pk: number, displayName: string, avatarUrl?: string | null, university?: string | null, friends: Array<{ __typename?: 'Friendship', id: string, firstUserId: string, secondUserId: string }>, pendingRequests: Array<{ __typename?: 'FriendRequest', id: string, fromUserId: string }>, sentRequests: Array<{ __typename?: 'FriendRequest', id: string, toUserId: string }> }> };
 
 export type FriendsListQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type FriendsListQuery = { __typename?: 'Query', friendsList: Array<{ __typename?: 'Friendship', id: string, firstUserId: string, secondUserId: string, firstUser: { __typename?: 'User', id: string, username: string, displayName: string, avatarUrl?: string | null | undefined, university?: string | null | undefined }, secondUser: { __typename?: 'User', id: string, username: string, displayName: string, avatarUrl?: string | null | undefined, university?: string | null | undefined } }> };
+export type FriendsListQuery = { __typename?: 'Query', friendsList: Array<{ __typename?: 'Friendship', id: string, firstUserId: string, secondUserId: string, firstUser: { __typename?: 'User', id: string, username: string, displayName: string, avatarUrl?: string | null, university?: string | null }, secondUser: { __typename?: 'User', id: string, username: string, displayName: string, avatarUrl?: string | null, university?: string | null } }> };
 
 export type PendingRequestsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type PendingRequestsQuery = { __typename?: 'Query', pendingRequests: Array<{ __typename?: 'FriendRequest', id: string, fromUserId: string, toUserId: string, fromUser: { __typename?: 'User', id: string, username: string, displayName: string, avatarUrl?: string | null | undefined, university?: string | null | undefined }, toUser: { __typename?: 'User', id: string, username: string, displayName: string, avatarUrl?: string | null | undefined, university?: string | null | undefined } }> };
+export type PendingRequestsQuery = { __typename?: 'Query', pendingRequests: Array<{ __typename?: 'FriendRequest', id: string, fromUserId: string, toUserId: string, fromUser: { __typename?: 'User', id: string, username: string, displayName: string, avatarUrl?: string | null, university?: string | null }, toUser: { __typename?: 'User', id: string, username: string, displayName: string, avatarUrl?: string | null, university?: string | null } }> };
 
 export type DeclineAllRequestMutationVariables = Exact<{ [key: string]: never; }>;
 
@@ -422,7 +482,7 @@ export type DeclineAllRequestMutation = { __typename?: 'Mutation', declineAllReq
 export type ActiveMessageThreadsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ActiveMessageThreadsQuery = { __typename?: 'Query', activeMessageThreads: Array<{ __typename?: 'MessageThread', id: string, updatedAt: any, participants: Array<{ __typename?: 'User', id: string, username: string, displayName: string, avatarUrl?: string | null | undefined }> }> };
+export type ActiveMessageThreadsQuery = { __typename?: 'Query', activeMessageThreads: Array<{ __typename?: 'MessageThread', id: string, updatedAt: any, participants: Array<{ __typename?: 'User', id: string, username: string, displayName: string, avatarUrl?: string | null }> }> };
 
 export type UploadMultipleFilesMutationVariables = Exact<{
   files: Array<Scalars['Upload']> | Scalars['Upload'];
@@ -436,14 +496,19 @@ export type ThreadMessagesQueryVariables = Exact<{
 }>;
 
 
-export type ThreadMessagesQuery = { __typename?: 'Query', threadMessages: Array<{ __typename?: 'Message', id: string, pk: number, body: string, createdAt: any, updatedAt: any, threadId: string, authorId: string, attachments: Array<{ __typename?: 'Media', id: string, url: string, filename: string, mimetype: string }>, author: { __typename?: 'User', id: string, username: string, displayName: string, avatarUrl?: string | null | undefined } }> };
+export type ThreadMessagesQuery = { __typename?: 'Query', threadMessages: Array<{ __typename?: 'Message', id: string, pk: number, body: string, createdAt: any, updatedAt: any, threadId: string, authorId: string, attachments: Array<{ __typename?: 'Media', id: string, url: string, filename: string, mimetype: string }>, author: { __typename?: 'User', id: string, username: string, displayName: string, avatarUrl?: string | null } }> };
+
+export type GetJoinedServersQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetJoinedServersQuery = { __typename?: 'Query', joinedServers: Array<{ __typename?: 'Server', id: string, name: string, iconUrl?: string | null }> };
 
 export type GetUserDataQueryVariables = Exact<{
   userId: Scalars['String'];
 }>;
 
 
-export type GetUserDataQuery = { __typename?: 'Query', user: { __typename?: 'User', id: string, email: string, username: string, displayName: string, avatarUrl?: string | null | undefined, role: string, bio?: string | null | undefined, createdAt: any, updatedAt: any, university?: string | null | undefined, department?: string | null | undefined, semester?: number | null | undefined, pendingRequests: Array<{ __typename?: 'FriendRequest', id: string, fromUserId: string }>, sentRequests: Array<{ __typename?: 'FriendRequest', id: string, toUserId: string }>, friends: Array<{ __typename?: 'Friendship', firstUserId: string, secondUserId: string }> } };
+export type GetUserDataQuery = { __typename?: 'Query', user: { __typename?: 'User', id: string, email: string, username: string, displayName: string, avatarUrl?: string | null, role: string, bio?: string | null, createdAt: any, updatedAt: any, university?: string | null, department?: string | null, semester?: number | null, pendingRequests: Array<{ __typename?: 'FriendRequest', id: string, fromUserId: string }>, sentRequests: Array<{ __typename?: 'FriendRequest', id: string, toUserId: string }>, friends: Array<{ __typename?: 'Friendship', firstUserId: string, secondUserId: string }> } };
 
 export type SendRequestMutationVariables = Exact<{
   userId: Scalars['String'];
@@ -464,7 +529,21 @@ export type SearchFriendsQueryVariables = Exact<{
 }>;
 
 
-export type SearchFriendsQuery = { __typename?: 'Query', searchFriends: Array<{ __typename?: 'User', id: string, username: string, displayName: string, university?: string | null | undefined, avatarUrl?: string | null | undefined }> };
+export type SearchFriendsQuery = { __typename?: 'Query', searchFriends: Array<{ __typename?: 'User', id: string, username: string, displayName: string, university?: string | null, avatarUrl?: string | null }> };
+
+export type CreateServerMutationVariables = Exact<{
+  input: CreateServerInput;
+}>;
+
+
+export type CreateServerMutation = { __typename?: 'Mutation', createServer: { __typename?: 'Server', id: string } };
+
+export type UploadServerIconMutationVariables = Exact<{
+  file: Scalars['Upload'];
+}>;
+
+
+export type UploadServerIconMutation = { __typename?: 'Mutation', uploadSingleFile: { __typename?: 'MediaDTO', url: string, filename: string, mimetype: string, encoding: string } };
 
 export type ChangePasswordMutationVariables = Exact<{
   input: ChangePasswordInput;
@@ -478,7 +557,7 @@ export type UpdateUserMutationVariables = Exact<{
 }>;
 
 
-export type UpdateUserMutation = { __typename?: 'Mutation', updateUser: { __typename?: 'User', id: string, email: string, username: string, displayName: string, avatarUrl?: string | null | undefined, bio?: string | null | undefined, role: string, createdAt: any, updatedAt: any, university?: string | null | undefined, department?: string | null | undefined, semester?: number | null | undefined } };
+export type UpdateUserMutation = { __typename?: 'Mutation', updateUser: { __typename?: 'User', id: string, email: string, username: string, displayName: string, avatarUrl?: string | null, bio?: string | null, role: string, createdAt: any, updatedAt: any, university?: string | null, department?: string | null, semester?: number | null } };
 
 export type UploadAvatarMutationVariables = Exact<{
   file: Scalars['Upload'];
@@ -490,7 +569,7 @@ export type UploadAvatarMutation = { __typename?: 'Mutation', uploadSingleFile: 
 export type GetSessionsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetSessionsQuery = { __typename?: 'Query', sessions: Array<{ __typename?: 'Session', id: string, createdAt: any, userAgent?: string | null | undefined }> };
+export type GetSessionsQuery = { __typename?: 'Query', sessions: Array<{ __typename?: 'Session', id: string, createdAt: any, userAgent?: string | null }> };
 
 export type RemoveOtherSessionsMutationVariables = Exact<{ [key: string]: never; }>;
 
@@ -523,7 +602,7 @@ export type CreateMessageThreadMutationVariables = Exact<{
 }>;
 
 
-export type CreateMessageThreadMutation = { __typename?: 'Mutation', createMessageThread: { __typename?: 'MessageThread', id: string, participants: Array<{ __typename?: 'User', id: string, username: string, displayName: string, avatarUrl?: string | null | undefined }> } };
+export type CreateMessageThreadMutation = { __typename?: 'Mutation', createMessageThread: { __typename?: 'MessageThread', id: string, participants: Array<{ __typename?: 'User', id: string, username: string, displayName: string, avatarUrl?: string | null }> } };
 
 export type UnfriendMutationVariables = Exact<{
   userId: Scalars['String'];
@@ -537,7 +616,7 @@ export type GetMessageThreadQueryVariables = Exact<{
 }>;
 
 
-export type GetMessageThreadQuery = { __typename?: 'Query', messageThread: { __typename?: 'MessageThread', id: string, participants: Array<{ __typename?: 'User', id: string, username: string, displayName: string, avatarUrl?: string | null | undefined }>, messages: Array<{ __typename?: 'Message', id: string, body: string, createdAt: any, author: { __typename?: 'User', id: string, username: string, displayName: string, avatarUrl?: string | null | undefined } }> } };
+export type GetMessageThreadQuery = { __typename?: 'Query', messageThread: { __typename?: 'MessageThread', id: string, participants: Array<{ __typename?: 'User', id: string, username: string, displayName: string, avatarUrl?: string | null }>, messages: Array<{ __typename?: 'Message', id: string, body: string, createdAt: any, author: { __typename?: 'User', id: string, username: string, displayName: string, avatarUrl?: string | null } }> } };
 
 export type SignupMutationVariables = Exact<{
   input: SignupInput;
@@ -551,7 +630,7 @@ export type SigninMutationVariables = Exact<{
 }>;
 
 
-export type SigninMutation = { __typename?: 'Mutation', signin: { __typename?: 'AuthResult', success: boolean, user: { __typename?: 'User', id: string, email: string, username: string, displayName: string, avatarUrl?: string | null | undefined, bio?: string | null | undefined, role: string, createdAt: any, updatedAt: any, university?: string | null | undefined, department?: string | null | undefined, semester?: number | null | undefined } } };
+export type SigninMutation = { __typename?: 'Mutation', signin: { __typename?: 'AuthResult', success: boolean, user: { __typename?: 'User', id: string, email: string, username: string, displayName: string, avatarUrl?: string | null, bio?: string | null, role: string, createdAt: any, updatedAt: any, university?: string | null, department?: string | null, semester?: number | null } } };
 
 export type SignoutMutationVariables = Exact<{ [key: string]: never; }>;
 
@@ -561,7 +640,7 @@ export type SignoutMutation = { __typename?: 'Mutation', signout: { __typename?:
 export type AuthorizeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type AuthorizeQuery = { __typename?: 'Query', authorize: { __typename?: 'AuthResult', success: boolean, user: { __typename?: 'User', id: string, email: string, username: string, displayName: string, avatarUrl?: string | null | undefined, bio?: string | null | undefined, role: string, createdAt: any, updatedAt: any, university?: string | null | undefined, department?: string | null | undefined, semester?: number | null | undefined } } };
+export type AuthorizeQuery = { __typename?: 'Query', authorize: { __typename?: 'AuthResult', success: boolean, user: { __typename?: 'User', id: string, email: string, username: string, displayName: string, avatarUrl?: string | null, bio?: string | null, role: string, createdAt: any, updatedAt: any, university?: string | null, department?: string | null, semester?: number | null } } };
 
 
 export const DiscoverUsersDocument = gql`
@@ -690,6 +769,15 @@ export const ThreadMessagesDocument = gql`
   }
 }
     `;
+export const GetJoinedServersDocument = gql`
+    query GetJoinedServers {
+  joinedServers {
+    id
+    name
+    iconUrl
+  }
+}
+    `;
 export const GetUserDataDocument = gql`
     query GetUserData($userId: String!) {
   user(userId: $userId) {
@@ -745,6 +833,25 @@ export const SearchFriendsDocument = gql`
   }
 }
     `;
+export const CreateServerDocument = gql`
+    mutation CreateServer($input: CreateServerInput!) {
+  createServer(input: $input) {
+    id
+  }
+}
+    `;
+export type CreateServerMutationOptions = Apollo.BaseMutationOptions<CreateServerMutation, CreateServerMutationVariables>;
+export const UploadServerIconDocument = gql`
+    mutation UploadServerIcon($file: Upload!) {
+  uploadSingleFile(file: $file) {
+    url
+    filename
+    mimetype
+    encoding
+  }
+}
+    `;
+export type UploadServerIconMutationOptions = Apollo.BaseMutationOptions<UploadServerIconMutation, UploadServerIconMutationVariables>;
 export const ChangePasswordDocument = gql`
     mutation ChangePassword($input: ChangePasswordInput!) {
   changePassword(input: $input) {
