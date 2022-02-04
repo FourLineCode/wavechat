@@ -267,6 +267,8 @@ export type Query = {
   searchFriends: Array<User>;
   /** Get sent requests of current user */
   sentRequests: Array<FriendRequest>;
+  /** Get a server by id */
+  server: Server;
   /** Returns all active sessions */
   sessions: Array<Session>;
   /** Returns all messages owned by a thread */
@@ -313,6 +315,11 @@ export type QueryMessageThreadArgs = {
 
 export type QuerySearchFriendsArgs = {
   searchTerm: Scalars['String'];
+};
+
+
+export type QueryServerArgs = {
+  serverId: Scalars['String'];
 };
 
 
@@ -617,6 +624,13 @@ export type GetMessageThreadQueryVariables = Exact<{
 
 
 export type GetMessageThreadQuery = { __typename?: 'Query', messageThread: { __typename?: 'MessageThread', id: string, participants: Array<{ __typename?: 'User', id: string, username: string, displayName: string, avatarUrl?: string | null }>, messages: Array<{ __typename?: 'Message', id: string, body: string, createdAt: any, author: { __typename?: 'User', id: string, username: string, displayName: string, avatarUrl?: string | null } }> } };
+
+export type GetServerQueryVariables = Exact<{
+  serverId: Scalars['String'];
+}>;
+
+
+export type GetServerQuery = { __typename?: 'Query', server: { __typename?: 'Server', id: string, name: string, type: string, iconUrl?: string | null, bannerUrl?: string | null, createdAt: any, members: Array<{ __typename?: 'User', id: string, username: string, displayName: string, avatarUrl?: string | null, university?: string | null, department?: string | null }> } };
 
 export type SignupMutationVariables = Exact<{
   input: SignupInput;
@@ -970,6 +984,26 @@ export const GetMessageThreadDocument = gql`
         displayName
         avatarUrl
       }
+    }
+  }
+}
+    `;
+export const GetServerDocument = gql`
+    query GetServer($serverId: String!) {
+  server(serverId: $serverId) {
+    id
+    name
+    type
+    iconUrl
+    bannerUrl
+    createdAt
+    members {
+      id
+      username
+      displayName
+      avatarUrl
+      university
+      department
     }
   }
 }

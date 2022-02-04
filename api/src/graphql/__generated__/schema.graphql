@@ -201,6 +201,9 @@ type Query {
   """Get sent requests of current user"""
   sentRequests: [FriendRequest!]!
 
+  """Get a server by id"""
+  server(serverId: String!): Server!
+
   """Returns all active sessions"""
   sessions: [Session!]!
 

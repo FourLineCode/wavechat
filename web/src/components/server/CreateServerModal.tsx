@@ -80,7 +80,7 @@ export function CreateServerModal() {
                     onClick={createServerModal.onOpen}
                     className={clsx(
                         createServerModal.show
-                            ? "bg-brand-500 rounded-xl"
+                            ? "bg-brand-500 rounded-xl ring-4 ring-brand-500 ring-opacity-40"
                             : "bg-dark-800 rounded-3xl",
                         "flex items-center focus:outline-none outline-none justify-center w-12 h-12 my-2 transition-all cursor-pointer group hover:bg-brand-500 hover:rounded-xl"
                     )}

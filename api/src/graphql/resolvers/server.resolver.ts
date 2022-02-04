@@ -17,7 +17,7 @@ export const ServerObject: ObjectRef<Server, Server> = builder
             name: t.exposeString("name"),
             type: t.exposeString("type"),
             iconUrl: t.exposeString("iconUrl", { nullable: true }),
-            bannerUrl: t.exposeString("iconUrl", { nullable: true }),
+            bannerUrl: t.exposeString("bannerUrl", { nullable: true }),
             adminUserIds: t.exposeStringList("adminUserIds"),
             bannedUserIds: t.exposeStringList("bannedUserIds"),
             ownerId: t.exposeString("ownerId"),
@@ -145,6 +145,22 @@ builder.queryField("joinedServers", (t) =>
             }
 
             return await services.server.getJoinedServersByUserId(user.id);
+        },
+    })
+);
+
+builder.queryField("server", (t) =>
+    t.field({
+        type: ServerObject,
+        description: "Get a server by id",
+        authScopes: { user: true },
+        args: { serverId: t.arg({ type: "String", required: true }) },
+        resolve: async (_parent, { serverId }, { user }) => {
+            if (!user) {
+                throw new Error("Unauthorized");
+            }
+
+            return await services.server.getServerByIdForUser({ serverId, userId: user.id });
         },
     })
 );

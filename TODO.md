@@ -240,16 +240,16 @@
 
 -   [ ] servers
 
-    -   [ ] create a server
+    -   [x] create a server
         -   [x] change to a modal maybe instead of route?
-    -   [ ] model
-        -   [ ] name
-        -   [ ] icon
-        -   [ ] banner
-        -   [ ] owner
-        -   [ ] type
-            -   [ ] private invite only
-            -   [ ] public discoverable
+    -   [x] model
+        -   [x] name
+        -   [x] icon
+        -   [x] banner
+        -   [x] owner
+        -   [x] type
+            -   [x] private invite only
+            -   [x] public discoverable
                 -   [ ] anyone can join
             -   [ ] closed
                 -   [ ] cannot invite
@@ -281,6 +281,8 @@
     -   [ ] close server
     -   [ ] lock threads/channels
     -   [ ] permission checks on all mutations
+    -   [ ] search servers on discover page
+        -   [ ] join button for public servers
     -   [ ] mock server data
     -   [ ] SEO changes (title, description)
 

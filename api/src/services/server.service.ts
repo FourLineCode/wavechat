@@ -83,3 +83,23 @@ export async function getJoinedServersByUserId(userId: string) {
 
     return user.joinedServers;
 }
+
+export async function getServerByIdForUser({
+    serverId,
+    userId,
+}: {
+    serverId: string;
+    userId: string;
+}) {
+    return await db.server.findFirst({
+        where: {
+            id: serverId,
+            members: {
+                some: {
+                    id: userId,
+                },
+            },
+        },
+        rejectOnNotFound: true,
+    });
+}
