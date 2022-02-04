@@ -281,8 +281,8 @@ builder.mutationField("changePassword", (t) =>
         description: "Change users password",
         authScopes: { user: true },
         args: { input: t.arg({ type: ChangePasswordInput, required: true }) },
-        resolve: async (_parent, { input }, { user }) => {
-            if (!user) {
+        resolve: async (_parent, { input }, { user, session }) => {
+            if (!user || !session) {
                 throw new Error("Unauthorized");
             }
 
@@ -291,6 +291,8 @@ builder.mutationField("changePassword", (t) =>
                 oldPassword: input.oldPassword,
                 newPassword: input.newPassword,
             });
+
+            await services.auth.removeOtherSessions({ userId: user.id, sessionId: session.id });
 
             return { success: true };
         },
