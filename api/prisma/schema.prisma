@@ -53,7 +53,7 @@ model Session {
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 
-    user   User   @relation("sessions", fields: [userId], references: [id])
+    user   User   @relation("sessions", fields: [userId], references: [id], onUpdate: Cascade, onDelete: Cascade)
     userId String
 
     userAgent String?
@@ -65,10 +65,10 @@ model Friendship {
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 
-    firstUser   User   @relation("friendsForward", fields: [firstUserId], references: [id])
+    firstUser   User   @relation("friendsForward", fields: [firstUserId], references: [id], onUpdate: Cascade, onDelete: Cascade)
     firstUserId String
 
-    secondUser   User   @relation("friendsInverse", fields: [secondUserId], references: [id])
+    secondUser   User   @relation("friendsInverse", fields: [secondUserId], references: [id], onUpdate: Cascade, onDelete: Cascade)
     secondUserId String
 
     @@unique([firstUserId, secondUserId])
@@ -80,10 +80,10 @@ model FriendRequest {
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 
-    fromUser   User   @relation("sentRequests", fields: [fromUserId], references: [id])
+    fromUser   User   @relation("sentRequests", fields: [fromUserId], references: [id], onUpdate: Cascade, onDelete: Cascade)
     fromUserId String
 
-    toUser   User   @relation("pendingRequests", fields: [toUserId], references: [id])
+    toUser   User   @relation("pendingRequests", fields: [toUserId], references: [id], onUpdate: Cascade, onDelete: Cascade)
     toUserId String
 
     @@unique([fromUserId, toUserId])
@@ -100,7 +100,7 @@ model Media {
     mimetype String
     encoding String
 
-    message   Message @relation("messageMedia", fields: [messageId], references: [id])
+    message   Message @relation("messageMedia", fields: [messageId], references: [id], onUpdate: Cascade, onDelete: Cascade)
     messageId String
 }
 
@@ -116,7 +116,7 @@ model Message {
     author   User   @relation("userMessages", fields: [authorId], references: [id])
     authorId String
 
-    thread   MessageThread @relation("threadMessages", fields: [threadId], references: [id])
+    thread   MessageThread @relation("threadMessages", fields: [threadId], references: [id], onUpdate: Cascade, onDelete: Cascade)
     threadId String
 }
 
@@ -142,7 +142,7 @@ model MessageThreadOnUser {
     user   User   @relation(fields: [userId], references: [id])
     userId String
 
-    messageThread   MessageThread @relation(fields: [messageThreadId], references: [id])
+    messageThread   MessageThread @relation(fields: [messageThreadId], references: [id], onUpdate: Cascade, onDelete: Cascade)
     messageThreadId String
 
     @@id([userId, messageThreadId])
@@ -182,10 +182,10 @@ model ServerOnUser {
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 
-    user   User   @relation(fields: [userId], references: [id])
+    user   User   @relation(fields: [userId], references: [id], onUpdate: Cascade, onDelete: Cascade)
     userId String
 
-    server   Server @relation(fields: [serverId], references: [id])
+    server   Server @relation(fields: [serverId], references: [id], onUpdate: Cascade, onDelete: Cascade)
     serverId String
 
     @@id([userId, serverId])
@@ -200,7 +200,7 @@ model ServerChannel {
     name   String
     locked Boolean @default(false)
 
-    thread   MessageThread @relation("threadOnServerChannel", fields: [threadId], references: [id])
+    thread   MessageThread @relation("threadOnServerChannel", fields: [threadId], references: [id], onUpdate: Cascade, onDelete: Cascade)
     threadId String        @unique
 }
 
@@ -210,10 +210,10 @@ model ServerInvite {
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 
-    user   User   @relation("serverInvitesOnUser", fields: [userId], references: [id])
+    user   User   @relation("serverInvitesOnUser", fields: [userId], references: [id], onUpdate: Cascade, onDelete: Cascade)
     userId String
 
-    server   Server @relation("serverInvite", fields: [serverId], references: [id])
+    server   Server @relation("serverInvite", fields: [serverId], references: [id], onUpdate: Cascade, onDelete: Cascade)
     serverId String
 
     @@unique([userId, serverId])
