@@ -284,6 +284,7 @@
     -   [ ] search servers on discover page
         -   [ ] join button for public servers
     -   [ ] mock server data
+    -   [ ] solve n+1
     -   [ ] SEO changes (title, description)
 
 -   [ ] reactions/emojis

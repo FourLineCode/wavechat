@@ -1,8 +1,7 @@
 import { User } from "@prisma/client";
-import bcrypt from "bcrypt";
+import argon2 from "argon2";
 import { Request } from "express";
 import { db } from "prisma/connection";
-import { getConfig } from "src/internal/config";
 import { services } from "src/services";
 
 export async function signUp(req: Request, input: User) {
@@ -77,7 +76,7 @@ export async function validatePassword({
     password: string;
     hashedPassword: string;
 }) {
-    return await bcrypt.compare(password, hashedPassword);
+    return await argon2.verify(hashedPassword, password);
 }
 
 export async function changePassword({
@@ -89,9 +88,7 @@ export async function changePassword({
     oldPassword: string;
     newPassword: string;
 }) {
-    const config = getConfig();
-
-    const hashed = await bcrypt.compare(oldPassword, user.password);
+    const hashed = await argon2.verify(user.password, oldPassword);
     if (!hashed) {
         throw new Error("Incorrect old password");
     }
@@ -99,7 +96,7 @@ export async function changePassword({
     await db.user.update({
         where: { id: user.id },
         data: {
-            password: await bcrypt.hash(newPassword, config.hashSalt),
+            password: await argon2.hash(newPassword),
         },
     });
 }

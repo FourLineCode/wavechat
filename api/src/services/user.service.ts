@@ -1,7 +1,6 @@
 import { User } from "@prisma/client";
-import bcrypt from "bcrypt";
+import argon2 from "argon2";
 import { db } from "prisma/connection";
-import { getConfig } from "src/internal/config";
 
 export async function getAllUsers() {
     return await db.user.findMany();
@@ -48,13 +47,12 @@ export async function userExistWithUsernameOrEmail({
 }
 
 export async function createNewUser(input: User) {
-    const config = getConfig();
     return await db.user.create({
         data: {
             email: input.email,
             username: input.username.toLowerCase(),
             displayName: input.username,
-            password: await bcrypt.hash(input.password, config.hashSalt),
+            password: await argon2.hash(input.password),
             bio: input.bio,
             university: input.university,
             department: input.department,

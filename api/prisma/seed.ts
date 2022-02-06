@@ -1,10 +1,8 @@
 import faker from "@faker-js/faker";
 import { PrismaClient } from "@prisma/client";
-import bcrypt from "bcrypt";
-import { getConfig } from "src/internal/config";
+import argon2 from "argon2";
 
 const db = new PrismaClient();
-const config = getConfig();
 
 async function seed() {
     const user = await db.user.findFirst();
@@ -18,7 +16,7 @@ async function seed() {
             email: "akmal@wave.com",
             username: "akmal",
             displayName: "Akmal",
-            password: bcrypt.hashSync(process.env.ADMIN_PASS!, config.hashSalt),
+            password: await argon2.hash(process.env.ADMIN_PASS!),
             role: "ADMIN",
             bio: "I made this website LLOOL",
             avatarUrl: "https://avatars.githubusercontent.com/u/56719270?v=4",
@@ -36,7 +34,7 @@ async function seed() {
                 email: faker.internet.email(),
                 username: name.toLowerCase(),
                 displayName: name,
-                password: bcrypt.hashSync(process.env.BOT_PASS!, config.hashSalt),
+                password: await argon2.hash(process.env.BOT_PASS!),
                 bio: faker.lorem.sentences(2),
                 avatarUrl: faker.internet.avatar(),
                 university: faker.company.companyName(),
@@ -105,7 +103,7 @@ async function seed() {
                 email: `bot${i}@wave.com`,
                 username: `bot${i}`,
                 displayName: `BOT${i}`,
-                password: bcrypt.hashSync(process.env.BOT_PASS!, config.hashSalt),
+                password: await argon2.hash(process.env.BOT_PASS!),
                 bio: faker.lorem.sentences(2),
                 avatarUrl: faker.internet.avatar(),
                 university: faker.company.companyName(),

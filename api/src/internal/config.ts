@@ -7,7 +7,6 @@ const isDev = process.env.NODE_ENV !== "production";
 export interface Config {
     isDev: boolean;
     port: number;
-    hashSalt: number;
     redisPort: number;
     redisHost: string;
     origins: string[];
@@ -22,7 +21,6 @@ export interface Config {
 const config: Config = {
     isDev: isDev,
     port: parseInt(process.env.PORT || "5001"),
-    hashSalt: 12,
     redisPort: parseInt(process.env.REDIS_PORT || "6379"),
     redisHost: process.env.REDIS_HOST || "redis",
     origins: [process.env.ORIGIN_ENDPOINT || "http://localhost:3000", "http://localhost:3001"],
