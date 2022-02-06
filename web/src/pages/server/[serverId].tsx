@@ -45,7 +45,6 @@ export default function ServerById() {
         onError: (error) => {
             toast.error(error.message);
         },
-        onCompleted: console.log,
     });
 
     return (

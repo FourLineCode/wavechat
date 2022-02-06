@@ -22,7 +22,7 @@
         "codegen": "pnpm --dir web codegen",
         "codegen:watch": "pnpm --dir web codegen:watch",
         "clean": "turbo run clean && rm -rf node_modules",
-        "clean:cache": "turbo run clean:cache",
+        "clean:cache": "turbo run clean:cache && rm -rf ./node_modules/.cache/turbo",
         "reset": "pnpm clean && pnpm install",
         "typecheck": "turbo run typecheck",
         "format": "prettier --write '**/*.{js,jsx,json,ts,tsx,md,html,css}'",

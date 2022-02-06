@@ -18,9 +18,6 @@ export function NavigationServersList() {
         onError: (error) => {
             toast.error(error.message);
         },
-        onCompleted: (data) => {
-            console.log(data.joinedServers);
-        },
     });
 
     return loading ? (

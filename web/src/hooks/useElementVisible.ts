@@ -7,7 +7,6 @@ export function useElementVisible<T extends HTMLElement>(
     const [isIntersecting, setIntersecting] = useState(false);
     const observer = new IntersectionObserver(
         ([entry]) => {
-            console.log("int", entry.isIntersecting);
             setIntersecting(entry.isIntersecting);
         },
         {

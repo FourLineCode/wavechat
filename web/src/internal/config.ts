@@ -1,6 +1,14 @@
 const isDev = process.env.NODE_ENV === "development";
 
-export const config = {
+interface Config {
+    isDev: boolean;
+    iconUrl: string;
+    apiEndpoint: string;
+    wsEndpoint: string;
+    wsPath: string;
+}
+
+export let config: Config = {
     isDev: isDev,
     iconUrl: "/logo.png",
     apiEndpoint: process.env.NEXT_PUBLIC_API_ENDPOINT || "http://localhost:5000/graphql",

@@ -133,7 +133,7 @@ export const useAuth = create<AuthState>((set, get) => ({
 
                 await client.clearStore();
 
-                if (process.browser) {
+                if (typeof window !== undefined) {
                     window.location.replace("/signin");
                     toast.success("Successfully signed out");
                 }

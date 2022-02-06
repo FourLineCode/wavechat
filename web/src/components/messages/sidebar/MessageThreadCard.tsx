@@ -20,7 +20,7 @@ export function MessageThreadCard({ thread }: Props) {
     const router = useRouter();
     const messageThreadProfile = useModal();
     const currentUserId = useAuth().user?.id;
-    const active = process.browser && window.location.pathname.endsWith(thread.id);
+    const active = typeof window !== undefined && window.location.pathname.endsWith(thread.id);
     const [user] = thread.participants.filter((u) => u.id !== currentUserId);
     const unfriend = useUnfriendMutation(user.id);
 
