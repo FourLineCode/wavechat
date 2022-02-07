@@ -168,7 +168,7 @@ importers:
       react: 17.0.2
       react-contextmenu: ^2.14.0
       react-dom: 17.0.2
-      react-dropzone: ^11.5.3
+      react-dropzone: ^12.0.0
       react-hot-toast: ^2.2.0
       react-icons: ^4.3.1
       regenerator-runtime: ^0.13.9
@@ -193,7 +193,7 @@ importers:
       react: 17.0.2
       react-contextmenu: 2.14.0_react-dom@17.0.2+react@17.0.2
       react-dom: 17.0.2_react@17.0.2
-      react-dropzone: 11.5.3_react@17.0.2
+      react-dropzone: 12.0.0_react@17.0.2
       react-hot-toast: 2.2.0_react-dom@17.0.2+react@17.0.2
       react-icons: 4.3.1_react@17.0.2
       socket.io-client: 4.4.1
@@ -3427,8 +3427,8 @@ packages:
       escape-string-regexp: 1.0.5
     dev: true
 
-  /file-selector/0.2.4:
-    resolution: {integrity: sha512-ZDsQNbrv6qRi1YTDOEWzf5J2KjZ9KMI1Q2SGeTkCJmNNW25Jg4TW4UMcmoqcg4WrAyKRcpBXdbWRxkfrOzVRbA==}
+  /file-selector/0.4.0:
+    resolution: {integrity: sha512-iACCiXeMYOvZqlF1kTiYINzgepRBymz1wwjiuup9u9nayhb6g4fSwiyJ/6adli+EPwrWtpgQAh2PoS7HukEGEg==}
     engines: {node: '>= 10'}
     dependencies:
       tslib: 2.3.1
@@ -5126,14 +5126,14 @@ packages:
       scheduler: 0.20.2
     dev: false
 
-  /react-dropzone/11.5.3_react@17.0.2:
-    resolution: {integrity: sha512-68+T6sWW5L89qJnn3SD1aRazhuRBhTT9JOI1W8vI5YWsfegM4C7tlGbPH1AgEbmZY5s8E8L0QhX0e3VdAa0KWA==}
-    engines: {node: '>= 10'}
+  /react-dropzone/12.0.0_react@17.0.2:
+    resolution: {integrity: sha512-xGZr9YFTLqLkYDSx7CMRhjW4rIEqE9w2DhJB0CIEslPzUj3OQQcg7fK8uW85exB+UaJoPfk74lnKi0kv7q6rDw==}
+    engines: {node: '>= 10.13'}
     peerDependencies:
       react: '>= 16.8'
     dependencies:
       attr-accept: 2.2.2
-      file-selector: 0.2.4
+      file-selector: 0.4.0
       prop-types: 15.8.1
       react: 17.0.2
     dev: false
