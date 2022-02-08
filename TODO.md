@@ -283,8 +283,8 @@
     -   [ ] permission checks on all mutations
     -   [ ] search servers on discover page
         -   [ ] join button for public servers
-    -   [ ] mock server data
     -   [ ] solve n+1
+    -   [ ] mock server data
     -   [ ] SEO changes (title, description)
 
 -   [ ] reactions/emojis
