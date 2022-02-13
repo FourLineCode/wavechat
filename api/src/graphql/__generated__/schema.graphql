@@ -222,6 +222,7 @@ type Server {
   adminUserIds: [String!]!
   bannedUserIds: [String!]!
   bannerUrl: String
+  channels: [ServerChannel!]!
   createdAt: Date!
   iconUrl: String
   id: ID!
@@ -242,6 +243,8 @@ type ServerChannel {
   locked: Boolean!
   name: String!
   pk: Int!
+  server: Server!
+  serverId: String!
   thread: MessageThread!
   threadId: String!
   updatedAt: Date!

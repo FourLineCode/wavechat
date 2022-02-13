@@ -21,16 +21,22 @@ export const ServerObject: ObjectRef<Server, Server> = builder
             adminUserIds: t.exposeStringList("adminUserIds"),
             bannedUserIds: t.exposeStringList("bannedUserIds"),
             ownerId: t.exposeString("ownerId"),
-            owner: t.field({
+            owner: t.loadable({
                 type: UserObject,
-                resolve: async (server) => {
-                    return await services.user.getUserById(server.ownerId);
-                },
+                sort: (user) => user.id,
+                load: async (ids: string[]) => await services.dataloader.loadUserByIDs(ids),
+                resolve: (server) => server.ownerId,
             }),
             members: t.field({
                 type: [UserObject],
                 resolve: async (server) => {
                     return await services.server.getServerMembers(server.id);
+                },
+            }),
+            channels: t.field({
+                type: [ServerChannelObject],
+                resolve: async (server) => {
+                    return await services.server.getServerChannelsByServerId(server.id);
                 },
             }),
             pendingInvites: t.field({
@@ -53,12 +59,21 @@ export const ServerChannelObject: ObjectRef<ServerChannel, ServerChannel> = buil
             updatedAt: t.expose("updatedAt", { type: "Date" }),
             name: t.exposeString("name"),
             locked: t.exposeBoolean("locked"),
+            serverId: t.exposeString("serverId"),
+            server: t.loadable({
+                type: ServerObject,
+                sort: (server) => server.id,
+                load: async (ids: string[]) => await services.dataloader.loadServerByIDs(ids),
+                resolve: (channel) => channel.serverId,
+            }),
             threadId: t.exposeString("threadId"),
-            thread: t.field({
+            thread: t.loadable({
                 type: MessageThreadObject,
-                resolve: async (serverChannel) => {
-                    return await services.messageThread.getThreadByThreadId(serverChannel.threadId);
+                sort: (thread) => thread.id,
+                load: async (ids: string[]) => {
+                    return await services.dataloader.loadMessageThreadByIDs(ids);
                 },
+                resolve: (serverChannel) => serverChannel.threadId,
             }),
         }),
     });
@@ -73,18 +88,18 @@ export const ServerInviteObject: ObjectRef<ServerInvite, ServerInvite> = builder
             createdAt: t.expose("createdAt", { type: "Date" }),
             updatedAt: t.expose("updatedAt", { type: "Date" }),
             userId: t.exposeString("userId"),
-            user: t.field({
+            user: t.loadable({
                 type: UserObject,
-                resolve: async (serverInvite) => {
-                    return await services.user.getUserById(serverInvite.userId);
-                },
+                sort: (user) => user.id,
+                load: async (ids: string[]) => await services.dataloader.loadUserByIDs(ids),
+                resolve: (serverInvite) => serverInvite.userId,
             }),
             serverId: t.exposeString("serverId"),
-            server: t.field({
+            server: t.loadable({
                 type: ServerObject,
-                resolve: async (serverInvite) => {
-                    return await services.server.getServerById(serverInvite.serverId);
-                },
+                sort: (server) => server.id,
+                load: async (ids: string[]) => await services.dataloader.loadServerByIDs(ids),
+                resolve: (serverInvite) => serverInvite.serverId,
             }),
         }),
     });

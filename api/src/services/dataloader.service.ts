@@ -29,3 +29,13 @@ export async function loadMessageThreadByIDs(ids: string[]) {
         },
     });
 }
+
+export async function loadServerByIDs(ids: string[]) {
+    return await db.server.findMany({
+        where: {
+            id: {
+                in: ids,
+            },
+        },
+    });
+}

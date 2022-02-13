@@ -54,7 +54,7 @@ export function CreateServerModal() {
             },
             onCompleted: (data) => {
                 toast.success("Server created");
-                router.push(data.createServer.id);
+                router.push(`/server/${data.createServer.id}`);
             },
             refetchQueries: [{ query: GET_JOINED_SERVERS }],
         }

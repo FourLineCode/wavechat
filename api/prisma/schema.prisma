@@ -174,6 +174,8 @@ model Server {
     adminUserIds  String[]
     bannedUserIds String[]
 
+    channels ServerChannel[] @relation("serverChannelsOnServer")
+
     pendingInvites ServerInvite[] @relation("serverInvite")
 }
 
@@ -199,6 +201,9 @@ model ServerChannel {
 
     name   String
     locked Boolean @default(false)
+
+    server   Server @relation("serverChannelsOnServer", fields: [serverId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+    serverId String
 
     thread   MessageThread @relation("threadOnServerChannel", fields: [threadId], references: [id], onUpdate: Cascade, onDelete: Cascade)
     threadId String        @unique

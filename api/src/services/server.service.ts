@@ -103,3 +103,11 @@ export async function getServerByIdForUser({
         rejectOnNotFound: true,
     });
 }
+
+export async function getServerChannelsByServerId(serverId: string) {
+    return await db.serverChannel.findMany({
+        where: {
+            serverId: serverId,
+        },
+    });
+}
