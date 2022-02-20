@@ -44,7 +44,8 @@ model User {
     ownedServers         Server[]       @relation("ownedServers")
     joinedServers        Server[]       @relation("joinedServers")
     ServerOnUser         ServerOnUser[]
-    pendingServerInvites ServerInvite[] @relation("serverInvitesOnUser")
+    sentServerInvites    ServerInvite[] @relation("sentServerInvites")
+    pendingServerInvites ServerInvite[] @relation("pendingServerInvites")
 }
 
 model Session {
@@ -215,11 +216,14 @@ model ServerInvite {
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 
-    user   User   @relation("serverInvitesOnUser", fields: [userId], references: [id], onUpdate: Cascade, onDelete: Cascade)
-    userId String
+    fromUser   User   @relation("sentServerInvites", fields: [fromUserId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+    fromUserId String
+
+    toUser   User   @relation("pendingServerInvites", fields: [toUserId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+    toUserId String
 
     server   Server @relation("serverInvite", fields: [serverId], references: [id], onUpdate: Cascade, onDelete: Cascade)
     serverId String
 
-    @@unique([userId, serverId])
+    @@unique([fromUserId, toUserId, serverId])
 }

@@ -343,6 +343,7 @@ export type Server = {
   adminUserIds: Array<Scalars['String']>;
   bannedUserIds: Array<Scalars['String']>;
   bannerUrl?: Maybe<Scalars['String']>;
+  channels: Array<ServerChannel>;
   createdAt: Scalars['Date'];
   iconUrl?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
@@ -364,6 +365,8 @@ export type ServerChannel = {
   locked: Scalars['Boolean'];
   name: Scalars['String'];
   pk: Scalars['Int'];
+  server: Server;
+  serverId: Scalars['String'];
   thread: MessageThread;
   threadId: Scalars['String'];
   updatedAt: Scalars['Date'];
@@ -551,6 +554,11 @@ export type UploadServerIconMutationVariables = Exact<{
 
 
 export type UploadServerIconMutation = { __typename?: 'Mutation', uploadSingleFile: { __typename?: 'MediaDTO', url: string, filename: string, mimetype: string, encoding: string } };
+
+export type GetFriendsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetFriendsQuery = { __typename?: 'Query', friendsList: Array<{ __typename?: 'Friendship', id: string, firstUserId: string, secondUserId: string, firstUser: { __typename?: 'User', id: string, username: string, displayName: string, avatarUrl?: string | null }, secondUser: { __typename?: 'User', id: string, username: string, displayName: string, avatarUrl?: string | null } }> };
 
 export type ChangePasswordMutationVariables = Exact<{
   input: ChangePasswordInput;
@@ -866,6 +874,27 @@ export const UploadServerIconDocument = gql`
 }
     `;
 export type UploadServerIconMutationOptions = Apollo.BaseMutationOptions<UploadServerIconMutation, UploadServerIconMutationVariables>;
+export const GetFriendsDocument = gql`
+    query GetFriends {
+  friendsList {
+    id
+    firstUserId
+    firstUser {
+      id
+      username
+      displayName
+      avatarUrl
+    }
+    secondUserId
+    secondUser {
+      id
+      username
+      displayName
+      avatarUrl
+    }
+  }
+}
+    `;
 export const ChangePasswordDocument = gql`
     mutation ChangePassword($input: ChangePasswordInput!) {
   changePassword(input: $input) {

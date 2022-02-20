@@ -11,7 +11,9 @@ export function ServerMembersList({ members }: Props) {
             <div className="text-lg font-bold text-center text-secondary">Members</div>
             {members ? (
                 members.map((member) => (
-                    <div className="font-semibold text-md">{member.displayName}</div>
+                    <div className="font-semibold text-md" key={member.id}>
+                        {member.displayName}
+                    </div>
                 ))
             ) : (
                 <div className="flex items-center justify-center w-full mt-20">

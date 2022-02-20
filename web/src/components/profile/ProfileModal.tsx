@@ -6,10 +6,10 @@ interface Props extends ModalProps {
     userId: string;
 }
 
-export function ProfileModal({ userId, show, onClose }: Props) {
+export function ProfileModal({ userId, ...modalProps }: Props) {
     return (
-        <Modal large show={show} onClose={onClose}>
-            <ProfileDetails userId={userId} onClose={onClose} />
+        <Modal large {...modalProps}>
+            <ProfileDetails userId={userId} onClose={modalProps.onClose} />
         </Modal>
     );
 }

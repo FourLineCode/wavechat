@@ -1,7 +1,7 @@
 import { gql, useQuery } from "@apollo/client";
 import toast from "react-hot-toast";
-import { GetJoinedServersQuery } from "src/apollo/__generated__/types";
-import { NavigationSidebarRoute } from "src/components/navigations/NavigationSidebarRoute";
+import { GetJoinedServersQuery, Server } from "src/apollo/__generated__/types";
+import { NavigationServerRoute } from "src/components/navigations/NavigationServerRoute";
 
 export const GET_JOINED_SERVERS = gql`
     query GetJoinedServers {
@@ -29,12 +29,7 @@ export function NavigationServersList() {
     ) : (
         <>
             {data?.joinedServers.map((server) => (
-                <NavigationSidebarRoute
-                    key={server.id}
-                    route={`/server/${server.id}`}
-                    tooltip={server.name}
-                    imageSrc={server.iconUrl}
-                />
+                <NavigationServerRoute server={server as Server} key={server.id} />
             ))}
         </>
     );
