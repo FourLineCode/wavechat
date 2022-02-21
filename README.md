@@ -126,7 +126,7 @@ awslocal --endpoint-url=http://localhost:4566 s3api put-bucket-acl --bucket wc-m
 
 ## License
 
-Published and distributed under the MIT License. See `LICENSE` for more information.
+Published and distributed under the MIT License. See [`LICENSE`](./LICENSE) for more information.
 
 ## Contact
 
