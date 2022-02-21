@@ -19,6 +19,7 @@
         "db:studio": "pnpm --dir api studio",
         "db:gen": "pnpm --dir api generate",
         "db:migrate": "pnpm --dir api migrate",
+        "db:seed": "pnpm --dir api seed",
         "codegen": "pnpm --dir web codegen",
         "codegen:watch": "pnpm --dir web codegen:watch",
         "clean": "turbo run clean && rm -rf node_modules",

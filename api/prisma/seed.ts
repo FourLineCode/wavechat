@@ -26,8 +26,8 @@ async function seed() {
         },
     });
 
-    // Create some fake accounts
-    for (let i = 0; i < 100; i++) {
+    // Helper function to create a fake user
+    const createFakeUser = async (index: number) => {
         const name = faker.name.findName().split(" ").join("");
         const user = await db.user.create({
             data: {
@@ -43,7 +43,7 @@ async function seed() {
             },
         });
 
-        if (i < 50 && i % 2 === 0) {
+        if (index < 50 && index % 2 === 0) {
             // Create friendships
             await db.friendship.create({
                 data: {
@@ -53,7 +53,7 @@ async function seed() {
             });
 
             // Create fake message threads and populate with messages
-            if (i % 5 === 0) {
+            if (index % 5 === 0) {
                 const thread = await db.messageThread.create({
                     data: {
                         participants: {
@@ -66,12 +66,12 @@ async function seed() {
                     db.message.createMany({
                         data: [
                             {
-                                body: "Example message #1",
+                                body: "This is an example message #1",
                                 threadId: thread.id,
                                 authorId: user.id,
                             },
                             {
-                                body: "Example message #2",
+                                body: "This is an example message #2",
                                 threadId: thread.id,
                                 authorId: user.id,
                             },
@@ -85,7 +85,7 @@ async function seed() {
                     }),
                 ]);
             }
-        } else if (i < 50 && i % 2 !== 0) {
+        } else if (index < 50 && index % 2 !== 0) {
             // Send some requests
             await db.friendRequest.create({
                 data: {
@@ -94,24 +94,29 @@ async function seed() {
                 },
             });
         }
-    }
+    };
+
+    // Create some fake accounts
+    await Promise.all(Array.from({ length: 100 }).map((_, i) => createFakeUser(i)));
 
     // Create some bot accounts
-    for (let i = 0; i < 20; i++) {
-        await db.user.create({
-            data: {
-                email: `bot${i}@wave.com`,
-                username: `bot${i}`,
-                displayName: `BOT${i}`,
-                password: await argon2.hash(process.env.BOT_PASS!),
-                bio: faker.lorem.sentences(2),
-                avatarUrl: faker.internet.avatar(),
-                university: faker.company.companyName(),
-                department: faker.commerce.department(),
-                semester: faker.datatype.number(16) + 1,
-            },
-        });
-    }
+    await Promise.all(
+        Array.from({ length: 20 }).map(async (_, i) =>
+            db.user.create({
+                data: {
+                    email: `bot${i}@wave.com`,
+                    username: `bot${i}`,
+                    displayName: `BOT${i}`,
+                    password: await argon2.hash(process.env.BOT_PASS!),
+                    bio: faker.lorem.sentences(2),
+                    avatarUrl: faker.internet.avatar(),
+                    university: faker.company.companyName(),
+                    department: faker.commerce.department(),
+                    semester: faker.datatype.number(16) + 1,
+                },
+            })
+        )
+    );
 }
 
 seed()
