@@ -14,12 +14,7 @@ import {
 } from "src/graphql/queries";
 import { store } from "src/redis/store";
 
-export async function initializeSocketHandler(io: IOServer) {
-    io.on(SocketEvents.Connect, onConnect);
-}
-
-async function onConnect(socket: Socket) {
-    console.log("+ User has connected -", socket.id);
+export async function registerAuthHandler(io: IOServer, socket: Socket) {
     const { authorized, user } = await authorizeSocket(socket);
     if (!authorized) {
         socket.emit(
@@ -34,13 +29,10 @@ async function onConnect(socket: Socket) {
     await store.set(socket.id, JSON.stringify(user));
     socket.emit(MessageSocketEvents.Connected);
 
-    socket.on(SocketEvents.Disconnect, () => onDisconnect(socket));
-}
-
-async function onDisconnect(socket: Socket) {
-    // Remove auth info from redis store
-    await store.del(socket.id);
-    console.log("- User has disconnected -", socket.id);
+    socket.on(SocketEvents.Disconnect, async () => {
+        // Remove auth info from redis store
+        await store.del(socket.id);
+    });
 }
 
 async function authorizeSocket(socket: Socket): Promise<AuthorizeSocketDTO> {

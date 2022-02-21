@@ -253,13 +253,15 @@ type ServerChannel {
 """ServerInvite object type"""
 type ServerInvite {
   createdAt: Date!
+  fromUser: User!
+  fromUserId: String!
   id: ID!
   pk: Int!
   server: Server!
   serverId: String!
+  toUser: User!
+  toUserId: String!
   updatedAt: Date!
-  user: User!
-  userId: String!
 }
 
 """Information about user session"""

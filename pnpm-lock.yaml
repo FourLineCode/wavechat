@@ -12,54 +12,54 @@ importers:
 
   api:
     specifiers:
-      '@faker-js/faker': ^6.0.0-alpha.5
-      '@pothos/core': ^3.1.2
-      '@pothos/plugin-dataloader': ^3.2.0
-      '@pothos/plugin-scope-auth': ^3.0.2
-      '@pothos/plugin-validation': ^3.0.1
-      '@prisma/client': ^3.9.1
+      '@faker-js/faker': ^6.0.0-alpha.6
+      '@pothos/core': ^3.3.2
+      '@pothos/plugin-dataloader': ^3.3.1
+      '@pothos/plugin-scope-auth': ^3.4.1
+      '@pothos/plugin-validation': ^3.0.2
+      '@prisma/client': ^3.9.2
       '@types/cookie-parser': ^1.4.2
       '@types/cors': ^2.8.12
       '@types/express': ^4.17.13
-      '@types/graphql-upload': ^8.0.10
+      '@types/graphql-upload': ^8.0.11
       '@types/jsonwebtoken': ^8.5.8
       '@types/morgan': ^1.9.3
-      '@types/node': ^17.0.15
+      '@types/node': ^17.0.18
       '@wavechat/shared': workspace:*
-      apollo-server-core: ^3.6.2
-      apollo-server-express: ^3.6.2
+      apollo-server-core: ^3.6.3
+      apollo-server-express: ^3.6.3
       argon2: ^0.28.4
-      aws-sdk: ^2.1068.0
+      aws-sdk: ^2.1077.0
       cookie-parser: ^1.4.5
       cors: ^2.8.5
       dataloader: ^2.0.0
       dotenv: ^16.0.0
-      express: ^4.17.2
+      express: ^4.17.3
       graphql: 16.3.0
       graphql-upload: ^13.0.0
       helmet: ^5.0.2
       jsonwebtoken: ^8.5.1
       morgan: ^1.10.0
-      prisma: ^3.9.1
-      ts-node: ^10.4.0
+      prisma: ^3.9.2
+      ts-node: ^10.5.0
       ts-node-dev: ^1.1.8
       tsconfig-paths: ^3.11.0
       typescript: ^4.5.5
       zod: ^3.11.6
     dependencies:
-      '@pothos/core': 3.2.0_graphql@16.3.0
-      '@pothos/plugin-dataloader': 3.3.0_dataloader@2.0.0+graphql@16.3.0
-      '@pothos/plugin-scope-auth': 3.3.0_graphql@16.3.0
-      '@pothos/plugin-validation': 3.0.1_graphql@16.3.0+zod@3.11.6
-      '@prisma/client': 3.9.1_prisma@3.9.1
-      apollo-server-express: 3.6.2_express@4.17.2+graphql@16.3.0
+      '@pothos/core': 3.3.2_graphql@16.3.0
+      '@pothos/plugin-dataloader': 3.3.1_dataloader@2.0.0+graphql@16.3.0
+      '@pothos/plugin-scope-auth': 3.4.1_graphql@16.3.0
+      '@pothos/plugin-validation': 3.0.2_graphql@16.3.0+zod@3.11.6
+      '@prisma/client': 3.9.2_prisma@3.9.2
+      apollo-server-express: 3.6.3_express@4.17.3+graphql@16.3.0
       argon2: 0.28.4
-      aws-sdk: 2.1069.0
+      aws-sdk: 2.1077.0
       cookie-parser: 1.4.6
       cors: 2.8.5
       dataloader: 2.0.0
       dotenv: 16.0.0
-      express: 4.17.2
+      express: 4.17.3
       graphql: 16.3.0
       graphql-upload: 13.0.0_graphql@16.3.0
       helmet: 5.0.2
@@ -67,18 +67,18 @@ importers:
       morgan: 1.10.0
       zod: 3.11.6
     devDependencies:
-      '@faker-js/faker': 6.0.0-alpha.5
+      '@faker-js/faker': 6.0.0-alpha.7
       '@types/cookie-parser': 1.4.2
       '@types/cors': 2.8.12
       '@types/express': 4.17.13
-      '@types/graphql-upload': 8.0.10
+      '@types/graphql-upload': 8.0.11
       '@types/jsonwebtoken': 8.5.8
       '@types/morgan': 1.9.3
-      '@types/node': 17.0.17
+      '@types/node': 17.0.18
       '@wavechat/shared': link:../shared
-      apollo-server-core: 3.6.2_graphql@16.3.0
-      prisma: 3.9.1
-      ts-node: 10.4.0_241ff727c41c38f37d2c0695b583de34
+      apollo-server-core: 3.6.3_graphql@16.3.0
+      prisma: 3.9.2
+      ts-node: 10.5.0_f3bd4037939c2ed2942ba074291f8ef2
       ts-node-dev: 1.1.8_typescript@4.5.5
       tsconfig-paths: 3.12.0
       typescript: 4.5.5
@@ -865,9 +865,9 @@ packages:
       - typescript
     dev: true
 
-  /@faker-js/faker/6.0.0-alpha.5:
-    resolution: {integrity: sha512-8Is/xFxNgricqmhQR/AJ4Vi0cKzSR7FcpE0ImG9dWciuSxUkyCiK+B5/hTQP8jrVbtgTjpFC1AaTCnALJOBDmw==}
-    engines: {node: '>=12.0.0', npm: '>=7.0.0'}
+  /@faker-js/faker/6.0.0-alpha.7:
+    resolution: {integrity: sha512-T2nYE8+EfzfkRMLMSm7UvgC7fZ2KkKEyCMeyPVS0q2cuvENbt1SjWyu0bOJ0JqBbTs1g+gYMWMFMXspWlzNVmQ==}
+    engines: {node: '>=14.0.0', npm: '>=7.0.0'}
     dev: true
 
   /@fastify/ajv-compiler/1.1.0:
@@ -1532,16 +1532,16 @@ packages:
   /@popperjs/core/2.11.0:
     resolution: {integrity: sha512-zrsUxjLOKAzdewIDRWy9nsV1GQsKBCWaGwsZQlCgr6/q+vjyZhFgqedLfFBuI9anTPEUT4APq9Mu0SZBTzIcGQ==}
 
-  /@pothos/core/3.2.0_graphql@16.3.0:
-    resolution: {integrity: sha512-7Aq+Fbm4W8JztrUQlNEzmFZCodaJsfsfo2nJs6ICB6bFkzFF14guYqi0XBeDLX2BeEOUILAsEPRLHH3DAS8M6A==}
+  /@pothos/core/3.3.2_graphql@16.3.0:
+    resolution: {integrity: sha512-/izxLDm7+SEa6Ri021310zJEsWzhpXXXF/s6BQp0Mw6LC+uHumxF8GVWssLrv40fa1JwrVz1mcozuw26B22Eeg==}
     peerDependencies:
       graphql: '>=15.1.0'
     dependencies:
       graphql: 16.3.0
     dev: false
 
-  /@pothos/plugin-dataloader/3.3.0_dataloader@2.0.0+graphql@16.3.0:
-    resolution: {integrity: sha512-jWEM1dSL0XtueZsHuLIis8pysaAPLgbyay7fBuTHsXu52M494F1g0Xv31IrkqSGro4zcbUBA/udznEaSkOrnDw==}
+  /@pothos/plugin-dataloader/3.3.1_dataloader@2.0.0+graphql@16.3.0:
+    resolution: {integrity: sha512-DOR2gmQyEvd6k5Bw5yaxFI5GSIOmulqygrnNFlHdpRCbonhI1daqb0/FZJiHZuLlrNJmiLeYuYrZJDES0NbRYg==}
     peerDependencies:
       dataloader: '2'
       graphql: '>=15.1.0'
@@ -1550,16 +1550,16 @@ packages:
       graphql: 16.3.0
     dev: false
 
-  /@pothos/plugin-scope-auth/3.3.0_graphql@16.3.0:
-    resolution: {integrity: sha512-kGHyYirT6KEivbJoqEl2RkqBGHjwZE9rQFRrkchiN5X3ilrOxyAYI+d2BQ1Ka1Dbh6kKNLjr5gye5V4etI4g1g==}
+  /@pothos/plugin-scope-auth/3.4.1_graphql@16.3.0:
+    resolution: {integrity: sha512-z6RKPwQY0239rrLWs63zYLwFrpC817QP09/AFAKwRESLZKwGaOGZfv+XG1T3JJankR8FEAuRfMRM883+ZaawhA==}
     peerDependencies:
       graphql: '>=15.1.0'
     dependencies:
       graphql: 16.3.0
     dev: false
 
-  /@pothos/plugin-validation/3.0.1_graphql@16.3.0+zod@3.11.6:
-    resolution: {integrity: sha512-bhB6JRUkKfbtEGUpTJcADrjzWrnnem+DbofkRyKfP8zhKxvsNmGEjKV0vNu+b2SDL+VbdFf/Xwb2ajeNwrVQjA==}
+  /@pothos/plugin-validation/3.0.2_graphql@16.3.0+zod@3.11.6:
+    resolution: {integrity: sha512-6zMsvHHLTRmuECtH//C7bldGz0LCDDzqaLfWymzBkh9y3Chpco0yHt1ShGfeKyNVO4IKGueOz3mSfR1vYe4TrQ==}
     peerDependencies:
       graphql: '>=15.1.0'
       zod: '*'
@@ -1568,8 +1568,8 @@ packages:
       zod: 3.11.6
     dev: false
 
-  /@prisma/client/3.9.1_prisma@3.9.1:
-    resolution: {integrity: sha512-aLwfXKLvL+loQ0IuPPCXkcq8cXBg1IeoHHa5lqQu3dJHdj45wnislA/Ny4UxRQjD5FXqrfAb8sWtF+jhdmjFTg==}
+  /@prisma/client/3.9.2_prisma@3.9.2:
+    resolution: {integrity: sha512-VlEIYVMyfFZHbVBOlunPl47gmP/Z0zzPjPj8I7uKEIaABqrUy50ru3XS0aZd8GFvevVwt7p91xxkUjNjrWhKAQ==}
     engines: {node: '>=12.6'}
     requiresBuild: true
     peerDependencies:
@@ -1579,7 +1579,7 @@ packages:
         optional: true
     dependencies:
       '@prisma/engines-version': 3.9.0-58.bcc2ff906db47790ee902e7bbc76d7ffb1893009
-      prisma: 3.9.1
+      prisma: 3.9.2
     dev: false
 
   /@prisma/engines-version/3.9.0-58.bcc2ff906db47790ee902e7bbc76d7ffb1893009:
@@ -1712,7 +1712,7 @@ packages:
   /@types/accepts/1.3.5:
     resolution: {integrity: sha512-jOdnI/3qTpHABjM5cx1Hc0sKsPoYCp+DP/GJRGtDlPd7fiV9oXGGIcjW/ZOxLIvjGz8MA+uMZI9metHlgqbgwQ==}
     dependencies:
-      '@types/node': 17.0.17
+      '@types/node': 17.0.18
 
   /@types/apollo-upload-client/17.0.0_react@17.0.2:
     resolution: {integrity: sha512-S1HUj9g+wn0fM29vLsnD87hTW2h2k/ELlTTJ+mUHTnF6oxmm46KkqxrzFPR7u2rQBjjSiKQEaXLqBn76s8bzBg==}
@@ -1729,7 +1729,7 @@ packages:
     resolution: {integrity: sha512-ALYone6pm6QmwZoAgeyNksccT9Q4AWZQ6PvfwR37GT6r6FWUPguq6sUmNGSMV2Wr761oQoBxwGGa6DR5o1DC9g==}
     dependencies:
       '@types/connect': 3.4.35
-      '@types/node': 17.0.17
+      '@types/node': 17.0.18
 
   /@types/component-emitter/1.2.11:
     resolution: {integrity: sha512-SRXjM+tfsSlA9VuG8hGO2nft2p8zjXCK1VcC6N4NXbBbYbSia9kzCChYQajIjzIqOOOuh5Ock6MmV2oux4jDZQ==}
@@ -1738,7 +1738,7 @@ packages:
   /@types/connect/3.4.35:
     resolution: {integrity: sha512-cdeYyv4KWoEgpBISTxWvqYsVy444DOqehiF3fM3ne10AmJ62RSyNkUnxMJXHQWRQQX2eR94m5y1IZyDwBjV9FQ==}
     dependencies:
-      '@types/node': 17.0.17
+      '@types/node': 17.0.18
 
   /@types/content-disposition/0.5.4:
     resolution: {integrity: sha512-0mPF08jn9zYI0n0Q/Pnz7C4kThdSt+6LD4amsrYDDpgBfrVWa3TcCOxKX1zkGgYniGagRv8heN2cbh+CAn+uuQ==}
@@ -1759,7 +1759,7 @@ packages:
       '@types/connect': 3.4.35
       '@types/express': 4.17.13
       '@types/keygrip': 1.0.2
-      '@types/node': 17.0.17
+      '@types/node': 17.0.18
     dev: true
 
   /@types/cors/2.8.12:
@@ -1768,14 +1768,14 @@ packages:
   /@types/express-serve-static-core/4.17.26:
     resolution: {integrity: sha512-zeu3tpouA043RHxW0gzRxwCHchMgftE8GArRsvYT0ByDMbn19olQHx5jLue0LxWY6iYtXb7rXmuVtSkhy9YZvQ==}
     dependencies:
-      '@types/node': 17.0.17
+      '@types/node': 17.0.18
       '@types/qs': 6.9.7
       '@types/range-parser': 1.2.4
 
   /@types/express-serve-static-core/4.17.28:
     resolution: {integrity: sha512-P1BJAEAW3E2DJUlkgq4tOL3RyMunoWXqbSCygWo5ZIWTjUgN1YnaXWW4VWl/oc8vs/XoYibEGBKP0uZyF4AHig==}
     dependencies:
-      '@types/node': 17.0.17
+      '@types/node': 17.0.18
       '@types/qs': 6.9.7
       '@types/range-parser': 1.2.4
     dev: false
@@ -1795,11 +1795,11 @@ packages:
   /@types/fs-capacitor/2.0.0:
     resolution: {integrity: sha512-FKVPOCFbhCvZxpVAMhdBdTfVfXUpsh15wFHgqOKxh9N9vzWZVuWCSijZ5T4U34XYNnuj2oduh6xcs1i+LPI+BQ==}
     dependencies:
-      '@types/node': 17.0.17
+      '@types/node': 17.0.18
     dev: true
 
-  /@types/graphql-upload/8.0.10:
-    resolution: {integrity: sha512-gI26HNwRjYeLbBhBNIZOqaV9GtGOQiyMcoaQSnFzs6zRl4b0TUrS0cFGCNwXhyFeFxpreBm06jENprPWhTpxig==}
+  /@types/graphql-upload/8.0.11:
+    resolution: {integrity: sha512-AE8RWANHutpsQt945lQZKlkq0V/zBxU5R0xhKLZN3KkBMlW95/5uJzk01HUl8gbDkG7hGl8l8lJKbi91k0UnPw==}
     dependencies:
       '@types/express': 4.17.13
       '@types/fs-capacitor': 2.0.0
@@ -1859,7 +1859,7 @@ packages:
       '@types/http-errors': 1.8.1
       '@types/keygrip': 1.0.2
       '@types/koa-compose': 3.2.5
-      '@types/node': 17.0.17
+      '@types/node': 17.0.18
     dev: true
 
   /@types/long/4.0.1:
@@ -1871,14 +1871,11 @@ packages:
   /@types/morgan/1.9.3:
     resolution: {integrity: sha512-BiLcfVqGBZCyNCnCH3F4o2GmDLrpy0HeBVnNlyZG4fo88ZiE9SoiBe3C+2ezuwbjlEyT+PDZ17//TAlRxAn75Q==}
     dependencies:
-      '@types/node': 17.0.17
+      '@types/node': 17.0.18
     dev: true
 
   /@types/node/10.17.60:
     resolution: {integrity: sha512-F0KIgDJfy2nA3zMLmWGKxcH2ZVEtCZXHHdOQs2gSaQ27+lNeEfGxzkIw90aXswATX7AZ33tahPbzy6KAfUreVw==}
-
-  /@types/node/17.0.17:
-    resolution: {integrity: sha512-e8PUNQy1HgJGV3iU/Bp2+D/DXh3PYeyli8LgIwsQcs1Ar1LoaWHSIT6Rw+H2rNJmiq6SNWiDytfx8+gYj7wDHw==}
 
   /@types/node/17.0.18:
     resolution: {integrity: sha512-eKj4f/BsN/qcculZiRSujogjvp5O/k4lOW5m35NopjZM/QwLOR075a8pJW5hD+Rtdm2DaCVPENS6KtSQnUD6BA==}
@@ -1919,7 +1916,7 @@ packages:
     resolution: {integrity: sha512-nCkHGI4w7ZgAdNkrEu0bv+4xNV/XDqW+DydknebMOQwkpDGx8G+HTlj7R7ABI8i8nKxVw0wtKPi1D+lPOkh4YQ==}
     dependencies:
       '@types/mime': 1.3.2
-      '@types/node': 17.0.17
+      '@types/node': 17.0.18
 
   /@types/strip-bom/3.0.0:
     resolution: {integrity: sha1-FKjsOVbC6B7bdSB5CuzyHCkK69I=}
@@ -1993,6 +1990,14 @@ packages:
       negotiator: 0.6.2
     dev: false
 
+  /accepts/1.3.8:
+    resolution: {integrity: sha512-PYAthTa2m2VKxuvSD3DPC/Gy+U+sOA1LAuT8mkmRuvw+NACSaeXEQ+NHcVF7rONl6qcaxV3Uuemwawk+7+SJLw==}
+    engines: {node: '>= 0.6'}
+    dependencies:
+      mime-types: 2.1.34
+      negotiator: 0.6.3
+    dev: false
+
   /acorn-node/1.8.2:
     resolution: {integrity: sha512-8mt+fslDufLYntIoPAaIMUe/lrbrehIiwmR3t2k9LljIzoigEPF27eLk2hy8zSGzmR/ogr7zbRKINMo1u0yh5A==}
     dependencies:
@@ -2013,12 +2018,6 @@ packages:
 
   /acorn/7.4.1:
     resolution: {integrity: sha512-nQyp0o1/mNdbTO1PO6kHkwSrmgZ0MT/jCCpNiwbUjGoRN4dlBhqJtoQuCnEOKzgTVwg0ZWiCoQy6SxMebQVh8A==}
-    engines: {node: '>=0.4.0'}
-    hasBin: true
-    dev: true
-
-  /acorn/8.6.0:
-    resolution: {integrity: sha512-U1riIR+lBSNi3IbxtaHOIKdH8sLFv3NYfNv8sg7ZsNhcfl4HF2++BfqqrNAxoCLQW1iiylOj76ecnaUxz+z9yw==}
     engines: {node: '>=0.4.0'}
     hasBin: true
     dev: true
@@ -2133,8 +2132,8 @@ packages:
     dependencies:
       lru-cache: 6.0.0
 
-  /apollo-server-core/3.6.2_graphql@16.3.0:
-    resolution: {integrity: sha512-GNx41BnpH/yvGv7nTt4bQXuH5BDVs9CBQawfOcgtVdoVoWkazv1Dwy1muqPa7WDt2rk9oY+P6QymtJpBAtmzhg==}
+  /apollo-server-core/3.6.3_graphql@16.3.0:
+    resolution: {integrity: sha512-TFJmAlI6vPp1MHOSXqYkE6leAyMekWv/D/3ma11uETkcd3EPjERGmxtTXPJElMVEkOK9BEElYKthCrH7bjYLuw==}
     engines: {node: '>=12.0'}
     peerDependencies:
       graphql: ^15.3.0 || ^16.0.0
@@ -2179,8 +2178,8 @@ packages:
     dependencies:
       graphql: 16.3.0
 
-  /apollo-server-express/3.6.2_express@4.17.2+graphql@16.3.0:
-    resolution: {integrity: sha512-C/guyWmewY/7rjI1Y2Fdpvq0TgF3F/7kTWcGzQhRe/h31ehvFFCeulrmxJ0MEpnIPB3eX7WHS2DZnyuJplsHKQ==}
+  /apollo-server-express/3.6.3_express@4.17.3+graphql@16.3.0:
+    resolution: {integrity: sha512-3CjahZ+n+1T7pHH1qW1B6Ns0BzwOMeupAp2u0+M8ruOmE/e7VKn0OSOQQckZ8Z2AcWxWeno9K89fIv3PoSYgYA==}
     engines: {node: '>=12.0'}
     peerDependencies:
       express: ^4.17.1
@@ -2192,11 +2191,11 @@ packages:
       '@types/express': 4.17.13
       '@types/express-serve-static-core': 4.17.28
       accepts: 1.3.7
-      apollo-server-core: 3.6.2_graphql@16.3.0
+      apollo-server-core: 3.6.3_graphql@16.3.0
       apollo-server-types: 3.5.1_graphql@16.3.0
       body-parser: 1.19.1
       cors: 2.8.5
-      express: 4.17.2
+      express: 4.17.3
       graphql: 16.3.0
       parseurl: 1.3.3
     transitivePeerDependencies:
@@ -2344,8 +2343,8 @@ packages:
       - supports-color
     dev: false
 
-  /aws-sdk/2.1069.0:
-    resolution: {integrity: sha512-AF7/5JotrVd8g/D3WWHgQto+IryB1V7iudIYm+H+qxmkGOU3xvL63ChhEoLTY/CxuK/diayg0oWILEsXUn3dfw==}
+  /aws-sdk/2.1077.0:
+    resolution: {integrity: sha512-orJvJROs8hJaQRfHsX7Zl5PxEgrD/uTXyqXz9Yu9Io5VVxzvnOty9oHmvEMSlgTIf1qd01gnev/vpvP1HgzKtw==}
     engines: {node: '>= 10.0.0'}
     dependencies:
       buffer: 4.9.2
@@ -2456,6 +2455,22 @@ packages:
       type-is: 1.6.18
     dev: false
 
+  /body-parser/1.19.2:
+    resolution: {integrity: sha512-SAAwOxgoCKMGs9uUAUFHygfLAyaniaoun6I8mFY9pRAJL9+Kec34aU+oIjDhTycub1jozEfEwx1W1IuOYxVSFw==}
+    engines: {node: '>= 0.8'}
+    dependencies:
+      bytes: 3.1.2
+      content-type: 1.0.4
+      debug: 2.6.9
+      depd: 1.1.2
+      http-errors: 1.8.1
+      iconv-lite: 0.4.24
+      on-finished: 2.3.0
+      qs: 6.9.7
+      raw-body: 2.4.3
+      type-is: 1.6.18
+    dev: false
+
   /brace-expansion/1.1.11:
     resolution: {integrity: sha512-iCuPHDFgrHX7H2vEI/5xpz07zSHB00TpugqhmYtVmMO6518mCuRMoOYFldEBl0g187ufozdaHgWKcYFb61qGiA==}
     dependencies:
@@ -2530,6 +2545,11 @@ packages:
 
   /bytes/3.1.1:
     resolution: {integrity: sha512-dWe4nWO/ruEOY7HkUJ5gFt1DCFV9zPRoJr8pV0/ASQermOZjtq8jMjOprC0Kd10GLN+l7xaUPvxzJFWtxGu8Fg==}
+    engines: {node: '>= 0.8'}
+    dev: false
+
+  /bytes/3.1.2:
+    resolution: {integrity: sha512-/Nf7TyzTx6S3yRJObOAV7956r8cr2+Oj8AC5dt8wSP3BQAoeX58NoHyCU8P8zGkNXStjTSi6fzO6F0pBdcYbEg==}
     engines: {node: '>= 0.8'}
     dev: false
 
@@ -3246,16 +3266,16 @@ packages:
     engines: {node: '>=0.4.x'}
     dev: false
 
-  /express/4.17.2:
-    resolution: {integrity: sha512-oxlxJxcQlYwqPWKVJJtvQiwHgosH/LrLSPA+H4UxpyvSS6jC5aH+5MoHFM+KABgTOt0APue4w66Ha8jCUo9QGg==}
+  /express/4.17.3:
+    resolution: {integrity: sha512-yuSQpz5I+Ch7gFrPCk4/c+dIBKlQUxtgwqzph132bsT6qhuzss6I8cLJQz7B3rFblzd6wtcI0ZbGltH/C4LjUg==}
     engines: {node: '>= 0.10.0'}
     dependencies:
-      accepts: 1.3.7
+      accepts: 1.3.8
       array-flatten: 1.1.1
-      body-parser: 1.19.1
+      body-parser: 1.19.2
       content-disposition: 0.5.4
       content-type: 1.0.4
-      cookie: 0.4.1
+      cookie: 0.4.2
       cookie-signature: 1.0.6
       debug: 2.6.9
       depd: 1.1.2
@@ -3270,7 +3290,7 @@ packages:
       parseurl: 1.3.3
       path-to-regexp: 0.1.7
       proxy-addr: 2.0.7
-      qs: 6.9.6
+      qs: 6.9.7
       range-parser: 1.2.1
       safe-buffer: 5.2.1
       send: 0.17.2
@@ -4597,6 +4617,11 @@ packages:
     engines: {node: '>= 0.6'}
     dev: false
 
+  /negotiator/0.6.3:
+    resolution: {integrity: sha512-+EUsqGPLsM+j/zdChZjsnX51g4XrHFOIXwfnCVPGlQk/k5giakcKsuxCObBRu6DSm9opw/O6slWbJdghQM4bBg==}
+    engines: {node: '>= 0.6'}
+    dev: false
+
   /next/12.1.0_react-dom@17.0.2+react@17.0.2:
     resolution: {integrity: sha512-s885kWvnIlxsUFHq9UGyIyLiuD0G3BUC/xrH0CEnH5lHEWkwQcHOORgbDF0hbrW9vr/7am4ETfX4A7M6DjrE7Q==}
     engines: {node: '>=12.22.0'}
@@ -5060,8 +5085,8 @@ packages:
     hasBin: true
     dev: true
 
-  /prisma/3.9.1:
-    resolution: {integrity: sha512-IGcJAu5LzlFv+i+NNhOEh1J1xVVttsVdRBxmrMN7eIH+7mRN6L89Hz1npUAiz4jOpNlHC7n9QwaOYZGxTqlwQw==}
+  /prisma/3.9.2:
+    resolution: {integrity: sha512-i9eK6cexV74OgeWaH3+e6S07kvC9jEZTl6BqtBH398nlCU0tck7mE9dicY6YQd+euvMjjCtY89q4NgmaPnUsSg==}
     engines: {node: '>=12.6'}
     hasBin: true
     requiresBuild: true
@@ -5116,6 +5141,11 @@ packages:
     engines: {node: '>=0.6'}
     dev: false
 
+  /qs/6.9.7:
+    resolution: {integrity: sha512-IhMFgUmuNpyRfxA90umL7ByLlgRXu6tIfKPpF5TmcfRLlLCckfP/g3IQmju6jjpu+Hh8rA+2p6A27ZSPOOHdKw==}
+    engines: {node: '>=0.6'}
+    dev: false
+
   /querystring/0.2.0:
     resolution: {integrity: sha1-sgmEkgO7Jd+CDadW50cAWHhSFiA=}
     engines: {node: '>=0.4.x'}
@@ -5144,6 +5174,16 @@ packages:
     engines: {node: '>= 0.8'}
     dependencies:
       bytes: 3.1.1
+      http-errors: 1.8.1
+      iconv-lite: 0.4.24
+      unpipe: 1.0.0
+    dev: false
+
+  /raw-body/2.4.3:
+    resolution: {integrity: sha512-UlTNLIcu0uzb4D2f4WltY6cVjLi+/jEN4lgEUj3E04tpMDpUlkBo/eSn6zou9hum2VMNpCCUone0O0WeJim07g==}
+    engines: {node: '>= 0.8'}
+    dependencies:
+      bytes: 3.1.2
       http-errors: 1.8.1
       iconv-lite: 0.4.24
       unpipe: 1.0.0
@@ -5986,36 +6026,6 @@ packages:
       ts-node: 9.1.1_typescript@4.5.5
       tsconfig: 7.0.0
       typescript: 4.5.5
-    dev: true
-
-  /ts-node/10.4.0_241ff727c41c38f37d2c0695b583de34:
-    resolution: {integrity: sha512-g0FlPvvCXSIO1JDF6S232P5jPYqBkRL9qly81ZgAOSU7rwI0stphCgd2kLiCrU9DjQCrJMWEqcNSjQL02s6d8A==}
-    hasBin: true
-    peerDependencies:
-      '@swc/core': '>=1.2.50'
-      '@swc/wasm': '>=1.2.50'
-      '@types/node': '*'
-      typescript: '>=2.7'
-    peerDependenciesMeta:
-      '@swc/core':
-        optional: true
-      '@swc/wasm':
-        optional: true
-    dependencies:
-      '@cspotcode/source-map-support': 0.7.0
-      '@tsconfig/node10': 1.0.8
-      '@tsconfig/node12': 1.0.9
-      '@tsconfig/node14': 1.0.1
-      '@tsconfig/node16': 1.0.2
-      '@types/node': 17.0.17
-      acorn: 8.6.0
-      acorn-walk: 8.2.0
-      arg: 4.1.3
-      create-require: 1.1.1
-      diff: 4.0.2
-      make-error: 1.3.6
-      typescript: 4.5.5
-      yn: 3.1.1
     dev: true
 
   /ts-node/10.5.0_f3bd4037939c2ed2942ba074291f8ef2:

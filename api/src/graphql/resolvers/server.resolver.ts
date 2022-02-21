@@ -87,12 +87,19 @@ export const ServerInviteObject: ObjectRef<ServerInvite, ServerInvite> = builder
             pk: t.exposeInt("pk"),
             createdAt: t.expose("createdAt", { type: "Date" }),
             updatedAt: t.expose("updatedAt", { type: "Date" }),
-            userId: t.exposeString("userId"),
-            user: t.loadable({
+            fromUserId: t.exposeString("fromUserId"),
+            fromUser: t.loadable({
                 type: UserObject,
                 sort: (user) => user.id,
                 load: async (ids: string[]) => await services.dataloader.loadUserByIDs(ids),
-                resolve: (serverInvite) => serverInvite.userId,
+                resolve: (serverInvite) => serverInvite.fromUserId,
+            }),
+            toUserId: t.exposeString("toUserId"),
+            toUser: t.loadable({
+                type: UserObject,
+                sort: (user) => user.id,
+                load: async (ids: string[]) => await services.dataloader.loadUserByIDs(ids),
+                resolve: (serverInvite) => serverInvite.toUserId,
             }),
             serverId: t.exposeString("serverId"),
             server: t.loadable({

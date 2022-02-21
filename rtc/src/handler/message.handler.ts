@@ -3,7 +3,6 @@ import {
     MessageDTO,
     MessageSocketEvents,
     RoomEventDTO,
-    SocketEvents,
     UserDTO,
     UserPubsubChannels,
 } from "@wavechat/shared";
@@ -26,29 +25,24 @@ interface RoomHandlerParams {
     roomId: string;
 }
 
-export async function initializeMessageHandler(io: IOServer) {
+export async function registerMessageHandler(io: IOServer, socket: Socket) {
     await pubsub.subscriber.subscribe(UserPubsubChannels.Message);
+
     pubsub.subscriber.on("message", (_channel: string, message: string) => {
         const messageDTO: MessageDTO = JSON.parse(message);
         broadcastMessage(io, messageDTO);
     });
 
-    io.on(SocketEvents.Connect, async (socket: Socket) => {
-        socket.on(MessageSocketEvents.JoinRoom, ({ roomId }: RoomEventDTO) => {
-            joinRoom({ socket, roomId });
-        });
+    socket.on(MessageSocketEvents.JoinRoom, ({ roomId }: RoomEventDTO) => {
+        joinRoom({ socket, roomId });
+    });
 
-        socket.on(MessageSocketEvents.SendMessage, (message: MessageDTO) =>
-            publishMessage(socket, message)
-        );
+    socket.on(MessageSocketEvents.SendMessage, (message: MessageDTO) =>
+        publishMessage(socket, message)
+    );
 
-        socket.on(MessageSocketEvents.LeaveRoom, ({ roomId }: RoomEventDTO) => {
-            leaveRoom({ socket, roomId });
-        });
-
-        socket.on(SocketEvents.Disconnect, () => {
-            socket.removeAllListeners();
-        });
+    socket.on(MessageSocketEvents.LeaveRoom, ({ roomId }: RoomEventDTO) => {
+        leaveRoom({ socket, roomId });
     });
 }
 

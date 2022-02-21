@@ -24,8 +24,8 @@ export function ProfileInfo() {
                     >
                         {user?.displayName}
                     </div>
-                    <div className="flex items-center text-sm text-muted">
-                        <span className="mr-0.5 text-green-500">•</span>
+                    <div className="flex items-center text-sm text-green-500">
+                        <span className="mr-0.5">•</span>
                         <span>Online</span>
                     </div>
                 </div>
