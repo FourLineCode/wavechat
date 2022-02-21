@@ -79,7 +79,7 @@ export default function Thread() {
                     {data && !loading ? (
                         <MessageThreadPage
                             thread={data.messageThread as MessageThread}
-                            key={threadId}
+                            key={data.messageThread.id}
                         />
                     ) : (
                         <div className="flex flex-col items-center justify-center w-full h-full">

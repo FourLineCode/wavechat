@@ -4,7 +4,6 @@ import {
     MessageSocketEvents,
     RoomEventDTO,
     UserDTO,
-    UserPubsubChannels,
 } from "@wavechat/shared";
 import { Server as IOServer, Socket } from "socket.io";
 import { graphQLClient } from "src/graphql/client";
@@ -16,7 +15,6 @@ import {
     PersistMessageVariables,
     PERSIST_MESSAGE,
 } from "src/graphql/queries";
-import { pubsub } from "src/redis/pubsub";
 import { store } from "src/redis/store";
 import { v4 as uuid } from "uuid";
 
@@ -26,19 +24,12 @@ interface RoomHandlerParams {
 }
 
 export async function registerMessageHandler(io: IOServer, socket: Socket) {
-    await pubsub.subscriber.subscribe(UserPubsubChannels.Message);
-
-    pubsub.subscriber.on("message", (_channel: string, message: string) => {
-        const messageDTO: MessageDTO = JSON.parse(message);
-        broadcastMessage(io, messageDTO);
-    });
-
     socket.on(MessageSocketEvents.JoinRoom, ({ roomId }: RoomEventDTO) => {
         joinRoom({ socket, roomId });
     });
 
     socket.on(MessageSocketEvents.SendMessage, (message: MessageDTO) =>
-        publishMessage(socket, message)
+        publishMessage(io, socket, message)
     );
 
     socket.on(MessageSocketEvents.LeaveRoom, ({ roomId }: RoomEventDTO) => {
@@ -46,7 +37,7 @@ export async function registerMessageHandler(io: IOServer, socket: Socket) {
     });
 }
 
-async function publishMessage(socket: Socket, message: MessageDTO) {
+async function publishMessage(io: IOServer, socket: Socket, message: MessageDTO) {
     message.id = uuid();
     const currentTime = new Date().toISOString();
     message.createdAt = currentTime;
@@ -56,7 +47,7 @@ async function publishMessage(socket: Socket, message: MessageDTO) {
         message.attachments = message.attachments.map((media) => ({ id: uuid(), ...media }));
     }
 
-    await pubsub.publisher.publish(UserPubsubChannels.Message, JSON.stringify(message));
+    io.to(message.threadId).emit(MessageSocketEvents.RecieveMessage, message);
 
     try {
         await graphQLClient.request<PersistMessageQuery, PersistMessageVariables>(PERSIST_MESSAGE, {
@@ -65,10 +56,6 @@ async function publishMessage(socket: Socket, message: MessageDTO) {
     } catch (error) {
         socket.emit(ErrorSocketEvents.SendMessageError, "Something went wrong");
     }
-}
-
-async function broadcastMessage(io: IOServer, message: MessageDTO) {
-    io.to(message.threadId).emit(MessageSocketEvents.RecieveMessage, message);
 }
 
 async function joinRoom({ socket, roomId }: RoomHandlerParams) {
