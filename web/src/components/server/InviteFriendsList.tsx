@@ -34,8 +34,8 @@ const GET_FRIENDS = gql`
 
 export function InviteFriendsList({ server }: Props) {
     const { data, loading } = useQuery<GetFriendsQuery>(GET_FRIENDS, {
-        onError: (error) => {
-            toast.error(error.message);
+        onError: () => {
+            toast.error("Failed to fetch users");
         },
     });
 

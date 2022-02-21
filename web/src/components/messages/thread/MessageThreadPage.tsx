@@ -78,10 +78,10 @@ export function MessageThreadPage({ thread }: Props) {
             setMessagesLoading(false);
             setMessages(data.threadMessages as Message[]);
         },
-        onError: (error) => {
+        onError: () => {
             setError(true);
             setMessagesLoading(false);
-            toast.error(error.message);
+            toast.error("Failed to fetch messages");
         },
         fetchPolicy: "no-cache",
     });

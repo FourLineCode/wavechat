@@ -48,9 +48,9 @@ export function CreateServerModal() {
     const [createServer] = useMutation<CreateServerMutation, CreateServerMutationVariables>(
         CREATE_SERVER,
         {
-            onError: (error) => {
+            onError: () => {
                 setIconFile(null);
-                toast.error(error.message);
+                toast.error("Failed to create server");
             },
             onCompleted: (data) => {
                 toast.success("Server created");
@@ -67,9 +67,9 @@ export function CreateServerModal() {
         onCompleted: () => {
             setIconFile(null);
         },
-        onError: (error) => {
+        onError: () => {
             setIconFile(null);
-            toast.error(error.message);
+            toast.error("Failed to upload server icon");
         },
     });
 

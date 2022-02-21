@@ -26,8 +26,8 @@ export function UnsendButton({ user, className, setState, reqId, setReqId }: Req
             setReqId(null);
             toast.success("Unsent request successfully");
         },
-        onError: (error) => {
-            toast.error(error.message);
+        onError: () => {
+            toast.error("Failed to unsend request");
         },
         refetchQueries: [{ query: GET_USER_DATA, variables: { userId: user.id } }],
     });

@@ -79,10 +79,10 @@ export function MediaInput({ socket, thread }: Props) {
 
             toast.success("Uploaded successfully");
         },
-        onError: (error) => {
+        onError: () => {
             setFiles([]);
             reset();
-            toast.error(error.message);
+            toast.error("Failed to upload files");
         },
     });
 

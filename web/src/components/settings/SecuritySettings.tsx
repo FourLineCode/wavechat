@@ -36,8 +36,8 @@ export function SecuritySettings() {
     const changePasswordModal = useModal();
 
     const { data, loading, refetch } = useQuery<GetSessionsQuery>(GET_SESSIONS, {
-        onError: (error) => {
-            toast.error(error.message);
+        onError: () => {
+            toast.error("Failed to fetch sessions");
         },
     });
 
@@ -53,8 +53,8 @@ export function SecuritySettings() {
                 removeSessionsModal.onClose();
                 toast.success("Removed all active sessions");
             },
-            onError: (error) => {
-                toast.error(error.message);
+            onError: () => {
+                toast.error("Failed to remove all sessions");
             },
         }
     );

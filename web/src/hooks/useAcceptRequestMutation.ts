@@ -27,8 +27,8 @@ export function useAcceptRequestMutation({ reqId, userId }: { reqId: string; use
         onCompleted: () => {
             toast.success("Request Accepted");
         },
-        onError: (error) => {
-            toast.error(error.message);
+        onError: () => {
+            toast.error("Failed to accept request");
         },
         refetchQueries: [
             { query: GET_PENDING_REQUESTS },

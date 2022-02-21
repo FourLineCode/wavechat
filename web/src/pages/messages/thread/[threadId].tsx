@@ -55,8 +55,8 @@ export default function Thread() {
             variables: {
                 threadId: threadId,
             },
-            onError: (error) => {
-                toast.error(error.message);
+            onError: () => {
+                toast.error("Failed to fetch conversation");
                 router.push("/messages");
             },
         }

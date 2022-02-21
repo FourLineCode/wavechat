@@ -25,8 +25,8 @@ export function AddButton({ user, className, setState, setReqId }: RequestButton
             setReqId(data.sendRequest.id);
             toast.success("Sent request successfully");
         },
-        onError: (error) => {
-            toast.error(error.message);
+        onError: () => {
+            toast.error("Failed to send request");
         },
         refetchQueries: [{ query: GET_USER_DATA, variables: { userId: user.id } }],
     });

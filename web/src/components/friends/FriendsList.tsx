@@ -30,8 +30,8 @@ export const GET_FRIENDS_LIST = gql`
 
 export function FriendsList() {
     const { data, loading } = useQuery<FriendsListQuery>(GET_FRIENDS_LIST, {
-        onError: (error) => {
-            toast.error(error.message);
+        onError: () => {
+            toast.error("Failed to fetch friends list");
         },
     });
 

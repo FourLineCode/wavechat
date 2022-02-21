@@ -33,8 +33,8 @@ export function SearchFriendsInput() {
         SearchFriendsQuery,
         SearchFriendsQueryVariables
     >(SEARCH_FRIENDS, {
-        onError: (error) => {
-            toast.error(error.message);
+        onError: () => {
+            toast.error("Failed to search friends");
         },
     });
 

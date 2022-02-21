@@ -15,8 +15,8 @@ export const GET_JOINED_SERVERS = gql`
 
 export function NavigationServersList() {
     const { data, loading } = useQuery<GetJoinedServersQuery>(GET_JOINED_SERVERS, {
-        onError: (error) => {
-            toast.error(error.message);
+        onError: () => {
+            toast.error("Failed to fetch servers");
         },
     });
 

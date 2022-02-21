@@ -27,8 +27,8 @@ export function useDeclineRequestMutation({ reqId, userId }: { reqId: string; us
         onCompleted: () => {
             toast.success("Request Declined");
         },
-        onError: (error) => {
-            toast.error(error.message);
+        onError: () => {
+            toast.error("Failed to decline request");
         },
         refetchQueries: [
             { query: GET_PENDING_REQUESTS },

@@ -20,8 +20,8 @@ export function useUnfriendMutation(userId: string) {
         onCompleted: () => {
             toast.success("Unfriended Successfully");
         },
-        onError: (error) => {
-            toast.error(error.message);
+        onError: () => {
+            toast.error("Failed to unfriend user");
         },
         refetchQueries: [{ query: GET_FRIENDS_LIST }, { query: ACTIVE_MESSAGE_THREADS }],
     });

@@ -42,8 +42,8 @@ export default function ServerById() {
 
     const { data, loading } = useQuery<GetServerQuery, GetServerQueryVariables>(GET_SERVER, {
         variables: { serverId },
-        onError: (error) => {
-            toast.error(error.message);
+        onError: () => {
+            toast.error("Failed to fetch server");
         },
     });
 

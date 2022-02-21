@@ -31,8 +31,8 @@ export function useMessageUserMutation() {
         onCompleted: (data) => {
             router.push(`/messages/thread/${data.createMessageThread.id}`);
         },
-        onError: (error) => {
-            toast.error(error.message);
+        onError: () => {
+            toast.error("Failed to message user");
         },
         refetchQueries: [{ query: ACTIVE_MESSAGE_THREADS }],
     });

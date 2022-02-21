@@ -276,6 +276,7 @@
         -   [ ] server member view profile
     -   [ ] server invites
         -   [ ] show invites on discover page
+        -   [ ] invite from discover users page
     -   [ ] roles
         -   [ ] admins
     -   [ ] add members
@@ -297,6 +298,7 @@
     -   [ ] solve n+1
     -   [ ] mock server data
     -   [ ] SEO changes (title, description)
+    -   [ ] update demo images
 
 -   [ ] reactions/emojis
 

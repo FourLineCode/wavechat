@@ -41,8 +41,8 @@ export function RequestsList() {
     const declineRequestModal = useModal();
 
     const { data, loading } = useQuery<PendingRequestsQuery>(GET_PENDING_REQUESTS, {
-        onError: (error) => {
-            toast.error(error.message);
+        onError: () => {
+            toast.error("Failed to fetch pending requests");
         },
     });
 
@@ -51,8 +51,8 @@ export function RequestsList() {
             declineRequestModal.onClose();
             toast.success("Declined All Requests");
         },
-        onError: (error) => {
-            toast.error(error.message);
+        onError: () => {
+            toast.error("Failed to decline all requests");
         },
         refetchQueries: [{ query: GET_PENDING_REQUESTS }],
     });

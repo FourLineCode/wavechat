@@ -46,8 +46,8 @@ export function DiscoverUsersPage() {
             variables: {
                 query: queryTerm,
             },
-            onError: (error) => {
-                toast.error(error.message);
+            onError: () => {
+                toast.error("Failed to fetch users");
             },
         }
     );

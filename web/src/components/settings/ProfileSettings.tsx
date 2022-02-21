@@ -70,8 +70,8 @@ export function ProfileSettings() {
             onCompleted: () => {
                 setFile(null);
             },
-            onError: (error) => {
-                toast.error(error.message);
+            onError: () => {
+                toast.error("Failed to upload avatar");
             },
         }
     );

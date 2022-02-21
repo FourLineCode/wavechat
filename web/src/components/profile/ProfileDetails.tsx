@@ -58,8 +58,8 @@ export function ProfileDetails({ userId, onClose }: Props) {
         variables: {
             userId: userId,
         },
-        onError: (error) => {
-            toast.error(error.message);
+        onError: () => {
+            toast.error("Failed to fetch user");
         },
     });
 

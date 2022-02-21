@@ -29,8 +29,8 @@ export function DirectMessages() {
         ActiveMessageThreadsQuery,
         ActiveMessageThreadsQueryVariables
     >(ACTIVE_MESSAGE_THREADS, {
-        onError: (error) => {
-            toast.error(error.message);
+        onError: () => {
+            toast.error("Failed to fetch conversations");
         },
     });
 
