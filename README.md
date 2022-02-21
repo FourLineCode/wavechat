@@ -61,7 +61,7 @@ WaveChat is a real time social media application made for college/university stu
 		<td align="center"><a href="https://www.apollographql.com/"><img src=".github/images/apollo.png" width="75px;" height="75px;" alt="Apollo"/><br /><b><font color="#777">Apollo</font></b></a></td>
 		<td align="center"><a href="https://tailwindcss.com/"><img src=".github/images/tailwind.png" width="75px;" height="75px;" alt="Tailwind"/><br /><b><font color="#777">Tailwind CSS</font></b></a></td>
 		<td align="center"><a href="https://graphql.org/"><img src=".github/images/graphql.png" width="80px;" height="75px;" alt="GraphQL"/><br /><b><font color="#777">GraphQL</font></b></a></td>
-		<td align="center"><a href="https://giraphql.com/"><img src=".github/images/giraphql.png" width="80px;" height="75px;" alt="GiraphQL"/><br /><b><font color="#777">GiraphQL</font></b></a></td>
+		<td align="center"><a href="https://pothos-graphql.dev/"><img src=".github/images/pothos.png" width="80px;" height="75px;" alt="Pothos"/><br /><b><font color="#777">Pothos</font></b></a></td>
 	</tr>
 		<td align="center"><a href="https://socket.io"><img src=".github/images/socket.png" width="75px;" height="75px;" alt="Socket"/><br /><b><font color="#777">Socket</font></b></a></td>
 		<td align="center"><a href="https://nodejs.org/en/"><img src=".github/images/nodejs.png" width="70px;" height="75px;" alt="NodeJs"/><br /><b><font color="#777">NodeJs</font></b></a></td>

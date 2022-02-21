@@ -1,0 +1,26 @@
+{
+    "baseBranch": "origin/main",
+    "pipeline": {
+        "dev": {
+            "cache": false,
+            "dependsOn": ["^build"]
+        },
+        "build": {
+            "dependsOn": ["^build"],
+            "outputs": [".next/**", "dist"]
+        },
+        "start": {
+            "cache": false,
+            "dependsOn": ["^build"]
+        },
+        "clean": {
+            "cache": false
+        },
+        "clean:cache": {
+            "cache": false
+        },
+        "typecheck": {
+            "cache": false
+        }
+    }
+}

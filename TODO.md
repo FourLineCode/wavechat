@@ -2,7 +2,7 @@
 
 -   [ ] general
 
-    -   [ ] use prisma giraphql plugin
+    -   [ ] use prisma pothos plugin
 
 -   [ ] auth
 
@@ -214,13 +214,20 @@
         -   [x] images
         -   [ ] videos
         -   [ ] audio
-        -   [ ] file upload
+        -   [ ] any file upload
     -   [ ] mentions
         -   [ ] shows user card on click
     -   [ ] reply to messages
     -   [ ] reactions to messages
         -   [ ] only emojis
     -   [ ] maybe markup
+
+-   [ ] discover
+
+    -   [x] search users
+    -   [ ] search public channels
+    -   [ ] filter by uni/semester/department
+    -   [ ] recommend users/servers
 
 -   [x] settings page
 
@@ -229,27 +236,69 @@
     -   [x] logout
     -   [x] sign out of all sessions
     -   [x] change password
+    -   [ ] username colors
+
+-   [ ] servers
+
+    -   [x] create a server
+        -   [x] change to a modal maybe instead of route?
+    -   [x] model
+        -   [x] name
+        -   [x] icon
+        -   [x] banner
+        -   [x] owner
+        -   [x] type
+            -   [x] private invite only
+            -   [x] public discoverable
+                -   [ ] anyone can join
+            -   [ ] closed
+                -   [ ] cannot invite
+                -   [ ] pending invites can be accepted
+        -   [ ] members
+            -   [ ] show member on right
+            -   [ ] separate different roles
+        -   [ ] channels
+            -   [ ] name
+            -   [ ] locked/normal
+            -   [ ] messages
+            -   [ ] each channel has a MessageThread in it
+            -   [ ] default channels for every server (welcome/rules)
+    -   [ ] server context menu
+        -   [ ] invite people
+            -   [ ] shows friends on modal
+            -   [ ] deny the invite if user already member
+        -   [ ] edit server
+            -   [ ] delete server?
+        -   [ ] leave server
+            -   [ ] admin cannot leave if only admin on server
+    -   [ ] friends/messages/server member context menu
+        -   [ ] invite to server
+        -   [ ] server member view profile
+    -   [ ] server invites
+        -   [ ] show invites on discover page
+    -   [ ] roles
+        -   [ ] admins
+    -   [ ] add members
+        -   [ ] invite only?
+        -   [ ] can send invite to anyone with username
+        -   [ ] public join url
+    -   [ ] remove members
+    -   [ ] members leave
+    -   [ ] member permissions
+        -   [ ] block / ban users
+        -   [ ] admins can create/delete/update channels
+        -   [ ] lock a channel
+    -   [ ] update server mutations
+    -   [ ] close server
+    -   [ ] lock threads/channels
+    -   [ ] permission checks on all mutations
+    -   [ ] search servers on discover page
+        -   [ ] join button for public servers
+    -   [ ] solve n+1
+    -   [ ] mock server data
+    -   [ ] SEO changes (title, description)
 
 -   [ ] reactions/emojis
 
     -   [ ] emoji picker
     -   [ ] message reactions
-
--   [ ] channels
-
-    -   [ ] user channels
-        -   [ ] only 2 users
-        -   [ ] cannot leave without unfriend
-    -   [ ] server channels
-        -   [ ] multiuser
-        -   [ ] can leave
-    -   [ ] private/public channels
-        -   [ ] private invite only
-        -   [ ] public discoverable
-            -   [ ] anyone can join
-
--   [ ] discover
-    -   [x] search users
-    -   [ ] search public channels
-    -   [ ] filter by uni/semester/department
-    -   [ ] recommend users/servers

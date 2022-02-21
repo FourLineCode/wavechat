@@ -3,13 +3,13 @@ import { Modal } from "src/components/ui/Modal";
 import { ModalProps } from "src/hooks/useModal";
 
 interface Props extends ModalProps {
-	userId: string;
+    userId: string;
 }
 
-export function ProfileModal({ userId, show, onClose }: Props) {
-	return (
-		<Modal large show={show} onClose={onClose}>
-			<ProfileDetails userId={userId} onClose={onClose} />
-		</Modal>
-	);
+export function ProfileModal({ userId, ...modalProps }: Props) {
+    return (
+        <Modal large {...modalProps}>
+            <ProfileDetails userId={userId} onClose={modalProps.onClose} />
+        </Modal>
+    );
 }

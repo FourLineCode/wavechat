@@ -1,7 +1,7 @@
 import { defaultRedirect } from "src/utils/redirects/default";
 
 export default function Discover() {
-	return null;
+    return null;
 }
 
 export const getServerSideProps = defaultRedirect("/discover/users");

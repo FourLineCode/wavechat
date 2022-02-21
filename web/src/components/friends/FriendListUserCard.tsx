@@ -9,47 +9,47 @@ import { useUnfriendMutation } from "src/hooks/useUnfriendMutation";
 import { useAuth } from "src/store/useAuth";
 
 interface Props {
-	friendship: Friendship;
+    friendship: Friendship;
 }
 
 export function FriendListUserCard({ friendship }: Props) {
-	const id = useAuth().user?.id;
-	const friendListProfile = useModal();
-	const friend = friendship.firstUserId === id ? friendship.secondUser : friendship.firstUser;
-	const unfriend = useUnfriendMutation(friend.id);
-	const getOrCreateMessageThread = useMessageUserMutation();
+    const id = useAuth().user?.id;
+    const friendListProfile = useModal();
+    const friend = friendship.firstUserId === id ? friendship.secondUser : friendship.firstUser;
+    const unfriend = useUnfriendMutation(friend.id);
+    const getOrCreateMessageThread = useMessageUserMutation();
 
-	return (
-		<ContextMenuTrigger id={`friend-list-card-${friend.id}`}>
-			<div
-				onClick={friendListProfile.onOpen}
-				className="w-full p-2 space-y-2 rounded-lg cursor-pointer bg-dark-800 hover:bg-dark-700"
-			>
-				<div className="flex items-center space-x-2">
-					<UserAvatar
-						user={friend}
-						className="shrink-0 w-10 h-10 rounded-lg cursor-pointer"
-					/>
-					<div className="w-full">
-						<div className="font-semibold cursor-pointer line-clamp-1">
-							{friend.displayName}
-						</div>
-						<div className="text-xs line-clamp-1 text-secondary">
-							{friend.university ?? "unknown"}
-						</div>
-					</div>
-				</div>
-			</div>
-			<ProfileModal userId={friend.id} {...friendListProfile} />
-			<ContextMenu id={`friend-list-card-${friend.id}`}>
-				<ContextMenuItem onClick={friendListProfile.onOpen}>View Profile</ContextMenuItem>
-				<ContextMenuItem
-					onClick={() => getOrCreateMessageThread({ variables: { userId: friend.id } })}
-				>
-					Message
-				</ContextMenuItem>
-				<ContextMenuItem onClick={unfriend}>Unfriend</ContextMenuItem>
-			</ContextMenu>
-		</ContextMenuTrigger>
-	);
+    return (
+        <ContextMenuTrigger id={`friend-list-card-${friend.id}`}>
+            <div
+                onClick={friendListProfile.onOpen}
+                className="w-full p-2 space-y-2 rounded-lg cursor-pointer bg-dark-800 hover:bg-dark-700"
+            >
+                <div className="flex items-center space-x-2">
+                    <UserAvatar
+                        user={friend}
+                        className="shrink-0 w-10 h-10 rounded-lg cursor-pointer"
+                    />
+                    <div className="w-full">
+                        <div className="font-semibold cursor-pointer line-clamp-1">
+                            {friend.displayName}
+                        </div>
+                        <div className="text-xs line-clamp-1 text-secondary">
+                            {friend.university ?? "unknown"}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <ProfileModal userId={friend.id} {...friendListProfile} />
+            <ContextMenu id={`friend-list-card-${friend.id}`}>
+                <ContextMenuItem onClick={friendListProfile.onOpen}>View Profile</ContextMenuItem>
+                <ContextMenuItem
+                    onClick={() => getOrCreateMessageThread({ variables: { userId: friend.id } })}
+                >
+                    Message
+                </ContextMenuItem>
+                <ContextMenuItem onClick={unfriend}>Unfriend</ContextMenuItem>
+            </ContextMenu>
+        </ContextMenuTrigger>
+    );
 }
