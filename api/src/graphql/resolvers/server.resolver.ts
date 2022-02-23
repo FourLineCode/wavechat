@@ -186,3 +186,19 @@ builder.queryField("server", (t) =>
         },
     })
 );
+
+builder.queryField("invitableUserList", (t) =>
+    t.field({
+        type: [UserObject],
+        description: "Get user list for a server that are invitable",
+        authScopes: { user: true },
+        args: { serverId: t.arg({ type: "String", required: true }) },
+        resolve: async (_parent, { serverId }, { user }) => {
+            if (!user) {
+                throw new Error("Unauthorized");
+            }
+
+            return await services.server.getInvitableUsersList({ serverId, userId: user.id });
+        },
+    })
+);

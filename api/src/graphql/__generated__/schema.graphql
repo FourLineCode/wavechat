@@ -177,6 +177,9 @@ type Query {
   friendsList: [Friendship!]!
   hello(name: String): String!
 
+  """Get user list for a server that are invitable"""
+  invitableUserList(serverId: String!): [User!]!
+
   """Check if user is a friend"""
   isFriend(userId: String!): Boolean!
 

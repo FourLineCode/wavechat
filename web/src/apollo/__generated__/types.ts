@@ -251,6 +251,8 @@ export type Query = {
   /** Get friends list of current user */
   friendsList: Array<Friendship>;
   hello: Scalars['String'];
+  /** Get user list for a server that are invitable */
+  invitableUserList: Array<User>;
   /** Check if user is a friend */
   isFriend: Scalars['Boolean'];
   /** Authorizes any rtc connection */
@@ -289,6 +291,11 @@ export type QueryDiscoverUsersArgs = {
 
 export type QueryHelloArgs = {
   name?: InputMaybe<Scalars['String']>;
+};
+
+
+export type QueryInvitableUserListArgs = {
+  serverId: Scalars['String'];
 };
 
 
@@ -376,13 +383,15 @@ export type ServerChannel = {
 export type ServerInvite = {
   __typename?: 'ServerInvite';
   createdAt: Scalars['Date'];
+  fromUser: User;
+  fromUserId: Scalars['String'];
   id: Scalars['ID'];
   pk: Scalars['Int'];
   server: Server;
   serverId: Scalars['String'];
+  toUser: User;
+  toUserId: Scalars['String'];
   updatedAt: Scalars['Date'];
-  user: User;
-  userId: Scalars['String'];
 };
 
 /** Information about user session */
@@ -555,10 +564,12 @@ export type UploadServerIconMutationVariables = Exact<{
 
 export type UploadServerIconMutation = { __typename?: 'Mutation', uploadSingleFile: { __typename?: 'MediaDTO', url: string, filename: string, mimetype: string, encoding: string } };
 
-export type GetFriendsQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetInvitableUserListQueryVariables = Exact<{
+  serverId: Scalars['String'];
+}>;
 
 
-export type GetFriendsQuery = { __typename?: 'Query', friendsList: Array<{ __typename?: 'Friendship', id: string, firstUserId: string, secondUserId: string, firstUser: { __typename?: 'User', id: string, username: string, displayName: string, avatarUrl?: string | null }, secondUser: { __typename?: 'User', id: string, username: string, displayName: string, avatarUrl?: string | null } }> };
+export type GetInvitableUserListQuery = { __typename?: 'Query', invitableUserList: Array<{ __typename?: 'User', id: string, username: string, displayName: string, avatarUrl?: string | null, university?: string | null }> };
 
 export type ChangePasswordMutationVariables = Exact<{
   input: ChangePasswordInput;
@@ -874,24 +885,14 @@ export const UploadServerIconDocument = gql`
 }
     `;
 export type UploadServerIconMutationOptions = Apollo.BaseMutationOptions<UploadServerIconMutation, UploadServerIconMutationVariables>;
-export const GetFriendsDocument = gql`
-    query GetFriends {
-  friendsList {
+export const GetInvitableUserListDocument = gql`
+    query GetInvitableUserList($serverId: String!) {
+  invitableUserList(serverId: $serverId) {
     id
-    firstUserId
-    firstUser {
-      id
-      username
-      displayName
-      avatarUrl
-    }
-    secondUserId
-    secondUser {
-      id
-      username
-      displayName
-      avatarUrl
-    }
+    username
+    displayName
+    avatarUrl
+    university
   }
 }
     `;
