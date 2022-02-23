@@ -206,3 +206,54 @@ export async function inviteUserToServerById({
         },
     });
 }
+
+export async function inviteUserToServerByUsername({
+    serverId,
+    userId,
+    username,
+}: ServerUserParams & { username: string }) {
+    const toUser = await db.user.findUnique({
+        where: {
+            username: username,
+        },
+        rejectOnNotFound: true,
+    });
+
+    const canInvite = await canInviteUserToServer({
+        serverId,
+        fromUserId: userId,
+        toUserId: toUser.id,
+    });
+    if (!canInvite) {
+        throw new Error("Cannot invite user to the server");
+    }
+
+    return await db.serverInvite.create({
+        data: {
+            serverId,
+            fromUserId: userId,
+            toUserId: toUser.id,
+        },
+    });
+}
+
+export async function deleteInviteToUserById({
+    serverId,
+    fromUserId,
+    toUserId,
+}: ServerInviteParams) {
+    const invite = await db.serverInvite.findFirst({
+        where: {
+            serverId,
+            fromUserId,
+            toUserId,
+        },
+        rejectOnNotFound: true,
+    });
+
+    return await db.serverInvite.delete({
+        where: {
+            id: invite.id,
+        },
+    });
+}

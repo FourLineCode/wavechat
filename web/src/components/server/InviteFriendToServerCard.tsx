@@ -2,6 +2,8 @@ import { gql, useMutation } from "@apollo/client";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import {
+    DeleteInviteByIdMutation,
+    DeleteInviteByIdMutationVariables,
     InviteUserToServerByIdMutation,
     InviteUserToServerByIdMutationVariables,
     Server,
@@ -23,12 +25,18 @@ const INVITE_USER_TO_SERVER_BY_ID = gql`
     }
 `;
 
+const DELETE_INVITE_BY_ID = gql`
+    mutation DeleteInviteById($serverId: String!, $userId: String!) {
+        deleteInviteToUserById(serverId: $serverId, userId: $userId) {
+            id
+        }
+    }
+`;
+
 export function InviteFriendToServerCard({ user, server }: Props) {
     const [invited, setInvited] = useState(false);
 
-    // TODO: implement unsend invite
-
-    const [inviteUser, { loading }] = useMutation<
+    const [inviteUser, { loading: sendLoading }] = useMutation<
         InviteUserToServerByIdMutation,
         InviteUserToServerByIdMutationVariables
     >(INVITE_USER_TO_SERVER_BY_ID, {
@@ -44,6 +52,24 @@ export function InviteFriendToServerCard({ user, server }: Props) {
             toast.success("Successfully sent invite");
         },
     });
+
+    const [unsendInvite, { loading: unsendLoading }] = useMutation<
+        DeleteInviteByIdMutation,
+        DeleteInviteByIdMutationVariables
+    >(DELETE_INVITE_BY_ID, {
+        variables: {
+            userId: user.id,
+            serverId: server.id,
+        },
+        onError: () => {
+            toast.error("Failed to unsend invite");
+        },
+        onCompleted: () => {
+            setInvited(false);
+            toast.success("Successfully unsent invite");
+        },
+    });
+
     return (
         <div className="flex justify-between w-full py-2 pr-2 rounded-lg">
             <div className="flex items-center space-x-2">
@@ -58,8 +84,8 @@ export function InviteFriendToServerCard({ user, server }: Props) {
             <Button
                 type="submit"
                 variant={invited ? "filled" : "outlined"}
-                isSubmitting={loading}
-                onClick={inviteUser}
+                isSubmitting={sendLoading || unsendLoading}
+                onClick={invited ? unsendInvite : inviteUser}
             >
                 {invited ? "Invited" : "Invite"}
             </Button>

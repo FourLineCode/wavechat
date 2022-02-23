@@ -206,7 +206,7 @@ builder.queryField("invitableUserList", (t) =>
 builder.mutationField("inviteUserToServerById", (t) =>
     t.field({
         type: ServerInviteObject,
-        description: "Invite a user to a server",
+        description: "Invite a user to a server by user id",
         authScopes: { user: true },
         args: {
             userId: t.arg({ type: "String", required: true }),
@@ -218,6 +218,52 @@ builder.mutationField("inviteUserToServerById", (t) =>
             }
 
             return await services.server.inviteUserToServerById({
+                serverId,
+                fromUserId: user.id,
+                toUserId: userId,
+            });
+        },
+    })
+);
+
+builder.mutationField("inviteUserToServerByUsername", (t) =>
+    t.field({
+        type: ServerInviteObject,
+        description: "Invite a user to a server by username",
+        authScopes: { user: true },
+        args: {
+            username: t.arg({ type: "String", required: true }),
+            serverId: t.arg({ type: "String", required: true }),
+        },
+        resolve: async (_parent, { username, serverId }, { user }) => {
+            if (!user) {
+                throw new Error("Unauthorized");
+            }
+
+            return await services.server.inviteUserToServerByUsername({
+                serverId,
+                username,
+                userId: user.id,
+            });
+        },
+    })
+);
+
+builder.mutationField("deleteInviteToUserById", (t) =>
+    t.field({
+        type: ServerInviteObject,
+        description: "Delete an invite to user",
+        authScopes: { user: true },
+        args: {
+            userId: t.arg({ type: "String", required: true }),
+            serverId: t.arg({ type: "String", required: true }),
+        },
+        resolve: async (_parent, { userId, serverId }, { user }) => {
+            if (!user) {
+                throw new Error("Unauthorized");
+            }
+
+            return await services.server.deleteInviteToUserById({
                 serverId,
                 fromUserId: user.id,
                 toUserId: userId,

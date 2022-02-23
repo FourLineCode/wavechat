@@ -146,6 +146,8 @@ export type Mutation = {
   declineAllRequests: Scalars['Boolean'];
   /** Decline a pending friend request */
   declineRequest: FriendRequest;
+  /** Delete an invite to user */
+  deleteInviteToUserById: ServerInvite;
   /** Invite a user to a server */
   inviteUserToServerById: ServerInvite;
   /** Removes all sessions other than current session */
@@ -198,6 +200,12 @@ export type MutationCreateServerArgs = {
 
 export type MutationDeclineRequestArgs = {
   requestId: Scalars['String'];
+};
+
+
+export type MutationDeleteInviteToUserByIdArgs = {
+  serverId: Scalars['String'];
+  userId: Scalars['String'];
 };
 
 
@@ -580,6 +588,14 @@ export type InviteUserToServerByIdMutationVariables = Exact<{
 
 export type InviteUserToServerByIdMutation = { __typename?: 'Mutation', inviteUserToServerById: { __typename?: 'ServerInvite', id: string } };
 
+export type DeleteInviteByIdMutationVariables = Exact<{
+  serverId: Scalars['String'];
+  userId: Scalars['String'];
+}>;
+
+
+export type DeleteInviteByIdMutation = { __typename?: 'Mutation', inviteUserToServerById: { __typename?: 'ServerInvite', id: string } };
+
 export type GetInvitableUserListQueryVariables = Exact<{
   serverId: Scalars['String'];
 }>;
@@ -909,6 +925,14 @@ export const InviteUserToServerByIdDocument = gql`
 }
     `;
 export type InviteUserToServerByIdMutationOptions = Apollo.BaseMutationOptions<InviteUserToServerByIdMutation, InviteUserToServerByIdMutationVariables>;
+export const DeleteInviteByIdDocument = gql`
+    mutation DeleteInviteById($serverId: String!, $userId: String!) {
+  inviteUserToServerById(serverId: $serverId, userId: $userId) {
+    id
+  }
+}
+    `;
+export type DeleteInviteByIdMutationOptions = Apollo.BaseMutationOptions<DeleteInviteByIdMutation, DeleteInviteByIdMutationVariables>;
 export const GetInvitableUserListDocument = gql`
     query GetInvitableUserList($serverId: String!) {
   invitableUserList(serverId: $serverId) {

@@ -13,7 +13,7 @@ interface Props {
     server: Server;
 }
 
-export const GET_INVITABLE_USER_LIST = gql`
+const GET_INVITABLE_USER_LIST = gql`
     query GetInvitableUserList($serverId: String!) {
         invitableUserList(serverId: $serverId) {
             id

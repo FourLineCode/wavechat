@@ -129,8 +129,14 @@ type Mutation {
   """Decline a pending friend request"""
   declineRequest(requestId: String!): FriendRequest!
 
-  """Invite a user to a server"""
+  """Delete an invite to user"""
+  deleteInviteToUserById(serverId: String!, userId: String!): ServerInvite!
+
+  """Invite a user to a server by user id"""
   inviteUserToServerById(serverId: String!, userId: String!): ServerInvite!
+
+  """Invite a user to a server by username"""
+  inviteUserToServerByUsername(serverId: String!, username: String!): ServerInvite!
 
   """Removes all sessions other than current session"""
   removeOtherSessions: SuccessResult!
