@@ -146,6 +146,8 @@ export type Mutation = {
   declineAllRequests: Scalars['Boolean'];
   /** Decline a pending friend request */
   declineRequest: FriendRequest;
+  /** Invite a user to a server */
+  inviteUserToServerById: ServerInvite;
   /** Removes all sessions other than current session */
   removeOtherSessions: SuccessResult;
   /** Send a friend request to a user */
@@ -196,6 +198,12 @@ export type MutationCreateServerArgs = {
 
 export type MutationDeclineRequestArgs = {
   requestId: Scalars['String'];
+};
+
+
+export type MutationInviteUserToServerByIdArgs = {
+  serverId: Scalars['String'];
+  userId: Scalars['String'];
 };
 
 
@@ -564,6 +572,14 @@ export type UploadServerIconMutationVariables = Exact<{
 
 export type UploadServerIconMutation = { __typename?: 'Mutation', uploadSingleFile: { __typename?: 'MediaDTO', url: string, filename: string, mimetype: string, encoding: string } };
 
+export type InviteUserToServerByIdMutationVariables = Exact<{
+  serverId: Scalars['String'];
+  userId: Scalars['String'];
+}>;
+
+
+export type InviteUserToServerByIdMutation = { __typename?: 'Mutation', inviteUserToServerById: { __typename?: 'ServerInvite', id: string } };
+
 export type GetInvitableUserListQueryVariables = Exact<{
   serverId: Scalars['String'];
 }>;
@@ -885,6 +901,14 @@ export const UploadServerIconDocument = gql`
 }
     `;
 export type UploadServerIconMutationOptions = Apollo.BaseMutationOptions<UploadServerIconMutation, UploadServerIconMutationVariables>;
+export const InviteUserToServerByIdDocument = gql`
+    mutation InviteUserToServerById($serverId: String!, $userId: String!) {
+  inviteUserToServerById(serverId: $serverId, userId: $userId) {
+    id
+  }
+}
+    `;
+export type InviteUserToServerByIdMutationOptions = Apollo.BaseMutationOptions<InviteUserToServerByIdMutation, InviteUserToServerByIdMutationVariables>;
 export const GetInvitableUserListDocument = gql`
     query GetInvitableUserList($serverId: String!) {
   invitableUserList(serverId: $serverId) {

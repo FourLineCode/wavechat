@@ -2,9 +2,15 @@ import { ServerType, User } from "@prisma/client";
 import { db } from "prisma/connection";
 import { services } from "src/services";
 
-export interface ServerUserQueryParams {
+export interface ServerUserParams {
     serverId: string;
     userId: string;
+}
+
+export interface ServerInviteParams {
+    serverId: string;
+    fromUserId: string;
+    toUserId: string;
 }
 
 export async function getServerById(serverId: string) {
@@ -90,7 +96,7 @@ export async function getJoinedServersByUserId(userId: string) {
     return user.joinedServers;
 }
 
-export async function getServerByIdForUser({ serverId, userId }: ServerUserQueryParams) {
+export async function getServerByIdForUser({ serverId, userId }: ServerUserParams) {
     return await db.server.findFirst({
         where: {
             id: serverId,
@@ -112,7 +118,7 @@ export async function getServerChannelsByServerId(serverId: string) {
     });
 }
 
-export async function getInvitableUsersList({ serverId, userId }: ServerUserQueryParams) {
+export async function getInvitableUsersList({ serverId, userId }: ServerUserParams) {
     const friendshipList = await services.friendship.getFriendList(userId);
     const friendIdList = friendshipList.map(({ firstUserId, secondUserId }) =>
         firstUserId === userId ? secondUserId : firstUserId
@@ -120,7 +126,11 @@ export async function getInvitableUsersList({ serverId, userId }: ServerUserQuer
 
     const unfilteredInvitableUserIds = await Promise.all(
         friendIdList.map(async (friendId) => {
-            const canInvite = await canInviteUserToServer({ serverId, userId, toUserId: friendId });
+            const canInvite = await canInviteUserToServer({
+                serverId,
+                fromUserId: userId,
+                toUserId: friendId,
+            });
             if (canInvite) {
                 return friendId;
             }
@@ -141,17 +151,17 @@ export async function getInvitableUsersList({ serverId, userId }: ServerUserQuer
 export async function canInviteUserToServer({
     serverId,
     toUserId,
-    userId,
-}: ServerUserQueryParams & { toUserId: string }) {
+    fromUserId,
+}: ServerInviteParams) {
     const [alreadyJoined, alreadyInvited] = await Promise.all([
         isUserInServer({ serverId, userId: toUserId }),
-        isUserAlreadyInvited({ serverId, toUserId, userId }),
+        isUserAlreadyInvited({ serverId, toUserId, fromUserId }),
     ]);
 
     return !(alreadyJoined || alreadyInvited);
 }
 
-export async function isUserInServer({ serverId, userId }: ServerUserQueryParams) {
+export async function isUserInServer({ serverId, userId }: ServerUserParams) {
     const userInServer = await db.server.findFirst({
         where: {
             id: serverId,
@@ -166,18 +176,33 @@ export async function isUserInServer({ serverId, userId }: ServerUserQueryParams
     return !!userInServer;
 }
 
-export async function isUserAlreadyInvited({
-    serverId,
-    toUserId,
-    userId,
-}: ServerUserQueryParams & { toUserId: string }) {
+export async function isUserAlreadyInvited({ serverId, toUserId, fromUserId }: ServerInviteParams) {
     const userAlreadyInvited = await db.serverInvite.findFirst({
         where: {
             serverId: serverId,
-            fromUserId: userId,
+            fromUserId: fromUserId,
             toUserId: toUserId,
         },
     });
 
     return !!userAlreadyInvited;
+}
+
+export async function inviteUserToServerById({
+    serverId,
+    fromUserId,
+    toUserId,
+}: ServerInviteParams) {
+    const canInvite = await canInviteUserToServer({ serverId, fromUserId, toUserId });
+    if (!canInvite) {
+        throw new Error("Cannot invite user to the server");
+    }
+
+    return await db.serverInvite.create({
+        data: {
+            serverId,
+            fromUserId,
+            toUserId,
+        },
+    });
 }

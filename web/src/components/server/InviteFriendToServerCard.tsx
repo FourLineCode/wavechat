@@ -1,12 +1,49 @@
-import { User } from "src/apollo/__generated__/types";
+import { gql, useMutation } from "@apollo/client";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import {
+    InviteUserToServerByIdMutation,
+    InviteUserToServerByIdMutationVariables,
+    Server,
+    User,
+} from "src/apollo/__generated__/types";
 import { UserAvatar } from "src/components/profile/UserAvatar";
 import { Button } from "src/components/ui/Button";
 
 interface Props {
     user: User;
+    server: Server;
 }
 
-export function InviteFriendToServerCard({ user }: Props) {
+const INVITE_USER_TO_SERVER_BY_ID = gql`
+    mutation InviteUserToServerById($serverId: String!, $userId: String!) {
+        inviteUserToServerById(serverId: $serverId, userId: $userId) {
+            id
+        }
+    }
+`;
+
+export function InviteFriendToServerCard({ user, server }: Props) {
+    const [invited, setInvited] = useState(false);
+
+    // TODO: implement unsend invite
+
+    const [inviteUser, { loading }] = useMutation<
+        InviteUserToServerByIdMutation,
+        InviteUserToServerByIdMutationVariables
+    >(INVITE_USER_TO_SERVER_BY_ID, {
+        variables: {
+            userId: user.id,
+            serverId: server.id,
+        },
+        onError: () => {
+            toast.error("Failed to send invite");
+        },
+        onCompleted: () => {
+            setInvited(true);
+            toast.success("Successfully sent invite");
+        },
+    });
     return (
         <div className="flex justify-between w-full py-2 pr-2 rounded-lg">
             <div className="flex items-center space-x-2">
@@ -18,8 +55,13 @@ export function InviteFriendToServerCard({ user }: Props) {
                     </div>
                 </div>
             </div>
-            <Button variant="outlined" className="">
-                Invite
+            <Button
+                type="submit"
+                variant={invited ? "filled" : "outlined"}
+                isSubmitting={loading}
+                onClick={inviteUser}
+            >
+                {invited ? "Invited" : "Invite"}
             </Button>
         </div>
     );

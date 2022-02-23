@@ -13,7 +13,7 @@ interface Props {
     server: Server;
 }
 
-const GET_INVITABLE_USER_LIST = gql`
+export const GET_INVITABLE_USER_LIST = gql`
     query GetInvitableUserList($serverId: String!) {
         invitableUserList(serverId: $serverId) {
             id
@@ -36,7 +36,10 @@ export function InviteFriendsList({ server }: Props) {
         onError: () => {
             toast.error("Failed to fetch users");
         },
+        fetchPolicy: "no-cache",
     });
+
+    // TODO: implement invite user by username
 
     return loading ? (
         <div className="flex items-center justify-center w-full h-[50vh]">
@@ -47,7 +50,7 @@ export function InviteFriendsList({ server }: Props) {
             <div className="text-2xl font-bold text-center">Invite to server</div>
             <div className="w-full space-y-1 max-h-[50vh] overflow-y-auto">
                 {data.invitableUserList.map((user) => (
-                    <InviteFriendToServerCard user={user as User} key={user.id} />
+                    <InviteFriendToServerCard user={user as User} server={server} key={user.id} />
                 ))}
             </div>
         </>

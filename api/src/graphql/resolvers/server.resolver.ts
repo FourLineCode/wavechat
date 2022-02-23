@@ -202,3 +202,26 @@ builder.queryField("invitableUserList", (t) =>
         },
     })
 );
+
+builder.mutationField("inviteUserToServerById", (t) =>
+    t.field({
+        type: ServerInviteObject,
+        description: "Invite a user to a server",
+        authScopes: { user: true },
+        args: {
+            userId: t.arg({ type: "String", required: true }),
+            serverId: t.arg({ type: "String", required: true }),
+        },
+        resolve: async (_parent, { userId, serverId }, { user }) => {
+            if (!user) {
+                throw new Error("Unauthorized");
+            }
+
+            return await services.server.inviteUserToServerById({
+                serverId,
+                fromUserId: user.id,
+                toUserId: userId,
+            });
+        },
+    })
+);
