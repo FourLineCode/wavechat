@@ -1,4 +1,4 @@
-import { TiMessages } from "react-icons/ti";
+import { Chats } from "phosphor-react";
 import { FriendsInfo } from "src/components/friends/FriendsInfo";
 import { Layout } from "src/components/layouts/Layout";
 import { DirectMessages } from "src/components/messages/sidebar/DirectMessages";
@@ -13,8 +13,8 @@ export default function Messages() {
                 <NavigationSidebar />
                 <SidebarWithProfile component={DirectMessages} />
                 <div className="flex flex-col items-center justify-center flex-1 text-muted bg-dark-700">
-                    <TiMessages size="256px" />
-                    <div className="text-2xl font-semibold">Click on a user to start chatting</div>
+                    <Chats size={256} weight="regular" />
+                    <div className="text-2xl font-bold">Click on a user to start chatting</div>
                 </div>
                 <FriendsInfo />
             </div>

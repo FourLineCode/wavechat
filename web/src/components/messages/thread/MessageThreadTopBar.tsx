@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { HiDotsVertical } from "react-icons/hi";
+import { DotsThreeOutlineVertical } from "phosphor-react";
 import { User } from "src/apollo/__generated__/types";
 import { ProfileModal } from "src/components/profile/ProfileModal";
 import { UserAvatar } from "src/components/profile/UserAvatar";
@@ -32,8 +32,12 @@ export function MessageThreadTopBar({ user }: Props) {
             </div>
             <div>
                 <DropdownMenu>
-                    <DropdownMenuButton className="p-1 rounded-full cursor-pointer hover:bg-dark-700">
-                        <HiDotsVertical size="20px" className="rounded-full text-primary" />
+                    <DropdownMenuButton className="p-1 rounded-full cursor-pointer hover:bg-dark-600/75">
+                        <DotsThreeOutlineVertical
+                            size={20}
+                            weight="fill"
+                            className="rounded-full text-primary"
+                        />
                     </DropdownMenuButton>
                     <DropdownMenuItems>
                         <DropdownMenuItem onClick={profileModal.onOpen}>

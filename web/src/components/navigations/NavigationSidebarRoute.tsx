@@ -1,15 +1,14 @@
 import clsx from "clsx";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { IconType } from "react-icons";
-import { FaQuestion } from "react-icons/fa";
+import { Icon, Question } from "phosphor-react";
 import { Tooltip } from "src/components/ui/Tooltip";
 
 interface Props {
     route: string;
     tooltip: string;
     marked?: boolean;
-    icon?: IconType;
+    icon?: Icon;
     imageSrc?: string | null;
 }
 
@@ -26,7 +25,7 @@ export function NavigationSidebarRoute({
     const currentRoute = pathname.endsWith(route) || pathname.startsWith(route);
 
     if (!IconComponent) {
-        IconComponent = FaQuestion;
+        IconComponent = Question;
     }
 
     return (
@@ -56,12 +55,13 @@ export function NavigationSidebarRoute({
                             )}
                         >
                             <IconComponent
-                                className={clsx(
-                                    marked &&
-                                        !currentRoute &&
-                                        "text-brand-500 group-hover:text-primary transition-colors",
-                                    "w-6 h-6"
-                                )}
+                                weight="fill"
+                                size={32}
+                                className={
+                                    marked && !currentRoute
+                                        ? "text-brand-500 group-hover:text-primary transition-colors"
+                                        : ""
+                                }
                             />
                         </a>
                     )}

@@ -2,8 +2,8 @@ import clsx from "clsx";
 import { formatDistanceToNow } from "date-fns";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { CaretRight } from "phosphor-react";
 import { ContextMenuTrigger } from "react-contextmenu";
-import { FaChevronRight } from "react-icons/fa";
 import { MessageThread } from "src/apollo/__generated__/types";
 import { ProfileModal } from "src/components/profile/ProfileModal";
 import { UserAvatar } from "src/components/profile/UserAvatar";
@@ -45,8 +45,9 @@ export function MessageThreadCard({ thread }: Props) {
                                         {String(formatDistanceToNow(new Date(thread.updatedAt)))}
                                     </div>
                                 </div>
-                                <FaChevronRight
-                                    size="16px"
+                                <CaretRight
+                                    size={20}
+                                    weight="bold"
                                     className="hidden text-secondary group-hover:block"
                                 />
                             </div>

@@ -1,9 +1,8 @@
 import { gql, useQuery } from "@apollo/client";
 import { format } from "date-fns";
 import ordinal from "ordinal";
+import { Book, Buildings, Chat, GraduationCap, IdentificationBadge } from "phosphor-react";
 import toast from "react-hot-toast";
-import { FaBuilding, FaCommentAlt, FaGraduationCap, FaUniversity } from "react-icons/fa";
-import { RiFileUserFill } from "react-icons/ri";
 import { GetUserDataQuery, GetUserDataQueryVariables, User } from "src/apollo/__generated__/types";
 import { UserAvatar } from "src/components/profile/UserAvatar";
 import { RequestButton } from "src/components/requests/RequestButton";
@@ -80,7 +79,7 @@ export function ProfileDetails({ userId, onClose }: Props) {
                         </div>
                     </div>
                 </div>
-                <div className="flex space-x-1">
+                <div className="flex space-x-2">
                     {data.user.id !== currUserId && (
                         <>
                             {isFriend && (
@@ -90,10 +89,12 @@ export function ProfileDetails({ userId, onClose }: Props) {
                                         getOrCreateMessageThread({
                                             variables: { userId: data.user.id },
                                         });
-                                        if (onClose) onClose();
+                                        if (onClose) {
+                                            onClose();
+                                        }
                                     }}
                                 >
-                                    <FaCommentAlt size="18px" />
+                                    <Chat size={22} weight="fill" />
                                 </Button>
                             )}
                             <RequestButton user={data.user as User} />
@@ -105,7 +106,7 @@ export function ProfileDetails({ userId, onClose }: Props) {
                 {data.user.bio && (
                     <div className="flex space-x-2">
                         <div>
-                            <RiFileUserFill className="w-5 h-5 mt-1 text-muted" />
+                            <IdentificationBadge weight="fill" size={24} className="text-muted" />
                         </div>
                         <div className="text-base">{data.user.bio}</div>
                     </div>
@@ -113,7 +114,7 @@ export function ProfileDetails({ userId, onClose }: Props) {
                 {data.user.university && (
                     <div className="flex space-x-2">
                         <div>
-                            <FaUniversity className="w-5 h-5 mt-1 text-muted" />
+                            <Buildings weight="fill" size={24} className="text-muted" />
                         </div>
                         <div className="text-base">{data.user.university}</div>
                     </div>
@@ -121,7 +122,7 @@ export function ProfileDetails({ userId, onClose }: Props) {
                 {data.user.department && (
                     <div className="flex space-x-2">
                         <div>
-                            <FaBuilding className="w-5 h-5 mt-1 text-muted" />
+                            <Book weight="fill" size={24} className="text-muted" />
                         </div>
                         <div className="text-base">{data.user.department}</div>
                     </div>
@@ -129,7 +130,7 @@ export function ProfileDetails({ userId, onClose }: Props) {
                 {data.user.semester && (
                     <div className="flex space-x-2">
                         <div>
-                            <FaGraduationCap className="w-5 h-5 mt-1 text-muted" />
+                            <GraduationCap weight="fill" size={24} className="text-muted" />
                         </div>
                         <div className="text-base">
                             {ordinal(data.user.semester as number) + " semester"}

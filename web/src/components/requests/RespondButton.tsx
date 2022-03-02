@@ -1,5 +1,4 @@
-import { FaCheck, FaTimes } from "react-icons/fa";
-import { IoArrowRedo } from "react-icons/io5";
+import { ArrowBendUpRight, Check, X } from "phosphor-react";
 import { RequestButtonProps, RequestButtonState } from "src/components/requests/RequestButton";
 import { Button } from "src/components/ui/Button";
 import { Modal } from "src/components/ui/Modal";
@@ -23,7 +22,7 @@ export function RespondButton({ user, className, reqId, setState, setReqId }: Re
         <>
             <Button className={className} onClick={respondRequestModal.onOpen}>
                 <div className="flex items-center justify-center space-x-1">
-                    <IoArrowRedo />
+                    <ArrowBendUpRight weight="bold" size={24} />
                     <span className="line-clamp-1">Respond</span>
                 </div>
             </Button>
@@ -42,7 +41,7 @@ export function RespondButton({ user, className, reqId, setState, setReqId }: Re
                         isSubmitting={declineRequestLoading}
                     >
                         <div className="flex items-center justify-center space-x-1">
-                            <FaTimes />
+                            <X weight="bold" size={24} />
                             <span className="line-clamp-1">Decline</span>
                         </div>
                     </Button>
@@ -57,7 +56,7 @@ export function RespondButton({ user, className, reqId, setState, setReqId }: Re
                         isSubmitting={acceptRequestLoading}
                     >
                         <div className="flex items-center justify-center space-x-1">
-                            <FaCheck />
+                            <Check weight="bold" size={24} />
                             <span className="line-clamp-1">Accept</span>
                         </div>
                     </Button>

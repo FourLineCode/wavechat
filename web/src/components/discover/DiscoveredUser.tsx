@@ -1,5 +1,5 @@
+import { UsersThree } from "phosphor-react";
 import toast from "react-hot-toast";
-import { AiOutlineUsergroupAdd } from "react-icons/ai";
 import { User } from "src/apollo/__generated__/types";
 import { ProfileModal } from "src/components/profile/ProfileModal";
 import { UserAvatar } from "src/components/profile/UserAvatar";
@@ -47,7 +47,7 @@ export function DiscoveredUser({ user }: Props) {
                 onClick={inviteToServer}
             >
                 <div className="flex items-center justify-center space-x-1">
-                    <AiOutlineUsergroupAdd />
+                    <UsersThree weight="fill" />
                     <span className="line-clamp-1">Invite to server</span>
                 </div>
             </Button>

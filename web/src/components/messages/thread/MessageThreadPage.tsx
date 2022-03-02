@@ -1,9 +1,9 @@
 import { gql, useQuery } from "@apollo/client";
 import { ErrorSocketEvents, MessageDTO, MessageSocketEvents } from "@wavechat/shared";
 import { Field, Form, Formik, FormikProps } from "formik";
+import { ChatCenteredText, CircleWavyWarning } from "phosphor-react";
 import React, { ChangeEvent, useEffect, useMemo, useRef, useState } from "react";
 import toast from "react-hot-toast";
-import { BiMessage, BiMessageError } from "react-icons/bi";
 import {
     Message,
     MessageThread,
@@ -166,12 +166,12 @@ export function MessageThreadPage({ thread }: Props) {
                     <MessageListView messageGroups={messageGroups} />
                 ) : !error && !messagesLoading ? (
                     <div className="flex flex-col items-center justify-center flex-1 text-muted">
-                        <BiMessage size="156px" />
-                        <div className="text-xl font-semibold">Send a message</div>
+                        <ChatCenteredText weight="bold" size={132} />
+                        <div className="text-xl font-bold">Send a message</div>
                     </div>
                 ) : error && !messagesLoading ? (
                     <div className="flex flex-col items-center justify-center flex-1 text-muted">
-                        <BiMessageError size="156px" />
+                        <CircleWavyWarning size={132} weight="bold" />
                         <div className="text-xl font-semibold">Something went wrong!</div>
                     </div>
                 ) : (

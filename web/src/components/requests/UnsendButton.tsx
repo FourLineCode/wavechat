@@ -1,6 +1,6 @@
 import { gql, useMutation } from "@apollo/client";
+import { ArrowBendUpLeft } from "phosphor-react";
 import toast from "react-hot-toast";
-import { IoArrowUndo } from "react-icons/io5";
 import {
     UnsendRequestMutation,
     UnsendRequestMutationVariables,
@@ -35,7 +35,7 @@ export function UnsendButton({ user, className, setState, reqId, setReqId }: Req
     return (
         <Button type="submit" className={className} onClick={unsendRequest} isSubmitting={loading}>
             <div className="flex items-center justify-center space-x-1">
-                <IoArrowUndo />
+                <ArrowBendUpLeft weight="bold" size={24} />
                 <span className="line-clamp-1">Unsend Request</span>
             </div>
         </Button>

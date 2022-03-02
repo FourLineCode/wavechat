@@ -2,12 +2,10 @@ import { gql, useMutation } from "@apollo/client";
 import clsx from "clsx";
 import { Field, Form, Formik } from "formik";
 import { useRouter } from "next/router";
+import { CaretDown, FileImage, Plus, X } from "phosphor-react";
 import { useState } from "react";
 import Dropzone from "react-dropzone";
 import toast from "react-hot-toast";
-import { BiImageAdd } from "react-icons/bi";
-import { FaChevronDown, FaPlus } from "react-icons/fa";
-import { ImCross } from "react-icons/im";
 import {
     CreateServerMutation,
     CreateServerMutationVariables,
@@ -85,10 +83,12 @@ export function CreateServerModal() {
                         "flex items-center focus:outline-none outline-none justify-center w-12 h-12 my-2 transition-all cursor-pointer group hover:bg-brand-500 hover:rounded-xl"
                     )}
                 >
-                    <FaPlus
+                    <Plus
+                        weight="bold"
+                        size={32}
                         className={clsx(
                             createServerModal.show ? "text-primary" : "text-brand-500",
-                            "w-6 h-6 transition-colors group-hover:text-primary"
+                            "transition-colors group-hover:text-primary"
                         )}
                     />
                 </button>
@@ -158,12 +158,20 @@ export function CreateServerModal() {
                                                     }}
                                                     className="absolute p-1 transition-transform transform bg-red-500 rounded-full -top-1 -right-1 hover:scale-125"
                                                 >
-                                                    <ImCross className="w-2 h-2 text-primary" />
+                                                    <X
+                                                        size={12}
+                                                        weight="bold"
+                                                        className="text-primary"
+                                                    />
                                                 </button>
                                             </div>
                                         ) : (
                                             <div className="p-4 transition-colors border-2 border-dashed rounded-full border-dark-600 group-focus:border-brand-500 group-hover:bg-dark-700 group-hover:bg-opacity-50">
-                                                <BiImageAdd className="w-12 h-12 text-secondary" />
+                                                <FileImage
+                                                    size={44}
+                                                    weight="regular"
+                                                    className="text-secondary"
+                                                />
                                             </div>
                                         )}
                                     </div>
@@ -188,7 +196,7 @@ export function CreateServerModal() {
                                         <option value="private">Private</option>
                                     </Field>
                                     <div className="absolute inset-y-0 flex items-center pointer-events-none right-2 text-secondary">
-                                        <FaChevronDown className="w-4 h-4" />
+                                        <CaretDown size={20} weight="bold" />
                                     </div>
                                 </div>
                             </div>

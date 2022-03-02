@@ -2,9 +2,9 @@ import clsx from "clsx";
 import { Form, Formik, FormikProps } from "formik";
 import { useRouter } from "next/dist/client/router";
 import Link from "next/link";
+import { CaretLeft, CaretRight } from "phosphor-react";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { FaCaretLeft, FaCaretRight } from "react-icons/fa";
 import { Layout } from "src/components/layouts/Layout";
 import { NavBar } from "src/components/layouts/NavBar";
 import { Button } from "src/components/ui/Button";
@@ -119,12 +119,12 @@ export default function SignUp() {
                                                         <Button
                                                             onClick={() => page !== 1 && setPage(1)}
                                                         >
-                                                            <FaCaretRight className="w-[16px] h-[24px]" />
+                                                            <CaretRight size={24} weight="fill" />
                                                         </Button>
                                                     </>
                                                 )}
                                                 <Button onClick={() => page !== 0 && setPage(0)}>
-                                                    <FaCaretLeft className="w-[16px] h-[24px]" />
+                                                    <CaretLeft size={24} weight="fill" />
                                                 </Button>
                                                 <div
                                                     className={clsx(page === 1 && "text-brand-500")}

@@ -164,13 +164,13 @@ importers:
       graphql: 16.3.0
       next: 12.1.0
       ordinal: ^1.0.3
+      phosphor-react: ^1.4.1
       postcss: ^8.4.7
       react: 17.0.2
       react-contextmenu: ^2.14.0
       react-dom: 17.0.2
       react-dropzone: ^12.0.4
       react-hot-toast: ^2.2.0
-      react-icons: ^4.3.1
       regenerator-runtime: ^0.13.9
       socket.io-client: ^4.4.1
       tailwindcss: ^3.0.23
@@ -190,12 +190,12 @@ importers:
       graphql: 16.3.0
       next: 12.1.0_react-dom@17.0.2+react@17.0.2
       ordinal: 1.0.3
+      phosphor-react: 1.4.1_react@17.0.2
       react: 17.0.2
       react-contextmenu: 2.14.0_react-dom@17.0.2+react@17.0.2
       react-dom: 17.0.2_react@17.0.2
       react-dropzone: 12.0.4_react@17.0.2
       react-hot-toast: 2.2.0_react-dom@17.0.2+react@17.0.2
-      react-icons: 4.3.1_react@17.0.2
       socket.io-client: 4.4.1
       ua-parser-js: 1.0.2
       zustand: 3.7.0_react@17.0.2
@@ -4988,6 +4988,15 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
+  /phosphor-react/1.4.1_react@17.0.2:
+    resolution: {integrity: sha512-gO5j7U0xZrdglTAYDYPACU4xDOFBTJmptrrB/GeR+tHhCZF3nUMyGmV/0hnloKjuTrOmpSFlbfOY78H39rgjUQ==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      react: '>=16'
+    dependencies:
+      react: 17.0.2
+    dev: false
+
   /picocolors/1.0.0:
     resolution: {integrity: sha512-1fygroTLlHu66zi26VoTDv8yRgm0Fccecssto+MhsZ0D/DGW2sm8E8AjW7NU5VVTRt5GxbeZ5qBuJr+HyLYkjQ==}
 
@@ -5253,14 +5262,6 @@ packages:
       react-dom: 17.0.2_react@17.0.2
     transitivePeerDependencies:
       - csstype
-    dev: false
-
-  /react-icons/4.3.1_react@17.0.2:
-    resolution: {integrity: sha512-cB10MXLTs3gVuXimblAdI71jrJx8njrJZmNMEMC+sQu5B/BIOmlsAjskdqpn81y8UBVEGuHODd7/ci5DvoSzTQ==}
-    peerDependencies:
-      react: '*'
-    dependencies:
-      react: 17.0.2
     dev: false
 
   /react-is/16.13.1:

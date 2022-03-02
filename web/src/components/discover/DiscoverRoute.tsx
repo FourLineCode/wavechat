@@ -1,12 +1,11 @@
 import clsx from "clsx";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { IconType } from "react-icons";
 
 interface Props {
     text: string;
     route: string;
-    icon: IconType;
+    icon: JSX.Element;
 }
 
 export function DiscoverRoute({ text, route, icon: IconComponent }: Props) {
@@ -23,7 +22,7 @@ export function DiscoverRoute({ text, route, icon: IconComponent }: Props) {
                     "flex items-center p-3 my-1 space-x-2 rounded-lg cursor-pointer transition-colors"
                 )}
             >
-                <IconComponent />
+                {IconComponent}
                 <span className="font-semibold">{text}</span>
             </a>
         </Link>

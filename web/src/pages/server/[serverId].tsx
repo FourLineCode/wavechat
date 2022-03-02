@@ -52,7 +52,9 @@ export default function ServerById() {
             <div className="flex w-screen h-screen">
                 <NavigationSidebar />
                 <SidebarWithProfile
-                    component={() => <ServerInfoSidebar server={data?.server as Server} />}
+                    component={() => (
+                        <ServerInfoSidebar server={data?.server as Server} loading={loading} />
+                    )}
                 />
                 <div className="flex flex-col items-center justify-center flex-1 bg-dark-700">
                     {loading ? (
@@ -65,7 +67,7 @@ export default function ServerById() {
                         <div className="text-3xl font-bold text-muted">Server not found</div>
                     )}
                 </div>
-                <ServerMembersList members={data?.server.members as User[]} />
+                <ServerMembersList members={data?.server.members as User[]} loading={loading} />
             </div>
         </Layout>
     );

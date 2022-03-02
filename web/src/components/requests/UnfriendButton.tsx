@@ -1,6 +1,6 @@
 import { useMutation } from "@apollo/client";
+import { UserMinus } from "phosphor-react";
 import toast from "react-hot-toast";
-import { FaUserMinus } from "react-icons/fa";
 import { UnfriendMutation, UnfriendMutationVariables } from "src/apollo/__generated__/types";
 import { GET_FRIENDS_LIST } from "src/components/friends/FriendsList";
 import { ACTIVE_MESSAGE_THREADS } from "src/components/messages/sidebar/DirectMessages";
@@ -32,7 +32,7 @@ export function UnfriendButton({ user, className, setState }: RequestButtonProps
     return (
         <Button type="submit" className={className} onClick={unfriend} isSubmitting={loading}>
             <div className="flex items-center justify-center space-x-1">
-                <FaUserMinus />
+                <UserMinus weight="fill" size={24} />
                 <span className="line-clamp-1">Unfriend</span>
             </div>
         </Button>

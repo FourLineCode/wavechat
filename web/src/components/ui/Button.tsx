@@ -49,7 +49,7 @@ export const Button = React.forwardRef<HTMLButtonElement, Props>(function Button
             )}
             {...props}
         >
-            {isSubmitting && <Spinner size="24px" />}
+            {isSubmitting && <Spinner size={24} />}
             <div className={clsx(isSubmitting && "ml-1")}>{children}</div>
         </button>
     );

@@ -1,11 +1,10 @@
 import { gql, useMutation } from "@apollo/client";
 import { MediaDTO, MessageDTO, MessageSocketEvents } from "@wavechat/shared";
 import clsx from "clsx";
+import { Image, X } from "phosphor-react";
 import React, { useRef, useState } from "react";
 import Dropzone from "react-dropzone";
 import toast from "react-hot-toast";
-import { CgImage } from "react-icons/cg";
-import { ImCross } from "react-icons/im";
 import {
     MessageThread,
     UploadMultipleFilesMutation,
@@ -92,7 +91,7 @@ export function MediaInput({ socket, thread }: Props) {
                 onClick={imageInputModal.onOpen}
                 className="p-2.5 transition-colors ml-2 border border-opacity-75 rounded-md cursor-pointer text-secondary hover:text-primary hover:bg-dark-600 hover:bg-opacity-40 border-dark-600"
             >
-                <CgImage size="24" />
+                <Image weight="fill" size={24} />
             </div>
             <Modal initialFocus={cancelButtonRef} large {...imageInputModal}>
                 <Dropzone
@@ -128,7 +127,7 @@ export function MediaInput({ socket, thread }: Props) {
                                     onClick={() => setFiles((p) => p.filter((_, i) => i !== index))}
                                     className="absolute p-1 transition-colors bg-red-500 bg-opacity-75 rounded-full cursor-pointer hover:bg-opacity-100 -top-1 -right-1"
                                 >
-                                    <ImCross size="8px" />
+                                    <X weight="fill" size={12} />
                                 </div>
                             </div>
                         ))}
@@ -151,7 +150,7 @@ export function MediaInput({ socket, thread }: Props) {
                                 onClick={() => setFiles([])}
                                 className="flex items-center justify-center px-4 py-2 transition-colors border border-opacity-50 rounded-md cursor-pointer focus:outline-none focus:ring-4 ring-opacity-50 ring-brand-500 border-dark-600 hover:text-red-500 hover:bg-dark-700 hover:bg-opacity-50"
                             >
-                                <ImCross />
+                                <X weight="bold" size={18} />
                             </button>
                         </Tooltip>
                     )}

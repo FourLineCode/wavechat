@@ -1,15 +1,15 @@
 import Image from "next/image";
 import Link from "next/link";
-import toast from "react-hot-toast";
 import {
-    FaDiscord,
-    FaFacebook,
-    FaGithub,
-    FaInstagram,
-    FaReddit,
-    FaTwitch,
-    FaTwitter,
-} from "react-icons/fa";
+    DiscordLogo,
+    FacebookLogo,
+    GithubLogo,
+    InstagramLogo,
+    RedditLogo,
+    TwitchLogo,
+    TwitterLogo,
+} from "phosphor-react";
+import toast from "react-hot-toast";
 import { Button } from "src/components/ui/Button";
 import { IconButton } from "src/components/ui/IconButon";
 import { IconLink } from "src/components/ui/IconLink";
@@ -92,18 +92,36 @@ export function NavBar() {
                 </div>
                 <div className="flex items-center justify-between mt-4">
                     <div className="flex items-center space-x-1">
-                        <IconLink icon={FaGithub} href="https://github.com/FourLineCode" />
-                        <IconLink icon={FaTwitter} href="https://twitter.com/FourLineCode" />
-                        <IconLink icon={FaFacebook} href="https://facebook.com/FourLineCode" />
-                        <IconLink icon={FaInstagram} href="https://instagram.com/FourLineCode" />
-                        <IconLink icon={FaTwitch} href="https://twitch.tv/FourLineCode" />
-                        <IconLink icon={FaReddit} href="https://reddit.com/user/FourLineCode" />
+                        <IconLink
+                            icon={<GithubLogo weight="fill" size={24} />}
+                            href="https://github.com/FourLineCode"
+                        />
+                        <IconLink
+                            icon={<TwitterLogo weight="fill" size={24} />}
+                            href="https://twitter.com/FourLineCode"
+                        />
+                        <IconLink
+                            icon={<FacebookLogo weight="fill" size={24} />}
+                            href="https://facebook.com/FourLineCode"
+                        />
+                        <IconLink
+                            icon={<InstagramLogo weight="fill" size={24} />}
+                            href="https://instagram.com/FourLineCode"
+                        />
+                        <IconLink
+                            icon={<TwitchLogo weight="fill" size={24} />}
+                            href="https://twitch.tv/FourLineCode"
+                        />
+                        <IconLink
+                            icon={<RedditLogo weight="fill" size={24} />}
+                            href="https://reddit.com/user/FourLineCode"
+                        />
                         <IconButton
-                            icon={FaDiscord}
+                            icon={<DiscordLogo weight="fill" size={24} />}
                             onClick={() =>
                                 toast(() => (
                                     <div className="flex items-center space-x-2">
-                                        <FaDiscord size="24" />
+                                        <DiscordLogo size={24} weight="fill" />
                                         <span className="font-semibold">FourLineCode</span>
                                         <span>#4242</span>
                                     </div>

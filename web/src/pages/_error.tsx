@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { BiMessageAltError } from "react-icons/bi";
+import { CircleWavyWarning } from "phosphor-react";
 import { Layout } from "src/components/layouts/Layout";
 import { Button } from "src/components/ui/Button";
 
@@ -10,7 +10,7 @@ export default function Error() {
         <Layout title="404" desc="Page not found">
             <div className="flex items-center justify-center w-screen h-screen">
                 <div className="flex flex-col items-center justify-center space-y-2">
-                    <BiMessageAltError size="120" className="text-dark-500" />
+                    <CircleWavyWarning size={120} weight="bold" className="text-dark-500" />
                     <div className="text-4xl font-bold text-secondary">
                         Oops, Something went wrong
                     </div>
