@@ -264,14 +264,15 @@
             -   [ ] each channel has a MessageThread in it
             -   [ ] default channels for every server (welcome/rules)
     -   [ ] server context menu
-        -   [ ] invite people
-            -   [ ] shows friends on modal
-            -   [ ] deny the invite if user already member
+        -   [x] invite people
+            -   [x] shows friends on modal
+            -   [x] invite by username
+            -   [x] deny the invite if user already member
         -   [ ] edit server
             -   [ ] delete server?
         -   [ ] leave server
             -   [ ] admin cannot leave if only admin on server
-    -   [ ] friends/messages/server member context menu
+    -   [ ] friends/messages/server-member (card) context menu items
         -   [ ] invite to server
         -   [ ] server member view profile
     -   [ ] server invites

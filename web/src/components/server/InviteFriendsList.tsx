@@ -7,6 +7,7 @@ import {
     User,
 } from "src/apollo/__generated__/types";
 import { InviteFriendToServerCard } from "src/components/server/InviteFriendToServerCard";
+import { InviteToServerByUsernameField } from "src/components/server/InviteToServerByUsernameField";
 import { Spinner } from "src/components/ui/Spinner";
 
 interface Props {
@@ -39,24 +40,29 @@ export function InviteFriendsList({ server }: Props) {
         fetchPolicy: "no-cache",
     });
 
-    // TODO: implement invite user by username
-
-    return loading ? (
-        <div className="flex items-center justify-center w-full h-[50vh]">
-            <Spinner />
-        </div>
-    ) : data && data.invitableUserList.length > 0 ? (
+    return (
         <>
             <div className="text-2xl font-bold text-center">Invite to server</div>
-            <div className="w-full space-y-1 max-h-[50vh] overflow-y-auto">
-                {data.invitableUserList.map((user) => (
-                    <InviteFriendToServerCard user={user as User} server={server} key={user.id} />
-                ))}
-            </div>
+            <InviteToServerByUsernameField server={server} />
+            {loading ? (
+                <div className="flex items-center justify-center w-full h-[50vh]">
+                    <Spinner />
+                </div>
+            ) : data && data.invitableUserList.length > 0 ? (
+                <div className="w-full space-y-1 max-h-[50vh] overflow-y-auto">
+                    {data.invitableUserList.map((user) => (
+                        <InviteFriendToServerCard
+                            user={user as User}
+                            server={server}
+                            key={user.id}
+                        />
+                    ))}
+                </div>
+            ) : (
+                <div className="flex items-center justify-center w-full py-8 text-xl font-semibold text-secondary">
+                    No friends to invite
+                </div>
+            )}
         </>
-    ) : (
-        <div className="flex items-center justify-center w-full py-8 text-xl font-semibold text-secondary">
-            No friends to invite
-        </div>
     );
 }

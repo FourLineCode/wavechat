@@ -148,8 +148,10 @@ export type Mutation = {
   declineRequest: FriendRequest;
   /** Delete an invite to user */
   deleteInviteToUserById: ServerInvite;
-  /** Invite a user to a server */
+  /** Invite a user to a server by user id */
   inviteUserToServerById: ServerInvite;
+  /** Invite a user to a server by username */
+  inviteUserToServerByUsername: ServerInvite;
   /** Removes all sessions other than current session */
   removeOtherSessions: SuccessResult;
   /** Send a friend request to a user */
@@ -212,6 +214,12 @@ export type MutationDeleteInviteToUserByIdArgs = {
 export type MutationInviteUserToServerByIdArgs = {
   serverId: Scalars['String'];
   userId: Scalars['String'];
+};
+
+
+export type MutationInviteUserToServerByUsernameArgs = {
+  serverId: Scalars['String'];
+  username: Scalars['String'];
 };
 
 
@@ -594,7 +602,7 @@ export type DeleteInviteByIdMutationVariables = Exact<{
 }>;
 
 
-export type DeleteInviteByIdMutation = { __typename?: 'Mutation', inviteUserToServerById: { __typename?: 'ServerInvite', id: string } };
+export type DeleteInviteByIdMutation = { __typename?: 'Mutation', deleteInviteToUserById: { __typename?: 'ServerInvite', id: string } };
 
 export type GetInvitableUserListQueryVariables = Exact<{
   serverId: Scalars['String'];
@@ -602,6 +610,14 @@ export type GetInvitableUserListQueryVariables = Exact<{
 
 
 export type GetInvitableUserListQuery = { __typename?: 'Query', invitableUserList: Array<{ __typename?: 'User', id: string, username: string, displayName: string, avatarUrl?: string | null, university?: string | null }> };
+
+export type InviteUserToServerByUsernameMutationVariables = Exact<{
+  serverId: Scalars['String'];
+  username: Scalars['String'];
+}>;
+
+
+export type InviteUserToServerByUsernameMutation = { __typename?: 'Mutation', inviteUserToServerByUsername: { __typename?: 'ServerInvite', id: string } };
 
 export type ChangePasswordMutationVariables = Exact<{
   input: ChangePasswordInput;
@@ -927,7 +943,7 @@ export const InviteUserToServerByIdDocument = gql`
 export type InviteUserToServerByIdMutationOptions = Apollo.BaseMutationOptions<InviteUserToServerByIdMutation, InviteUserToServerByIdMutationVariables>;
 export const DeleteInviteByIdDocument = gql`
     mutation DeleteInviteById($serverId: String!, $userId: String!) {
-  inviteUserToServerById(serverId: $serverId, userId: $userId) {
+  deleteInviteToUserById(serverId: $serverId, userId: $userId) {
     id
   }
 }
@@ -944,6 +960,14 @@ export const GetInvitableUserListDocument = gql`
   }
 }
     `;
+export const InviteUserToServerByUsernameDocument = gql`
+    mutation InviteUserToServerByUsername($serverId: String!, $username: String!) {
+  inviteUserToServerByUsername(serverId: $serverId, username: $username) {
+    id
+  }
+}
+    `;
+export type InviteUserToServerByUsernameMutationOptions = Apollo.BaseMutationOptions<InviteUserToServerByUsernameMutation, InviteUserToServerByUsernameMutationVariables>;
 export const ChangePasswordDocument = gql`
     mutation ChangePassword($input: ChangePasswordInput!) {
   changePassword(input: $input) {
