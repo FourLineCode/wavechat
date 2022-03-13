@@ -68,7 +68,7 @@ export function ProfileDetails({ userId, onClose }: Props) {
                 <div className="flex items-center flex-1 space-x-2">
                     <UserAvatar
                         user={data.user as User}
-                        className="w-16 h-16 rounded-lg shrink-0"
+                        className="object-cover w-16 h-16 rounded-lg shrink-0"
                     />
                     <div>
                         <div className="text-lg font-semibold line-clamp-1">
@@ -102,7 +102,7 @@ export function ProfileDetails({ userId, onClose }: Props) {
                     )}
                 </div>
             </div>
-            <div className="px-4 mt-4 space-y-2">
+            <div className="px-2 mt-4 space-y-2">
                 {data.user.bio && (
                     <div className="flex space-x-2">
                         <div>

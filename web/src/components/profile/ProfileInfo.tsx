@@ -15,7 +15,7 @@ export function ProfileInfo() {
                 <UserAvatar
                     user={user as User}
                     onClick={profileModal.onOpen}
-                    className="w-12 h-full rounded-lg cursor-pointer shrink-0 hover:ring-2 ring-brand-500"
+                    className="object-cover w-12 h-full rounded-lg cursor-pointer shrink-0 hover:ring-2 ring-brand-500"
                 />
                 <div>
                     <div

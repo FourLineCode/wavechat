@@ -277,7 +277,9 @@
         -   [ ] server member view profile
     -   [ ] server invites
         -   [ ] show invites on discover page
-        -   [ ] invite from discover users page
+            -   [ ] accept/decline invite
+            -   [ ] redirect on accept??
+        -   [x] invite from discover users page
     -   [ ] roles
         -   [ ] admins
     -   [ ] add members

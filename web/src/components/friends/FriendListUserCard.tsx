@@ -28,7 +28,7 @@ export function FriendListUserCard({ friendship }: Props) {
                 <div className="flex items-center space-x-2">
                     <UserAvatar
                         user={friend}
-                        className="shrink-0 w-10 h-10 rounded-lg cursor-pointer"
+                        className="object-cover w-10 h-10 rounded-lg cursor-pointer shrink-0"
                     />
                     <div className="w-full">
                         <div className="font-semibold cursor-pointer line-clamp-1">

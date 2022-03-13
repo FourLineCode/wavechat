@@ -1,6 +1,6 @@
 import { UsersThree } from "phosphor-react";
-import toast from "react-hot-toast";
 import { User } from "src/apollo/__generated__/types";
+import { InviteDiscoveredUserModal } from "src/components/discover/InviteDiscoveredUserModal";
 import { ProfileModal } from "src/components/profile/ProfileModal";
 import { UserAvatar } from "src/components/profile/UserAvatar";
 import { RequestButton } from "src/components/requests/RequestButton";
@@ -14,11 +14,7 @@ interface Props {
 
 export function DiscoveredUser({ user }: Props) {
     const discoverUserProfile = useModal();
-
-    // TODO: implement this feature after servers are done
-    const inviteToServer = () => {
-        toast.success("Server features coming soon");
-    };
+    const inviteToServerModal = useModal();
 
     return (
         <Card className="mx-2 mb-4 space-y-2 min-w-64">
@@ -26,7 +22,7 @@ export function DiscoveredUser({ user }: Props) {
                 <UserAvatar
                     user={user}
                     onClick={discoverUserProfile.onOpen}
-                    className="w-16 h-16 rounded-lg cursor-pointer shrink-0 hover:ring-2 ring-brand-500"
+                    className="object-cover w-16 h-16 rounded-lg cursor-pointer shrink-0 hover:ring-2 ring-brand-500"
                 />
                 <div>
                     <div
@@ -44,7 +40,7 @@ export function DiscoveredUser({ user }: Props) {
             <Button
                 variant="outlined"
                 className="w-full text-sm 2xl:text-base"
-                onClick={inviteToServer}
+                onClick={inviteToServerModal.onOpen}
             >
                 <div className="flex items-center justify-center space-x-1">
                     <UsersThree weight="fill" />
@@ -52,6 +48,7 @@ export function DiscoveredUser({ user }: Props) {
                 </div>
             </Button>
             <ProfileModal userId={user.id} {...discoverUserProfile} />
+            <InviteDiscoveredUserModal user={user} {...inviteToServerModal} />
         </Card>
     );
 }

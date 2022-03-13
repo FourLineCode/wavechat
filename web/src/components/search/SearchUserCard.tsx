@@ -54,7 +54,7 @@ export function SearchUserCard({ user, onClose, active = false }: Props) {
                 "flex items-center p-1 space-x-2 rounded-lg cursor-pointer bg-dark-900 hover:bg-dark-800"
             )}
         >
-            <UserAvatar user={user} className="shrink-0 w-10 h-10 rounded-lg" />
+            <UserAvatar user={user} className="object-cover w-10 h-10 rounded-lg shrink-0" />
             <div className="w-full">
                 <div className="font-semibold cursor-pointer line-clamp-1 group-hover:underline">
                     {user.displayName}

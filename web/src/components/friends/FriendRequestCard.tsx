@@ -29,7 +29,7 @@ export function FriendRequestCard({ request }: Props) {
                 <UserAvatar
                     user={request.fromUser}
                     onClick={friendRequestProfile.onOpen}
-                    className="w-10 h-10 rounded-lg cursor-pointer shrink-0 hover:ring-2 ring-brand-500"
+                    className="object-cover w-10 h-10 rounded-lg cursor-pointer shrink-0 hover:ring-2 ring-brand-500"
                 />
                 <div>
                     <div

@@ -8,6 +8,7 @@ export const GET_JOINED_SERVERS = gql`
         joinedServers {
             id
             name
+            type
             iconUrl
         }
     }

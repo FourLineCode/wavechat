@@ -1,4 +1,4 @@
-import { gql, useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import {
@@ -9,7 +9,10 @@ import {
     Server,
     User,
 } from "src/apollo/__generated__/types";
-import { UserAvatar } from "src/components/profile/UserAvatar";
+import {
+    DELETE_INVITE_BY_ID,
+    INVITE_USER_TO_SERVER_BY_ID,
+} from "src/components/server/InviteFriendToServerCard";
 import { Button } from "src/components/ui/Button";
 
 interface Props {
@@ -17,23 +20,7 @@ interface Props {
     server: Server;
 }
 
-export const INVITE_USER_TO_SERVER_BY_ID = gql`
-    mutation InviteUserToServerById($serverId: String!, $userId: String!) {
-        inviteUserToServerById(serverId: $serverId, userId: $userId) {
-            id
-        }
-    }
-`;
-
-export const DELETE_INVITE_BY_ID = gql`
-    mutation DeleteInviteById($serverId: String!, $userId: String!) {
-        deleteInviteToUserById(serverId: $serverId, userId: $userId) {
-            id
-        }
-    }
-`;
-
-export function InviteFriendToServerCard({ user, server }: Props) {
+export function InviteToServerCard({ user, server }: Props) {
     const [invited, setInvited] = useState(false);
 
     const [inviteUser, { loading: sendLoading }] = useMutation<
@@ -45,7 +32,7 @@ export function InviteFriendToServerCard({ user, server }: Props) {
             serverId: server.id,
         },
         onError: () => {
-            toast.error("Failed to send invite");
+            toast.error("Failed to send invite\n(User may be already invited)");
         },
         onCompleted: () => {
             setInvited(true);
@@ -73,12 +60,16 @@ export function InviteFriendToServerCard({ user, server }: Props) {
     return (
         <div className="flex justify-between w-full py-2 pr-2 rounded-lg">
             <div className="flex items-center space-x-2">
-                <UserAvatar user={user} className="object-cover w-10 h-10 rounded-lg shrink-0" />
+                {server.iconUrl && (
+                    <img
+                        src={server.iconUrl}
+                        alt="avatar"
+                        className="flex-shrink-0 object-cover w-10 h-10 rounded-lg"
+                    />
+                )}
                 <div className="w-full">
-                    <div className="font-semibold line-clamp-1">{user.displayName}</div>
-                    <div className="text-xs line-clamp-1 text-secondary">
-                        {user.university ?? "unknown"}
-                    </div>
+                    <div className="font-semibold line-clamp-1">{server.name}</div>
+                    <div className="text-xs line-clamp-1 text-muted">{server.type}</div>
                 </div>
             </div>
             <Button
