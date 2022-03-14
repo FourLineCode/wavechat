@@ -194,6 +194,7 @@ export function CreateServerModal() {
                                     >
                                         <option value="public">Public</option>
                                         <option value="private">Private</option>
+                                        <option value="closed">Closed</option>
                                     </Field>
                                     <div className="absolute inset-y-0 flex items-center pointer-events-none right-2 text-secondary">
                                         <CaretDown size={20} weight="bold" />

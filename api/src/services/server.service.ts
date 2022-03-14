@@ -153,6 +153,19 @@ export async function canInviteUserToServer({
     toUserId,
     fromUserId,
 }: ServerInviteParams) {
+    const isServerOpen = await db.server.findFirst({
+        where: {
+            id: serverId,
+            type: {
+                not: "CLOSED",
+            },
+        },
+    });
+
+    if (!isServerOpen) {
+        return false;
+    }
+
     const [alreadyJoined, alreadyInvited] = await Promise.all([
         isUserInServer({ serverId, userId: toUserId }),
         isUserAlreadyInvited({ serverId, toUserId, fromUserId }),

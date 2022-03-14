@@ -32,7 +32,11 @@ export function InviteToServerCard({ user, server }: Props) {
             serverId: server.id,
         },
         onError: () => {
-            toast.error("Failed to send invite\n(User may be already invited)");
+            toast.error("Failed to send invite\nUser already invited or server is closed", {
+                style: {
+                    textAlign: "center",
+                },
+            });
         },
         onCompleted: () => {
             setInvited(true);

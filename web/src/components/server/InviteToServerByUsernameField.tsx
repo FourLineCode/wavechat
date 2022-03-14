@@ -27,7 +27,11 @@ export function InviteToServerByUsernameField({ server }: Props) {
         InviteUserToServerByUsernameMutationVariables
     >(INVITE_USER_TO_SERVER_BY_USERNAME, {
         onError: () => {
-            toast.error("Failed to send invite to user");
+            toast.error("Failed to send invite\nUser already invited or server is closed", {
+                style: {
+                    textAlign: "center",
+                },
+            });
         },
         onCompleted: () => {
             toast.success("Successfully sent invite");
