@@ -207,6 +207,9 @@ type Query {
   """Get pending requests of current user"""
   pendingRequests: [FriendRequest!]!
 
+  """Get pending server invites for current user"""
+  pendingServerInvites: [ServerInvite!]!
+
   """Returns list of friends matching search term"""
   searchFriends(searchTerm: String!): [User!]!
 
@@ -238,6 +241,7 @@ type Server {
   createdAt: Date!
   iconUrl: String
   id: ID!
+  memberCount: Int!
   members: [User!]!
   name: String!
   owner: User!

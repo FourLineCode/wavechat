@@ -33,6 +33,12 @@ export const ServerObject: ObjectRef<Server, Server> = builder
                     return await services.server.getServerMembers(server.id);
                 },
             }),
+            memberCount: t.field({
+                type: "Int",
+                resolve: async (server) => {
+                    return await services.server.getServerMembersCount(server.id);
+                },
+            }),
             channels: t.field({
                 type: [ServerChannelObject],
                 resolve: async (server) => {
@@ -268,6 +274,21 @@ builder.mutationField("deleteInviteToUserById", (t) =>
                 fromUserId: user.id,
                 toUserId: userId,
             });
+        },
+    })
+);
+
+builder.queryField("pendingServerInvites", (t) =>
+    t.field({
+        type: [ServerInviteObject],
+        description: "Get pending server invites for current user",
+        authScopes: { user: true },
+        resolve: async (_parent, _args, { user }) => {
+            if (!user) {
+                throw new Error("Unauthorized");
+            }
+
+            return await services.server.getPendingInvitesForUser(user.id);
         },
     })
 );

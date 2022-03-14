@@ -31,7 +31,7 @@ export function MessageThreadCard({ thread }: Props) {
                     <div
                         className={clsx(
                             active && "bg-dark-700",
-                            "w-full p-2 space-y-2 rounded-lg cursor-pointer bg-dark-800 hover:bg-dark-700 group"
+                            "w-full p-2 space-y-2 rounded-lg cursor-pointer bg-dark-800 hover:bg-dark-700 transition-colors group"
                         )}
                     >
                         <div className="flex items-center space-x-2">

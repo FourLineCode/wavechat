@@ -289,6 +289,8 @@ export type Query = {
   messageThread: MessageThread;
   /** Get pending requests of current user */
   pendingRequests: Array<FriendRequest>;
+  /** Get pending server invites for current user */
+  pendingServerInvites: Array<ServerInvite>;
   /** Returns list of friends matching search term */
   searchFriends: Array<User>;
   /** Get sent requests of current user */
@@ -378,6 +380,7 @@ export type Server = {
   createdAt: Scalars['Date'];
   iconUrl?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
+  memberCount: Scalars['Int'];
   members: Array<User>;
   name: Scalars['String'];
   owner: User;
@@ -498,6 +501,11 @@ export type UserDtoInput = {
   username: Scalars['String'];
 };
 
+export type GetPendingServerInvitesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetPendingServerInvitesQuery = { __typename?: 'Query', pendingServerInvites: Array<{ __typename?: 'ServerInvite', id: string, createdAt: any, toUserId: string, fromUserId: string, serverId: string, fromUser: { __typename?: 'User', id: string, username: string, displayName: string, avatarUrl?: string | null }, server: { __typename?: 'Server', id: string, name: string, type: string, iconUrl?: string | null, memberCount: number } }> };
+
 export type DiscoverUsersQueryVariables = Exact<{
   query: Scalars['String'];
   limit?: InputMaybe<Scalars['Int']>;
@@ -544,7 +552,7 @@ export type ThreadMessagesQuery = { __typename?: 'Query', threadMessages: Array<
 export type GetJoinedServersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetJoinedServersQuery = { __typename?: 'Query', joinedServers: Array<{ __typename?: 'Server', id: string, name: string, iconUrl?: string | null }> };
+export type GetJoinedServersQuery = { __typename?: 'Query', joinedServers: Array<{ __typename?: 'Server', id: string, name: string, type: string, iconUrl?: string | null }> };
 
 export type GetUserDataQueryVariables = Exact<{
   userId: Scalars['String'];
@@ -724,6 +732,30 @@ export type AuthorizeQueryVariables = Exact<{ [key: string]: never; }>;
 export type AuthorizeQuery = { __typename?: 'Query', authorize: { __typename?: 'AuthResult', success: boolean, user: { __typename?: 'User', id: string, email: string, username: string, displayName: string, avatarUrl?: string | null, bio?: string | null, role: string, createdAt: any, updatedAt: any, university?: string | null, department?: string | null, semester?: number | null } } };
 
 
+export const GetPendingServerInvitesDocument = gql`
+    query GetPendingServerInvites {
+  pendingServerInvites {
+    id
+    createdAt
+    toUserId
+    fromUserId
+    fromUser {
+      id
+      username
+      displayName
+      avatarUrl
+    }
+    serverId
+    server {
+      id
+      name
+      type
+      iconUrl
+      memberCount
+    }
+  }
+}
+    `;
 export const DiscoverUsersDocument = gql`
     query DiscoverUsers($query: String!, $limit: Int, $cursor: Int) {
   discoverUsers(query: $query, limit: $limit, cursor: $cursor) {
@@ -855,6 +887,7 @@ export const GetJoinedServersDocument = gql`
   joinedServers {
     id
     name
+    type
     iconUrl
   }
 }

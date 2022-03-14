@@ -39,6 +39,27 @@ export async function getServerMembers(serverId: string) {
     return server.members;
 }
 
+export async function getServerMembersCount(serverId: string) {
+    const server = await db.server.findFirst({
+        where: {
+            id: serverId,
+        },
+        include: {
+            _count: {
+                select: {
+                    members: true,
+                },
+            },
+        },
+    });
+
+    if (!server) {
+        throw new Error("Server not found");
+    }
+
+    return server._count.members;
+}
+
 export async function getServerPendingInvites(serverId: string) {
     const server = await db.server.findFirst({
         where: {
@@ -269,4 +290,23 @@ export async function deleteInviteToUserById({
             id: invite.id,
         },
     });
+}
+
+export async function getPendingInvitesForUser(userId: string) {
+    const user = await db.user.findUnique({
+        where: {
+            id: userId,
+        },
+        include: {
+            pendingServerInvites: {
+                include: {
+                    fromUser: true,
+                    server: true,
+                },
+            },
+        },
+        rejectOnNotFound: true,
+    });
+
+    return user.pendingServerInvites;
 }

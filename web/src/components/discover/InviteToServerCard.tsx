@@ -1,4 +1,5 @@
 import { useMutation } from "@apollo/client";
+import { CircleWavyQuestion } from "phosphor-react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import {
@@ -64,12 +65,16 @@ export function InviteToServerCard({ user, server }: Props) {
     return (
         <div className="flex justify-between w-full py-2 pr-2 rounded-lg">
             <div className="flex items-center space-x-2">
-                {server.iconUrl && (
+                {server.iconUrl ? (
                     <img
                         src={server.iconUrl}
-                        alt="avatar"
+                        alt="server-icon"
                         className="flex-shrink-0 object-cover w-10 h-10 rounded-lg"
                     />
+                ) : (
+                    <div className="flex items-center justify-center flex-shrink-0 w-10 h-10 rounded-lg bg-dark-800">
+                        <CircleWavyQuestion size={28} weight="bold" className="text-secondary" />
+                    </div>
                 )}
                 <div className="w-full">
                     <div className="font-semibold line-clamp-1">{server.name}</div>

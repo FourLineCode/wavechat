@@ -245,15 +245,20 @@
     -   [x] model
         -   [x] name
         -   [x] icon
-        -   [x] banner
+        -   [ ] banner
+            -   [ ] show on discover page
+            -   [ ] show on invite page
         -   [x] owner
         -   [x] type
             -   [x] private invite only
             -   [x] public discoverable
                 -   [ ] anyone can join
-            -   [ ] closed
-                -   [ ] cannot invite
+            -   [x] closed
+                -   [x] cannot invite
                 -   [ ] pending invites can be accepted
+        -   [ ] server about
+            -   [ ] show on discover page
+            -   [ ] show on invite page
         -   [ ] members
             -   [ ] show member on right
             -   [ ] separate different roles
@@ -280,8 +285,11 @@
             -   [ ] accept/decline invite
             -   [ ] redirect on accept??
         -   [x] invite from discover users page
+        -   [ ] invite by custom url
+            -   [ ] only admins can generate url
     -   [ ] roles
         -   [ ] admins
+            -   [ ] change roles of members (member context menu)
     -   [ ] add members
         -   [ ] invite only?
         -   [ ] can send invite to anyone with username

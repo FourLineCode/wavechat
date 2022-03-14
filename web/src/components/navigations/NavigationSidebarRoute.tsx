@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { Icon, Question } from "phosphor-react";
+import { CircleWavyQuestion, Icon, Question } from "phosphor-react";
 import { Tooltip } from "src/components/ui/Tooltip";
 
 interface Props {
@@ -45,7 +45,7 @@ export function NavigationSidebarRoute({
                                 )}
                             />
                         </a>
-                    ) : (
+                    ) : IconComponent ? (
                         <a
                             className={clsx(
                                 currentRoute
@@ -56,6 +56,25 @@ export function NavigationSidebarRoute({
                         >
                             <IconComponent
                                 weight="fill"
+                                size={32}
+                                className={
+                                    marked && !currentRoute
+                                        ? "text-brand-500 group-hover:text-primary transition-colors"
+                                        : ""
+                                }
+                            />
+                        </a>
+                    ) : (
+                        <a
+                            className={clsx(
+                                currentRoute
+                                    ? "text-primary bg-brand-500 rounded-xl hover:bg-brand-600 ring-4 ring-brand-500 ring-opacity-40"
+                                    : "text-muted hover:text-primary hover:bg-brand-500 bg-dark-800 rounded-3xl hover:rounded-xl",
+                                "flex group items-center justify-center w-12 h-12 my-2 transition-all cursor-pointer"
+                            )}
+                        >
+                            <CircleWavyQuestion
+                                weight="bold"
                                 size={32}
                                 className={
                                     marked && !currentRoute

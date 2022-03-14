@@ -23,7 +23,7 @@ export function FriendListUserCard({ friendship }: Props) {
         <ContextMenuTrigger id={`friend-list-card-${friend.id}`}>
             <div
                 onClick={friendListProfile.onOpen}
-                className="w-full p-2 space-y-2 rounded-lg cursor-pointer bg-dark-800 hover:bg-dark-700"
+                className="w-full p-2 space-y-2 transition-colors rounded-lg cursor-pointer bg-dark-800 hover:bg-dark-700"
             >
                 <div className="flex items-center space-x-2">
                     <UserAvatar

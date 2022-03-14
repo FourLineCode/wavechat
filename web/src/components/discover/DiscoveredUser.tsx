@@ -17,7 +17,7 @@ export function DiscoveredUser({ user }: Props) {
     const inviteToServerModal = useModal();
 
     return (
-        <Card className="mx-2 mb-4 space-y-2 min-w-64">
+        <Card className="w-full mb-4 space-y-2 min-w-64">
             <div className="flex items-center space-x-2">
                 <UserAvatar
                     user={user}
@@ -27,7 +27,7 @@ export function DiscoveredUser({ user }: Props) {
                 <div>
                     <div
                         onClick={discoverUserProfile.onOpen}
-                        className="text-lg font-semibold cursor-pointer line-clamp-1 hover:underline"
+                        className="text-lg font-semibold break-all cursor-pointer line-clamp-1 hover:underline"
                     >
                         {user.displayName}
                     </div>
