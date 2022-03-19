@@ -277,6 +277,10 @@
             -   [ ] delete server?
         -   [ ] leave server
             -   [ ] admin cannot leave if only admin on server
+    -   [ ] server info modal
+        -   [ ] show join button on public servers
+        -   [ ] show mutual friends members
+        -   [ ] show info
     -   [ ] friends/messages/server-member (card) context menu items
         -   [ ] invite to server
         -   [ ] server member view profile

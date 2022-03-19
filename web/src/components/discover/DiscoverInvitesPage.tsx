@@ -4,7 +4,7 @@ import { GetPendingServerInvitesQuery, ServerInvite } from "src/apollo/__generat
 import { DiscoverInviteCard } from "src/components/discover/DiscoverInviteCard";
 import { Spinner } from "src/components/ui/Spinner";
 
-const GET_PENDING_SERVER_INVITES = gql`
+export const GET_PENDING_SERVER_INVITES = gql`
     query GetPendingServerInvites {
         pendingServerInvites {
             id
@@ -37,9 +37,9 @@ export function DiscoverInvitesPage() {
     });
 
     return (
-        <div className="flex-1 p-6 bg-dark-700">
-            <div className="mb-2 text-3xl font-bold">Pending Invites</div>
-            <div className="h-full space-y-4 overflow-y-auto text-xs">
+        <div className="flex flex-col flex-1 bg-dark-700">
+            <div className="px-6 pt-6 mb-2 text-3xl font-bold">Pending Invites</div>
+            <div className="flex-1 h-full px-6 space-y-4 overflow-y-auto text-xs">
                 {loading ? (
                     <Spinner />
                 ) : data?.pendingServerInvites && data.pendingServerInvites.length <= 0 ? (

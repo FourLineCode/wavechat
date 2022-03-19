@@ -42,8 +42,7 @@ model User {
     MessageThreadOnUser MessageThreadOnUser[]
 
     ownedServers         Server[]       @relation("ownedServers")
-    joinedServers        Server[]       @relation("joinedServers")
-    ServerOnUser         ServerOnUser[]
+    joinedServers        ServerOnUser[]
     sentServerInvites    ServerInvite[] @relation("sentServerInvites")
     pendingServerInvites ServerInvite[] @relation("pendingServerInvites")
 }
@@ -169,8 +168,7 @@ model Server {
     owner   User   @relation("ownedServers", fields: [ownerId], references: [id])
     ownerId String
 
-    members      User[]         @relation("joinedServers")
-    ServerOnUser ServerOnUser[]
+    members ServerOnUser[]
 
     adminUserIds  String[]
     bannedUserIds String[]

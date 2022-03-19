@@ -292,3 +292,35 @@ builder.queryField("pendingServerInvites", (t) =>
         },
     })
 );
+
+builder.mutationField("acceptServerInvite", (t) =>
+    t.field({
+        type: "Boolean",
+        description: "Accept an invitation to server",
+        authScopes: { user: true },
+        args: { inviteId: t.arg({ type: "String", required: true }) },
+        resolve: async (_parent, { inviteId }, { user }) => {
+            if (!user) {
+                throw new Error("Unauthorized");
+            }
+
+            return await services.server.acceptServerInvite({ user, inviteId });
+        },
+    })
+);
+
+builder.mutationField("declineServerInvite", (t) =>
+    t.field({
+        type: "Boolean",
+        description: "Decline an invitation to server",
+        authScopes: { user: true },
+        args: { inviteId: t.arg({ type: "String", required: true }) },
+        resolve: async (_parent, { inviteId }, { user }) => {
+            if (!user) {
+                throw new Error("Unauthorized");
+            }
+
+            return await services.server.declineServerInvite({ user, inviteId });
+        },
+    })
+);

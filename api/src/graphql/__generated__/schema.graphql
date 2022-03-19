@@ -111,6 +111,9 @@ type Mutation {
   """Accept a pending friend request"""
   acceptRequest(requestId: String!): Friendship!
 
+  """Accept an invitation to server"""
+  acceptServerInvite(inviteId: String!): Boolean!
+
   """Change users password"""
   changePassword(input: ChangePasswordInput!): SuccessResult!
 
@@ -128,6 +131,9 @@ type Mutation {
 
   """Decline a pending friend request"""
   declineRequest(requestId: String!): FriendRequest!
+
+  """Decline an invitation to server"""
+  declineServerInvite(inviteId: String!): Boolean!
 
   """Delete an invite to user"""
   deleteInviteToUserById(serverId: String!, userId: String!): ServerInvite!

@@ -13,6 +13,11 @@ export interface ServerInviteParams {
     toUserId: string;
 }
 
+export interface InviteMutationParams {
+    user: User;
+    inviteId: string;
+}
+
 export async function getServerById(serverId: string) {
     return await db.server.findFirst({
         where: {
@@ -28,7 +33,11 @@ export async function getServerMembers(serverId: string) {
             id: serverId,
         },
         include: {
-            members: true,
+            members: {
+                include: {
+                    user: true,
+                },
+            },
         },
     });
 
@@ -36,7 +45,7 @@ export async function getServerMembers(serverId: string) {
         throw new Error("Server not found");
     }
 
-    return server.members;
+    return server.members.map((member) => member.user);
 }
 
 export async function getServerMembersCount(serverId: string) {
@@ -96,7 +105,7 @@ export async function createServer({ name, type, iconUrl, user }: CreateServerPa
                 },
             },
             members: {
-                connect: [{ id: user.id }],
+                create: [{ userId: user.id }],
             },
             adminUserIds: [user.id],
         },
@@ -109,12 +118,16 @@ export async function getJoinedServersByUserId(userId: string) {
             id: userId,
         },
         include: {
-            joinedServers: true,
+            joinedServers: {
+                include: {
+                    server: true,
+                },
+            },
         },
         rejectOnNotFound: true,
     });
 
-    return user.joinedServers;
+    return user.joinedServers.map(({ server }) => server);
 }
 
 export async function getServerByIdForUser({ serverId, userId }: ServerUserParams) {
@@ -123,7 +136,7 @@ export async function getServerByIdForUser({ serverId, userId }: ServerUserParam
             id: serverId,
             members: {
                 some: {
-                    id: userId,
+                    userId,
                 },
             },
         },
@@ -201,7 +214,7 @@ export async function isUserInServer({ serverId, userId }: ServerUserParams) {
             id: serverId,
             members: {
                 some: {
-                    id: userId,
+                    userId,
                 },
             },
         },
@@ -309,4 +322,69 @@ export async function getPendingInvitesForUser(userId: string) {
     });
 
     return user.pendingServerInvites;
+}
+
+export async function joinUserToServer({ serverId, userId }: ServerUserParams) {
+    const alreadyMember = await db.server.findFirst({
+        where: {
+            id: serverId,
+            members: {
+                some: {
+                    userId,
+                },
+            },
+        },
+    });
+
+    if (alreadyMember) {
+        return alreadyMember;
+    }
+
+    return await db.serverOnUser.create({
+        data: {
+            serverId,
+            userId,
+        },
+    });
+}
+
+export async function acceptServerInvite({ inviteId, user }: InviteMutationParams) {
+    const invite = await db.serverInvite.findUnique({
+        where: { id: inviteId },
+        rejectOnNotFound: true,
+    });
+
+    if (invite.toUserId !== user.id) {
+        throw new Error("You are not authorized to accept this invitation");
+    }
+
+    await Promise.all([
+        joinUserToServer({ userId: user.id, serverId: invite.serverId }),
+        db.serverInvite.delete({
+            where: {
+                id: inviteId,
+            },
+        }),
+    ]);
+
+    return true;
+}
+
+export async function declineServerInvite({ inviteId, user }: InviteMutationParams) {
+    const invite = await db.serverInvite.findUnique({
+        where: { id: inviteId },
+        rejectOnNotFound: true,
+    });
+
+    if (invite.toUserId !== user.id) {
+        throw new Error("You are not authorized to decline this invitation");
+    }
+
+    await db.serverInvite.delete({
+        where: {
+            id: inviteId,
+        },
+    });
+
+    return true;
 }

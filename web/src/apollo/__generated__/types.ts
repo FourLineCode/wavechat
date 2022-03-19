@@ -134,6 +134,8 @@ export type Mutation = {
   __typename?: 'Mutation';
   /** Accept a pending friend request */
   acceptRequest: Friendship;
+  /** Accept an invitation to server */
+  acceptServerInvite: Scalars['Boolean'];
   /** Change users password */
   changePassword: SuccessResult;
   /** Saves a message to the database */
@@ -146,6 +148,8 @@ export type Mutation = {
   declineAllRequests: Scalars['Boolean'];
   /** Decline a pending friend request */
   declineRequest: FriendRequest;
+  /** Decline an invitation to server */
+  declineServerInvite: Scalars['Boolean'];
   /** Delete an invite to user */
   deleteInviteToUserById: ServerInvite;
   /** Invite a user to a server by user id */
@@ -180,6 +184,11 @@ export type MutationAcceptRequestArgs = {
 };
 
 
+export type MutationAcceptServerInviteArgs = {
+  inviteId: Scalars['String'];
+};
+
+
 export type MutationChangePasswordArgs = {
   input: ChangePasswordInput;
 };
@@ -202,6 +211,11 @@ export type MutationCreateServerArgs = {
 
 export type MutationDeclineRequestArgs = {
   requestId: Scalars['String'];
+};
+
+
+export type MutationDeclineServerInviteArgs = {
+  inviteId: Scalars['String'];
 };
 
 
@@ -501,6 +515,20 @@ export type UserDtoInput = {
   username: Scalars['String'];
 };
 
+export type AcceptServerInviteMutationVariables = Exact<{
+  inviteId: Scalars['String'];
+}>;
+
+
+export type AcceptServerInviteMutation = { __typename?: 'Mutation', acceptServerInvite: boolean };
+
+export type DeclineServerInviteMutationVariables = Exact<{
+  inviteId: Scalars['String'];
+}>;
+
+
+export type DeclineServerInviteMutation = { __typename?: 'Mutation', declineServerInvite: boolean };
+
 export type GetPendingServerInvitesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -732,6 +760,18 @@ export type AuthorizeQueryVariables = Exact<{ [key: string]: never; }>;
 export type AuthorizeQuery = { __typename?: 'Query', authorize: { __typename?: 'AuthResult', success: boolean, user: { __typename?: 'User', id: string, email: string, username: string, displayName: string, avatarUrl?: string | null, bio?: string | null, role: string, createdAt: any, updatedAt: any, university?: string | null, department?: string | null, semester?: number | null } } };
 
 
+export const AcceptServerInviteDocument = gql`
+    mutation AcceptServerInvite($inviteId: String!) {
+  acceptServerInvite(inviteId: $inviteId)
+}
+    `;
+export type AcceptServerInviteMutationOptions = Apollo.BaseMutationOptions<AcceptServerInviteMutation, AcceptServerInviteMutationVariables>;
+export const DeclineServerInviteDocument = gql`
+    mutation DeclineServerInvite($inviteId: String!) {
+  declineServerInvite(inviteId: $inviteId)
+}
+    `;
+export type DeclineServerInviteMutationOptions = Apollo.BaseMutationOptions<DeclineServerInviteMutation, DeclineServerInviteMutationVariables>;
 export const GetPendingServerInvitesDocument = gql`
     query GetPendingServerInvites {
   pendingServerInvites {
