@@ -57,7 +57,7 @@ async function seed() {
                 const thread = await db.messageThread.create({
                     data: {
                         participants: {
-                            connect: [{ id: admin.id }, { id: user.id }],
+                            create: [{ userId: admin.id }, { userId: user.id }],
                         },
                     },
                 });

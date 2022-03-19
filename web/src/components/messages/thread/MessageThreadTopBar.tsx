@@ -1,4 +1,3 @@
-import { useRouter } from "next/router";
 import { DotsThreeOutlineVertical } from "phosphor-react";
 import { User } from "src/apollo/__generated__/types";
 import { ProfileModal } from "src/components/profile/ProfileModal";
@@ -10,16 +9,14 @@ import {
     DropdownMenuItems,
 } from "src/components/ui/Menu";
 import { useModal } from "src/hooks/useModal";
-import { useUnfriendMutation } from "src/hooks/useUnfriendMutation";
 
 interface Props {
     user: User;
 }
 
 export function MessageThreadTopBar({ user }: Props) {
-    const router = useRouter();
     const profileModal = useModal();
-    const unfriend = useUnfriendMutation(user.id);
+    // const unfriend = useUnfriendMutation(user.id);
 
     return (
         <div className="flex items-center justify-between w-full h-12 px-6 py-1 bg-opacity-50 bg-dark-800">
@@ -43,14 +40,15 @@ export function MessageThreadTopBar({ user }: Props) {
                         <DropdownMenuItem onClick={profileModal.onOpen}>
                             <span>View Profile</span>
                         </DropdownMenuItem>
-                        <DropdownMenuItem
+                        {/* TODO: User is no longer required to be friend to send messages  */}
+                        {/* <DropdownMenuItem
                             onClick={() => {
                                 unfriend();
                                 router.push("/messages");
                             }}
                         >
                             Unfriend
-                        </DropdownMenuItem>
+                        </DropdownMenuItem> */}
                     </DropdownMenuItems>
                     <ProfileModal userId={user.id} {...profileModal} />
                 </DropdownMenu>

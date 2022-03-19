@@ -1,6 +1,5 @@
 import { MessageDTO } from "@wavechat/shared";
 import { db } from "prisma/connection";
-import { services } from "src/services";
 
 interface MessageThreadParams {
     threadId: string;
@@ -19,7 +18,7 @@ export async function getUserThreadMessages({ threadId, userId }: MessageThreadP
             id: threadId,
             participants: {
                 some: {
-                    id: userId,
+                    userId,
                 },
             },
         },
@@ -44,18 +43,20 @@ export async function createMessage(messageDTO: MessageDTO) {
         rejectOnNotFound: true,
     });
 
-    const thread = await services.messageThread.getThreadById({
-        threadId: messageDTO.threadId,
-        userId: messageDTO.authorId,
-    });
-
-    const isFriend = await services.friendship.doesFriendshipExist({
-        firstUserId: thread.participants[0].id,
-        secondUserId: thread.participants[1].id,
-    });
-    if (!isFriend) {
-        throw new Error("You cannot send messages to this user");
-    }
+    // TODO: do we want users to be friends to send messages?
+    // const thread = await services.messageThread.getThreadById({
+    //     threadId: messageDTO.threadId,
+    //     userId: messageDTO.authorId,
+    // });
+    //
+    // TODO: change legacy relation code
+    // const isFriend = await services.friendship.doesFriendshipExist({
+    //     firstUserId: thread.participants[0].id,
+    //     secondUserId: thread.participants[1].id,
+    // });
+    // if (!isFriend) {
+    //     throw new Error("You cannot send messages to this user");
+    // }
 
     const [message, _thread] = await db.$transaction([
         db.message.create({

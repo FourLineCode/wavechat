@@ -37,9 +37,8 @@ model User {
     pendingRequests FriendRequest[] @relation("pendingRequests")
     sentRequests    FriendRequest[] @relation("sentRequests")
 
-    messages            Message[]             @relation("userMessages")
-    messageThreads      MessageThread[]       @relation("userThreads")
-    MessageThreadOnUser MessageThreadOnUser[]
+    messages       Message[]             @relation("userMessages")
+    messageThreads MessageThreadOnUser[]
 
     ownedServers         Server[]       @relation("ownedServers")
     joinedServers        ServerOnUser[]
@@ -126,8 +125,7 @@ model MessageThread {
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 
-    participants        User[]                @relation("userThreads")
-    MessageThreadOnUser MessageThreadOnUser[]
+    participants MessageThreadOnUser[]
 
     messages Message[] @relation("threadMessages")
 
