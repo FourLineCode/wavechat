@@ -77,12 +77,12 @@ WaveChat is a real time social media application made for college/university stu
 
 #### Prerequisites
 
--   [Node.js](https://nodejs.org/en/)
--   [Pnpm](https://pnpm.io/installation)
--   [Docker](https://docs.docker.com/get-docker/)
--   [Docker Compose](https://docs.docker.com/compose/install/)
--   [Git](https://git-scm.com/downloads)
--   [AWS-CLI](https://github.com/localstack/awscli-local)
+- [Node.js](https://nodejs.org/en/)
+- [Pnpm](https://pnpm.io/installation)
+- [Docker](https://docs.docker.com/get-docker/)
+- [Docker Compose](https://docs.docker.com/compose/install/)
+- [Git](https://git-scm.com/downloads)
+- [AWS-CLI](https://github.com/localstack/awscli-local)
 
 #### Clone the repository
 
@@ -121,8 +121,8 @@ awslocal --endpoint-url=http://localhost:4566 s3api put-bucket-acl --bucket wc-m
 
 #### Browse the app
 
--   **Frontend - [http://localhost:3000](http://localhost:3000)**
--   **GraphQL Playground - [http://localhost:5000/graphql](http://localhost:5000/graphql)**
+- **Frontend - [http://localhost:3000](http://localhost:3000)**
+- **GraphQL Playground - [http://localhost:5000/graphql](http://localhost:5000/graphql)**
 
 ## License
 

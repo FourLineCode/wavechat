@@ -1,35 +1,35 @@
 version: "3.8"
 
 services:
-    localstack:
-        container_name: wc-localstack
-        image: localstack/localstack:0.12.20
-        ports:
-            - 4566:4566
-        volumes:
-            - ./.localstack:/tmp/localstack
-            - /var/run/docker.sock:/var/run/docker.sock
-        environment:
-            - SERVICES=s3
-            - DEBUG=1
-            - DATA_DIR=/tmp/localstack/data
+  localstack:
+    container_name: wc-localstack
+    image: localstack/localstack:0.12.20
+    ports:
+      - 4566:4566
+    volumes:
+      - ./.localstack:/tmp/localstack
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - SERVICES=s3
+      - DEBUG=1
+      - DATA_DIR=/tmp/localstack/data
 
-    postgres:
-        container_name: wc-postgres
-        image: postgres:13-alpine
-        ports:
-            - 5432:5432
-        volumes:
-            - pgdata:/var/lib/postgresql/data
-        environment:
-            POSTGRES_DB: wavechat
-            POSTGRES_PASSWORD: pgadmin
+  postgres:
+    container_name: wc-postgres
+    image: postgres:13-alpine
+    ports:
+      - 5432:5432
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: wavechat
+      POSTGRES_PASSWORD: pgadmin
 
-    redis:
-        container_name: wc-redis
-        image: redis:alpine
-        ports:
-            - 6379:6379
+  redis:
+    container_name: wc-redis
+    image: redis:alpine
+    ports:
+      - 6379:6379
 
 volumes:
-    pgdata: {}
+  pgdata: {}

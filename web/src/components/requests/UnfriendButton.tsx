@@ -10,31 +10,31 @@ import { Button } from "src/components/ui/Button";
 import { UNFRIEND_USER } from "src/hooks/useUnfriendMutation";
 
 export function UnfriendButton({ user, className, setState }: RequestButtonProps) {
-    const [unfriend, { loading }] = useMutation<UnfriendMutation, UnfriendMutationVariables>(
-        UNFRIEND_USER,
-        {
-            variables: { userId: user.id },
-            onCompleted: () => {
-                setState(RequestButtonState.NotFriend);
-                toast.success("Unfriended successfully");
-            },
-            onError: () => {
-                toast.error("Failed to unfriend user");
-            },
-            refetchQueries: [
-                { query: GET_FRIENDS_LIST },
-                { query: GET_USER_DATA, variables: { userId: user.id } },
-                { query: ACTIVE_MESSAGE_THREADS },
-            ],
-        }
-    );
+  const [unfriend, { loading }] = useMutation<UnfriendMutation, UnfriendMutationVariables>(
+    UNFRIEND_USER,
+    {
+      variables: { userId: user.id },
+      onCompleted: () => {
+        setState(RequestButtonState.NotFriend);
+        toast.success("Unfriended successfully");
+      },
+      onError: () => {
+        toast.error("Failed to unfriend user");
+      },
+      refetchQueries: [
+        { query: GET_FRIENDS_LIST },
+        { query: GET_USER_DATA, variables: { userId: user.id } },
+        { query: ACTIVE_MESSAGE_THREADS },
+      ],
+    }
+  );
 
-    return (
-        <Button type="submit" className={className} onClick={unfriend} isSubmitting={loading}>
-            <div className="flex items-center justify-center space-x-1">
-                <UserMinus weight="fill" size={24} />
-                <span className="line-clamp-1">Unfriend</span>
-            </div>
-        </Button>
-    );
+  return (
+    <Button type="submit" className={className} onClick={unfriend} isSubmitting={loading}>
+      <div className="flex items-center justify-center space-x-1">
+        <UserMinus weight="fill" size={24} />
+        <span className="line-clamp-1">Unfriend</span>
+      </div>
+    </Button>
+  );
 }

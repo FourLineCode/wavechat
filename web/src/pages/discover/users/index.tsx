@@ -7,16 +7,16 @@ import { SidebarWithProfile } from "src/components/profile/SidebarWithProfile";
 import { authRedirect } from "src/utils/redirects/auth";
 
 export default function DiscoverUsers() {
-    return (
-        <Layout title="Discover" desc="WaveChat | Discover new people and communities">
-            <div className="flex w-screen h-screen">
-                <NavigationSidebar />
-                <SidebarWithProfile component={DiscoverNavigation} />
-                <DiscoverUsersPage />
-                <FriendsInfo />
-            </div>
-        </Layout>
-    );
+  return (
+    <Layout title="Discover" desc="WaveChat | Discover new people and communities">
+      <div className="flex w-screen h-screen">
+        <NavigationSidebar />
+        <SidebarWithProfile component={DiscoverNavigation} />
+        <DiscoverUsersPage />
+        <FriendsInfo />
+      </div>
+    </Layout>
+  );
 }
 
 export const getServerSideProps = authRedirect;

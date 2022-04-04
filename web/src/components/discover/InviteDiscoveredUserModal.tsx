@@ -4,13 +4,13 @@ import { Modal } from "src/components/ui/Modal";
 import { ModalProps } from "src/hooks/useModal";
 
 interface Props extends ModalProps {
-    user: User;
+  user: User;
 }
 
 export function InviteDiscoveredUserModal({ user, ...modalProps }: Props) {
-    return (
-        <Modal large {...modalProps}>
-            <InviteServerList user={user} />
-        </Modal>
-    );
+  return (
+    <Modal large {...modalProps}>
+      <InviteServerList user={user} />
+    </Modal>
+  );
 }

@@ -7,19 +7,19 @@ import { SidebarWithProfile } from "src/components/profile/SidebarWithProfile";
 import { authRedirect } from "src/utils/redirects/auth";
 
 export default function Messages() {
-    return (
-        <Layout title="Messages" desc="WaveChat | Messages">
-            <div className="flex w-screen h-screen">
-                <NavigationSidebar />
-                <SidebarWithProfile component={DirectMessages} />
-                <div className="flex flex-col items-center justify-center flex-1 text-muted bg-dark-700">
-                    <Chats size={256} weight="regular" />
-                    <div className="text-2xl font-bold">Click on a user to start chatting</div>
-                </div>
-                <FriendsInfo />
-            </div>
-        </Layout>
-    );
+  return (
+    <Layout title="Messages" desc="WaveChat | Messages">
+      <div className="flex w-screen h-screen">
+        <NavigationSidebar />
+        <SidebarWithProfile component={DirectMessages} />
+        <div className="flex flex-col items-center justify-center flex-1 text-muted bg-dark-700">
+          <Chats size={256} weight="regular" />
+          <div className="text-2xl font-bold">Click on a user to start chatting</div>
+        </div>
+        <FriendsInfo />
+      </div>
+    </Layout>
+  );
 }
 
 export const getServerSideProps = authRedirect;

@@ -1,12 +1,12 @@
 schema: http://localhost:5000/graphql
-documents: 'src/**/*.{ts,tsx}'
+documents: "src/**/*.{ts,tsx}"
 generates:
-    ./src/apollo/__generated__/types.ts:
-        plugins:
-            - typescript
-            - typescript-operations
-            - typescript-react-apollo
-        config:
-            withHooks: false
-            withMutationFn: false
-            withResultType: false
+  ./src/apollo/__generated__/types.ts:
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-react-apollo
+    config:
+      withHooks: false
+      withMutationFn: false
+      withResultType: false

@@ -12,9 +12,9 @@ export const app = express();
 app.use(cors({ origin: config.origins, credentials: true }));
 app.use(helmet({ contentSecurityPolicy: false }));
 app.use(
-    morgan("dev", {
-        skip: () => !config.isDev,
-    })
+  morgan("dev", {
+    skip: () => !config.isDev,
+  })
 );
 app.use(express.json());
 app.use(cookieParser());

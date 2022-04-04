@@ -11,15 +11,15 @@ import * as serverService from "src/services/server.service";
 import * as userService from "src/services/user.service";
 
 export const services = {
-    dataloader: dataloaderService,
-    user: userService,
-    auth: authService,
-    discover: discoverService,
-    friendship: friendshipService,
-    search: searchService,
-    messageThread: messageThreadService,
-    message: messageService,
-    rtc: rtcService,
-    media: mediaService,
-    server: serverService,
+  dataloader: dataloaderService,
+  user: userService,
+  auth: authService,
+  discover: discoverService,
+  friendship: friendshipService,
+  search: searchService,
+  messageThread: messageThreadService,
+  message: messageService,
+  rtc: rtcService,
+  media: mediaService,
+  server: serverService,
 };

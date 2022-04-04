@@ -5,72 +5,58 @@ import { DiscoverInviteCard } from "src/components/discover/DiscoverInviteCard";
 import { Spinner } from "src/components/ui/Spinner";
 
 export const GET_PENDING_SERVER_INVITES = gql`
-    query GetPendingServerInvites {
-        pendingServerInvites {
-            id
-            createdAt
-            toUserId
-            fromUserId
-            fromUser {
-                id
-                username
-                displayName
-                avatarUrl
-            }
-            serverId
-            server {
-                id
-                name
-                type
-                iconUrl
-                memberCount
-            }
-        }
+  query GetPendingServerInvites {
+    pendingServerInvites {
+      id
+      createdAt
+      toUserId
+      fromUserId
+      fromUser {
+        id
+        username
+        displayName
+        avatarUrl
+      }
+      serverId
+      server {
+        id
+        name
+        type
+        iconUrl
+        memberCount
+      }
     }
+  }
 `;
 
 export function DiscoverInvitesPage() {
-    const { data, loading } = useQuery<GetPendingServerInvitesQuery>(GET_PENDING_SERVER_INVITES, {
-        onError: () => {
-            toast.error("Failed to fetch invites");
-        },
-    });
+  const { data, loading } = useQuery<GetPendingServerInvitesQuery>(GET_PENDING_SERVER_INVITES, {
+    onError: () => {
+      toast.error("Failed to fetch invites");
+    },
+  });
 
-    return (
-        <div className="flex flex-col flex-1 bg-dark-700">
-            <div className="px-6 pt-6 mb-2 text-3xl font-bold">Pending Invites</div>
-            <div className="flex-1 h-full px-6 space-y-4 overflow-y-auto text-xs">
-                {loading ? (
-                    <Spinner />
-                ) : data?.pendingServerInvites && data.pendingServerInvites.length <= 0 ? (
-                    <div className="mt-24 text-3xl font-bold text-center text-muted">
-                        No pending invites
-                    </div>
-                ) : (
-                    <div className="grid grid-cols-2 gap-2 overflow-y-auto 2xl:grid-cols-4">
-                        {data?.pendingServerInvites.map((invite) => (
-                            <>
-                                <DiscoverInviteCard
-                                    invite={invite as ServerInvite}
-                                    key={invite.id}
-                                />
-                                <DiscoverInviteCard
-                                    invite={invite as ServerInvite}
-                                    key={invite.id}
-                                />
-                                <DiscoverInviteCard
-                                    invite={invite as ServerInvite}
-                                    key={invite.id}
-                                />
-                                <DiscoverInviteCard
-                                    invite={invite as ServerInvite}
-                                    key={invite.id}
-                                />
-                            </>
-                        ))}
-                    </div>
-                )}
-            </div>
-        </div>
-    );
+  return (
+    <div className="flex flex-col flex-1 bg-dark-700">
+      <div className="px-6 pt-6 mb-2 text-3xl font-bold">Pending Invites</div>
+      <div className="flex-1 h-full px-6 space-y-4 overflow-y-auto text-xs">
+        {loading ? (
+          <Spinner />
+        ) : data?.pendingServerInvites && data.pendingServerInvites.length <= 0 ? (
+          <div className="mt-24 text-3xl font-bold text-center text-muted">No pending invites</div>
+        ) : (
+          <div className="grid grid-cols-2 gap-2 overflow-y-auto 2xl:grid-cols-4">
+            {data?.pendingServerInvites.map((invite) => (
+              <>
+                <DiscoverInviteCard invite={invite as ServerInvite} key={invite.id} />
+                <DiscoverInviteCard invite={invite as ServerInvite} key={invite.id} />
+                <DiscoverInviteCard invite={invite as ServerInvite} key={invite.id} />
+                <DiscoverInviteCard invite={invite as ServerInvite} key={invite.id} />
+              </>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  );
 }

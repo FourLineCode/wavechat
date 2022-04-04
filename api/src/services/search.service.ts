@@ -1,28 +1,28 @@
 import { db } from "prisma/connection";
 
 interface SearchParams {
-    queryTerm: string;
-    userId: string;
+  queryTerm: string;
+  userId: string;
 }
 
 export async function getSearchedUsers({ queryTerm, userId }: SearchParams) {
-    if (!queryTerm) return [];
+  if (!queryTerm) return [];
 
-    const friendships = await db.friendship.findMany({
-        where: {
-            OR: [{ firstUserId: userId }, { secondUserId: userId }],
-        },
-        include: {
-            firstUser: true,
-            secondUser: true,
-        },
-    });
+  const friendships = await db.friendship.findMany({
+    where: {
+      OR: [{ firstUserId: userId }, { secondUserId: userId }],
+    },
+    include: {
+      firstUser: true,
+      secondUser: true,
+    },
+  });
 
-    const friends = friendships.map(({ firstUser, secondUser }) => {
-        return firstUser.id !== userId ? firstUser : secondUser;
-    });
-    return friends.filter(
-        ({ username, displayName }) =>
-            username.includes(queryTerm) || displayName.toLowerCase().includes(queryTerm)
-    );
+  const friends = friendships.map(({ firstUser, secondUser }) => {
+    return firstUser.id !== userId ? firstUser : secondUser;
+  });
+  return friends.filter(
+    ({ username, displayName }) =>
+      username.includes(queryTerm) || displayName.toLowerCase().includes(queryTerm)
+  );
 }

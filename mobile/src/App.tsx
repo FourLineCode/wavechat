@@ -12,42 +12,38 @@ import { theme } from "./theme/theme";
 const RootStack = createNativeStackNavigator();
 
 const screens = [
-    {
-        name: "SignUp",
-        component: SignUp,
-    },
-    {
-        name: "SignIn",
-        component: SignIn,
-    },
-    {
-        name: "Home",
-        component: Home,
-    },
+  {
+    name: "SignUp",
+    component: SignUp,
+  },
+  {
+    name: "SignIn",
+    component: SignIn,
+  },
+  {
+    name: "Home",
+    component: Home,
+  },
 ];
 
 export default registerRootComponent(function () {
-    return (
-        <NativeBaseProvider theme={theme} config={config}>
-            <NavigationContainer>
-                <StatusBar style="light" backgroundColor={theme.colors.gray[900]} />
-                <RootStack.Navigator
-                    initialRouteName="Home"
-                    screenOptions={{
-                        headerShown: false,
-                        animation: "slide_from_right",
-                        statusBarStyle: "light",
-                    }}
-                >
-                    {screens.map((screen, index) => (
-                        <RootStack.Screen
-                            name={screen.name}
-                            component={screen.component}
-                            key={index}
-                        />
-                    ))}
-                </RootStack.Navigator>
-            </NavigationContainer>
-        </NativeBaseProvider>
-    );
+  return (
+    <NativeBaseProvider theme={theme} config={config}>
+      <NavigationContainer>
+        <StatusBar style="light" backgroundColor={theme.colors.gray[900]} />
+        <RootStack.Navigator
+          initialRouteName="Home"
+          screenOptions={{
+            headerShown: false,
+            animation: "slide_from_right",
+            statusBarStyle: "light",
+          }}
+        >
+          {screens.map((screen, index) => (
+            <RootStack.Screen name={screen.name} component={screen.component} key={index} />
+          ))}
+        </RootStack.Navigator>
+      </NavigationContainer>
+    </NativeBaseProvider>
+  );
 });
